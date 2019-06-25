@@ -9,26 +9,22 @@
             </li>
         </ul>
         <transition name="fade" mode="out-in">
-            <!--<keep-alive>-->
                 <component v-bind:is="currentTab" />
-            <!--</keep-alive>-->
         </transition>
     </div>
 </template>
 
 <script>
-    import Master from './components/Constructor.vue'
-    import dev from './components/dev.vue'
+    import master from './components/Constructor.vue'
 
     export default {
         components: {
-            Master,
-            dev,
+            master
         },
         data() {
             return {
                 currentTab: 'dev',
-                tabs: ['Master', 'dev']
+                tabs: ['master']
             }
         }
     }
