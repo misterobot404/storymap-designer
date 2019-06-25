@@ -23,7 +23,7 @@
         },
         data() {
             return {
-                currentTab: 'dev',
+                currentTab: 'master',
                 tabs: ['master']
             }
         }
