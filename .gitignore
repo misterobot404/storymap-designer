@@ -1,23 +1,14 @@
-vendor/
-node_modules/
-npm-debug.log
-
-# Laravel 4 specific
-bootstrap/compiled.php
-app/storage/
-
-# Laravel 5 & Lumen specific
-public/storage
-public/hot
-storage/*.key
-.env.*.php
-.env.php
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
 .env
-Homestead.yaml
+.phpunit.result.cache
 Homestead.json
-
-# Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
-.rocketeer/
+Homestead.yaml
+npm-debug.log
+yarn-error.log
 
 # Created by https://www.gitignore.io/api/phpstorm
 # Edit at https://www.gitignore.io/?templates=phpstorm
@@ -56,6 +47,8 @@ Homestead.json
 # .idea/modules.xml
 # .idea/*.iml
 # .idea/modules
+# *.iml
+# *.ipr
 
 # CMake
 cmake-build-*/
@@ -89,9 +82,6 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
-
-# JetBrains templates
-**___jb_tmp___
 
 ### PhpStorm Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/helloworld.iml" filepath="$PROJECT_DIR$/.idea/helloworld.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/clever-2019-dynamic-map.iml" filepath="$PROJECT_DIR$/.idea/clever-2019-dynamic-map.iml" />
     </modules>
   </component>
 </project>
