@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="">
+    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="0.6">
+      <change afterPath="$PROJECT_DIR$/.idea/markdown-exported-files.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vagrant.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,30 +26,57 @@
       <executable />
     </execution>
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="clever-2019-dynamic-map" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="47" column="9" lean-forward="true" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/js/components/Constructor.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3473">
-              <caret line="151" selection-start-line="151" selection-end-line="151" />
+            <state relative-caret-position="177">
+              <caret line="327" selection-start-line="327" selection-end-line="328" selection-end-column="29" />
               <folding>
-                <element signature="e#7332#7353#0" expanded="true" />
+                <element signature="n#EventList#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#transition-group#0;n#EventList#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#EventItem#0;n#transition-group#0;n#EventList#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#div#0;n#EventItem#0;n#transition-group#0;n#EventList#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#div#0;n#div#0;n#EventItem#0;n#transition-group#0;n#EventList#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#button#0;n#div#0;n#EventItem#0;n#transition-group#0;n#EventList#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#li#0;n#EventList#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#l-map#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#l-tile-layer#0;n#l-map#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#l-marker#0;n#l-map#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#l-tooltip#0;n#l-marker#0;n#l-map#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#l-icon#0;n#l-marker#0;n#l-map#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#l-icon#1;n#l-marker#0;n#l-map#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#l-polyline#0;n#l-map#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#template#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#input#0;n#template#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#textarea#0;n#template#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#template#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#input#0;n#template#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#textarea#0;n#template#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#input#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#input#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#div#1;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#table#0;n#div#1;n#div#0;n#template#0;n#!!top" />
+                <element signature="n#tr#0;n#table#0;n#div#1;n#div#0;n#template#0;n#!!top" />
+                <element signature="e#0#6#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>my_polyline</find>
+      <find>zoom</find>
+      <find>url</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,12 +85,21 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue" />
         <option value="$PROJECT_DIR$/resources/js/app.js" />
+        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/resources/views/welcome.blade.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/public/js/app.js" />
+        <option value="$PROJECT_DIR$/resources/views/app.blade.php" />
+        <option value="$PROJECT_DIR$/resources/js/components/Constructor.vue" />
       </list>
     </option>
+  </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <bower-package value="" />
+    <bower.json value="" />
   </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
@@ -165,12 +204,16 @@
     <option name="width" value="1249" />
     <option name="height" value="1046" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -196,11 +239,15 @@
               <item name="js" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="clever-2019-dynamic-map" type="b2602c69:ProjectViewProjectNode" />
+              <item name="clever-2019-dynamic-map" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -208,7 +255,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.vagrant" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2019.1.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RunDashboard">
@@ -223,7 +270,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="npm.watch-poll">
+  <component name="RunManager" selected="PHPUnit.phpunit.xml">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
@@ -250,8 +297,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.watch-poll" />
         <item itemvalue="npm.dev" />
+        <item itemvalue="npm.watch-poll" />
       </list>
     </recent_temporary>
   </component>
@@ -284,24 +331,23 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49857143" visible="true" weight="0.24973656" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49178082" visible="true" weight="0.15068494" />
+      <window_info id="Structure" order="1" sideWeight="0.5082192" side_tool="true" visible="true" weight="0.15068494" />
       <window_info id="npm" order="2" sideWeight="0.50142854" side_tool="true" weight="0.24973656" />
-      <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="TypeScript" show_stripe_button="false" weight="0.32998884" />
+      <window_info id="Favorites" order="3" sideWeight="0.50547945" side_tool="true" weight="0.15068494" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32998884" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32998884" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.30211818" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32998884" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.29988852" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.49894625" visible="true" weight="0.21962096" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50105375" side_tool="true" weight="0.21962096" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32998884" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="6" sideWeight="0.49789253" visible="true" weight="0.18617614" />
+      <window_info anchor="bottom" id="TODO" order="7" sideWeight="0.49841937" weight="0.32998884" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5021075" side_tool="true" weight="0.18617614" />
+      <window_info anchor="bottom" id="Messages" order="9" weight="0.32998884" />
+      <window_info anchor="bottom" id="TypeScript" order="10" show_stripe_button="false" weight="0.32998884" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.29988852" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -356,11 +402,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="0.6" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-281" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yarn-error.log">
       <provider selected="true" editor-type-id="LogFileEditorProvider" />
     </entry>
@@ -377,25 +418,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/vue/types/index.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-5" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Controller.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
@@ -403,12 +431,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/home.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/home.blade.php" />
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
     <entry file="file://$PROJECT_DIR$/node_modules/@types/node/globals.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -421,46 +445,12 @@
         <state relative-caret-position="-5" />
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="17905" column="12" selection-start-line="17905" selection-start-column="12" selection-end-line="17905" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/ExampleComponent.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/lang/en/passwords.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/favicon.ico">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/ExampleComponent.vue" />
+    <entry file="file://$PROJECT_DIR$/resources/lang/en/passwords.php" />
+    <entry file="file://$PROJECT_DIR$/public/favicon.ico" />
     <entry file="file://$PROJECT_DIR$/package-lock.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2070" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/app.js">
@@ -473,20 +463,145 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/Constructor.vue">
+    <entry file="file://$PROJECT_DIR$/public/css/app.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="138">
+            <caret line="6" column="4" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+          </first_editor>
+          <second_editor>
+            <markdownNavigatorState />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3473">
-          <caret line="151" selection-start-line="151" selection-end-line="151" />
+        <state relative-caret-position="326">
+          <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/vue2-leaflet/types/index.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1436">
+          <caret line="496" column="8" selection-start-line="496" selection-start-column="8" selection-end-line="496" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-690" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/leaflet/src/layer/vector/Polyline.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="117" column="4" selection-start-line="117" selection-start-column="4" selection-end-line="117" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JavaScript-modules-diagram/C:/Users/misterobot/Source/clever-2019-dynamic-map/resources/js/components/Constructor.vue">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JavaScript-modules-diagram</ID>
+          <OriginalElement>$PROJECT_DIR$/resources/js/components/Constructor.vue</OriginalElement>
+          <nodes>
+            <node x="" y="">$PROJECT_DIR$/resources/js/components/Constructor.vue#LIcon#7821;C:/Users/misterobot/Source/clever-2019-dynamic-map/resources/js/components/Constructor.vue#LMap#7784;C:/Users/misterobot/Source/clever-2019-dynamic-map/resources/js/components/Constructor.vue#LMarker#7802;C:/Users/misterobot/Source/clever-2019-dynamic-map/resources/js/components/Constructor.vue#LPolyline#7828;C:/Users/misterobot/Source/clever-2019-dynamic-map/resources/js/components/Constructor.vue#LTileLayer#7790;C:/Users/misterobot/Source/clever-2019-dynamic-map/resources/js/components/Constructor.vue#LTooltip#7811;C:/Users/misterobot/Source/clever-2019-dynamic-map/resources/js/components/Constructor.vue#SlickItem#7729;C:/Users/misterobot/Source/clever-2019-dynamic-map/resources/js/components/Constructor.vue#SlickList#7740;C:/Users/misterobot/Source/clever-2019-dynamic-map/resources/js/components/Constructor.vue#Vue#7702;C:/Users/misterobot/Source/clever-2019-dynamic-map/resources/js/components/Constructor.vue#VueYouTubeEmbed#7870;C:/Users/misterobot/Source/clever-2019-dynamic-map/resources/js/components/Constructor.vue#axios#7922;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/vue-slicksort/index.d.ts#SlickItem#198;C:/Users/misterobot/Source/clever-2019-dynamic-map/node_modules/vue-slicksort/index.d.ts#SlickList#167;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/vue2-leaflet/types/index.d.ts#LIcon#9506;C:/Users/misterobot/Source/clever-2019-dynamic-map/node_modules/vue2-leaflet/types/index.d.ts#LMap#10354;C:/Users/misterobot/Source/clever-2019-dynamic-map/node_modules/vue2-leaflet/types/index.d.ts#LMarker#12283;C:/Users/misterobot/Source/clever-2019-dynamic-map/node_modules/vue2-leaflet/types/index.d.ts#LPolyline#13180;C:/Users/misterobot/Source/clever-2019-dynamic-map/node_modules/vue2-leaflet/types/index.d.ts#LTileLayer#13808;C:/Users/misterobot/Source/clever-2019-dynamic-map/node_modules/vue2-leaflet/types/index.d.ts#LTooltip#14084;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/axios/index.d.ts</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/vue/types/index.d.ts</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/vue-youtube-embed/lib/vue-youtube-embed.d.ts</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="0.7396694214876033" x="391.0" y="353.0" />
+          <SelectedNodes />
+          <Categories>
+            <Category>All</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>Details</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="65248" column="17" selection-start-line="65248" selection-start-column="17" selection-end-line="65248" selection-end-column="17" />
           <folding>
-            <element signature="e#7332#7353#0" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#0#6#0" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
+    <entry file="file://$PROJECT_DIR$/node_modules/@types/node/fs.d.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="47" column="9" lean-forward="true" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
+        <state relative-caret-position="187">
+          <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="17033" column="22" lean-forward="true" selection-start-line="17033" selection-start-column="22" selection-end-line="17033" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/app.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/Constructor.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="327" selection-start-line="327" selection-end-line="328" selection-end-column="29" />
+          <folding>
+            <element signature="n#EventList#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#transition-group#0;n#EventList#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#EventItem#0;n#transition-group#0;n#EventList#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#div#0;n#EventItem#0;n#transition-group#0;n#EventList#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#div#0;n#div#0;n#EventItem#0;n#transition-group#0;n#EventList#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#button#0;n#div#0;n#EventItem#0;n#transition-group#0;n#EventList#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#li#0;n#EventList#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#l-map#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#l-tile-layer#0;n#l-map#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#l-marker#0;n#l-map#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#l-tooltip#0;n#l-marker#0;n#l-map#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#l-icon#0;n#l-marker#0;n#l-map#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#l-icon#1;n#l-marker#0;n#l-map#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#l-polyline#0;n#l-map#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#template#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#input#0;n#template#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#textarea#0;n#template#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#template#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#input#0;n#template#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#textarea#0;n#template#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#input#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#input#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#div#1;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#table#0;n#div#1;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#tr#0;n#table#0;n#div#1;n#div#0;n#template#0;n#!!top" />
+            <element signature="e#0#6#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

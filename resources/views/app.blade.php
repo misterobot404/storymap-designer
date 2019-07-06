@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{asset('favicon.png')}}">
-    <title>Map Helper</title>
+    <title>MapHelper</title>
     <style>
         #app {
             font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -19,14 +19,12 @@
         .mainMenu {
             vertical-align: middle;
             margin: auto;
-            padding-left: 0;
         }
         .defaultScene {
             justify-content: center;
             display: flex;
             list-style: none;
             cursor: pointer;
-            height: 2em;
             transition: color 0.4s ease;
             transition: font-size 0.4s;
             color: #000;
@@ -39,7 +37,9 @@
     </style>
 </head>
 <body>
-
+{{--TODO добавить базу данных PostgreSQL--}}
+{{--TODO карты и события должны быть получены из базы--}}
+{{--TODO все изменения в карте должны сохраняться в базе--}}
 <div id="app">
     <ul class="mainMenu">
         <li class="sceneActive defaultScene">

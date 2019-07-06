@@ -38,12 +38,16 @@
             </EventList>
             <div class="content">
                 <l-map class="map"
-                       :zoom="zoom"
+                       :zoom="mapZoom"
+                       :minZoom="minZoom"
                        :center="center"
+                       :maxBounds="bounds"
+                       :maxBoundsViscosity="maxBoundsViscosity"
                        @click="addMarker"
                        @update:zoom="zoomUpdated"
                        @update:center="centerUpdated">
-                    <l-tile-layer :url="url"/>
+                    <l-tile-layer :url="tileUrl"
+                                  :attribution="tileAttribution"/>
                     <l-marker v-for="(marker, index) in events"
                               :key="marker.id"
                               :lat-lng="marker.marker"
@@ -62,7 +66,10 @@
                                 icon-url="https://image.flaticon.com/icons/svg/148/148834.svg">
                         </l-icon>
                     </l-marker>
-                    <l-polyline :lat-lngs="getArrayMarkers" :opacity="0.6" dashArray="6" :weight="2"/>
+                    <l-polyline :lat-lngs="getArrayMarkers"
+                                :opacity="polylineOpacity"
+                                :dashArray="polylineDashArray"
+                                :weight="polylineWeight"/>
                 </l-map>
                 <div class="form">
                     <div class="formLeft">
@@ -93,19 +100,22 @@
                                    placeholder="Insert media link"
                                    class="formRightInputUrl">
                             <button class="formRightUploadButton"
-                                    @click="alert('dev')">Upload from drive
+                                    onclick="alert('dev')">Upload from drive
                             </button>
+                        </div>
                             <template v-if="getSelectedEvent !== undefined && getSelectedEvent.mediaUrl !== ''">
                                 <template v-if="checkExistImages">
                                     <img :src="getSelectedEvent.mediaUrl"
                                          alt="image"
                                          width="270"
-                                         height="144">
+                                         height="144"
+                                         class="emptyMediaBlock">
                                 </template>
                                 <template v-else-if="getSelectedEvent.mediaUrl.indexOf('.youtu') !== -1">
                                     <youtube :video-id="getYouTubeIdOfSelectedEvent"
                                              :player-width="270"
-                                             :player-height="144">
+                                             :player-height="144"
+                                             class="emptyMediaBlock">
                                     </youtube>
                                 </template>
                                 <template v-else>
@@ -119,7 +129,6 @@
                                     <p>Empty</p>
                                 </div>
                             </template>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -127,7 +136,7 @@
         <div class="table">
             <div class="info" style="height: 15%; margin-top: 10px;">
                 <span>Center: {{ center }}</span><br>
-                <span>Zoom: {{ zoom }}</span><br>
+                <span>Zoom: {{ mapZoom }}</span><br>
             </div>
             <p>Создержание базы данных</p>
             <table>
@@ -144,13 +153,13 @@
 </template>
 
 <script>
+    // TODO добавить анимацию перехода между событиями
+    // TODO добавить скачивание файлов
     import Vue from 'vue'
     import {SlickItem, SlickList} from 'vue-slicksort'
     import {LMap, LTileLayer, LMarker, LTooltip, LIcon, LPolyline} from 'vue2-leaflet'
     import VueYouTubeEmbed from 'vue-youtube-embed'
-    import axios from 'axios'
-
-    Vue.use(VueYouTubeEmbed)
+    Vue.use(VueYouTubeEmbed);
 
     export default {
         components: {
@@ -161,8 +170,7 @@
             LMarker,
             LTooltip,
             LIcon,
-            LPolyline,
-            axios,
+            LPolyline
         },
         data() {
             return {
@@ -187,40 +195,30 @@
                         title: "",
                         marker: [19.176301, -5.801195],
                         mediaUrl: "https://bipbap.ru/wp-content/uploads/2017/10/0_8eb56_842bba74_XL-640x400.jpg"
-                    },
-                    {
-                        name: 'Item4',
-                        id: 4,
-                        title: "Четвертое событие",
-                        marker: [48.828566, -76.858569],
-                        mediaUrl: ""
-                    },
-                    {
-                        name: 'Item5',
-                        id: 5,
-                        title: "Пятое событие",
-                        marker: [7.917793, -62.787802],
-                        mediaUrl: ""
-                    },
-                    {
-                        name: 'Item6',
-                        id: 6,
-                        title: "Шестое событие",
-                        marker: [6.315299, -9.497961],
-                        mediaUrl: ""
-                    },
+                    }
                 ],
                 currentEventId: 1,
                 deletedEventIndex: null,
-                nextId: 7,
+                nextId: 4,
                 showButtonDeleteEvent: null,
-                ///////////////////////////
-                url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-                zoom: 2,
-                center: [47.413220, -5.219482],
-                ////////////////////////////
-                checkExistImages: ''
+                checkExistImages: null,
+                //// l-map config
+                mapZoom: 4,
+                minZoom: 3,
+                bounds: new L.LatLngBounds(new L.LatLng(-85, -170), new L.LatLng(85, 175)),
+                maxBoundsViscosity: 0.9,
+                center: null,
+                //// l-tile-layer config
+                tileUrl: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
+                tileAttribution: '&copy; <a href="https://knastu.ru/">knastu</a>',
+                //// l-polyline config
+                polylineOpacity: 0.6,
+                polylineDashArray: "6",
+                polylineWeight: 2
             }
+        },
+        created: function () {
+            this.center = this.getSelectedEvent.marker;
         },
         methods: {
             selectEventById: function (id) {
@@ -269,7 +267,7 @@
             },
             //////////////////////////////
             zoomUpdated: function (zoom) {
-                this.zoom = zoom;
+                this.mapZoom = zoom;
             },
             centerUpdated: function (center) {
                 this.center = center;
@@ -288,23 +286,6 @@
                 this.events[this.getIndexSelectedEvent].marker = event.latlng;
             },
             //////////////////////////////
-            uploadFiles() {
-                const data = new FormData(document.getElementById('uploadForm'));
-                let imagefile = document.querySelector('#file');
-                window.console.log(imagefile.files[0]);
-                data.append('file', imagefile.files[0]);
-                axios.post('http://95.70.121.38:8080', data, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                })
-                    .then(response => {
-                        window.console.log(response)
-                    })
-                    .catch(error => {
-                        window.console.log(error.response)
-                    })
-            }
         },
         computed: {
             getSelectedEvent: function () {
@@ -335,30 +316,23 @@
             },
         }
     }
-
 </script>
 
 <style scoped>
-    .my_polyline {
-        color: black;
-        stroke: green;
-        fill: none;
-        stroke-dasharray: 10, 10;
-        stroke-width: 5;
-    }
 
     .constructor {
         margin: 20px;
         border: 1px solid #CCC;
         display: flex;
         padding: 10px;
-        min-height: 70vh;
-        max-height: 70vh;
+        /*min-height: 70vh;*/
+        /*max-height: 70vh;*/
         overflow: hidden;
     }
 
     .eventList {
-        max-height: 80vh;
+        max-height: 84vh;
+        min-width: 120px;
         overflow-y: scroll;
     }
 
@@ -500,7 +474,8 @@
     }
 
     .map {
-        min-height: 450px;
+        min-height: 64vh;
+        max-height: 64vh;
         width: 100%;
         margin: auto;
         border: 1px solid #4d565661;
@@ -512,51 +487,52 @@
     }
 
     .formLeft {
-        float: left;
-        width: 44%;
+        display: flex;
+        flex-direction: column;
+        margin-right: 1%;
+        width: 46%;
     }
 
     .inputHeader {
         font-size: 24px;
-        margin: 2px 2% 2% 2px;
+        margin-bottom: 2%;
         padding: 3px;
-        float: left;
-        width: 96.2%;
+        height: 28px;
         border: 1px solid #4d565661;
         border-radius: 4px;
     }
 
     .inputTextarea {
         font-size: 18px;
-        width: 96%;
         padding: 3px;
-        height: 60%;
+        flex-grow: 1;
         resize: none;
-        margin: 2% 2% 2% 2px;
         border: 1px solid #4d565661;
         border-radius: 4px;
         font-family: 'Turnip RE', Georgia, 'Times New Roman', Times, serif;
     }
 
     .formRight {
-        float: right;
+        display: flex;
+        flex-wrap: wrap;
         width: 56%;
         min-height: 166px;
-        margin: auto 0 auto 5px;
         border: 1px solid #4d565661;
         border-radius: 4px;
         background: #f8f8f8;
     }
 
     .formRightContent {
-        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        margin: auto;
+        max-width: 400px;
     }
 
     .formRightInputUrl {
         font-size: 20px;
         margin: 4% 2% 2% 2%;
-        float: left;
-        width: 55%;
+        width: 100%;
     }
 
     .formRightUploadButton {
@@ -564,8 +540,7 @@
         margin: 2%;
         padding: 0.35em 1.2em;
         background: none;
-        float: left;
-        width: 55%;
+        width: 100%;
         border: 1px dashed #4d565661;
         transition: all 0.2s;
     }
@@ -597,7 +572,8 @@
         width: 270px;
         height: 144px;
         display: flex;
-        vertical-align: center;
+        padding: 8px;
+        margin: auto;
     }
 
     .emptyMediaBlock p {
