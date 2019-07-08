@@ -14,7 +14,7 @@
             -moz-osx-font-smoothing: grayscale;
             text-align: center;
             margin: 30px 10%;
-            min-width: 720px;
+            min-width: 810px;
         }
         .mainMenu {
             vertical-align: middle;

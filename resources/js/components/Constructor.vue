@@ -3,10 +3,11 @@
         <div class="constructor">
             <EventList id="eventList"
                        class="eventList"
+                       :style=""
                        v-model="events"
                        lockAxis="y"
                        :transitionDuration=250
-                       :distance=10
+                       :pressDelay=200
                        :lockToContainerEdges="true"
                        helperClass="eventItemDrag">
                 <!--fixme При вставки события вниз текущего экрана, скрол автоматически поднимается. Фикс во Vue 2.7-->
@@ -218,6 +219,7 @@
             }
         },
         created: function () {
+            //
             this.center = this.getSelectedEvent.marker;
         },
         methods: {
@@ -325,13 +327,12 @@
         border: 1px solid #CCC;
         display: flex;
         padding: 10px;
-        /*min-height: 70vh;*/
-        /*max-height: 70vh;*/
-        overflow: hidden;
+        height: 86vh;
+        min-height: 768px;
+        min-width: 768px;
     }
 
     .eventList {
-        max-height: 84vh;
         min-width: 120px;
         overflow-y: scroll;
     }
@@ -468,14 +469,16 @@
     }
 
     .content {
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
         width: 88%;
-        margin: auto;
+        margin: 0 auto;
         padding-left: 6px;
     }
 
     .map {
-        min-height: 64vh;
-        max-height: 64vh;
         width: 100%;
         margin: auto;
         border: 1px solid #4d565661;
