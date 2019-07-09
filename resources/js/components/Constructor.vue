@@ -101,9 +101,13 @@
                             <input v-else
                                    placeholder="Insert media link"
                                    class="formRightInputUrl">
-                            <button class="formRightUploadButton"
-                                    onclick="alert('dev')">Upload from drive
-                            </button>
+
+                            <form action="" method="post" enctype="multipart/form-data" class="formRightUploadFile">
+                                <label class="formRightUploadButton">
+                                    <img src="/images/cloud-upload.png">Upload from drive
+                                    <input type="file" name="image" onchange="this.form.submit()" style="display: none">
+                                </label>
+                            </form>
                         </div>
                             <template v-if="getSelectedEvent !== undefined && getSelectedEvent.mediaUrl !== ''">
                                 <template v-if="checkExistImages">
@@ -543,23 +547,32 @@
         margin: 4% 2% 2% 2%;
         width: 100%;
     }
+    .formRightUploadFile {
+        display: flex;
+        width: 100%;
+    }
 
     .formRightUploadButton {
         font-size: 18px;
         margin: 2%;
-        padding: 0.35em 1.2em;
+        padding: 6px 0;
         background: none;
         width: 100%;
         border: 1px dashed #4d565661;
         transition: all 0.2s;
+        cursor: pointer;
     }
 
     .formRightUploadButton:hover {
-        color: #35495E;
         background-color: #FFFFFF;
         border: 1px solid #4d565661;
     }
-
+    .formRightUploadButton img {
+        height: 18px;
+        position:relative;
+        bottom: -3px;
+        margin-right: 4px;
+    }
 
     .table {
         font-size: 14px;
