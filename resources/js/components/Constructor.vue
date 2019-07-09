@@ -39,6 +39,7 @@
             </EventList>
             <div class="content">
                 <l-map class="map"
+                       ref="map"
                        :zoom="mapZoom"
                        :minZoom="minZoom"
                        :center="center"
@@ -316,6 +317,11 @@
                     img.src = val;
                 }
             },
+            'getSelectedEvent.marker': {
+                handler(val) {
+                    this.$refs.map.mapObject.flyTo(val);
+                }
+            },
         }
     }
 </script>
@@ -327,7 +333,7 @@
         border: 1px solid #CCC;
         display: flex;
         padding: 10px;
-        height: 86vh;
+        height: 85.5vh;
         min-height: 768px;
         min-width: 768px;
     }
