@@ -1703,6 +1703,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_slicksort__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_slicksort__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue2_leaflet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue2-leaflet */ "./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js");
 /* harmony import */ var vue_youtube_embed__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-youtube-embed */ "./node_modules/vue-youtube-embed/lib/vue-youtube-embed.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1864,7 +1872,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 // TODO добавить анимацию перехода между событиями
-// TODO добавить скачивание файлов
+// TODO настроить скачивание файлов
+
 
 
 
@@ -1879,32 +1888,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORT
     LMarker: vue2_leaflet__WEBPACK_IMPORTED_MODULE_2__["LMarker"],
     LTooltip: vue2_leaflet__WEBPACK_IMPORTED_MODULE_2__["LTooltip"],
     LIcon: vue2_leaflet__WEBPACK_IMPORTED_MODULE_2__["LIcon"],
-    LPolyline: vue2_leaflet__WEBPACK_IMPORTED_MODULE_2__["LPolyline"]
+    LPolyline: vue2_leaflet__WEBPACK_IMPORTED_MODULE_2__["LPolyline"],
+    axios: axios__WEBPACK_IMPORTED_MODULE_4___default.a
   },
+  props: ['inputEvents', 'inputConfig'],
   data: function data() {
     return {
-      events: [{
-        name: 'Item1',
-        id: 1,
-        title: "",
-        marker: [59.102667, 10.028418],
-        mediaUrl: ""
-      }, {
-        name: 'Item2',
-        id: 2,
-        title: "",
-        marker: [68.412, -41.218],
-        mediaUrl: "https://www.youtube.com/watch?v=tz1XUyGP8gQ&t"
-      }, {
-        name: 'Item3',
-        id: 3,
-        title: "",
-        marker: [19.176301, -5.801195],
-        mediaUrl: "https://bipbap.ru/wp-content/uploads/2017/10/0_8eb56_842bba74_XL-640x400.jpg"
-      }],
+      events: this.inputEvents,
       currentEventId: 1,
       deletedEventIndex: null,
-      nextId: 4,
+      nextId: this.inputConfig[0].nextId,
       showButtonDeleteEvent: null,
       checkExistImages: null,
       //// l-map config
@@ -1914,7 +1907,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORT
       maxBoundsViscosity: 0.9,
       center: null,
       //// l-tile-layer config
-      tileUrl: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
+      tileUrl: this.inputConfig[0].tileUrl,
       tileAttribution: '&copy; <a href="https://knastu.ru/">knastu</a>',
       //// l-polyline config
       polylineOpacity: 0.6,
@@ -1989,8 +1982,22 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORT
     },
     addMarker: function addMarker(event) {
       this.events[this.getIndexSelectedEvent].marker = event.latlng;
-    } //////////////////////////////
-
+    },
+    // Отправка текущего состояния карты post запросом
+    saveData: function saveData() {
+      console.log("hello");
+      axios__WEBPACK_IMPORTED_MODULE_4___default.a.post('api/save', {
+        events: this.events,
+        config: [{
+          "nextId": this.nextId,
+          "tileUrl": this.tileUrl
+        }]
+      }).then(function (response) {
+        alert("Данные успешно сохранены");
+      })["catch"](function (error) {
+        alert("Ошибка: " + error.response);
+      });
+    }
   },
   computed: {
     getSelectedEvent: function getSelectedEvent() {
@@ -6525,7 +6532,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.constructor[data-v-769545df] {\n    margin: 20px;\n    border: 1px solid #CCC;\n    display: -webkit-box;\n    display: flex;\n    padding: 10px;\n    height: 85.5vh;\n    min-height: 768px;\n    min-width: 768px;\n}\n.eventList[data-v-769545df] {\n    min-width: 120px;\n    overflow-y: scroll;\n}\n.eventItem[data-v-769545df] {\n    -webkit-box-align: center;\n    align-items: center;\n    box-sizing: border-box;\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n        user-select: none;\n    cursor: pointer;\n    list-style: none;\n    font-size: 20px;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-pack: center;\n            justify-content: center;\n    height: 56px;\n    margin: 18px 14px; /*убираем верхнее и нижнее поле, равное 1em*/\n    max-width: 110px;\n    min-width: 50px;\n    border-radius: 5px;\n    background-color: #35495E;\n    color: #41B883;\n    border: 2px solid transparent;\n}\n.eventItem[data-v-769545df]:hover {\n    background-color: #41B883;\n    color: #35495E;\n    border: 2px groove black;\n}\n.eventItemTitle[data-v-769545df] {\n    margin: 22px 11px 22px 35px;\n    min-width: 52px;\n    max-width: 52px;\n    min-height: 23px;\n    max-height: 23px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n.deleteEventButton[data-v-769545df] {\n    background-color: #35495E;\n    color: white;\n    text-align: center;\n    text-decoration: none;\n    font-size: 12px;\n    border-radius: 50%;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n            flex-direction: column;\n    -webkit-box-align: start;\n            align-items: flex-start;\n    -webkit-box-pack: center;\n            justify-content: center;\n    height: 22px;\n    width: 22px;\n    align-content: center;\n}\n.deleteEventButtonHide[data-v-769545df] {\n    visibility: hidden;\n}\n.addEventButton[data-v-769545df] {\n    background-color: transparent;\n    border: 2px groove black;\n    color: #35495E;\n    font-size: 36px;\n    font-weight: lighter;\n    -webkit-transition: 0.5s ease;\n    transition: 0.5s ease; /* скорость поворота */\n    padding: 22px;\n    overflow: hidden;\n}\n.addEventButton[data-v-769545df]:hover {\n    background-color: transparent;\n}\n.plus[data-v-769545df] {\n    -webkit-transition: 0.5s ease;\n    transition: 0.5s ease; /* скорость поворота */\n    -webkit-transform-style: preserve-3d;\n            transform-style: preserve-3d; /* стиль трансформирования 3-д */\n    padding: 14px 28px;\n}\n.plus[data-v-769545df]:hover {\n    -webkit-transform: rotate(180deg);\n            transform: rotate(180deg);\n}\n.animatedEvents-enter-active[data-v-769545df] {\n    -webkit-transition: all 0.5s;\n    transition: all 0.5s;\n}\n.animatedEvents-enter[data-v-769545df] {\n    opacity: 0;\n    -webkit-transform: translateY(50px);\n            transform: translateY(50px);\n}\n.animatedEvents-leave-active[data-v-769545df] {\n    animation: animatedEvents-in-data-v-769545df .4s reverse;\n}\n@-webkit-keyframes animatedEvents-in-data-v-769545df {\n0% {\n        -webkit-transform: scale(0);\n                transform: scale(0);\n}\n50% {\n        -webkit-transform: scale(1.15);\n                transform: scale(1.15);\n}\n100% {\n        -webkit-transform: scale(1);\n                transform: scale(1);\n}\n}\n@keyframes animatedEvents-in-data-v-769545df {\n0% {\n        -webkit-transform: scale(0);\n                transform: scale(0);\n}\n50% {\n        -webkit-transform: scale(1.15);\n                transform: scale(1.15);\n}\n100% {\n        -webkit-transform: scale(1);\n                transform: scale(1);\n}\n}\n.eventItemActive[data-v-769545df] {\n    color: white;\n    background-color: #DA0000;\n    border-radius: 2px;\n}\n.eventItemActive[data-v-769545df]:hover {\n    color: white;\n    background-color: #DA0000;\n    border: transparent;\n}\n.eventItemDrag[data-v-769545df] {\n    background-color: #41B883;\n    color: #35495E;\n    border: 2px dashed black;\n    font-size: 20px;\n    font-family: 'Avenir', Helvetica, Arial, sans-serif;\n}\n.content[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    flex-direction: column;\n    width: 88%;\n    margin: 0 auto;\n    padding-left: 6px;\n}\n.map[data-v-769545df] {\n    width: 100%;\n    margin: auto;\n    border: 1px solid #4d565661;\n}\n.form[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    margin-top: 20px;\n}\n.formLeft[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n            flex-direction: column;\n    margin-right: 1%;\n    width: 46%;\n}\n.inputHeader[data-v-769545df] {\n    font-size: 24px;\n    margin-bottom: 2%;\n    padding: 3px;\n    height: 28px;\n    border: 1px solid #4d565661;\n    border-radius: 4px;\n}\n.inputTextarea[data-v-769545df] {\n    font-size: 18px;\n    padding: 3px;\n    -webkit-box-flex: 1;\n            flex-grow: 1;\n    resize: none;\n    border: 1px solid #4d565661;\n    border-radius: 4px;\n    font-family: 'Turnip RE', Georgia, 'Times New Roman', Times, serif;\n}\n.formRight[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    flex-wrap: wrap;\n    width: 56%;\n    min-height: 166px;\n    border: 1px solid #4d565661;\n    border-radius: 4px;\n    background: #f8f8f8;\n}\n.formRightContent[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    flex-wrap: wrap;\n    margin: auto;\n    max-width: 400px;\n}\n.formRightInputUrl[data-v-769545df] {\n    font-size: 20px;\n    margin: 4% 2% 2% 2%;\n    width: 100%;\n}\n.formRightUploadFile[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    width: 100%;\n}\n.formRightUploadButton[data-v-769545df] {\n    font-size: 18px;\n    margin: 2%;\n    padding: 6px 0;\n    background: none;\n    width: 100%;\n    border: 1px dashed #4d565661;\n    -webkit-transition: all 0.2s;\n    transition: all 0.2s;\n    cursor: pointer;\n}\n.formRightUploadButton[data-v-769545df]:hover {\n    background-color: #FFFFFF;\n    border: 1px solid #4d565661;\n}\n.formRightUploadButton img[data-v-769545df] {\n    height: 18px;\n    position:relative;\n    bottom: -3px;\n    margin-right: 4px;\n}\n.table[data-v-769545df] {\n    font-size: 14px;\n    margin-top: 50px;\n}\n.table table[data-v-769545df] {\n    margin: auto;\n    border: 1px solid #35495E;\n}\n.table td[data-v-769545df] {\n    padding: 3px;\n    list-style: none;\n    text-align: left;\n}\n.emptyMediaBlock[data-v-769545df] {\n    width: 270px;\n    height: 144px;\n    display: -webkit-box;\n    display: flex;\n    padding: 8px;\n    margin: auto;\n}\n.emptyMediaBlock p[data-v-769545df] {\n    font-size: 26px;\n    text-align: center;\n    background-color: #dddddd;\n    color: #777777;\n    line-height: 144px;\n    width: 100%;\n    margin: auto;\n    font-family: \"Helvetica Neue\", Helvetica, sans-serif;\n}\n", ""]);
+exports.push([module.i, "\n.constructor[data-v-769545df] {\n    margin: auto;\n    border-top: 1px dashed #CCC;\n    border-right: 1px solid #CCC;\n    border-bottom: 1px solid #CCC;\n    border-left: 1px solid #CCC;\n    display: -webkit-box;\n    display: flex;\n    padding: 10px;\n    height: 88vh;\n    min-height: 400px;\n    min-width: 428px;\n}\n.content[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    flex-direction: column;\n    width: 96%;\n    min-width: 200px;\n    margin: 0 auto;\n    padding-left: 10px;\n}\n.eventList[data-v-769545df] {\n    min-width: 120px;\n    overflow-y: scroll;\n}\n.eventItem[data-v-769545df] {\n    -webkit-box-align: center;\n    align-items: center;\n    box-sizing: border-box;\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n        user-select: none;\n    cursor: pointer;\n    list-style: none;\n    font-size: 20px;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-pack: center;\n            justify-content: center;\n    height: 56px;\n    margin: 14px 14px 14px 10px; /*убираем верхнее и нижнее поле, равное 1em*/\n    max-width: 110px;\n    min-width: 50px;\n    border-radius: 5px;\n    background-color: #35495E;\n    color: #41B883;\n    border: 2px solid transparent;\n}\n.eventItem[data-v-769545df]:hover {\n    background-color: #41B883;\n    color: #35495E;\n    border: 2px groove black;\n}\n.eventItemTitle[data-v-769545df] {\n    margin: 22px 11px 22px 35px;\n    min-width: 52px;\n    max-width: 52px;\n    min-height: 23px;\n    max-height: 23px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n.deleteEventButton[data-v-769545df] {\n    background-color: #35495E;\n    color: white;\n    text-align: center;\n    text-decoration: none;\n    font-size: 12px;\n    border-radius: 50%;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n            flex-direction: column;\n    -webkit-box-align: start;\n            align-items: flex-start;\n    -webkit-box-pack: center;\n            justify-content: center;\n    height: 22px;\n    width: 22px;\n    align-content: center;\n}\n.deleteEventButtonHide[data-v-769545df] {\n    visibility: hidden;\n}\n.addEventButton[data-v-769545df] {\n    background-color: transparent;\n    border: 2px groove black;\n    color: #35495E;\n    font-size: 36px;\n    font-weight: lighter;\n    -webkit-transition: 0.5s ease;\n    transition: 0.5s ease; /* скорость поворота */\n    padding: 22px;\n    overflow: hidden;\n}\n.addEventButton[data-v-769545df]:hover {\n    background-color: transparent;\n}\n.plus[data-v-769545df] {\n    -webkit-transition: 0.5s ease;\n    transition: 0.5s ease; /* скорость поворота */\n    -webkit-transform-style: preserve-3d;\n            transform-style: preserve-3d; /* стиль трансформирования 3-д */\n    padding: 14px 28px;\n}\n.plus[data-v-769545df]:hover {\n    -webkit-transform: rotate(180deg);\n            transform: rotate(180deg);\n}\n.animatedEvents-enter-active[data-v-769545df] {\n    -webkit-transition: all 0.5s;\n    transition: all 0.5s;\n}\n.animatedEvents-enter[data-v-769545df] {\n    opacity: 0;\n    -webkit-transform: translateY(50px);\n            transform: translateY(50px);\n}\n.animatedEvents-leave-active[data-v-769545df] {\n    animation: animatedEvents-in-data-v-769545df .4s reverse;\n}\n@-webkit-keyframes animatedEvents-in-data-v-769545df {\n0% {\n        -webkit-transform: scale(0);\n                transform: scale(0);\n}\n50% {\n        -webkit-transform: scale(1.15);\n                transform: scale(1.15);\n}\n100% {\n        -webkit-transform: scale(1);\n                transform: scale(1);\n}\n}\n@keyframes animatedEvents-in-data-v-769545df {\n0% {\n        -webkit-transform: scale(0);\n                transform: scale(0);\n}\n50% {\n        -webkit-transform: scale(1.15);\n                transform: scale(1.15);\n}\n100% {\n        -webkit-transform: scale(1);\n                transform: scale(1);\n}\n}\n.eventItemActive[data-v-769545df] {\n    color: white;\n    background-color: #DA0000;\n    border-radius: 2px;\n}\n.eventItemActive[data-v-769545df]:hover {\n    color: white;\n    background-color: #DA0000;\n    border: transparent;\n}\n.eventItemDrag[data-v-769545df] {\n    background-color: #41B883;\n    color: #35495E;\n    border: 2px dashed black;\n    font-size: 20px;\n    font-family: 'Avenir', Helvetica, Arial, sans-serif;\n}\n.map[data-v-769545df] {\n    width: 100%;\n    margin: auto;\n    border: 1px solid #4d565661;\n}\n.form[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    margin-top: 10px;\n}\n.formLeft[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n            flex-direction: column;\n    margin-right: 1%;\n    width: 46%;\n}\n.inputHeader[data-v-769545df] {\n    font-size: 24px;\n    margin-bottom: 2%;\n    padding: 3px;\n    height: 28px;\n    border: 1px solid #4d565661;\n    border-radius: 4px;\n}\n.inputTextarea[data-v-769545df] {\n    font-size: 18px;\n    padding: 3px;\n    -webkit-box-flex: 1;\n            flex-grow: 1;\n    resize: none;\n    border: 1px solid #4d565661;\n    border-radius: 4px;\n    font-family: 'Turnip RE', Georgia, 'Times New Roman', Times, serif;\n}\n.formRight[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    flex-wrap: wrap;\n    width: 53%;\n    min-height: 166px;\n    border: 1px solid #4d565661;\n    border-radius: 4px;\n    background: #f8f8f8;\n}\n.formRightContent[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    flex-wrap: wrap;\n    margin: auto;\n    max-width: 540px;\n    width: 100%;\n}\n.formRightInputUrl[data-v-769545df] {\n    font-size: 20px;\n    margin: 4% 2% 2% 2%;\n    width: 100%;\n}\n.formRightUploadFile[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    width: 100%;\n}\n.formRightUploadButton[data-v-769545df] {\n    font-size: 18px;\n    margin: 2%;\n    padding: 6px 0;\n    background: none;\n    width: 100%;\n    border: 1px dashed #4d565661;\n    -webkit-transition: all 0.2s;\n    transition: all 0.2s;\n    cursor: pointer;\n}\n.formRightUploadButton[data-v-769545df]:hover {\n    background-color: #FFFFFF;\n    border: 1px solid #4d565661;\n}\n.formRightUploadButton img[data-v-769545df] {\n    height: 18px;\n    position:relative;\n    bottom: -3px;\n    margin-right: 4px;\n}\n.table[data-v-769545df] {\n    font-size: 14px;\n    margin-top: 50px;\n}\n.table table[data-v-769545df] {\n    margin: auto;\n    border: 1px solid #35495E;\n}\n.table td[data-v-769545df] {\n    padding: 3px;\n    list-style: none;\n    text-align: left;\n}\n.emptyMediaBlock[data-v-769545df] {\n    width: 270px;\n    height: 144px;\n    display: -webkit-box;\n    display: flex;\n    padding: 8px;\n    margin: auto;\n}\n.emptyMediaBlock p[data-v-769545df] {\n    font-size: 26px;\n    text-align: center;\n    background-color: #dddddd;\n    color: #777777;\n    line-height: 144px;\n    width: 100%;\n    margin: auto;\n    font-family: \"Helvetica Neue\", Helvetica, sans-serif;\n}\n#constructor-header[data-v-769545df] {\n    height: 6vh;\n    min-width: 438px;\n    border-top: 1px solid #CCC;\n    border-right: 1px solid #CCC;\n    border-left: 1px solid #CCC;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-align: center;\n            align-items: center;\n    padding: 5px;\n}\n#constructor-header a[data-v-769545df]{\n    margin: 5px;\n}\n#constructor-header > a[data-v-769545df]:nth-child(3) {\n    margin-left: auto;\n}\n.constructor-header-button[data-v-769545df] {\n    font-weight: 700;\n    color: white;\n    text-decoration: none;\n    padding: .8em 1em calc(.8em + 3px);\n    border-radius: 3px;\n    background: rgb(64,199,129);\n    box-shadow: 0 -3px rgb(53,167,110) inset;\n    -webkit-transition: 0.2s;\n    transition: 0.2s;\n    cursor: pointer;\n    width: 116px;\n}\n.constructor-header-button[data-v-769545df]:hover { background: rgb(53, 167, 110);\n}\n.constructor-header-button[data-v-769545df]:active {\n    background: rgb(33,147,90);\n    box-shadow: 0 3px rgb(33,147,90) inset;\n}\n\n", ""]);
 
 // exports
 
@@ -52145,6 +52152,23 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("div", { attrs: { id: "constructor-header" } }, [
+      _c("a", { staticClass: "constructor-header-button" }, [
+        _vm._v("Setting")
+      ]),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "constructor-header-button",
+          on: { click: _vm.saveData }
+        },
+        [_vm._v("Save")]
+      ),
+      _vm._v(" "),
+      _c("a", { staticClass: "constructor-header-button" }, [_vm._v("View")])
+    ]),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "constructor" },
@@ -52440,11 +52464,24 @@ var render = function() {
                           attrs: { placeholder: "Insert media link" }
                         }),
                     _vm._v(" "),
-                    _vm._m(0)
+                    _c(
+                      "form",
+                      {
+                        staticClass: "formRightUploadFile",
+                        attrs: {
+                          action: "/upload",
+                          method: "post",
+                          enctype: "multipart/form-data"
+                        }
+                      },
+                      [_vm._t("default"), _vm._v(" "), _vm._m(0)],
+                      2
+                    )
                   ]),
                   _vm._v(" "),
                   _vm.getSelectedEvent !== undefined &&
-                  _vm.getSelectedEvent.mediaUrl !== ""
+                  _vm.getSelectedEvent.mediaUrl !== "" &&
+                  _vm.getSelectedEvent.mediaUrl !== null
                     ? [
                         _vm.checkExistImages
                           ? [
@@ -52527,27 +52564,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "form",
-      {
-        staticClass: "formRightUploadFile",
-        attrs: { action: "", method: "post", enctype: "multipart/form-data" }
-      },
-      [
-        _c("label", { staticClass: "formRightUploadButton" }, [
-          _c("img", { attrs: { src: "/images/cloud-upload.png" } }),
-          _vm._v("Upload from drive\n                                "),
-          _c("input", {
-            staticStyle: { display: "none" },
-            attrs: {
-              type: "file",
-              name: "image",
-              onchange: "this.form.submit()"
-            }
-          })
-        ])
-      ]
-    )
+    return _c("label", { staticClass: "formRightUploadButton" }, [
+      _c("img", { attrs: { src: "/images/cloud-upload.png" } }),
+      _vm._v("Upload from drive\n                                "),
+      _c("input", {
+        staticStyle: { display: "none" },
+        attrs: { type: "file", name: "image", onchange: "this.form.submit()" }
+      })
+    ])
   },
   function() {
     var _vm = this
@@ -77327,7 +77351,7 @@ var findRealParent = function (firstVueParent) {
 /*!***********************************************************!*\
   !*** ./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js ***!
   \***********************************************************/
-/*! exports provided: debounce, capitalizeFirstLetter, propsBinder, collectionCleaner, optionsMerger, findRealParent, CircleMixin, ControlMixin, GridLayerMixin, ImageOverlayMixin, InteractiveLayerMixin, LayerMixin, LayerGroupMixin, OptionsMixin, PathMixin, PolygonMixin, PolylineMixin, PopperMixin, TileLayerMixin, TileLayerWMSMixin, LCircle, LCircleMarker, LControl, LControlAttribution, LControlLayers, LControlScale, LControlZoom, LFeatureGroup, LGeoJson, LGridLayer, LIcon, LIconDefault, LImageOverlay, LLayerGroup, LMap, LMarker, LPolygon, LPolyline, LPopup, LRectangle, LTileLayer, LTooltip, LWMSTileLayer */
+/*! exports provided: CircleMixin, ControlMixin, GridLayerMixin, ImageOverlayMixin, InteractiveLayerMixin, LayerMixin, LayerGroupMixin, OptionsMixin, PathMixin, PolygonMixin, PolylineMixin, PopperMixin, TileLayerMixin, TileLayerWMSMixin, LCircle, LCircleMarker, LControl, LControlAttribution, LControlLayers, LControlScale, LControlZoom, LFeatureGroup, LGeoJson, LGridLayer, LIcon, LIconDefault, LImageOverlay, LLayerGroup, LMap, LMarker, LPolygon, LPolyline, LPopup, LRectangle, LTileLayer, LTooltip, LWMSTileLayer, debounce, capitalizeFirstLetter, propsBinder, collectionCleaner, optionsMerger, findRealParent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

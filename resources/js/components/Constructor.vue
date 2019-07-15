@@ -1,5 +1,10 @@
 <template>
     <div>
+        <div id="constructor-header">
+            <a class="constructor-header-button">Setting</a>
+            <a class="constructor-header-button" @click="saveData">Save</a>
+            <a class="constructor-header-button">View</a>
+        </div>
         <div class="constructor">
             <EventList id="eventList"
                        class="eventList"
@@ -101,15 +106,16 @@
                             <input v-else
                                    placeholder="Insert media link"
                                    class="formRightInputUrl">
-
-                            <form action="" method="post" enctype="multipart/form-data" class="formRightUploadFile">
+                            <form action="/upload" method="post" enctype="multipart/form-data" class="formRightUploadFile">
+                                <slot>
+                                </slot>
                                 <label class="formRightUploadButton">
                                     <img src="/images/cloud-upload.png">Upload from drive
                                     <input type="file" name="image" onchange="this.form.submit()" style="display: none">
                                 </label>
                             </form>
                         </div>
-                            <template v-if="getSelectedEvent !== undefined && getSelectedEvent.mediaUrl !== ''">
+                            <template v-if="getSelectedEvent !== undefined && getSelectedEvent.mediaUrl !== '' && getSelectedEvent.mediaUrl !== null">
                                 <template v-if="checkExistImages">
                                     <img :src="getSelectedEvent.mediaUrl"
                                          alt="image"
@@ -160,11 +166,12 @@
 
 <script>
     // TODO добавить анимацию перехода между событиями
-    // TODO добавить скачивание файлов
+    // TODO настроить скачивание файлов
     import Vue from 'vue'
     import {SlickItem, SlickList} from 'vue-slicksort'
     import {LMap, LTileLayer, LMarker, LTooltip, LIcon, LPolyline} from 'vue2-leaflet'
     import VueYouTubeEmbed from 'vue-youtube-embed'
+    import axios from 'axios'
     Vue.use(VueYouTubeEmbed);
 
     export default {
@@ -176,36 +183,19 @@
             LMarker,
             LTooltip,
             LIcon,
-            LPolyline
+            LPolyline,
+            axios
         },
+        props: [
+            'inputEvents',
+            'inputConfig'
+        ],
         data() {
             return {
-                events: [
-                    {
-                        name: 'Item1',
-                        id: 1,
-                        title: "",
-                        marker: [59.102667, 10.028418],
-                        mediaUrl: "",
-                    },
-                    {
-                        name: 'Item2',
-                        id: 2,
-                        title: "",
-                        marker: [68.412, -41.218],
-                        mediaUrl: "https://www.youtube.com/watch?v=tz1XUyGP8gQ&t"
-                    },
-                    {
-                        name: 'Item3',
-                        id: 3,
-                        title: "",
-                        marker: [19.176301, -5.801195],
-                        mediaUrl: "https://bipbap.ru/wp-content/uploads/2017/10/0_8eb56_842bba74_XL-640x400.jpg"
-                    }
-                ],
+                events: this.inputEvents,
                 currentEventId: 1,
                 deletedEventIndex: null,
-                nextId: 4,
+                nextId: this.inputConfig[0].nextId,
                 showButtonDeleteEvent: null,
                 checkExistImages: null,
                 //// l-map config
@@ -215,7 +205,7 @@
                 maxBoundsViscosity: 0.9,
                 center: null,
                 //// l-tile-layer config
-                tileUrl: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
+                tileUrl: this.inputConfig[0].tileUrl,
                 tileAttribution: '&copy; <a href="https://knastu.ru/">knastu</a>',
                 //// l-polyline config
                 polylineOpacity: 0.6,
@@ -292,7 +282,22 @@
             addMarker: function (event) {
                 this.events[this.getIndexSelectedEvent].marker = event.latlng;
             },
-            //////////////////////////////
+            // Отправка текущего состояния карты post запросом
+            saveData : function () {
+                console.log("hello");
+                axios.post('api/save', {
+                    events: this.events,
+                    config:
+                        [{"nextId":this.nextId,
+                        "tileUrl":this.tileUrl}]
+                })
+                    .then(response => {
+                        alert( "Данные успешно сохранены" );
+                    })
+                    .catch(error => {
+                        alert( "Ошибка: " + error.response );
+                    });
+            },
         },
         computed: {
             getSelectedEvent: function () {
@@ -333,13 +338,27 @@
 <style scoped>
 
     .constructor {
-        margin: 20px;
-        border: 1px solid #CCC;
+        margin: auto;
+        border-top: 1px dashed #CCC;
+        border-right: 1px solid #CCC;
+        border-bottom: 1px solid #CCC;
+        border-left: 1px solid #CCC;
         display: flex;
         padding: 10px;
-        height: 85.5vh;
-        min-height: 768px;
-        min-width: 768px;
+        height: 88vh;
+        min-height: 400px;
+        min-width: 428px;
+    }
+
+    .content {
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        width: 96%;
+        min-width: 200px;
+        margin: 0 auto;
+        padding-left: 10px;
     }
 
     .eventList {
@@ -360,7 +379,7 @@
         display: flex;
         justify-content: center;
         height: 56px;
-        margin: 18px 14px; /*убираем верхнее и нижнее поле, равное 1em*/
+        margin: 14px 14px 14px 10px; /*убираем верхнее и нижнее поле, равное 1em*/
         max-width: 110px;
         min-width: 50px;
         border-radius: 5px;
@@ -478,16 +497,6 @@
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
     }
 
-    .content {
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        flex-direction: column;
-        width: 88%;
-        margin: 0 auto;
-        padding-left: 6px;
-    }
-
     .map {
         width: 100%;
         margin: auto;
@@ -496,7 +505,7 @@
 
     .form {
         display: flex;
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
     .formLeft {
@@ -528,7 +537,7 @@
     .formRight {
         display: flex;
         flex-wrap: wrap;
-        width: 56%;
+        width: 53%;
         min-height: 166px;
         border: 1px solid #4d565661;
         border-radius: 4px;
@@ -539,7 +548,8 @@
         display: flex;
         flex-wrap: wrap;
         margin: auto;
-        max-width: 400px;
+        max-width: 540px;
+        width: 100%;
     }
 
     .formRightInputUrl {
@@ -608,4 +618,41 @@
         margin: auto;
         font-family: "Helvetica Neue", Helvetica, sans-serif;
     }
+
+    #constructor-header {
+        height: 6vh;
+        min-width: 438px;
+        border-top: 1px solid #CCC;
+        border-right: 1px solid #CCC;
+        border-left: 1px solid #CCC;
+        display: flex;
+        align-items: center;
+        padding: 5px;
+    }
+    #constructor-header a{
+        margin: 5px;
+    }
+
+    #constructor-header > a:nth-child(3) {
+        margin-left: auto;
+    }
+
+    .constructor-header-button {
+        font-weight: 700;
+        color: white;
+        text-decoration: none;
+        padding: .8em 1em calc(.8em + 3px);
+        border-radius: 3px;
+        background: rgb(64,199,129);
+        box-shadow: 0 -3px rgb(53,167,110) inset;
+        transition: 0.2s;
+        cursor: pointer;
+        width: 116px;
+    }
+    .constructor-header-button:hover { background: rgb(53, 167, 110); }
+    .constructor-header-button:active {
+        background: rgb(33,147,90);
+        box-shadow: 0 3px rgb(33,147,90) inset;
+    }
+
 </style>
