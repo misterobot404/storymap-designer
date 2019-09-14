@@ -6,9 +6,8 @@
             <a class="constructor-header-button">View</a>
         </div>
         <div class="constructor">
-            <EventList id="eventList"
+            <event-list id="eventList"
                        class="eventList"
-                       :style=""
                        v-model="events"
                        lockAxis="y"
                        :transitionDuration=250
@@ -19,7 +18,7 @@
                 <transition-group name="animatedEvents"
                                   @after-leave="afterLeave"
                                   @enter="afterEnter">
-                    <EventItem v-for="(event, index) in events"
+                    <event-item v-for="(event, index) in events"
                                :index="index"
                                :key="event.id"
                                :class="['eventItem', {eventItemActive : event.id === currentEventId}]">
@@ -35,18 +34,19 @@
                             >✖
                             </button>
                         </div>
-                    </EventItem>
+                    </event-item>
                 </transition-group>
                 <li @click="addEvent"
                     class="eventItem addEventButton">
                     <div class="plus">+</div>
                 </li>
-            </EventList>
+            </event-list>
             <div class="content">
                 <l-map class="map"
                        ref="map"
                        :zoom="mapZoom"
                        :minZoom="minZoom"
+                       :maxZoom="maxZoom"
                        :center="center"
                        :maxBounds="bounds"
                        :maxBoundsViscosity="maxBoundsViscosity"
@@ -111,7 +111,7 @@
                                 </slot>
                                 <label class="formRightUploadButton">
                                     <img src="/images/cloud-upload.png">Upload from drive
-                                    <input type="file" name="image" onchange="this.form.submit()" style="display: none">
+                                    <input type="file" multiple name="image" onchange="this.form.submit()" style="display: none">
                                 </label>
                             </form>
                         </div>
@@ -145,22 +145,10 @@
                 </div>
             </div>
         </div>
-        <div class="table">
-            <div class="info" style="height: 15%; margin-top: 10px;">
-                <span>Center: {{ center }}</span><br>
-                <span>Zoom: {{ mapZoom }}</span><br>
-            </div>
-            <p>Создержание базы данных</p>
-            <table>
-                <tr v-for="item in events" :key="item.id">
-                    <td>Id : {{item.id}}</td>
-                    <td>Name: {{item.name}}</td>
-                    <td>Description: {{item.title}}</td>
-                    <td>Marker: {{item.marker}}</td>
-                    <td>mediaURL: {{item.mediaUrl}}</td>
-                </tr>
-            </table>
-        </div>
+        <database-view :center="center"
+                      :map-zoom="mapZoom"
+                      :events="events">
+        </database-view>
     </div>
 </template>
 
@@ -172,6 +160,7 @@
     import {LMap, LTileLayer, LMarker, LTooltip, LIcon, LPolyline} from 'vue2-leaflet'
     import VueYouTubeEmbed from 'vue-youtube-embed'
     import axios from 'axios'
+    import DatabaseView from './database-view'
     Vue.use(VueYouTubeEmbed);
 
     export default {
@@ -184,7 +173,8 @@
             LTooltip,
             LIcon,
             LPolyline,
-            axios
+            axios,
+            DatabaseView
         },
         props: [
             'inputEvents',
@@ -193,14 +183,15 @@
         data() {
             return {
                 events: this.inputEvents,
-                currentEventId: 1,
+                currentEventId: this.inputConfig[0].currentEventId,
                 deletedEventIndex: null,
                 nextId: this.inputConfig[0].nextId,
                 showButtonDeleteEvent: null,
                 checkExistImages: null,
                 //// l-map config
-                mapZoom: 4,
+                mapZoom: 3,
                 minZoom: 3,
+                maxZoom: 5,
                 bounds: new L.LatLngBounds(new L.LatLng(-85, -170), new L.LatLng(85, 175)),
                 maxBoundsViscosity: 0.9,
                 center: null,
@@ -216,7 +207,30 @@
         created: function () {
             //
             this.center = this.getSelectedEvent.marker;
+            //
         },
+        mounted:function() {
+            this.tileUrl = 'tile/{z}-{x}-{y}.jpg';
+            const width = 10929;
+            const height = 5553;
+            this.maxZoom = 6;
+            this.minZoom = 3;
+            const orgLevel = 6;
+            const tileWidth = 256 * Math.pow(2, orgLevel);
+            const radius = tileWidth / 2 / Math.PI;
+            const rx = width - tileWidth / 2;
+            const ry = -height + tileWidth / 2;
+            const west = -180;
+            const east = (180 / Math.PI) * (rx / radius);
+            const north = 85.05;
+            const south = (360 / Math.PI) * (Math.atan(Math.exp(ry / radius)) - (Math.PI / 4));
+            //const rc = (tileWidth / 2 + ry) / 2;
+            //const centerLat = (360 / Math.PI) * (Math.atan(Math.exp(rc / radius)) - (Math.PI / 4));
+            //const centerLon = (west + east) / 2;
+            this.bounds = new L.LatLngBounds(new L.LatLng(south, west), new L.LatLng(north, east));
+            //this.zoom = this.$refs.map.mapObject.getBoundsZoom(bounds);
+            //this.center = new L.latLng(centerLat, centerLon);
+            },
         methods: {
             selectEventById: function (id) {
                 this.currentEventId = id;
@@ -226,7 +240,7 @@
                     name: "Item" + this.nextId,
                     id: this.nextId,
                     title: ' ',
-                    marker: [47.413220, -1.219482],
+                    marker: this.center,
                     mediaUrl: ""
                 });
                 // Если добавленное событие является единственным назначаем его активным
@@ -284,18 +298,18 @@
             },
             // Отправка текущего состояния карты post запросом
             saveData : function () {
-                console.log("hello");
                 axios.post('api/save', {
                     events: this.events,
                     config:
                         [{"nextId":this.nextId,
-                        "tileUrl":this.tileUrl}]
+                        "tileUrl":this.tileUrl,
+                        "currentEventId":this.currentEventId}]
                 })
                     .then(response => {
-                        alert( "Данные успешно сохранены" );
+                        alert( "Save successful" );
                     })
                     .catch(error => {
-                        alert( "Ошибка: " + error.response );
+                        alert( "Save error: " + error.response );
                     });
             },
         },
@@ -328,7 +342,8 @@
             },
             'getSelectedEvent.marker': {
                 handler(val) {
-                    this.$refs.map.mapObject.flyTo(val);
+                    this.$refs.map.mapObject.setView(val);
+                    //this.$refs.map.mapObject.flyTo(val);
                 }
             },
         }
@@ -582,22 +597,6 @@
         position:relative;
         bottom: -3px;
         margin-right: 4px;
-    }
-
-    .table {
-        font-size: 14px;
-        margin-top: 50px;
-    }
-
-    .table table {
-        margin: auto;
-        border: 1px solid #35495E;
-    }
-
-    .table td {
-        padding: 3px;
-        list-style: none;
-        text-align: left;
     }
 
     .emptyMediaBlock {

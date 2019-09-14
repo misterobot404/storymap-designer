@@ -17,16 +17,11 @@
 </head>
 <body>
 
-{{--TODO карты и события должны быть получены из базы--}}
-{{--TODO все изменения в карте должны сохраняться в базе--}}
-
 <div id="app">
-    <constructor :input-events="{{$map_events}}"
-            :input-config="{{$map_config}}">
+    <constructor :input-events="{{$map_events}}" :input-config="{{$map_config}}">
         {{ csrf_field() }}
     </constructor>
 </div>
-
 <!-- Scripts -->
 <script type="text/javascript" src='{{ asset('/js/app.js') }}'></script>
 </body>

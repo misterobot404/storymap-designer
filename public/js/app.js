@@ -1705,18 +1705,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_youtube_embed__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-youtube-embed */ "./node_modules/vue-youtube-embed/lib/vue-youtube-embed.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _database_view__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./database-view */ "./resources/js/components/database-view.vue");
 //
 //
 //
@@ -1878,6 +1867,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORTED_MODULE_3__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1889,20 +1879,22 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORT
     LTooltip: vue2_leaflet__WEBPACK_IMPORTED_MODULE_2__["LTooltip"],
     LIcon: vue2_leaflet__WEBPACK_IMPORTED_MODULE_2__["LIcon"],
     LPolyline: vue2_leaflet__WEBPACK_IMPORTED_MODULE_2__["LPolyline"],
-    axios: axios__WEBPACK_IMPORTED_MODULE_4___default.a
+    axios: axios__WEBPACK_IMPORTED_MODULE_4___default.a,
+    DatabaseView: _database_view__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   props: ['inputEvents', 'inputConfig'],
   data: function data() {
     return {
       events: this.inputEvents,
-      currentEventId: 1,
+      currentEventId: this.inputConfig[0].currentEventId,
       deletedEventIndex: null,
       nextId: this.inputConfig[0].nextId,
       showButtonDeleteEvent: null,
       checkExistImages: null,
       //// l-map config
-      mapZoom: 4,
+      mapZoom: 3,
       minZoom: 3,
+      maxZoom: 5,
       bounds: new L.LatLngBounds(new L.LatLng(-85, -170), new L.LatLng(85, 175)),
       maxBoundsViscosity: 0.9,
       center: null,
@@ -1917,7 +1909,28 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORT
   },
   created: function created() {
     //
-    this.center = this.getSelectedEvent.marker;
+    this.center = this.getSelectedEvent.marker; //
+  },
+  mounted: function mounted() {
+    this.tileUrl = 'tile/{z}-{x}-{y}.jpg';
+    var width = 10929;
+    var height = 5553;
+    this.maxZoom = 6;
+    this.minZoom = 3;
+    var orgLevel = 6;
+    var tileWidth = 256 * Math.pow(2, orgLevel);
+    var radius = tileWidth / 2 / Math.PI;
+    var rx = width - tileWidth / 2;
+    var ry = -height + tileWidth / 2;
+    var west = -180;
+    var east = 180 / Math.PI * (rx / radius);
+    var north = 85.05;
+    var south = 360 / Math.PI * (Math.atan(Math.exp(ry / radius)) - Math.PI / 4); //const rc = (tileWidth / 2 + ry) / 2;
+    //const centerLat = (360 / Math.PI) * (Math.atan(Math.exp(rc / radius)) - (Math.PI / 4));
+    //const centerLon = (west + east) / 2;
+
+    this.bounds = new L.LatLngBounds(new L.LatLng(south, west), new L.LatLng(north, east)); //this.zoom = this.$refs.map.mapObject.getBoundsZoom(bounds);
+    //this.center = new L.latLng(centerLat, centerLon);
   },
   methods: {
     selectEventById: function selectEventById(id) {
@@ -1928,7 +1941,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORT
         name: "Item" + this.nextId,
         id: this.nextId,
         title: ' ',
-        marker: [47.413220, -1.219482],
+        marker: this.center,
         mediaUrl: ""
       }); // Если добавленное событие является единственным назначаем его активным
 
@@ -1985,17 +1998,17 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORT
     },
     // Отправка текущего состояния карты post запросом
     saveData: function saveData() {
-      console.log("hello");
       axios__WEBPACK_IMPORTED_MODULE_4___default.a.post('api/save', {
         events: this.events,
         config: [{
           "nextId": this.nextId,
-          "tileUrl": this.tileUrl
+          "tileUrl": this.tileUrl,
+          "currentEventId": this.currentEventId
         }]
       }).then(function (response) {
-        alert("Данные успешно сохранены");
+        alert("Save successful");
       })["catch"](function (error) {
-        alert("Ошибка: " + error.response);
+        alert("Save error: " + error.response);
       });
     }
   },
@@ -2047,10 +2060,44 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORT
     },
     'getSelectedEvent.marker': {
       handler: function handler(val) {
-        this.$refs.map.mapObject.flyTo(val);
+        this.$refs.map.mapObject.setView(val); //this.$refs.map.mapObject.flyTo(val);
       }
     }
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/database-view.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/database-view.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['center', 'mapZoom', 'events']
 });
 
 /***/ }),
@@ -6513,7 +6560,7 @@ exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base
 
 
 // module
-exports.push([module.i, "/* required styles */\r\n\r\n.leaflet-pane,\r\n.leaflet-tile,\r\n.leaflet-marker-icon,\r\n.leaflet-marker-shadow,\r\n.leaflet-tile-container,\r\n.leaflet-pane > svg,\r\n.leaflet-pane > canvas,\r\n.leaflet-zoom-box,\r\n.leaflet-image-layer,\r\n.leaflet-layer {\r\n\tposition: absolute;\r\n\tleft: 0;\r\n\ttop: 0;\r\n\t}\r\n.leaflet-container {\r\n\toverflow: hidden;\r\n\t}\r\n.leaflet-tile,\r\n.leaflet-marker-icon,\r\n.leaflet-marker-shadow {\r\n\t-webkit-user-select: none;\r\n\t   -moz-user-select: none;\r\n\t        -ms-user-select: none;\r\n\t    user-select: none;\r\n\t  -webkit-user-drag: none;\r\n\t}\r\n/* Prevents IE11 from highlighting tiles in blue */\r\n.leaflet-tile::-moz-selection {\r\n\tbackground: transparent;\r\n}\r\n.leaflet-tile::selection {\r\n\tbackground: transparent;\r\n}\r\n/* Safari renders non-retina tile on retina better with this, but Chrome is worse */\r\n.leaflet-safari .leaflet-tile {\r\n\timage-rendering: -webkit-optimize-contrast;\r\n\t}\r\n/* hack that prevents hw layers \"stretching\" when loading new tiles */\r\n.leaflet-safari .leaflet-tile-container {\r\n\twidth: 1600px;\r\n\theight: 1600px;\r\n\t-webkit-transform-origin: 0 0;\r\n\t}\r\n.leaflet-marker-icon,\r\n.leaflet-marker-shadow {\r\n\tdisplay: block;\r\n\t}\r\n/* .leaflet-container svg: reset svg max-width decleration shipped in Joomla! (joomla.org) 3.x */\r\n/* .leaflet-container img: map is broken in FF if you have max-width: 100% on tiles */\r\n.leaflet-container .leaflet-overlay-pane svg,\r\n.leaflet-container .leaflet-marker-pane img,\r\n.leaflet-container .leaflet-shadow-pane img,\r\n.leaflet-container .leaflet-tile-pane img,\r\n.leaflet-container img.leaflet-image-layer,\r\n.leaflet-container .leaflet-tile {\r\n\tmax-width: none !important;\r\n\tmax-height: none !important;\r\n\t}\r\n\r\n.leaflet-container.leaflet-touch-zoom {\r\n\ttouch-action: pan-x pan-y;\r\n\t}\r\n.leaflet-container.leaflet-touch-drag {\r\n\t/* Fallback for FF which doesn't support pinch-zoom */\r\n\ttouch-action: none;\r\n\ttouch-action: pinch-zoom;\r\n}\r\n.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {\r\n\ttouch-action: none;\r\n}\r\n.leaflet-container {\r\n\t-webkit-tap-highlight-color: transparent;\r\n}\r\n.leaflet-container a {\r\n\t-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);\r\n}\r\n.leaflet-tile {\r\n\t-webkit-filter: inherit;\r\n\t        filter: inherit;\r\n\tvisibility: hidden;\r\n\t}\r\n.leaflet-tile-loaded {\r\n\tvisibility: inherit;\r\n\t}\r\n.leaflet-zoom-box {\r\n\twidth: 0;\r\n\theight: 0;\r\n\tbox-sizing: border-box;\r\n\tz-index: 800;\r\n\t}\r\n/* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */\r\n.leaflet-overlay-pane svg {\r\n\t-moz-user-select: none;\r\n\t}\r\n\r\n.leaflet-pane         { z-index: 400; }\r\n\r\n.leaflet-tile-pane    { z-index: 200; }\r\n.leaflet-overlay-pane { z-index: 400; }\r\n.leaflet-shadow-pane  { z-index: 500; }\r\n.leaflet-marker-pane  { z-index: 600; }\r\n.leaflet-tooltip-pane   { z-index: 650; }\r\n.leaflet-popup-pane   { z-index: 700; }\r\n\r\n.leaflet-map-pane canvas { z-index: 100; }\r\n.leaflet-map-pane svg    { z-index: 200; }\r\n\r\n.leaflet-vml-shape {\r\n\twidth: 1px;\r\n\theight: 1px;\r\n\t}\r\n.lvml {\r\n\tbehavior: url(#default#VML);\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n\t}\r\n\r\n\r\n/* control positioning */\r\n\r\n.leaflet-control {\r\n\tposition: relative;\r\n\tz-index: 800;\r\n\tpointer-events: visiblePainted; /* IE 9-10 doesn't have auto */\r\n\tpointer-events: auto;\r\n\t}\r\n.leaflet-top,\r\n.leaflet-bottom {\r\n\tposition: absolute;\r\n\tz-index: 1000;\r\n\tpointer-events: none;\r\n\t}\r\n.leaflet-top {\r\n\ttop: 0;\r\n\t}\r\n.leaflet-right {\r\n\tright: 0;\r\n\t}\r\n.leaflet-bottom {\r\n\tbottom: 0;\r\n\t}\r\n.leaflet-left {\r\n\tleft: 0;\r\n\t}\r\n.leaflet-control {\r\n\tfloat: left;\r\n\tclear: both;\r\n\t}\r\n.leaflet-right .leaflet-control {\r\n\tfloat: right;\r\n\t}\r\n.leaflet-top .leaflet-control {\r\n\tmargin-top: 10px;\r\n\t}\r\n.leaflet-bottom .leaflet-control {\r\n\tmargin-bottom: 10px;\r\n\t}\r\n.leaflet-left .leaflet-control {\r\n\tmargin-left: 10px;\r\n\t}\r\n.leaflet-right .leaflet-control {\r\n\tmargin-right: 10px;\r\n\t}\r\n\r\n\r\n/* zoom and fade animations */\r\n\r\n.leaflet-fade-anim .leaflet-tile {\r\n\twill-change: opacity;\r\n\t}\r\n.leaflet-fade-anim .leaflet-popup {\r\n\topacity: 0;\r\n\t-webkit-transition: opacity 0.2s linear;\r\n\t        transition: opacity 0.2s linear;\r\n\t}\r\n.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {\r\n\topacity: 1;\r\n\t}\r\n.leaflet-zoom-animated {\r\n\t-webkit-transform-origin: 0 0;\r\n\t        transform-origin: 0 0;\r\n\t}\r\n.leaflet-zoom-anim .leaflet-zoom-animated {\r\n\twill-change: transform;\r\n\t}\r\n.leaflet-zoom-anim .leaflet-zoom-animated {\r\n\t-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);\r\n\t        transition:         -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);\r\n\t        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);\r\n\t        transition:         transform 0.25s cubic-bezier(0,0,0.25,1), -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);\r\n\t}\r\n.leaflet-zoom-anim .leaflet-tile,\r\n.leaflet-pan-anim .leaflet-tile {\r\n\t-webkit-transition: none;\r\n\t        transition: none;\r\n\t}\r\n\r\n.leaflet-zoom-anim .leaflet-zoom-hide {\r\n\tvisibility: hidden;\r\n\t}\r\n\r\n\r\n/* cursors */\r\n\r\n.leaflet-interactive {\r\n\tcursor: pointer;\r\n\t}\r\n.leaflet-grab {\r\n\tcursor: -webkit-grab;\r\n\tcursor:         grab;\r\n\t}\r\n.leaflet-crosshair,\r\n.leaflet-crosshair .leaflet-interactive {\r\n\tcursor: crosshair;\r\n\t}\r\n.leaflet-popup-pane,\r\n.leaflet-control {\r\n\tcursor: auto;\r\n\t}\r\n.leaflet-dragging .leaflet-grab,\r\n.leaflet-dragging .leaflet-grab .leaflet-interactive,\r\n.leaflet-dragging .leaflet-marker-draggable {\r\n\tcursor: move;\r\n\tcursor: -webkit-grabbing;\r\n\tcursor:         grabbing;\r\n\t}\r\n\r\n/* marker & overlays interactivity */\r\n.leaflet-marker-icon,\r\n.leaflet-marker-shadow,\r\n.leaflet-image-layer,\r\n.leaflet-pane > svg path,\r\n.leaflet-tile-container {\r\n\tpointer-events: none;\r\n\t}\r\n\r\n.leaflet-marker-icon.leaflet-interactive,\r\n.leaflet-image-layer.leaflet-interactive,\r\n.leaflet-pane > svg path.leaflet-interactive,\r\nsvg.leaflet-image-layer.leaflet-interactive path {\r\n\tpointer-events: visiblePainted; /* IE 9-10 doesn't have auto */\r\n\tpointer-events: auto;\r\n\t}\r\n\r\n/* visual tweaks */\r\n\r\n.leaflet-container {\r\n\tbackground: #ddd;\r\n\toutline: 0;\r\n\t}\r\n.leaflet-container a {\r\n\tcolor: #0078A8;\r\n\t}\r\n.leaflet-container a.leaflet-active {\r\n\toutline: 2px solid orange;\r\n\t}\r\n.leaflet-zoom-box {\r\n\tborder: 2px dotted #38f;\r\n\tbackground: rgba(255,255,255,0.5);\r\n\t}\r\n\r\n\r\n/* general typography */\r\n.leaflet-container {\r\n\tfont: 12px/1.5 \"Helvetica Neue\", Arial, Helvetica, sans-serif;\r\n\t}\r\n\r\n\r\n/* general toolbar styles */\r\n\r\n.leaflet-bar {\r\n\tbox-shadow: 0 1px 5px rgba(0,0,0,0.65);\r\n\tborder-radius: 4px;\r\n\t}\r\n.leaflet-bar a,\r\n.leaflet-bar a:hover {\r\n\tbackground-color: #fff;\r\n\tborder-bottom: 1px solid #ccc;\r\n\twidth: 26px;\r\n\theight: 26px;\r\n\tline-height: 26px;\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n\ttext-decoration: none;\r\n\tcolor: black;\r\n\t}\r\n.leaflet-bar a,\r\n.leaflet-control-layers-toggle {\r\n\tbackground-position: 50% 50%;\r\n\tbackground-repeat: no-repeat;\r\n\tdisplay: block;\r\n\t}\r\n.leaflet-bar a:hover {\r\n\tbackground-color: #f4f4f4;\r\n\t}\r\n.leaflet-bar a:first-child {\r\n\tborder-top-left-radius: 4px;\r\n\tborder-top-right-radius: 4px;\r\n\t}\r\n.leaflet-bar a:last-child {\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n\tborder-bottom: none;\r\n\t}\r\n.leaflet-bar a.leaflet-disabled {\r\n\tcursor: default;\r\n\tbackground-color: #f4f4f4;\r\n\tcolor: #bbb;\r\n\t}\r\n\r\n.leaflet-touch .leaflet-bar a {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n\t}\r\n.leaflet-touch .leaflet-bar a:first-child {\r\n\tborder-top-left-radius: 2px;\r\n\tborder-top-right-radius: 2px;\r\n\t}\r\n.leaflet-touch .leaflet-bar a:last-child {\r\n\tborder-bottom-left-radius: 2px;\r\n\tborder-bottom-right-radius: 2px;\r\n\t}\r\n\r\n/* zoom control */\r\n\r\n.leaflet-control-zoom-in,\r\n.leaflet-control-zoom-out {\r\n\tfont: bold 18px 'Lucida Console', Monaco, monospace;\r\n\ttext-indent: 1px;\r\n\t}\r\n\r\n.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {\r\n\tfont-size: 22px;\r\n\t}\r\n\r\n\r\n/* layers control */\r\n\r\n.leaflet-control-layers {\r\n\tbox-shadow: 0 1px 5px rgba(0,0,0,0.4);\r\n\tbackground: #fff;\r\n\tborder-radius: 5px;\r\n\t}\r\n.leaflet-control-layers-toggle {\r\n\tbackground-image: url(" + escape(__webpack_require__(/*! ./images/layers.png */ "./node_modules/leaflet/dist/images/layers.png")) + ");\r\n\twidth: 36px;\r\n\theight: 36px;\r\n\t}\r\n.leaflet-retina .leaflet-control-layers-toggle {\r\n\tbackground-image: url(" + escape(__webpack_require__(/*! ./images/layers-2x.png */ "./node_modules/leaflet/dist/images/layers-2x.png")) + ");\r\n\tbackground-size: 26px 26px;\r\n\t}\r\n.leaflet-touch .leaflet-control-layers-toggle {\r\n\twidth: 44px;\r\n\theight: 44px;\r\n\t}\r\n.leaflet-control-layers .leaflet-control-layers-list,\r\n.leaflet-control-layers-expanded .leaflet-control-layers-toggle {\r\n\tdisplay: none;\r\n\t}\r\n.leaflet-control-layers-expanded .leaflet-control-layers-list {\r\n\tdisplay: block;\r\n\tposition: relative;\r\n\t}\r\n.leaflet-control-layers-expanded {\r\n\tpadding: 6px 10px 6px 6px;\r\n\tcolor: #333;\r\n\tbackground: #fff;\r\n\t}\r\n.leaflet-control-layers-scrollbar {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n\tpadding-right: 5px;\r\n\t}\r\n.leaflet-control-layers-selector {\r\n\tmargin-top: 2px;\r\n\tposition: relative;\r\n\ttop: 1px;\r\n\t}\r\n.leaflet-control-layers label {\r\n\tdisplay: block;\r\n\t}\r\n.leaflet-control-layers-separator {\r\n\theight: 0;\r\n\tborder-top: 1px solid #ddd;\r\n\tmargin: 5px -10px 5px -6px;\r\n\t}\r\n\r\n/* Default icon URLs */\r\n.leaflet-default-icon-path {\r\n\tbackground-image: url(" + escape(__webpack_require__(/*! ./images/marker-icon.png */ "./node_modules/leaflet/dist/images/marker-icon.png")) + ");\r\n\t}\r\n\r\n\r\n/* attribution and scale controls */\r\n\r\n.leaflet-container .leaflet-control-attribution {\r\n\tbackground: #fff;\r\n\tbackground: rgba(255, 255, 255, 0.7);\r\n\tmargin: 0;\r\n\t}\r\n.leaflet-control-attribution,\r\n.leaflet-control-scale-line {\r\n\tpadding: 0 5px;\r\n\tcolor: #333;\r\n\t}\r\n.leaflet-control-attribution a {\r\n\ttext-decoration: none;\r\n\t}\r\n.leaflet-control-attribution a:hover {\r\n\ttext-decoration: underline;\r\n\t}\r\n.leaflet-container .leaflet-control-attribution,\r\n.leaflet-container .leaflet-control-scale {\r\n\tfont-size: 11px;\r\n\t}\r\n.leaflet-left .leaflet-control-scale {\r\n\tmargin-left: 5px;\r\n\t}\r\n.leaflet-bottom .leaflet-control-scale {\r\n\tmargin-bottom: 5px;\r\n\t}\r\n.leaflet-control-scale-line {\r\n\tborder: 2px solid #777;\r\n\tborder-top: none;\r\n\tline-height: 1.1;\r\n\tpadding: 2px 5px 1px;\r\n\tfont-size: 11px;\r\n\twhite-space: nowrap;\r\n\toverflow: hidden;\r\n\tbox-sizing: border-box;\r\n\r\n\tbackground: #fff;\r\n\tbackground: rgba(255, 255, 255, 0.5);\r\n\t}\r\n.leaflet-control-scale-line:not(:first-child) {\r\n\tborder-top: 2px solid #777;\r\n\tborder-bottom: none;\r\n\tmargin-top: -2px;\r\n\t}\r\n.leaflet-control-scale-line:not(:first-child):not(:last-child) {\r\n\tborder-bottom: 2px solid #777;\r\n\t}\r\n\r\n.leaflet-touch .leaflet-control-attribution,\r\n.leaflet-touch .leaflet-control-layers,\r\n.leaflet-touch .leaflet-bar {\r\n\tbox-shadow: none;\r\n\t}\r\n.leaflet-touch .leaflet-control-layers,\r\n.leaflet-touch .leaflet-bar {\r\n\tborder: 2px solid rgba(0,0,0,0.2);\r\n\tbackground-clip: padding-box;\r\n\t}\r\n\r\n\r\n/* popup */\r\n\r\n.leaflet-popup {\r\n\tposition: absolute;\r\n\ttext-align: center;\r\n\tmargin-bottom: 20px;\r\n\t}\r\n.leaflet-popup-content-wrapper {\r\n\tpadding: 1px;\r\n\ttext-align: left;\r\n\tborder-radius: 12px;\r\n\t}\r\n.leaflet-popup-content {\r\n\tmargin: 13px 19px;\r\n\tline-height: 1.4;\r\n\t}\r\n.leaflet-popup-content p {\r\n\tmargin: 18px 0;\r\n\t}\r\n.leaflet-popup-tip-container {\r\n\twidth: 40px;\r\n\theight: 20px;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\tmargin-left: -20px;\r\n\toverflow: hidden;\r\n\tpointer-events: none;\r\n\t}\r\n.leaflet-popup-tip {\r\n\twidth: 17px;\r\n\theight: 17px;\r\n\tpadding: 1px;\r\n\r\n\tmargin: -10px auto 0;\r\n\r\n\t-webkit-transform: rotate(45deg);\r\n\t        transform: rotate(45deg);\r\n\t}\r\n.leaflet-popup-content-wrapper,\r\n.leaflet-popup-tip {\r\n\tbackground: white;\r\n\tcolor: #333;\r\n\tbox-shadow: 0 3px 14px rgba(0,0,0,0.4);\r\n\t}\r\n.leaflet-container a.leaflet-popup-close-button {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tright: 0;\r\n\tpadding: 4px 4px 0 0;\r\n\tborder: none;\r\n\ttext-align: center;\r\n\twidth: 18px;\r\n\theight: 14px;\r\n\tfont: 16px/14px Tahoma, Verdana, sans-serif;\r\n\tcolor: #c3c3c3;\r\n\ttext-decoration: none;\r\n\tfont-weight: bold;\r\n\tbackground: transparent;\r\n\t}\r\n.leaflet-container a.leaflet-popup-close-button:hover {\r\n\tcolor: #999;\r\n\t}\r\n.leaflet-popup-scrolled {\r\n\toverflow: auto;\r\n\tborder-bottom: 1px solid #ddd;\r\n\tborder-top: 1px solid #ddd;\r\n\t}\r\n\r\n.leaflet-oldie .leaflet-popup-content-wrapper {\r\n\tzoom: 1;\r\n\t}\r\n.leaflet-oldie .leaflet-popup-tip {\r\n\twidth: 24px;\r\n\tmargin: 0 auto;\r\n\r\n\t-ms-filter: \"progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)\";\r\n\tfilter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);\r\n\t}\r\n.leaflet-oldie .leaflet-popup-tip-container {\r\n\tmargin-top: -1px;\r\n\t}\r\n\r\n.leaflet-oldie .leaflet-control-zoom,\r\n.leaflet-oldie .leaflet-control-layers,\r\n.leaflet-oldie .leaflet-popup-content-wrapper,\r\n.leaflet-oldie .leaflet-popup-tip {\r\n\tborder: 1px solid #999;\r\n\t}\r\n\r\n\r\n/* div icon */\r\n\r\n.leaflet-div-icon {\r\n\tbackground: #fff;\r\n\tborder: 1px solid #666;\r\n\t}\r\n\r\n\r\n/* Tooltip */\r\n/* Base styles for the element that has a tooltip */\r\n.leaflet-tooltip {\r\n\tposition: absolute;\r\n\tpadding: 6px;\r\n\tbackground-color: #fff;\r\n\tborder: 1px solid #fff;\r\n\tborder-radius: 3px;\r\n\tcolor: #222;\r\n\twhite-space: nowrap;\r\n\t-webkit-user-select: none;\r\n\t-moz-user-select: none;\r\n\t-ms-user-select: none;\r\n\tuser-select: none;\r\n\tpointer-events: none;\r\n\tbox-shadow: 0 1px 3px rgba(0,0,0,0.4);\r\n\t}\r\n.leaflet-tooltip.leaflet-clickable {\r\n\tcursor: pointer;\r\n\tpointer-events: auto;\r\n\t}\r\n.leaflet-tooltip-top:before,\r\n.leaflet-tooltip-bottom:before,\r\n.leaflet-tooltip-left:before,\r\n.leaflet-tooltip-right:before {\r\n\tposition: absolute;\r\n\tpointer-events: none;\r\n\tborder: 6px solid transparent;\r\n\tbackground: transparent;\r\n\tcontent: \"\";\r\n\t}\r\n\r\n/* Directions */\r\n\r\n.leaflet-tooltip-bottom {\r\n\tmargin-top: 6px;\r\n}\r\n.leaflet-tooltip-top {\r\n\tmargin-top: -6px;\r\n}\r\n.leaflet-tooltip-bottom:before,\r\n.leaflet-tooltip-top:before {\r\n\tleft: 50%;\r\n\tmargin-left: -6px;\r\n\t}\r\n.leaflet-tooltip-top:before {\r\n\tbottom: 0;\r\n\tmargin-bottom: -12px;\r\n\tborder-top-color: #fff;\r\n\t}\r\n.leaflet-tooltip-bottom:before {\r\n\ttop: 0;\r\n\tmargin-top: -12px;\r\n\tmargin-left: -6px;\r\n\tborder-bottom-color: #fff;\r\n\t}\r\n.leaflet-tooltip-left {\r\n\tmargin-left: -6px;\r\n}\r\n.leaflet-tooltip-right {\r\n\tmargin-left: 6px;\r\n}\r\n.leaflet-tooltip-left:before,\r\n.leaflet-tooltip-right:before {\r\n\ttop: 50%;\r\n\tmargin-top: -6px;\r\n\t}\r\n.leaflet-tooltip-left:before {\r\n\tright: 0;\r\n\tmargin-right: -12px;\r\n\tborder-left-color: #fff;\r\n\t}\r\n.leaflet-tooltip-right:before {\r\n\tleft: 0;\r\n\tmargin-left: -12px;\r\n\tborder-right-color: #fff;\r\n\t}\r\n", ""]);
+exports.push([module.i, "/* required styles */\r\n\r\n.leaflet-pane,\r\n.leaflet-tile,\r\n.leaflet-marker-icon,\r\n.leaflet-marker-shadow,\r\n.leaflet-tile-container,\r\n.leaflet-pane > svg,\r\n.leaflet-pane > canvas,\r\n.leaflet-zoom-box,\r\n.leaflet-image-layer,\r\n.leaflet-layer {\r\n\tposition: absolute;\r\n\tleft: 0;\r\n\ttop: 0;\r\n\t}\r\n.leaflet-container {\r\n\toverflow: hidden;\r\n\t}\r\n.leaflet-tile,\r\n.leaflet-marker-icon,\r\n.leaflet-marker-shadow {\r\n\t-webkit-user-select: none;\r\n\t   -moz-user-select: none;\r\n\t        -ms-user-select: none;\r\n\t    user-select: none;\r\n\t  -webkit-user-drag: none;\r\n\t}\r\n/* Prevents IE11 from highlighting tiles in blue */\r\n.leaflet-tile::-moz-selection {\r\n\tbackground: transparent;\r\n}\r\n.leaflet-tile::selection {\r\n\tbackground: transparent;\r\n}\r\n/* Safari renders non-retina tile on retina better with this, but Chrome is worse */\r\n.leaflet-safari .leaflet-tile {\r\n\timage-rendering: -webkit-optimize-contrast;\r\n\t}\r\n/* hack that prevents hw layers \"stretching\" when loading new tiles */\r\n.leaflet-safari .leaflet-tile-container {\r\n\twidth: 1600px;\r\n\theight: 1600px;\r\n\t-webkit-transform-origin: 0 0;\r\n\t}\r\n.leaflet-marker-icon,\r\n.leaflet-marker-shadow {\r\n\tdisplay: block;\r\n\t}\r\n/* .leaflet-container svg: reset svg max-width decleration shipped in Joomla! (joomla.org) 3.x */\r\n/* .leaflet-container img: map is broken in FF if you have max-width: 100% on tiles */\r\n.leaflet-container .leaflet-overlay-pane svg,\r\n.leaflet-container .leaflet-marker-pane img,\r\n.leaflet-container .leaflet-shadow-pane img,\r\n.leaflet-container .leaflet-tile-pane img,\r\n.leaflet-container img.leaflet-image-layer,\r\n.leaflet-container .leaflet-tile {\r\n\tmax-width: none !important;\r\n\tmax-height: none !important;\r\n\t}\r\n\r\n.leaflet-container.leaflet-touch-zoom {\r\n\ttouch-action: pan-x pan-y;\r\n\t}\r\n.leaflet-container.leaflet-touch-drag {\r\n\t/* Fallback for FF which doesn't support pinch-zoom */\r\n\ttouch-action: none;\r\n\ttouch-action: pinch-zoom;\r\n}\r\n.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {\r\n\ttouch-action: none;\r\n}\r\n.leaflet-container {\r\n\t-webkit-tap-highlight-color: transparent;\r\n}\r\n.leaflet-container a {\r\n\t-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);\r\n}\r\n.leaflet-tile {\r\n\t-webkit-filter: inherit;\r\n\t        filter: inherit;\r\n\tvisibility: hidden;\r\n\t}\r\n.leaflet-tile-loaded {\r\n\tvisibility: inherit;\r\n\t}\r\n.leaflet-zoom-box {\r\n\twidth: 0;\r\n\theight: 0;\r\n\tbox-sizing: border-box;\r\n\tz-index: 800;\r\n\t}\r\n/* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */\r\n.leaflet-overlay-pane svg {\r\n\t-moz-user-select: none;\r\n\t}\r\n\r\n.leaflet-pane         { z-index: 400; }\r\n\r\n.leaflet-tile-pane    { z-index: 200; }\r\n.leaflet-overlay-pane { z-index: 400; }\r\n.leaflet-shadow-pane  { z-index: 500; }\r\n.leaflet-marker-pane  { z-index: 600; }\r\n.leaflet-tooltip-pane   { z-index: 650; }\r\n.leaflet-popup-pane   { z-index: 700; }\r\n\r\n.leaflet-map-pane canvas { z-index: 100; }\r\n.leaflet-map-pane svg    { z-index: 200; }\r\n\r\n.leaflet-vml-shape {\r\n\twidth: 1px;\r\n\theight: 1px;\r\n\t}\r\n.lvml {\r\n\tbehavior: url(#default#VML);\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n\t}\r\n\r\n\r\n/* control positioning */\r\n\r\n.leaflet-control {\r\n\tposition: relative;\r\n\tz-index: 800;\r\n\tpointer-events: visiblePainted; /* IE 9-10 doesn't have auto */\r\n\tpointer-events: auto;\r\n\t}\r\n.leaflet-top,\r\n.leaflet-bottom {\r\n\tposition: absolute;\r\n\tz-index: 1000;\r\n\tpointer-events: none;\r\n\t}\r\n.leaflet-top {\r\n\ttop: 0;\r\n\t}\r\n.leaflet-right {\r\n\tright: 0;\r\n\t}\r\n.leaflet-bottom {\r\n\tbottom: 0;\r\n\t}\r\n.leaflet-left {\r\n\tleft: 0;\r\n\t}\r\n.leaflet-control {\r\n\tfloat: left;\r\n\tclear: both;\r\n\t}\r\n.leaflet-right .leaflet-control {\r\n\tfloat: right;\r\n\t}\r\n.leaflet-top .leaflet-control {\r\n\tmargin-top: 10px;\r\n\t}\r\n.leaflet-bottom .leaflet-control {\r\n\tmargin-bottom: 10px;\r\n\t}\r\n.leaflet-left .leaflet-control {\r\n\tmargin-left: 10px;\r\n\t}\r\n.leaflet-right .leaflet-control {\r\n\tmargin-right: 10px;\r\n\t}\r\n\r\n\r\n/* zoom and fade animations */\r\n\r\n.leaflet-fade-anim .leaflet-tile {\r\n\twill-change: opacity;\r\n\t}\r\n.leaflet-fade-anim .leaflet-popup {\r\n\topacity: 0;\r\n\ttransition: opacity 0.2s linear;\r\n\t}\r\n.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {\r\n\topacity: 1;\r\n\t}\r\n.leaflet-zoom-animated {\r\n\ttransform-origin: 0 0;\r\n\t}\r\n.leaflet-zoom-anim .leaflet-zoom-animated {\r\n\twill-change: transform;\r\n\t}\r\n.leaflet-zoom-anim .leaflet-zoom-animated {\r\n\ttransition:         transform 0.25s cubic-bezier(0,0,0.25,1);\r\n\t}\r\n.leaflet-zoom-anim .leaflet-tile,\r\n.leaflet-pan-anim .leaflet-tile {\r\n\ttransition: none;\r\n\t}\r\n\r\n.leaflet-zoom-anim .leaflet-zoom-hide {\r\n\tvisibility: hidden;\r\n\t}\r\n\r\n\r\n/* cursors */\r\n\r\n.leaflet-interactive {\r\n\tcursor: pointer;\r\n\t}\r\n.leaflet-grab {\r\n\tcursor: -webkit-grab;\r\n\tcursor:         grab;\r\n\t}\r\n.leaflet-crosshair,\r\n.leaflet-crosshair .leaflet-interactive {\r\n\tcursor: crosshair;\r\n\t}\r\n.leaflet-popup-pane,\r\n.leaflet-control {\r\n\tcursor: auto;\r\n\t}\r\n.leaflet-dragging .leaflet-grab,\r\n.leaflet-dragging .leaflet-grab .leaflet-interactive,\r\n.leaflet-dragging .leaflet-marker-draggable {\r\n\tcursor: move;\r\n\tcursor: -webkit-grabbing;\r\n\tcursor:         grabbing;\r\n\t}\r\n\r\n/* marker & overlays interactivity */\r\n.leaflet-marker-icon,\r\n.leaflet-marker-shadow,\r\n.leaflet-image-layer,\r\n.leaflet-pane > svg path,\r\n.leaflet-tile-container {\r\n\tpointer-events: none;\r\n\t}\r\n\r\n.leaflet-marker-icon.leaflet-interactive,\r\n.leaflet-image-layer.leaflet-interactive,\r\n.leaflet-pane > svg path.leaflet-interactive,\r\nsvg.leaflet-image-layer.leaflet-interactive path {\r\n\tpointer-events: visiblePainted; /* IE 9-10 doesn't have auto */\r\n\tpointer-events: auto;\r\n\t}\r\n\r\n/* visual tweaks */\r\n\r\n.leaflet-container {\r\n\tbackground: #ddd;\r\n\toutline: 0;\r\n\t}\r\n.leaflet-container a {\r\n\tcolor: #0078A8;\r\n\t}\r\n.leaflet-container a.leaflet-active {\r\n\toutline: 2px solid orange;\r\n\t}\r\n.leaflet-zoom-box {\r\n\tborder: 2px dotted #38f;\r\n\tbackground: rgba(255,255,255,0.5);\r\n\t}\r\n\r\n\r\n/* general typography */\r\n.leaflet-container {\r\n\tfont: 12px/1.5 \"Helvetica Neue\", Arial, Helvetica, sans-serif;\r\n\t}\r\n\r\n\r\n/* general toolbar styles */\r\n\r\n.leaflet-bar {\r\n\tbox-shadow: 0 1px 5px rgba(0,0,0,0.65);\r\n\tborder-radius: 4px;\r\n\t}\r\n.leaflet-bar a,\r\n.leaflet-bar a:hover {\r\n\tbackground-color: #fff;\r\n\tborder-bottom: 1px solid #ccc;\r\n\twidth: 26px;\r\n\theight: 26px;\r\n\tline-height: 26px;\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n\ttext-decoration: none;\r\n\tcolor: black;\r\n\t}\r\n.leaflet-bar a,\r\n.leaflet-control-layers-toggle {\r\n\tbackground-position: 50% 50%;\r\n\tbackground-repeat: no-repeat;\r\n\tdisplay: block;\r\n\t}\r\n.leaflet-bar a:hover {\r\n\tbackground-color: #f4f4f4;\r\n\t}\r\n.leaflet-bar a:first-child {\r\n\tborder-top-left-radius: 4px;\r\n\tborder-top-right-radius: 4px;\r\n\t}\r\n.leaflet-bar a:last-child {\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n\tborder-bottom: none;\r\n\t}\r\n.leaflet-bar a.leaflet-disabled {\r\n\tcursor: default;\r\n\tbackground-color: #f4f4f4;\r\n\tcolor: #bbb;\r\n\t}\r\n\r\n.leaflet-touch .leaflet-bar a {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n\t}\r\n.leaflet-touch .leaflet-bar a:first-child {\r\n\tborder-top-left-radius: 2px;\r\n\tborder-top-right-radius: 2px;\r\n\t}\r\n.leaflet-touch .leaflet-bar a:last-child {\r\n\tborder-bottom-left-radius: 2px;\r\n\tborder-bottom-right-radius: 2px;\r\n\t}\r\n\r\n/* zoom control */\r\n\r\n.leaflet-control-zoom-in,\r\n.leaflet-control-zoom-out {\r\n\tfont: bold 18px 'Lucida Console', Monaco, monospace;\r\n\ttext-indent: 1px;\r\n\t}\r\n\r\n.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {\r\n\tfont-size: 22px;\r\n\t}\r\n\r\n\r\n/* layers control */\r\n\r\n.leaflet-control-layers {\r\n\tbox-shadow: 0 1px 5px rgba(0,0,0,0.4);\r\n\tbackground: #fff;\r\n\tborder-radius: 5px;\r\n\t}\r\n.leaflet-control-layers-toggle {\r\n\tbackground-image: url(" + escape(__webpack_require__(/*! ./images/layers.png */ "./node_modules/leaflet/dist/images/layers.png")) + ");\r\n\twidth: 36px;\r\n\theight: 36px;\r\n\t}\r\n.leaflet-retina .leaflet-control-layers-toggle {\r\n\tbackground-image: url(" + escape(__webpack_require__(/*! ./images/layers-2x.png */ "./node_modules/leaflet/dist/images/layers-2x.png")) + ");\r\n\tbackground-size: 26px 26px;\r\n\t}\r\n.leaflet-touch .leaflet-control-layers-toggle {\r\n\twidth: 44px;\r\n\theight: 44px;\r\n\t}\r\n.leaflet-control-layers .leaflet-control-layers-list,\r\n.leaflet-control-layers-expanded .leaflet-control-layers-toggle {\r\n\tdisplay: none;\r\n\t}\r\n.leaflet-control-layers-expanded .leaflet-control-layers-list {\r\n\tdisplay: block;\r\n\tposition: relative;\r\n\t}\r\n.leaflet-control-layers-expanded {\r\n\tpadding: 6px 10px 6px 6px;\r\n\tcolor: #333;\r\n\tbackground: #fff;\r\n\t}\r\n.leaflet-control-layers-scrollbar {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n\tpadding-right: 5px;\r\n\t}\r\n.leaflet-control-layers-selector {\r\n\tmargin-top: 2px;\r\n\tposition: relative;\r\n\ttop: 1px;\r\n\t}\r\n.leaflet-control-layers label {\r\n\tdisplay: block;\r\n\t}\r\n.leaflet-control-layers-separator {\r\n\theight: 0;\r\n\tborder-top: 1px solid #ddd;\r\n\tmargin: 5px -10px 5px -6px;\r\n\t}\r\n\r\n/* Default icon URLs */\r\n.leaflet-default-icon-path {\r\n\tbackground-image: url(" + escape(__webpack_require__(/*! ./images/marker-icon.png */ "./node_modules/leaflet/dist/images/marker-icon.png")) + ");\r\n\t}\r\n\r\n\r\n/* attribution and scale controls */\r\n\r\n.leaflet-container .leaflet-control-attribution {\r\n\tbackground: #fff;\r\n\tbackground: rgba(255, 255, 255, 0.7);\r\n\tmargin: 0;\r\n\t}\r\n.leaflet-control-attribution,\r\n.leaflet-control-scale-line {\r\n\tpadding: 0 5px;\r\n\tcolor: #333;\r\n\t}\r\n.leaflet-control-attribution a {\r\n\ttext-decoration: none;\r\n\t}\r\n.leaflet-control-attribution a:hover {\r\n\ttext-decoration: underline;\r\n\t}\r\n.leaflet-container .leaflet-control-attribution,\r\n.leaflet-container .leaflet-control-scale {\r\n\tfont-size: 11px;\r\n\t}\r\n.leaflet-left .leaflet-control-scale {\r\n\tmargin-left: 5px;\r\n\t}\r\n.leaflet-bottom .leaflet-control-scale {\r\n\tmargin-bottom: 5px;\r\n\t}\r\n.leaflet-control-scale-line {\r\n\tborder: 2px solid #777;\r\n\tborder-top: none;\r\n\tline-height: 1.1;\r\n\tpadding: 2px 5px 1px;\r\n\tfont-size: 11px;\r\n\twhite-space: nowrap;\r\n\toverflow: hidden;\r\n\tbox-sizing: border-box;\r\n\r\n\tbackground: #fff;\r\n\tbackground: rgba(255, 255, 255, 0.5);\r\n\t}\r\n.leaflet-control-scale-line:not(:first-child) {\r\n\tborder-top: 2px solid #777;\r\n\tborder-bottom: none;\r\n\tmargin-top: -2px;\r\n\t}\r\n.leaflet-control-scale-line:not(:first-child):not(:last-child) {\r\n\tborder-bottom: 2px solid #777;\r\n\t}\r\n\r\n.leaflet-touch .leaflet-control-attribution,\r\n.leaflet-touch .leaflet-control-layers,\r\n.leaflet-touch .leaflet-bar {\r\n\tbox-shadow: none;\r\n\t}\r\n.leaflet-touch .leaflet-control-layers,\r\n.leaflet-touch .leaflet-bar {\r\n\tborder: 2px solid rgba(0,0,0,0.2);\r\n\tbackground-clip: padding-box;\r\n\t}\r\n\r\n\r\n/* popup */\r\n\r\n.leaflet-popup {\r\n\tposition: absolute;\r\n\ttext-align: center;\r\n\tmargin-bottom: 20px;\r\n\t}\r\n.leaflet-popup-content-wrapper {\r\n\tpadding: 1px;\r\n\ttext-align: left;\r\n\tborder-radius: 12px;\r\n\t}\r\n.leaflet-popup-content {\r\n\tmargin: 13px 19px;\r\n\tline-height: 1.4;\r\n\t}\r\n.leaflet-popup-content p {\r\n\tmargin: 18px 0;\r\n\t}\r\n.leaflet-popup-tip-container {\r\n\twidth: 40px;\r\n\theight: 20px;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\tmargin-left: -20px;\r\n\toverflow: hidden;\r\n\tpointer-events: none;\r\n\t}\r\n.leaflet-popup-tip {\r\n\twidth: 17px;\r\n\theight: 17px;\r\n\tpadding: 1px;\r\n\r\n\tmargin: -10px auto 0;\r\n\ttransform: rotate(45deg);\r\n\t}\r\n.leaflet-popup-content-wrapper,\r\n.leaflet-popup-tip {\r\n\tbackground: white;\r\n\tcolor: #333;\r\n\tbox-shadow: 0 3px 14px rgba(0,0,0,0.4);\r\n\t}\r\n.leaflet-container a.leaflet-popup-close-button {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tright: 0;\r\n\tpadding: 4px 4px 0 0;\r\n\tborder: none;\r\n\ttext-align: center;\r\n\twidth: 18px;\r\n\theight: 14px;\r\n\tfont: 16px/14px Tahoma, Verdana, sans-serif;\r\n\tcolor: #c3c3c3;\r\n\ttext-decoration: none;\r\n\tfont-weight: bold;\r\n\tbackground: transparent;\r\n\t}\r\n.leaflet-container a.leaflet-popup-close-button:hover {\r\n\tcolor: #999;\r\n\t}\r\n.leaflet-popup-scrolled {\r\n\toverflow: auto;\r\n\tborder-bottom: 1px solid #ddd;\r\n\tborder-top: 1px solid #ddd;\r\n\t}\r\n\r\n.leaflet-oldie .leaflet-popup-content-wrapper {\r\n\tzoom: 1;\r\n\t}\r\n.leaflet-oldie .leaflet-popup-tip {\r\n\twidth: 24px;\r\n\tmargin: 0 auto;\r\n\r\n\t-ms-filter: \"progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)\";\r\n\tfilter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);\r\n\t}\r\n.leaflet-oldie .leaflet-popup-tip-container {\r\n\tmargin-top: -1px;\r\n\t}\r\n\r\n.leaflet-oldie .leaflet-control-zoom,\r\n.leaflet-oldie .leaflet-control-layers,\r\n.leaflet-oldie .leaflet-popup-content-wrapper,\r\n.leaflet-oldie .leaflet-popup-tip {\r\n\tborder: 1px solid #999;\r\n\t}\r\n\r\n\r\n/* div icon */\r\n\r\n.leaflet-div-icon {\r\n\tbackground: #fff;\r\n\tborder: 1px solid #666;\r\n\t}\r\n\r\n\r\n/* Tooltip */\r\n/* Base styles for the element that has a tooltip */\r\n.leaflet-tooltip {\r\n\tposition: absolute;\r\n\tpadding: 6px;\r\n\tbackground-color: #fff;\r\n\tborder: 1px solid #fff;\r\n\tborder-radius: 3px;\r\n\tcolor: #222;\r\n\twhite-space: nowrap;\r\n\t-webkit-user-select: none;\r\n\t-moz-user-select: none;\r\n\t-ms-user-select: none;\r\n\tuser-select: none;\r\n\tpointer-events: none;\r\n\tbox-shadow: 0 1px 3px rgba(0,0,0,0.4);\r\n\t}\r\n.leaflet-tooltip.leaflet-clickable {\r\n\tcursor: pointer;\r\n\tpointer-events: auto;\r\n\t}\r\n.leaflet-tooltip-top:before,\r\n.leaflet-tooltip-bottom:before,\r\n.leaflet-tooltip-left:before,\r\n.leaflet-tooltip-right:before {\r\n\tposition: absolute;\r\n\tpointer-events: none;\r\n\tborder: 6px solid transparent;\r\n\tbackground: transparent;\r\n\tcontent: \"\";\r\n\t}\r\n\r\n/* Directions */\r\n\r\n.leaflet-tooltip-bottom {\r\n\tmargin-top: 6px;\r\n}\r\n.leaflet-tooltip-top {\r\n\tmargin-top: -6px;\r\n}\r\n.leaflet-tooltip-bottom:before,\r\n.leaflet-tooltip-top:before {\r\n\tleft: 50%;\r\n\tmargin-left: -6px;\r\n\t}\r\n.leaflet-tooltip-top:before {\r\n\tbottom: 0;\r\n\tmargin-bottom: -12px;\r\n\tborder-top-color: #fff;\r\n\t}\r\n.leaflet-tooltip-bottom:before {\r\n\ttop: 0;\r\n\tmargin-top: -12px;\r\n\tmargin-left: -6px;\r\n\tborder-bottom-color: #fff;\r\n\t}\r\n.leaflet-tooltip-left {\r\n\tmargin-left: -6px;\r\n}\r\n.leaflet-tooltip-right {\r\n\tmargin-left: 6px;\r\n}\r\n.leaflet-tooltip-left:before,\r\n.leaflet-tooltip-right:before {\r\n\ttop: 50%;\r\n\tmargin-top: -6px;\r\n\t}\r\n.leaflet-tooltip-left:before {\r\n\tright: 0;\r\n\tmargin-right: -12px;\r\n\tborder-left-color: #fff;\r\n\t}\r\n.leaflet-tooltip-right:before {\r\n\tleft: 0;\r\n\tmargin-left: -12px;\r\n\tborder-right-color: #fff;\r\n\t}\r\n", ""]);
 
 // exports
 
@@ -6532,7 +6579,26 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.constructor[data-v-769545df] {\n    margin: auto;\n    border-top: 1px dashed #CCC;\n    border-right: 1px solid #CCC;\n    border-bottom: 1px solid #CCC;\n    border-left: 1px solid #CCC;\n    display: -webkit-box;\n    display: flex;\n    padding: 10px;\n    height: 88vh;\n    min-height: 400px;\n    min-width: 428px;\n}\n.content[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    flex-direction: column;\n    width: 96%;\n    min-width: 200px;\n    margin: 0 auto;\n    padding-left: 10px;\n}\n.eventList[data-v-769545df] {\n    min-width: 120px;\n    overflow-y: scroll;\n}\n.eventItem[data-v-769545df] {\n    -webkit-box-align: center;\n    align-items: center;\n    box-sizing: border-box;\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n        user-select: none;\n    cursor: pointer;\n    list-style: none;\n    font-size: 20px;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-pack: center;\n            justify-content: center;\n    height: 56px;\n    margin: 14px 14px 14px 10px; /*убираем верхнее и нижнее поле, равное 1em*/\n    max-width: 110px;\n    min-width: 50px;\n    border-radius: 5px;\n    background-color: #35495E;\n    color: #41B883;\n    border: 2px solid transparent;\n}\n.eventItem[data-v-769545df]:hover {\n    background-color: #41B883;\n    color: #35495E;\n    border: 2px groove black;\n}\n.eventItemTitle[data-v-769545df] {\n    margin: 22px 11px 22px 35px;\n    min-width: 52px;\n    max-width: 52px;\n    min-height: 23px;\n    max-height: 23px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n.deleteEventButton[data-v-769545df] {\n    background-color: #35495E;\n    color: white;\n    text-align: center;\n    text-decoration: none;\n    font-size: 12px;\n    border-radius: 50%;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n            flex-direction: column;\n    -webkit-box-align: start;\n            align-items: flex-start;\n    -webkit-box-pack: center;\n            justify-content: center;\n    height: 22px;\n    width: 22px;\n    align-content: center;\n}\n.deleteEventButtonHide[data-v-769545df] {\n    visibility: hidden;\n}\n.addEventButton[data-v-769545df] {\n    background-color: transparent;\n    border: 2px groove black;\n    color: #35495E;\n    font-size: 36px;\n    font-weight: lighter;\n    -webkit-transition: 0.5s ease;\n    transition: 0.5s ease; /* скорость поворота */\n    padding: 22px;\n    overflow: hidden;\n}\n.addEventButton[data-v-769545df]:hover {\n    background-color: transparent;\n}\n.plus[data-v-769545df] {\n    -webkit-transition: 0.5s ease;\n    transition: 0.5s ease; /* скорость поворота */\n    -webkit-transform-style: preserve-3d;\n            transform-style: preserve-3d; /* стиль трансформирования 3-д */\n    padding: 14px 28px;\n}\n.plus[data-v-769545df]:hover {\n    -webkit-transform: rotate(180deg);\n            transform: rotate(180deg);\n}\n.animatedEvents-enter-active[data-v-769545df] {\n    -webkit-transition: all 0.5s;\n    transition: all 0.5s;\n}\n.animatedEvents-enter[data-v-769545df] {\n    opacity: 0;\n    -webkit-transform: translateY(50px);\n            transform: translateY(50px);\n}\n.animatedEvents-leave-active[data-v-769545df] {\n    animation: animatedEvents-in-data-v-769545df .4s reverse;\n}\n@-webkit-keyframes animatedEvents-in-data-v-769545df {\n0% {\n        -webkit-transform: scale(0);\n                transform: scale(0);\n}\n50% {\n        -webkit-transform: scale(1.15);\n                transform: scale(1.15);\n}\n100% {\n        -webkit-transform: scale(1);\n                transform: scale(1);\n}\n}\n@keyframes animatedEvents-in-data-v-769545df {\n0% {\n        -webkit-transform: scale(0);\n                transform: scale(0);\n}\n50% {\n        -webkit-transform: scale(1.15);\n                transform: scale(1.15);\n}\n100% {\n        -webkit-transform: scale(1);\n                transform: scale(1);\n}\n}\n.eventItemActive[data-v-769545df] {\n    color: white;\n    background-color: #DA0000;\n    border-radius: 2px;\n}\n.eventItemActive[data-v-769545df]:hover {\n    color: white;\n    background-color: #DA0000;\n    border: transparent;\n}\n.eventItemDrag[data-v-769545df] {\n    background-color: #41B883;\n    color: #35495E;\n    border: 2px dashed black;\n    font-size: 20px;\n    font-family: 'Avenir', Helvetica, Arial, sans-serif;\n}\n.map[data-v-769545df] {\n    width: 100%;\n    margin: auto;\n    border: 1px solid #4d565661;\n}\n.form[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    margin-top: 10px;\n}\n.formLeft[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n            flex-direction: column;\n    margin-right: 1%;\n    width: 46%;\n}\n.inputHeader[data-v-769545df] {\n    font-size: 24px;\n    margin-bottom: 2%;\n    padding: 3px;\n    height: 28px;\n    border: 1px solid #4d565661;\n    border-radius: 4px;\n}\n.inputTextarea[data-v-769545df] {\n    font-size: 18px;\n    padding: 3px;\n    -webkit-box-flex: 1;\n            flex-grow: 1;\n    resize: none;\n    border: 1px solid #4d565661;\n    border-radius: 4px;\n    font-family: 'Turnip RE', Georgia, 'Times New Roman', Times, serif;\n}\n.formRight[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    flex-wrap: wrap;\n    width: 53%;\n    min-height: 166px;\n    border: 1px solid #4d565661;\n    border-radius: 4px;\n    background: #f8f8f8;\n}\n.formRightContent[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    flex-wrap: wrap;\n    margin: auto;\n    max-width: 540px;\n    width: 100%;\n}\n.formRightInputUrl[data-v-769545df] {\n    font-size: 20px;\n    margin: 4% 2% 2% 2%;\n    width: 100%;\n}\n.formRightUploadFile[data-v-769545df] {\n    display: -webkit-box;\n    display: flex;\n    width: 100%;\n}\n.formRightUploadButton[data-v-769545df] {\n    font-size: 18px;\n    margin: 2%;\n    padding: 6px 0;\n    background: none;\n    width: 100%;\n    border: 1px dashed #4d565661;\n    -webkit-transition: all 0.2s;\n    transition: all 0.2s;\n    cursor: pointer;\n}\n.formRightUploadButton[data-v-769545df]:hover {\n    background-color: #FFFFFF;\n    border: 1px solid #4d565661;\n}\n.formRightUploadButton img[data-v-769545df] {\n    height: 18px;\n    position:relative;\n    bottom: -3px;\n    margin-right: 4px;\n}\n.table[data-v-769545df] {\n    font-size: 14px;\n    margin-top: 50px;\n}\n.table table[data-v-769545df] {\n    margin: auto;\n    border: 1px solid #35495E;\n}\n.table td[data-v-769545df] {\n    padding: 3px;\n    list-style: none;\n    text-align: left;\n}\n.emptyMediaBlock[data-v-769545df] {\n    width: 270px;\n    height: 144px;\n    display: -webkit-box;\n    display: flex;\n    padding: 8px;\n    margin: auto;\n}\n.emptyMediaBlock p[data-v-769545df] {\n    font-size: 26px;\n    text-align: center;\n    background-color: #dddddd;\n    color: #777777;\n    line-height: 144px;\n    width: 100%;\n    margin: auto;\n    font-family: \"Helvetica Neue\", Helvetica, sans-serif;\n}\n#constructor-header[data-v-769545df] {\n    height: 6vh;\n    min-width: 438px;\n    border-top: 1px solid #CCC;\n    border-right: 1px solid #CCC;\n    border-left: 1px solid #CCC;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-align: center;\n            align-items: center;\n    padding: 5px;\n}\n#constructor-header a[data-v-769545df]{\n    margin: 5px;\n}\n#constructor-header > a[data-v-769545df]:nth-child(3) {\n    margin-left: auto;\n}\n.constructor-header-button[data-v-769545df] {\n    font-weight: 700;\n    color: white;\n    text-decoration: none;\n    padding: .8em 1em calc(.8em + 3px);\n    border-radius: 3px;\n    background: rgb(64,199,129);\n    box-shadow: 0 -3px rgb(53,167,110) inset;\n    -webkit-transition: 0.2s;\n    transition: 0.2s;\n    cursor: pointer;\n    width: 116px;\n}\n.constructor-header-button[data-v-769545df]:hover { background: rgb(53, 167, 110);\n}\n.constructor-header-button[data-v-769545df]:active {\n    background: rgb(33,147,90);\n    box-shadow: 0 3px rgb(33,147,90) inset;\n}\n\n", ""]);
+exports.push([module.i, "\n.constructor[data-v-769545df] {\n    margin: auto;\n    border-top: 1px dashed #CCC;\n    border-right: 1px solid #CCC;\n    border-bottom: 1px solid #CCC;\n    border-left: 1px solid #CCC;\n    display: flex;\n    padding: 10px;\n    height: 88vh;\n    min-height: 400px;\n    min-width: 428px;\n}\n.content[data-v-769545df] {\n    display: flex;\n    flex-direction: column;\n    width: 96%;\n    min-width: 200px;\n    margin: 0 auto;\n    padding-left: 10px;\n}\n.eventList[data-v-769545df] {\n    min-width: 120px;\n    overflow-y: scroll;\n}\n.eventItem[data-v-769545df] {\n    align-items: center;\n    box-sizing: border-box;\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n        user-select: none;\n    cursor: pointer;\n    list-style: none;\n    font-size: 20px;\n    display: flex;\n    justify-content: center;\n    height: 56px;\n    margin: 14px 14px 14px 10px; /*убираем верхнее и нижнее поле, равное 1em*/\n    max-width: 110px;\n    min-width: 50px;\n    border-radius: 5px;\n    background-color: #35495E;\n    color: #41B883;\n    border: 2px solid transparent;\n}\n.eventItem[data-v-769545df]:hover {\n    background-color: #41B883;\n    color: #35495E;\n    border: 2px groove black;\n}\n.eventItemTitle[data-v-769545df] {\n    margin: 22px 11px 22px 35px;\n    min-width: 52px;\n    max-width: 52px;\n    min-height: 23px;\n    max-height: 23px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n.deleteEventButton[data-v-769545df] {\n    background-color: #35495E;\n    color: white;\n    text-align: center;\n    text-decoration: none;\n    font-size: 12px;\n    border-radius: 50%;\n    border: none;\n    outline: none;\n    cursor: pointer;\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n    justify-content: center;\n    height: 22px;\n    width: 22px;\n    align-content: center;\n}\n.deleteEventButtonHide[data-v-769545df] {\n    visibility: hidden;\n}\n.addEventButton[data-v-769545df] {\n    background-color: transparent;\n    border: 2px groove black;\n    color: #35495E;\n    font-size: 36px;\n    font-weight: lighter;\n    transition: 0.5s ease; /* скорость поворота */\n    padding: 22px;\n    overflow: hidden;\n}\n.addEventButton[data-v-769545df]:hover {\n    background-color: transparent;\n}\n.plus[data-v-769545df] {\n    transition: 0.5s ease; /* скорость поворота */\n    transform-style: preserve-3d; /* стиль трансформирования 3-д */\n    padding: 14px 28px;\n}\n.plus[data-v-769545df]:hover {\n    transform: rotate(180deg);\n}\n.animatedEvents-enter-active[data-v-769545df] {\n    transition: all 0.5s;\n}\n.animatedEvents-enter[data-v-769545df] {\n    opacity: 0;\n    transform: translateY(50px);\n}\n.animatedEvents-leave-active[data-v-769545df] {\n    animation: animatedEvents-in-data-v-769545df .4s reverse;\n}\n@-webkit-keyframes animatedEvents-in-data-v-769545df {\n0% {\n        transform: scale(0);\n}\n50% {\n        transform: scale(1.15);\n}\n100% {\n        transform: scale(1);\n}\n}\n@keyframes animatedEvents-in-data-v-769545df {\n0% {\n        transform: scale(0);\n}\n50% {\n        transform: scale(1.15);\n}\n100% {\n        transform: scale(1);\n}\n}\n.eventItemActive[data-v-769545df] {\n    color: white;\n    background-color: #DA0000;\n    border-radius: 2px;\n}\n.eventItemActive[data-v-769545df]:hover {\n    color: white;\n    background-color: #DA0000;\n    border: transparent;\n}\n.eventItemDrag[data-v-769545df] {\n    background-color: #41B883;\n    color: #35495E;\n    border: 2px dashed black;\n    font-size: 20px;\n    font-family: 'Avenir', Helvetica, Arial, sans-serif;\n}\n.map[data-v-769545df] {\n    width: 100%;\n    margin: auto;\n    border: 1px solid #4d565661;\n}\n.form[data-v-769545df] {\n    display: flex;\n    margin-top: 10px;\n}\n.formLeft[data-v-769545df] {\n    display: flex;\n    flex-direction: column;\n    margin-right: 1%;\n    width: 46%;\n}\n.inputHeader[data-v-769545df] {\n    font-size: 24px;\n    margin-bottom: 2%;\n    padding: 3px;\n    height: 28px;\n    border: 1px solid #4d565661;\n    border-radius: 4px;\n}\n.inputTextarea[data-v-769545df] {\n    font-size: 18px;\n    padding: 3px;\n    flex-grow: 1;\n    resize: none;\n    border: 1px solid #4d565661;\n    border-radius: 4px;\n    font-family: 'Turnip RE', Georgia, 'Times New Roman', Times, serif;\n}\n.formRight[data-v-769545df] {\n    display: flex;\n    flex-wrap: wrap;\n    width: 53%;\n    min-height: 166px;\n    border: 1px solid #4d565661;\n    border-radius: 4px;\n    background: #f8f8f8;\n}\n.formRightContent[data-v-769545df] {\n    display: flex;\n    flex-wrap: wrap;\n    margin: auto;\n    max-width: 540px;\n    width: 100%;\n}\n.formRightInputUrl[data-v-769545df] {\n    font-size: 20px;\n    margin: 4% 2% 2% 2%;\n    width: 100%;\n}\n.formRightUploadFile[data-v-769545df] {\n    display: flex;\n    width: 100%;\n}\n.formRightUploadButton[data-v-769545df] {\n    font-size: 18px;\n    margin: 2%;\n    padding: 6px 0;\n    background: none;\n    width: 100%;\n    border: 1px dashed #4d565661;\n    transition: all 0.2s;\n    cursor: pointer;\n}\n.formRightUploadButton[data-v-769545df]:hover {\n    background-color: #FFFFFF;\n    border: 1px solid #4d565661;\n}\n.formRightUploadButton img[data-v-769545df] {\n    height: 18px;\n    position:relative;\n    bottom: -3px;\n    margin-right: 4px;\n}\n.emptyMediaBlock[data-v-769545df] {\n    width: 270px;\n    height: 144px;\n    display: flex;\n    padding: 8px;\n    margin: auto;\n}\n.emptyMediaBlock p[data-v-769545df] {\n    font-size: 26px;\n    text-align: center;\n    background-color: #dddddd;\n    color: #777777;\n    line-height: 144px;\n    width: 100%;\n    margin: auto;\n    font-family: \"Helvetica Neue\", Helvetica, sans-serif;\n}\n#constructor-header[data-v-769545df] {\n    height: 6vh;\n    min-width: 438px;\n    border-top: 1px solid #CCC;\n    border-right: 1px solid #CCC;\n    border-left: 1px solid #CCC;\n    display: flex;\n    align-items: center;\n    padding: 5px;\n}\n#constructor-header a[data-v-769545df]{\n    margin: 5px;\n}\n#constructor-header > a[data-v-769545df]:nth-child(3) {\n    margin-left: auto;\n}\n.constructor-header-button[data-v-769545df] {\n    font-weight: 700;\n    color: white;\n    text-decoration: none;\n    padding: .8em 1em calc(.8em + 3px);\n    border-radius: 3px;\n    background: rgb(64,199,129);\n    box-shadow: 0 -3px rgb(53,167,110) inset;\n    transition: 0.2s;\n    cursor: pointer;\n    width: 116px;\n}\n.constructor-header-button[data-v-769545df]:hover { background: rgb(53, 167, 110);\n}\n.constructor-header-button[data-v-769545df]:active {\n    background: rgb(33,147,90);\n    box-shadow: 0 3px rgb(33,147,90) inset;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/database-view.vue?vue&type=style&index=0&id=207827fc&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/database-view.vue?vue&type=style&index=0&id=207827fc&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.table[data-v-207827fc] {\n    font-size: 16px;\n    margin-top: 50px;\n}\n.table table[data-v-207827fc] {\n    margin: auto;\n    border: 1px solid #35495E;\n}\n.table td[data-v-207827fc] {\n    padding: 3px;\n    list-style: none;\n    text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -31410,7 +31476,7 @@ if(false) {}
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
  * @license
  * Lodash <https://lodash.com/>
- * Copyright JS Foundation and other contributors <https://js.foundation/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
  * Released under MIT license <https://lodash.com/license>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -31421,7 +31487,7 @@ if(false) {}
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.11';
+  var VERSION = '4.17.15';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -34080,16 +34146,10 @@ if(false) {}
         value.forEach(function(subValue) {
           result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
         });
-
-        return result;
-      }
-
-      if (isMap(value)) {
+      } else if (isMap(value)) {
         value.forEach(function(subValue, key) {
           result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
         });
-
-        return result;
       }
 
       var keysFunc = isFull
@@ -35013,8 +35073,8 @@ if(false) {}
         return;
       }
       baseFor(source, function(srcValue, key) {
+        stack || (stack = new Stack);
         if (isObject(srcValue)) {
-          stack || (stack = new Stack);
           baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
         }
         else {
@@ -36831,7 +36891,7 @@ if(false) {}
       return function(number, precision) {
         number = toNumber(number);
         precision = precision == null ? 0 : nativeMin(toInteger(precision), 292);
-        if (precision) {
+        if (precision && nativeIsFinite(number)) {
           // Shift with exponential notation to avoid floating-point issues.
           // See [MDN](https://mdn.io/round#Examples) for more details.
           var pair = (toString(number) + 'e').split('e'),
@@ -38014,7 +38074,7 @@ if(false) {}
     }
 
     /**
-     * Gets the value at `key`, unless `key` is "__proto__".
+     * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
      *
      * @private
      * @param {Object} object The object to query.
@@ -38022,6 +38082,10 @@ if(false) {}
      * @returns {*} Returns the property value.
      */
     function safeGet(object, key) {
+      if (key === 'constructor' && typeof object[key] === 'function') {
+        return;
+      }
+
       if (key == '__proto__') {
         return;
       }
@@ -41822,6 +41886,7 @@ if(false) {}
           }
           if (maxing) {
             // Handle invocations in a tight loop.
+            clearTimeout(timerId);
             timerId = setTimeout(timerExpired, wait);
             return invokeFunc(lastCallTime);
           }
@@ -46208,9 +46273,12 @@ if(false) {}
       , 'g');
 
       // Use a sourceURL for easier debugging.
+      // The sourceURL gets injected into the source that's eval-ed, so be careful
+      // with lookup (in case of e.g. prototype pollution), and strip newlines if any.
+      // A newline wouldn't be a valid sourceURL anyway, and it'd enable code injection.
       var sourceURL = '//# sourceURL=' +
-        ('sourceURL' in options
-          ? options.sourceURL
+        (hasOwnProperty.call(options, 'sourceURL')
+          ? (options.sourceURL + '').replace(/[\r\n]/g, ' ')
           : ('lodash.templateSources[' + (++templateCounter) + ']')
         ) + '\n';
 
@@ -46243,7 +46311,9 @@ if(false) {}
 
       // If `variable` is not specified wrap a with-statement around the generated
       // code to add the data object to the top of the scope chain.
-      var variable = options.variable;
+      // Like with sourceURL, we take care to not check the option's prototype,
+      // as this configuration is a code injection vector.
+      var variable = hasOwnProperty.call(options, 'variable') && options.variable;
       if (!variable) {
         source = 'with (obj) {\n' + source + '\n}\n';
       }
@@ -48448,10 +48518,11 @@ if(false) {}
     baseForOwn(LazyWrapper.prototype, function(func, methodName) {
       var lodashFunc = lodash[methodName];
       if (lodashFunc) {
-        var key = (lodashFunc.name + ''),
-            names = realNames[key] || (realNames[key] = []);
-
-        names.push({ 'name': methodName, 'func': lodashFunc });
+        var key = lodashFunc.name + '';
+        if (!hasOwnProperty.call(realNames, key)) {
+          realNames[key] = [];
+        }
+        realNames[key].push({ 'name': methodName, 'func': lodashFunc });
       }
     });
 
@@ -51552,6 +51623,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/database-view.vue?vue&type=style&index=0&id=207827fc&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/database-view.vue?vue&type=style&index=0&id=207827fc&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./database-view.vue?vue&type=style&index=0&id=207827fc&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/database-view.vue?vue&type=style&index=0&id=207827fc&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -52151,413 +52252,393 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { attrs: { id: "constructor-header" } }, [
-      _c("a", { staticClass: "constructor-header-button" }, [
-        _vm._v("Setting")
+  return _c(
+    "div",
+    [
+      _c("div", { attrs: { id: "constructor-header" } }, [
+        _c("a", { staticClass: "constructor-header-button" }, [
+          _vm._v("Setting")
+        ]),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "constructor-header-button",
+            on: { click: _vm.saveData }
+          },
+          [_vm._v("Save")]
+        ),
+        _vm._v(" "),
+        _c("a", { staticClass: "constructor-header-button" }, [_vm._v("View")])
       ]),
       _vm._v(" "),
       _c(
-        "a",
-        {
-          staticClass: "constructor-header-button",
-          on: { click: _vm.saveData }
-        },
-        [_vm._v("Save")]
-      ),
-      _vm._v(" "),
-      _c("a", { staticClass: "constructor-header-button" }, [_vm._v("View")])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "constructor" },
-      [
-        _c(
-          "EventList",
-          {
-            staticClass: "eventList",
-            attrs: {
-              id: "eventList",
-              lockAxis: "y",
-              transitionDuration: 250,
-              pressDelay: 200,
-              lockToContainerEdges: true,
-              helperClass: "eventItemDrag"
+        "div",
+        { staticClass: "constructor" },
+        [
+          _c(
+            "event-list",
+            {
+              staticClass: "eventList",
+              attrs: {
+                id: "eventList",
+                lockAxis: "y",
+                transitionDuration: 250,
+                pressDelay: 200,
+                lockToContainerEdges: true,
+                helperClass: "eventItemDrag"
+              },
+              model: {
+                value: _vm.events,
+                callback: function($$v) {
+                  _vm.events = $$v
+                },
+                expression: "events"
+              }
             },
-            model: {
-              value: _vm.events,
-              callback: function($$v) {
-                _vm.events = $$v
-              },
-              expression: "events"
-            }
-          },
-          [
-            _c(
-              "transition-group",
-              {
-                attrs: { name: "animatedEvents" },
-                on: { "after-leave": _vm.afterLeave, enter: _vm.afterEnter }
-              },
-              _vm._l(_vm.events, function(event, index) {
-                return _c(
-                  "EventItem",
-                  {
-                    key: event.id,
-                    class: [
-                      "eventItem",
-                      { eventItemActive: event.id === _vm.currentEventId }
-                    ],
-                    attrs: { index: index }
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticStyle: { display: "flex" },
-                        on: {
-                          mouseover: function($event) {
-                            _vm.showButtonDeleteEvent = index
-                          },
-                          mouseleave: function($event) {
-                            _vm.showButtonDeleteEvent = null
-                          },
-                          click: function($event) {
-                            return _vm.selectEventById(event.id)
+            [
+              _c(
+                "transition-group",
+                {
+                  attrs: { name: "animatedEvents" },
+                  on: { "after-leave": _vm.afterLeave, enter: _vm.afterEnter }
+                },
+                _vm._l(_vm.events, function(event, index) {
+                  return _c(
+                    "event-item",
+                    {
+                      key: event.id,
+                      class: [
+                        "eventItem",
+                        { eventItemActive: event.id === _vm.currentEventId }
+                      ],
+                      attrs: { index: index }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticStyle: { display: "flex" },
+                          on: {
+                            mouseover: function($event) {
+                              _vm.showButtonDeleteEvent = index
+                            },
+                            mouseleave: function($event) {
+                              _vm.showButtonDeleteEvent = null
+                            },
+                            click: function($event) {
+                              return _vm.selectEventById(event.id)
+                            }
                           }
+                        },
+                        [
+                          _c("div", { staticClass: "eventItemTitle" }, [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(event.name) +
+                                "\n                        "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              class: [
+                                "deleteEventButton",
+                                {
+                                  deleteEventButtonHide:
+                                    _vm.showButtonDeleteEvent !== index
+                                }
+                              ],
+                              on: {
+                                click: function($event) {
+                                  $event.stopPropagation()
+                                  return _vm.deleteEventByIndex(index)
+                                }
+                              }
+                            },
+                            [_vm._v("✖\n                        ")]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                }),
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass: "eventItem addEventButton",
+                  on: { click: _vm.addEvent }
+                },
+                [_c("div", { staticClass: "plus" }, [_vm._v("+")])]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "content" },
+            [
+              _c(
+                "l-map",
+                {
+                  ref: "map",
+                  staticClass: "map",
+                  attrs: {
+                    zoom: _vm.mapZoom,
+                    minZoom: _vm.minZoom,
+                    maxZoom: _vm.maxZoom,
+                    center: _vm.center,
+                    maxBounds: _vm.bounds,
+                    maxBoundsViscosity: _vm.maxBoundsViscosity
+                  },
+                  on: {
+                    click: _vm.addMarker,
+                    "update:zoom": _vm.zoomUpdated,
+                    "update:center": _vm.centerUpdated
+                  }
+                },
+                [
+                  _c("l-tile-layer", {
+                    attrs: {
+                      url: _vm.tileUrl,
+                      attribution: _vm.tileAttribution
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.events, function(marker, index) {
+                    return _c(
+                      "l-marker",
+                      {
+                        key: marker.id,
+                        attrs: {
+                          "lat-lng": marker.marker,
+                          draggable: _vm.getIndexSelectedEvent === index
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.activateMarker(marker)
+                          },
+                          "update:latLng": _vm.latLngUpdated
                         }
                       },
                       [
-                        _c("div", { staticClass: "eventItemTitle" }, [
+                        _c("l-tooltip", [
                           _vm._v(
-                            "\n                            " +
-                              _vm._s(event.name) +
-                              "\n                        "
+                            "\n                        " +
+                              _vm._s(marker.name) +
+                              "\n                    "
                           )
                         ]),
                         _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            class: [
-                              "deleteEventButton",
-                              {
-                                deleteEventButtonHide:
-                                  _vm.showButtonDeleteEvent !== index
+                        _vm.getIndexSelectedEvent !== index
+                          ? _c("l-icon", {
+                              attrs: {
+                                "icon-size": [32, 38],
+                                "icon-url":
+                                  "https://image.flaticon.com/icons/svg/148/148828.svg"
                               }
-                            ],
-                            on: {
-                              click: function($event) {
-                                $event.stopPropagation()
-                                return _vm.deleteEventByIndex(index)
+                            })
+                          : _c("l-icon", {
+                              attrs: {
+                                "icon-size": [48, 46],
+                                "icon-url":
+                                  "https://image.flaticon.com/icons/svg/148/148834.svg"
                               }
-                            }
-                          },
-                          [_vm._v("✖\n                        ")]
-                        )
-                      ]
+                            })
+                      ],
+                      1
                     )
-                  ]
-                )
-              }),
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "li",
-              {
-                staticClass: "eventItem addEventButton",
-                on: { click: _vm.addEvent }
-              },
-              [_c("div", { staticClass: "plus" }, [_vm._v("+")])]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "content" },
-          [
-            _c(
-              "l-map",
-              {
-                ref: "map",
-                staticClass: "map",
-                attrs: {
-                  zoom: _vm.mapZoom,
-                  minZoom: _vm.minZoom,
-                  center: _vm.center,
-                  maxBounds: _vm.bounds,
-                  maxBoundsViscosity: _vm.maxBoundsViscosity
-                },
-                on: {
-                  click: _vm.addMarker,
-                  "update:zoom": _vm.zoomUpdated,
-                  "update:center": _vm.centerUpdated
-                }
-              },
-              [
-                _c("l-tile-layer", {
-                  attrs: { url: _vm.tileUrl, attribution: _vm.tileAttribution }
-                }),
-                _vm._v(" "),
-                _vm._l(_vm.events, function(marker, index) {
-                  return _c(
-                    "l-marker",
-                    {
-                      key: marker.id,
-                      attrs: {
-                        "lat-lng": marker.marker,
-                        draggable: _vm.getIndexSelectedEvent === index
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.activateMarker(marker)
-                        },
-                        "update:latLng": _vm.latLngUpdated
-                      }
-                    },
-                    [
-                      _c("l-tooltip", [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(marker.name) +
-                            "\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _vm.getIndexSelectedEvent !== index
-                        ? _c("l-icon", {
-                            attrs: {
-                              "icon-size": [32, 38],
-                              "icon-url":
-                                "https://image.flaticon.com/icons/svg/148/148828.svg"
-                            }
-                          })
-                        : _c("l-icon", {
-                            attrs: {
-                              "icon-size": [48, 46],
-                              "icon-url":
-                                "https://image.flaticon.com/icons/svg/148/148834.svg"
-                            }
-                          })
-                    ],
-                    1
-                  )
-                }),
-                _vm._v(" "),
-                _c("l-polyline", {
-                  attrs: {
-                    "lat-lngs": _vm.getArrayMarkers,
-                    opacity: _vm.polylineOpacity,
-                    dashArray: _vm.polylineDashArray,
-                    weight: _vm.polylineWeight
-                  }
-                })
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "form" }, [
-              _c(
-                "div",
-                { staticClass: "formLeft" },
-                [
-                  _vm.getSelectedEvent !== undefined
-                    ? [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.lazy",
-                              value: _vm.getSelectedEvent.name,
-                              expression: "getSelectedEvent.name",
-                              modifiers: { lazy: true }
-                            }
-                          ],
-                          staticClass: "inputHeader",
-                          attrs: { placeholder: "Заголовок события" },
-                          domProps: { value: _vm.getSelectedEvent.name },
-                          on: {
-                            change: function($event) {
-                              return _vm.$set(
-                                _vm.getSelectedEvent,
-                                "name",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.lazy",
-                              value: _vm.getSelectedEvent.title,
-                              expression: "getSelectedEvent.title",
-                              modifiers: { lazy: true }
-                            }
-                          ],
-                          staticClass: "inputTextarea",
-                          attrs: { placeholder: "Описание события" },
-                          domProps: { value: _vm.getSelectedEvent.title },
-                          on: {
-                            change: function($event) {
-                              return _vm.$set(
-                                _vm.getSelectedEvent,
-                                "title",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ]
-                    : [
-                        _c("input", {
-                          staticClass: "inputHeader",
-                          attrs: { placeholder: "Заголовок события" }
-                        }),
-                        _vm._v(" "),
-                        _c("textarea", {
-                          staticClass: "inputTextarea",
-                          attrs: { placeholder: "Описание события" }
-                        })
-                      ]
+                  }),
+                  _vm._v(" "),
+                  _c("l-polyline", {
+                    attrs: {
+                      "lat-lngs": _vm.getArrayMarkers,
+                      opacity: _vm.polylineOpacity,
+                      dashArray: _vm.polylineDashArray,
+                      weight: _vm.polylineWeight
+                    }
+                  })
                 ],
                 2
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "formRight" },
-                [
-                  _c("div", { staticClass: "formRightContent" }, [
+              _c("div", { staticClass: "form" }, [
+                _c(
+                  "div",
+                  { staticClass: "formLeft" },
+                  [
                     _vm.getSelectedEvent !== undefined
-                      ? _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model.lazy",
-                              value: _vm.getSelectedEvent.mediaUrl,
-                              expression: "getSelectedEvent.mediaUrl",
-                              modifiers: { lazy: true }
+                      ? [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model.lazy",
+                                value: _vm.getSelectedEvent.name,
+                                expression: "getSelectedEvent.name",
+                                modifiers: { lazy: true }
+                              }
+                            ],
+                            staticClass: "inputHeader",
+                            attrs: { placeholder: "Заголовок события" },
+                            domProps: { value: _vm.getSelectedEvent.name },
+                            on: {
+                              change: function($event) {
+                                return _vm.$set(
+                                  _vm.getSelectedEvent,
+                                  "name",
+                                  $event.target.value
+                                )
+                              }
                             }
-                          ],
-                          staticClass: "formRightInputUrl",
-                          attrs: { placeholder: "Insert media link" },
-                          domProps: { value: _vm.getSelectedEvent.mediaUrl },
-                          on: {
-                            change: function($event) {
-                              return _vm.$set(
-                                _vm.getSelectedEvent,
-                                "mediaUrl",
-                                $event.target.value
-                              )
+                          }),
+                          _vm._v(" "),
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model.lazy",
+                                value: _vm.getSelectedEvent.title,
+                                expression: "getSelectedEvent.title",
+                                modifiers: { lazy: true }
+                              }
+                            ],
+                            staticClass: "inputTextarea",
+                            attrs: { placeholder: "Описание события" },
+                            domProps: { value: _vm.getSelectedEvent.title },
+                            on: {
+                              change: function($event) {
+                                return _vm.$set(
+                                  _vm.getSelectedEvent,
+                                  "title",
+                                  $event.target.value
+                                )
+                              }
                             }
+                          })
+                        ]
+                      : [
+                          _c("input", {
+                            staticClass: "inputHeader",
+                            attrs: { placeholder: "Заголовок события" }
+                          }),
+                          _vm._v(" "),
+                          _c("textarea", {
+                            staticClass: "inputTextarea",
+                            attrs: { placeholder: "Описание события" }
+                          })
+                        ]
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "formRight" },
+                  [
+                    _c("div", { staticClass: "formRightContent" }, [
+                      _vm.getSelectedEvent !== undefined
+                        ? _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model.lazy",
+                                value: _vm.getSelectedEvent.mediaUrl,
+                                expression: "getSelectedEvent.mediaUrl",
+                                modifiers: { lazy: true }
+                              }
+                            ],
+                            staticClass: "formRightInputUrl",
+                            attrs: { placeholder: "Insert media link" },
+                            domProps: { value: _vm.getSelectedEvent.mediaUrl },
+                            on: {
+                              change: function($event) {
+                                return _vm.$set(
+                                  _vm.getSelectedEvent,
+                                  "mediaUrl",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        : _c("input", {
+                            staticClass: "formRightInputUrl",
+                            attrs: { placeholder: "Insert media link" }
+                          }),
+                      _vm._v(" "),
+                      _c(
+                        "form",
+                        {
+                          staticClass: "formRightUploadFile",
+                          attrs: {
+                            action: "/upload",
+                            method: "post",
+                            enctype: "multipart/form-data"
                           }
-                        })
-                      : _c("input", {
-                          staticClass: "formRightInputUrl",
-                          attrs: { placeholder: "Insert media link" }
-                        }),
+                        },
+                        [_vm._t("default"), _vm._v(" "), _vm._m(0)],
+                        2
+                      )
+                    ]),
                     _vm._v(" "),
-                    _c(
-                      "form",
-                      {
-                        staticClass: "formRightUploadFile",
-                        attrs: {
-                          action: "/upload",
-                          method: "post",
-                          enctype: "multipart/form-data"
-                        }
-                      },
-                      [_vm._t("default"), _vm._v(" "), _vm._m(0)],
-                      2
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _vm.getSelectedEvent !== undefined &&
-                  _vm.getSelectedEvent.mediaUrl !== "" &&
-                  _vm.getSelectedEvent.mediaUrl !== null
-                    ? [
-                        _vm.checkExistImages
-                          ? [
-                              _c("img", {
-                                staticClass: "emptyMediaBlock",
-                                attrs: {
-                                  src: _vm.getSelectedEvent.mediaUrl,
-                                  alt: "image",
-                                  width: "270",
-                                  height: "144"
-                                }
-                              })
-                            ]
-                          : _vm.getSelectedEvent.mediaUrl.indexOf(".youtu") !==
-                            -1
-                          ? [
-                              _c("youtube", {
-                                staticClass: "emptyMediaBlock",
-                                attrs: {
-                                  "video-id": _vm.getYouTubeIdOfSelectedEvent,
-                                  "player-width": 270,
-                                  "player-height": 144
-                                }
-                              })
-                            ]
-                          : [_vm._m(1)]
-                      ]
-                    : [_vm._m(2)]
-                ],
-                2
-              )
-            ])
-          ],
-          1
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "table" }, [
-      _c(
-        "div",
-        {
-          staticClass: "info",
-          staticStyle: { height: "15%", "margin-top": "10px" }
-        },
-        [
-          _c("span", [_vm._v("Center: " + _vm._s(_vm.center))]),
-          _c("br"),
-          _vm._v(" "),
-          _c("span", [_vm._v("Zoom: " + _vm._s(_vm.mapZoom))]),
-          _c("br")
-        ]
+                    _vm.getSelectedEvent !== undefined &&
+                    _vm.getSelectedEvent.mediaUrl !== "" &&
+                    _vm.getSelectedEvent.mediaUrl !== null
+                      ? [
+                          _vm.checkExistImages
+                            ? [
+                                _c("img", {
+                                  staticClass: "emptyMediaBlock",
+                                  attrs: {
+                                    src: _vm.getSelectedEvent.mediaUrl,
+                                    alt: "image",
+                                    width: "270",
+                                    height: "144"
+                                  }
+                                })
+                              ]
+                            : _vm.getSelectedEvent.mediaUrl.indexOf(
+                                ".youtu"
+                              ) !== -1
+                            ? [
+                                _c("youtube", {
+                                  staticClass: "emptyMediaBlock",
+                                  attrs: {
+                                    "video-id": _vm.getYouTubeIdOfSelectedEvent,
+                                    "player-width": 270,
+                                    "player-height": 144
+                                  }
+                                })
+                              ]
+                            : [_vm._m(1)]
+                        ]
+                      : [_vm._m(2)]
+                  ],
+                  2
+                )
+              ])
+            ],
+            1
+          )
+        ],
+        1
       ),
       _vm._v(" "),
-      _c("p", [_vm._v("Создержание базы данных")]),
-      _vm._v(" "),
-      _c(
-        "table",
-        _vm._l(_vm.events, function(item) {
-          return _c("tr", { key: item.id }, [
-            _c("td", [_vm._v("Id : " + _vm._s(item.id))]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Name: " + _vm._s(item.name))]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Description: " + _vm._s(item.title))]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Marker: " + _vm._s(item.marker))]),
-            _vm._v(" "),
-            _c("td", [_vm._v("mediaURL: " + _vm._s(item.mediaUrl))])
-          ])
-        }),
-        0
-      )
-    ])
-  ])
+      _c("database-view", {
+        attrs: {
+          center: _vm.center,
+          "map-zoom": _vm.mapZoom,
+          events: _vm.events
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -52569,7 +52650,12 @@ var staticRenderFns = [
       _vm._v("Upload from drive\n                                "),
       _c("input", {
         staticStyle: { display: "none" },
-        attrs: { type: "file", name: "image", onchange: "this.form.submit()" }
+        attrs: {
+          type: "file",
+          multiple: "",
+          name: "image",
+          onchange: "this.form.submit()"
+        }
       })
     ])
   },
@@ -52590,6 +52676,65 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/database-view.vue?vue&type=template&id=207827fc&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/database-view.vue?vue&type=template&id=207827fc&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "table" }, [
+    _c(
+      "div",
+      {
+        staticClass: "info",
+        staticStyle: { height: "15%", "margin-top": "10px" }
+      },
+      [
+        _c("span", [_vm._v("Center: " + _vm._s(_vm.center))]),
+        _c("br"),
+        _vm._v(" "),
+        _c("span", [_vm._v("Zoom: " + _vm._s(_vm.mapZoom))]),
+        _c("br")
+      ]
+    ),
+    _vm._v(" "),
+    _c("p", [_vm._v("Создержание базы данных")]),
+    _vm._v(" "),
+    _c(
+      "table",
+      _vm._l(_vm.events, function(item) {
+        return _c("tr", { key: item.id, staticStyle: { padding: "2px" } }, [
+          _c("td", [_vm._v("Id : " + _vm._s(item.id))]),
+          _vm._v(" "),
+          _c("td", [_vm._v("Name: " + _vm._s(item.name))]),
+          _vm._v(" "),
+          _c("td", [_vm._v("Description: " + _vm._s(item.title))]),
+          _vm._v(" "),
+          _c("td", [_vm._v("Marker: " + _vm._s(item.marker))]),
+          _vm._v(" "),
+          _c("td", [_vm._v("mediaURL: " + _vm._s(item.mediaUrl))])
+        ])
+      }),
+      0
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -53809,8 +53954,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIdFromURL", function() { return getIdFromURL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTimeFromURL", function() { return getTimeFromURL; });
 /*!
- * Vue YouTube Embed version 2.2.1
- * under MIT License copyright 2018 kaorun343
+ * Vue YouTube Embed version 2.2.2
+ * under MIT License copyright 2019 kaorun343
  */
 // fork from https://github.com/brandly/angular-youtube-embed
 
@@ -53908,10 +54053,11 @@ var container = {
 var pid = 0;
 
 var YouTubePlayer = {
+  name: 'YoutubeEmbed',
   props: {
     playerHeight: {
       type: [String, Number],
-      default: '390'
+      default: '360'
     },
     playerWidth: {
       type: [String, Number],
@@ -53927,6 +54073,10 @@ var YouTubePlayer = {
     mute: {
       type: Boolean,
       default: false
+    },
+    host: {
+      type: String,
+      default: 'https://www.youtube.com'
     }
   },
   render: function render (h) {
@@ -53979,12 +54129,14 @@ var YouTubePlayer = {
       var playerWidth = ref.playerWidth;
       var playerVars = ref.playerVars;
       var videoId = ref.videoId;
+      var host = ref.host;
 
       this$1.player = new YouTube.Player(this$1.elementId, {
         height: playerHeight,
         width: playerWidth,
         playerVars: playerVars,
         videoId: videoId,
+        host: host,
         events: {
           onReady: function (event) {
             this$1.setMute(this$1.mute);
@@ -66035,6 +66187,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -66098,7 +66251,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -66150,22 +66303,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -66317,79 +66467,44 @@ var Path = {
     setLStyle: function setLStyle (newVal) {
       this.mapObject.setStyle(newVal);
     },
-    setStroke: function setStroke (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setStroke: function setStroke (newVal) {
       this.mapObject.setStyle({ stroke: newVal });
     },
-    setColor: function setColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ color: newVal });
-      }
+    setColor: function setColor (newVal) {
+      this.mapObject.setStyle({ color: newVal });
     },
-    setWeight: function setWeight (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ weight: newVal });
-      }
+    setWeight: function setWeight (newVal) {
+      this.mapObject.setStyle({ weight: newVal });
     },
-    setOpacity: function setOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ opacity: newVal });
-      }
+    setOpacity: function setOpacity (newVal) {
+      this.mapObject.setStyle({ opacity: newVal });
     },
-    setLineCap: function setLineCap (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineCap: newVal });
-      }
+    setLineCap: function setLineCap (newVal) {
+      this.mapObject.setStyle({ lineCap: newVal });
     },
-    setLineJoin: function setLineJoin (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineJoin: newVal });
-      }
+    setLineJoin: function setLineJoin (newVal) {
+      this.mapObject.setStyle({ lineJoin: newVal });
     },
-    setDashArray: function setDashArray (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashArray: newVal });
-      }
+    setDashArray: function setDashArray (newVal) {
+      this.mapObject.setStyle({ dashArray: newVal });
     },
-    setDashOffset: function setDashOffset (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashOffset: newVal });
-      }
+    setDashOffset: function setDashOffset (newVal) {
+      this.mapObject.setStyle({ dashOffset: newVal });
     },
-    setFill: function setFill (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setFill: function setFill (newVal) {
       this.mapObject.setStyle({ fill: newVal });
     },
-    setFillColor: function setFillColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillColor: newVal });
-      }
+    setFillColor: function setFillColor (newVal) {
+      this.mapObject.setStyle({ fillColor: newVal });
     },
-    setFillOpacity: function setFillOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillOpacity: newVal });
-      }
+    setFillOpacity: function setFillOpacity (newVal) {
+      this.mapObject.setStyle({ fillOpacity: newVal });
     },
-    setFillRule: function setFillRule (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillRule: newVal });
-      }
+    setFillRule: function setFillRule (newVal) {
+      this.mapObject.setStyle({ fillRule: newVal });
     },
-    setClassName: function setClassName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ className: newVal });
-      }
+    setClassName: function setClassName (newVal) {
+      this.mapObject.setStyle({ className: newVal });
     }
   }
 };
@@ -66421,7 +66536,7 @@ var script = {
   props: {
     latLng: {
       type: [Object, Array],
-      default: function () { return []; }
+      default: function () { return [0, 0]; }
     }
   },
   data: function data () {
@@ -66582,6 +66697,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -66645,7 +66761,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -66697,22 +66813,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -66864,79 +66977,44 @@ var Path = {
     setLStyle: function setLStyle (newVal) {
       this.mapObject.setStyle(newVal);
     },
-    setStroke: function setStroke (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setStroke: function setStroke (newVal) {
       this.mapObject.setStyle({ stroke: newVal });
     },
-    setColor: function setColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ color: newVal });
-      }
+    setColor: function setColor (newVal) {
+      this.mapObject.setStyle({ color: newVal });
     },
-    setWeight: function setWeight (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ weight: newVal });
-      }
+    setWeight: function setWeight (newVal) {
+      this.mapObject.setStyle({ weight: newVal });
     },
-    setOpacity: function setOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ opacity: newVal });
-      }
+    setOpacity: function setOpacity (newVal) {
+      this.mapObject.setStyle({ opacity: newVal });
     },
-    setLineCap: function setLineCap (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineCap: newVal });
-      }
+    setLineCap: function setLineCap (newVal) {
+      this.mapObject.setStyle({ lineCap: newVal });
     },
-    setLineJoin: function setLineJoin (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineJoin: newVal });
-      }
+    setLineJoin: function setLineJoin (newVal) {
+      this.mapObject.setStyle({ lineJoin: newVal });
     },
-    setDashArray: function setDashArray (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashArray: newVal });
-      }
+    setDashArray: function setDashArray (newVal) {
+      this.mapObject.setStyle({ dashArray: newVal });
     },
-    setDashOffset: function setDashOffset (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashOffset: newVal });
-      }
+    setDashOffset: function setDashOffset (newVal) {
+      this.mapObject.setStyle({ dashOffset: newVal });
     },
-    setFill: function setFill (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setFill: function setFill (newVal) {
       this.mapObject.setStyle({ fill: newVal });
     },
-    setFillColor: function setFillColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillColor: newVal });
-      }
+    setFillColor: function setFillColor (newVal) {
+      this.mapObject.setStyle({ fillColor: newVal });
     },
-    setFillOpacity: function setFillOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillOpacity: newVal });
-      }
+    setFillOpacity: function setFillOpacity (newVal) {
+      this.mapObject.setStyle({ fillOpacity: newVal });
     },
-    setFillRule: function setFillRule (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillRule: newVal });
-      }
+    setFillRule: function setFillRule (newVal) {
+      this.mapObject.setStyle({ fillRule: newVal });
     },
-    setClassName: function setClassName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ className: newVal });
-      }
+    setClassName: function setClassName (newVal) {
+      this.mapObject.setStyle({ className: newVal });
     }
   }
 };
@@ -66968,7 +67046,7 @@ var script = {
   props: {
     latLng: {
       type: [Object, Array],
-      default: function () { return []; }
+      default: function () { return [0, 0]; }
     },
     pane: {
       type: String,
@@ -67132,6 +67210,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -67195,7 +67274,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -67238,6 +67317,13 @@ var Options = {
 var script = {
   name: 'LControl',
   mixins: [ControlMixin, Options],
+  props: {
+    disableClickPropagation: {
+      type: Boolean,
+      custom: true,
+      default: true
+    }
+  },
   mounted: function mounted () {
     var this$1 = this;
 
@@ -67255,6 +67341,9 @@ var script = {
     propsBinder(this, this.mapObject, this.$options.props);
     this.parentContainer = findRealParent(this.$parent);
     this.mapObject.setElement(this.$el);
+    if (this.disableClickPropagation) {
+      leaflet__WEBPACK_IMPORTED_MODULE_0__["DomEvent"].disableClickPropagation(this.$el);
+    }
     this.mapObject.addTo(this.parentContainer.mapObject);
     this.$nextTick(function () {
       this$1.$emit('ready', this$1.mapObject);
@@ -67398,6 +67487,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -67492,7 +67582,7 @@ var script = {
   mixins: [ControlMixin, Options],
   props: {
     prefix: {
-      type: String,
+      type: [String, Boolean],
       default: null
     }
   },
@@ -67647,6 +67737,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -67928,6 +68019,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -68192,6 +68284,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -68456,6 +68549,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -68491,7 +68585,7 @@ var propsBinder = function (vueElement, leafletElement, props, options) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -68543,22 +68637,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -68766,6 +68857,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -68829,7 +68921,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -68881,22 +68973,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -69144,6 +69233,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -69207,7 +69297,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -69259,22 +69349,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -69561,6 +69648,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -69624,7 +69712,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -69979,6 +70067,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -70169,6 +70258,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -70232,7 +70322,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -70284,22 +70374,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -70578,6 +70665,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -70613,7 +70701,7 @@ var propsBinder = function (vueElement, leafletElement, props, options) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -70665,22 +70753,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -70906,6 +70991,7 @@ var debounce = function (fn, time) {
 };
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -71098,6 +71184,11 @@ var script = {
         }
       }
       return options;
+    }
+  },
+  beforeDestroy: function beforeDestroy () {
+    if (this.mapObject) {
+      this.mapObject.remove();
     }
   },
   mounted: function mounted () {
@@ -71372,7 +71463,7 @@ var __vue_staticRenderFns__ = [];
   /* style */
   var __vue_inject_styles__ = function (inject) {
     if (!inject) { return }
-    inject("data-v-09897586_0", { source: ".vue2leaflet-map{height:100%;width:100%}", map: undefined, media: undefined });
+    inject("data-v-2935624e_0", { source: ".vue2leaflet-map{height:100%;width:100%}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -71433,6 +71524,7 @@ var debounce = function (fn, time) {
 };
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -71496,7 +71588,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -71548,22 +71640,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -71669,6 +71758,7 @@ var script = {
     },
     latLngSync: function latLngSync (event) {
       this.$emit('update:latLng', event.latlng);
+      this.$emit('update:lat-lng', event.latlng);
     }
   },
   render: function (h) {
@@ -71813,6 +71903,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -71876,7 +71967,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -71928,22 +72019,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -72095,79 +72183,44 @@ var Path = {
     setLStyle: function setLStyle (newVal) {
       this.mapObject.setStyle(newVal);
     },
-    setStroke: function setStroke (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setStroke: function setStroke (newVal) {
       this.mapObject.setStyle({ stroke: newVal });
     },
-    setColor: function setColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ color: newVal });
-      }
+    setColor: function setColor (newVal) {
+      this.mapObject.setStyle({ color: newVal });
     },
-    setWeight: function setWeight (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ weight: newVal });
-      }
+    setWeight: function setWeight (newVal) {
+      this.mapObject.setStyle({ weight: newVal });
     },
-    setOpacity: function setOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ opacity: newVal });
-      }
+    setOpacity: function setOpacity (newVal) {
+      this.mapObject.setStyle({ opacity: newVal });
     },
-    setLineCap: function setLineCap (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineCap: newVal });
-      }
+    setLineCap: function setLineCap (newVal) {
+      this.mapObject.setStyle({ lineCap: newVal });
     },
-    setLineJoin: function setLineJoin (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineJoin: newVal });
-      }
+    setLineJoin: function setLineJoin (newVal) {
+      this.mapObject.setStyle({ lineJoin: newVal });
     },
-    setDashArray: function setDashArray (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashArray: newVal });
-      }
+    setDashArray: function setDashArray (newVal) {
+      this.mapObject.setStyle({ dashArray: newVal });
     },
-    setDashOffset: function setDashOffset (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashOffset: newVal });
-      }
+    setDashOffset: function setDashOffset (newVal) {
+      this.mapObject.setStyle({ dashOffset: newVal });
     },
-    setFill: function setFill (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setFill: function setFill (newVal) {
       this.mapObject.setStyle({ fill: newVal });
     },
-    setFillColor: function setFillColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillColor: newVal });
-      }
+    setFillColor: function setFillColor (newVal) {
+      this.mapObject.setStyle({ fillColor: newVal });
     },
-    setFillOpacity: function setFillOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillOpacity: newVal });
-      }
+    setFillOpacity: function setFillOpacity (newVal) {
+      this.mapObject.setStyle({ fillOpacity: newVal });
     },
-    setFillRule: function setFillRule (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillRule: newVal });
-      }
+    setFillRule: function setFillRule (newVal) {
+      this.mapObject.setStyle({ fillRule: newVal });
     },
-    setClassName: function setClassName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ className: newVal });
-      }
+    setClassName: function setClassName (newVal) {
+      this.mapObject.setStyle({ className: newVal });
     }
   }
 };
@@ -72197,17 +72250,11 @@ var Polyline = {
       noClip: this.noClip});
   },
   methods: {
-    setSmoothFactor: function setSmoothFactor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ smoothFactor: newVal });
-      }
+    setSmoothFactor: function setSmoothFactor (newVal) {
+      this.mapObject.setStyle({ smoothFactor: newVal });
     },
-    setNoClip: function setNoClip (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ noClip: newVal });
-      }
+    setNoClip: function setNoClip (newVal) {
+      this.mapObject.setStyle({ noClip: newVal });
     },
     addLatLng: function addLatLng (value) {
       this.mapObject.addLatLng(value);
@@ -72402,6 +72449,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -72465,7 +72513,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -72517,22 +72565,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -72684,79 +72729,44 @@ var Path = {
     setLStyle: function setLStyle (newVal) {
       this.mapObject.setStyle(newVal);
     },
-    setStroke: function setStroke (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setStroke: function setStroke (newVal) {
       this.mapObject.setStyle({ stroke: newVal });
     },
-    setColor: function setColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ color: newVal });
-      }
+    setColor: function setColor (newVal) {
+      this.mapObject.setStyle({ color: newVal });
     },
-    setWeight: function setWeight (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ weight: newVal });
-      }
+    setWeight: function setWeight (newVal) {
+      this.mapObject.setStyle({ weight: newVal });
     },
-    setOpacity: function setOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ opacity: newVal });
-      }
+    setOpacity: function setOpacity (newVal) {
+      this.mapObject.setStyle({ opacity: newVal });
     },
-    setLineCap: function setLineCap (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineCap: newVal });
-      }
+    setLineCap: function setLineCap (newVal) {
+      this.mapObject.setStyle({ lineCap: newVal });
     },
-    setLineJoin: function setLineJoin (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineJoin: newVal });
-      }
+    setLineJoin: function setLineJoin (newVal) {
+      this.mapObject.setStyle({ lineJoin: newVal });
     },
-    setDashArray: function setDashArray (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashArray: newVal });
-      }
+    setDashArray: function setDashArray (newVal) {
+      this.mapObject.setStyle({ dashArray: newVal });
     },
-    setDashOffset: function setDashOffset (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashOffset: newVal });
-      }
+    setDashOffset: function setDashOffset (newVal) {
+      this.mapObject.setStyle({ dashOffset: newVal });
     },
-    setFill: function setFill (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setFill: function setFill (newVal) {
       this.mapObject.setStyle({ fill: newVal });
     },
-    setFillColor: function setFillColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillColor: newVal });
-      }
+    setFillColor: function setFillColor (newVal) {
+      this.mapObject.setStyle({ fillColor: newVal });
     },
-    setFillOpacity: function setFillOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillOpacity: newVal });
-      }
+    setFillOpacity: function setFillOpacity (newVal) {
+      this.mapObject.setStyle({ fillOpacity: newVal });
     },
-    setFillRule: function setFillRule (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillRule: newVal });
-      }
+    setFillRule: function setFillRule (newVal) {
+      this.mapObject.setStyle({ fillRule: newVal });
     },
-    setClassName: function setClassName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ className: newVal });
-      }
+    setClassName: function setClassName (newVal) {
+      this.mapObject.setStyle({ className: newVal });
     }
   }
 };
@@ -72786,17 +72796,11 @@ var PolylineMixin = {
       noClip: this.noClip});
   },
   methods: {
-    setSmoothFactor: function setSmoothFactor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ smoothFactor: newVal });
-      }
+    setSmoothFactor: function setSmoothFactor (newVal) {
+      this.mapObject.setStyle({ smoothFactor: newVal });
     },
-    setNoClip: function setNoClip (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ noClip: newVal });
-      }
+    setNoClip: function setNoClip (newVal) {
+      this.mapObject.setStyle({ noClip: newVal });
     },
     addLatLng: function addLatLng (value) {
       this.mapObject.addLatLng(value);
@@ -72972,6 +72976,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -73035,7 +73040,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -73108,7 +73113,11 @@ var script = {
   },
   beforeDestroy: function beforeDestroy () {
     if (this.parentContainer) {
-      this.parentContainer.unbindPopup();
+      if (this.parentContainer.unbindPopup) {
+        this.parentContainer.unbindPopup();
+      } else if (this.parentContainer.mapObject && this.parentContainer.mapObject.unbindPopup) {
+        this.parentContainer.mapObject.unbindPopup();
+      }
     }
   }
 };
@@ -73247,6 +73256,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -73310,7 +73320,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -73362,22 +73372,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -73529,79 +73536,44 @@ var Path = {
     setLStyle: function setLStyle (newVal) {
       this.mapObject.setStyle(newVal);
     },
-    setStroke: function setStroke (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setStroke: function setStroke (newVal) {
       this.mapObject.setStyle({ stroke: newVal });
     },
-    setColor: function setColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ color: newVal });
-      }
+    setColor: function setColor (newVal) {
+      this.mapObject.setStyle({ color: newVal });
     },
-    setWeight: function setWeight (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ weight: newVal });
-      }
+    setWeight: function setWeight (newVal) {
+      this.mapObject.setStyle({ weight: newVal });
     },
-    setOpacity: function setOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ opacity: newVal });
-      }
+    setOpacity: function setOpacity (newVal) {
+      this.mapObject.setStyle({ opacity: newVal });
     },
-    setLineCap: function setLineCap (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineCap: newVal });
-      }
+    setLineCap: function setLineCap (newVal) {
+      this.mapObject.setStyle({ lineCap: newVal });
     },
-    setLineJoin: function setLineJoin (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineJoin: newVal });
-      }
+    setLineJoin: function setLineJoin (newVal) {
+      this.mapObject.setStyle({ lineJoin: newVal });
     },
-    setDashArray: function setDashArray (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashArray: newVal });
-      }
+    setDashArray: function setDashArray (newVal) {
+      this.mapObject.setStyle({ dashArray: newVal });
     },
-    setDashOffset: function setDashOffset (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashOffset: newVal });
-      }
+    setDashOffset: function setDashOffset (newVal) {
+      this.mapObject.setStyle({ dashOffset: newVal });
     },
-    setFill: function setFill (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setFill: function setFill (newVal) {
       this.mapObject.setStyle({ fill: newVal });
     },
-    setFillColor: function setFillColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillColor: newVal });
-      }
+    setFillColor: function setFillColor (newVal) {
+      this.mapObject.setStyle({ fillColor: newVal });
     },
-    setFillOpacity: function setFillOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillOpacity: newVal });
-      }
+    setFillOpacity: function setFillOpacity (newVal) {
+      this.mapObject.setStyle({ fillOpacity: newVal });
     },
-    setFillRule: function setFillRule (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillRule: newVal });
-      }
+    setFillRule: function setFillRule (newVal) {
+      this.mapObject.setStyle({ fillRule: newVal });
     },
-    setClassName: function setClassName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ className: newVal });
-      }
+    setClassName: function setClassName (newVal) {
+      this.mapObject.setStyle({ className: newVal });
     }
   }
 };
@@ -73631,17 +73603,11 @@ var Polyline = {
       noClip: this.noClip});
   },
   methods: {
-    setSmoothFactor: function setSmoothFactor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ smoothFactor: newVal });
-      }
+    setSmoothFactor: function setSmoothFactor (newVal) {
+      this.mapObject.setStyle({ smoothFactor: newVal });
     },
-    setNoClip: function setNoClip (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ noClip: newVal });
-      }
+    setNoClip: function setNoClip (newVal) {
+      this.mapObject.setStyle({ noClip: newVal });
     },
     addLatLng: function addLatLng (value) {
       this.mapObject.addLatLng(value);
@@ -73836,6 +73802,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -73899,7 +73866,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -73951,22 +73918,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -74222,6 +74186,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -74285,7 +74250,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -74349,7 +74314,11 @@ var script = {
   },
   beforeDestroy: function beforeDestroy () {
     if (this.parentContainer) {
-      this.parentContainer.unbindTooltip();
+      if (this.parentContainer.unbindTooltip) {
+        this.parentContainer.unbindTooltip();
+      } else if (this.parentContainer.mapObject && this.parentContainer.mapObject.unbindTooltip) {
+        this.parentContainer.mapObject.unbindTooltip();
+      }
     }
   }
 };
@@ -74488,6 +74457,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -74551,7 +74521,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -74603,22 +74573,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -74946,22 +74913,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -75113,79 +75077,44 @@ var Path = {
     setLStyle: function setLStyle (newVal) {
       this.mapObject.setStyle(newVal);
     },
-    setStroke: function setStroke (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setStroke: function setStroke (newVal) {
       this.mapObject.setStyle({ stroke: newVal });
     },
-    setColor: function setColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ color: newVal });
-      }
+    setColor: function setColor (newVal) {
+      this.mapObject.setStyle({ color: newVal });
     },
-    setWeight: function setWeight (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ weight: newVal });
-      }
+    setWeight: function setWeight (newVal) {
+      this.mapObject.setStyle({ weight: newVal });
     },
-    setOpacity: function setOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ opacity: newVal });
-      }
+    setOpacity: function setOpacity (newVal) {
+      this.mapObject.setStyle({ opacity: newVal });
     },
-    setLineCap: function setLineCap (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineCap: newVal });
-      }
+    setLineCap: function setLineCap (newVal) {
+      this.mapObject.setStyle({ lineCap: newVal });
     },
-    setLineJoin: function setLineJoin (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineJoin: newVal });
-      }
+    setLineJoin: function setLineJoin (newVal) {
+      this.mapObject.setStyle({ lineJoin: newVal });
     },
-    setDashArray: function setDashArray (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashArray: newVal });
-      }
+    setDashArray: function setDashArray (newVal) {
+      this.mapObject.setStyle({ dashArray: newVal });
     },
-    setDashOffset: function setDashOffset (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashOffset: newVal });
-      }
+    setDashOffset: function setDashOffset (newVal) {
+      this.mapObject.setStyle({ dashOffset: newVal });
     },
-    setFill: function setFill (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setFill: function setFill (newVal) {
       this.mapObject.setStyle({ fill: newVal });
     },
-    setFillColor: function setFillColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillColor: newVal });
-      }
+    setFillColor: function setFillColor (newVal) {
+      this.mapObject.setStyle({ fillColor: newVal });
     },
-    setFillOpacity: function setFillOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillOpacity: newVal });
-      }
+    setFillOpacity: function setFillOpacity (newVal) {
+      this.mapObject.setStyle({ fillOpacity: newVal });
     },
-    setFillRule: function setFillRule (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillRule: newVal });
-      }
+    setFillRule: function setFillRule (newVal) {
+      this.mapObject.setStyle({ fillRule: newVal });
     },
-    setClassName: function setClassName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ className: newVal });
-      }
+    setClassName: function setClassName (newVal) {
+      this.mapObject.setStyle({ className: newVal });
     }
   }
 };
@@ -75298,22 +75227,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -75428,22 +75354,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -75656,22 +75579,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -75751,22 +75671,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -75890,22 +75807,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -76057,79 +75971,44 @@ var Path = {
     setLStyle: function setLStyle (newVal) {
       this.mapObject.setStyle(newVal);
     },
-    setStroke: function setStroke (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setStroke: function setStroke (newVal) {
       this.mapObject.setStyle({ stroke: newVal });
     },
-    setColor: function setColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ color: newVal });
-      }
+    setColor: function setColor (newVal) {
+      this.mapObject.setStyle({ color: newVal });
     },
-    setWeight: function setWeight (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ weight: newVal });
-      }
+    setWeight: function setWeight (newVal) {
+      this.mapObject.setStyle({ weight: newVal });
     },
-    setOpacity: function setOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ opacity: newVal });
-      }
+    setOpacity: function setOpacity (newVal) {
+      this.mapObject.setStyle({ opacity: newVal });
     },
-    setLineCap: function setLineCap (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineCap: newVal });
-      }
+    setLineCap: function setLineCap (newVal) {
+      this.mapObject.setStyle({ lineCap: newVal });
     },
-    setLineJoin: function setLineJoin (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineJoin: newVal });
-      }
+    setLineJoin: function setLineJoin (newVal) {
+      this.mapObject.setStyle({ lineJoin: newVal });
     },
-    setDashArray: function setDashArray (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashArray: newVal });
-      }
+    setDashArray: function setDashArray (newVal) {
+      this.mapObject.setStyle({ dashArray: newVal });
     },
-    setDashOffset: function setDashOffset (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashOffset: newVal });
-      }
+    setDashOffset: function setDashOffset (newVal) {
+      this.mapObject.setStyle({ dashOffset: newVal });
     },
-    setFill: function setFill (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setFill: function setFill (newVal) {
       this.mapObject.setStyle({ fill: newVal });
     },
-    setFillColor: function setFillColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillColor: newVal });
-      }
+    setFillColor: function setFillColor (newVal) {
+      this.mapObject.setStyle({ fillColor: newVal });
     },
-    setFillOpacity: function setFillOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillOpacity: newVal });
-      }
+    setFillOpacity: function setFillOpacity (newVal) {
+      this.mapObject.setStyle({ fillOpacity: newVal });
     },
-    setFillRule: function setFillRule (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillRule: newVal });
-      }
+    setFillRule: function setFillRule (newVal) {
+      this.mapObject.setStyle({ fillRule: newVal });
     },
-    setClassName: function setClassName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ className: newVal });
-      }
+    setClassName: function setClassName (newVal) {
+      this.mapObject.setStyle({ className: newVal });
     }
   }
 };
@@ -76190,22 +76069,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -76357,79 +76233,44 @@ var Path = {
     setLStyle: function setLStyle (newVal) {
       this.mapObject.setStyle(newVal);
     },
-    setStroke: function setStroke (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setStroke: function setStroke (newVal) {
       this.mapObject.setStyle({ stroke: newVal });
     },
-    setColor: function setColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ color: newVal });
-      }
+    setColor: function setColor (newVal) {
+      this.mapObject.setStyle({ color: newVal });
     },
-    setWeight: function setWeight (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ weight: newVal });
-      }
+    setWeight: function setWeight (newVal) {
+      this.mapObject.setStyle({ weight: newVal });
     },
-    setOpacity: function setOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ opacity: newVal });
-      }
+    setOpacity: function setOpacity (newVal) {
+      this.mapObject.setStyle({ opacity: newVal });
     },
-    setLineCap: function setLineCap (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineCap: newVal });
-      }
+    setLineCap: function setLineCap (newVal) {
+      this.mapObject.setStyle({ lineCap: newVal });
     },
-    setLineJoin: function setLineJoin (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineJoin: newVal });
-      }
+    setLineJoin: function setLineJoin (newVal) {
+      this.mapObject.setStyle({ lineJoin: newVal });
     },
-    setDashArray: function setDashArray (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashArray: newVal });
-      }
+    setDashArray: function setDashArray (newVal) {
+      this.mapObject.setStyle({ dashArray: newVal });
     },
-    setDashOffset: function setDashOffset (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashOffset: newVal });
-      }
+    setDashOffset: function setDashOffset (newVal) {
+      this.mapObject.setStyle({ dashOffset: newVal });
     },
-    setFill: function setFill (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setFill: function setFill (newVal) {
       this.mapObject.setStyle({ fill: newVal });
     },
-    setFillColor: function setFillColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillColor: newVal });
-      }
+    setFillColor: function setFillColor (newVal) {
+      this.mapObject.setStyle({ fillColor: newVal });
     },
-    setFillOpacity: function setFillOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillOpacity: newVal });
-      }
+    setFillOpacity: function setFillOpacity (newVal) {
+      this.mapObject.setStyle({ fillOpacity: newVal });
     },
-    setFillRule: function setFillRule (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillRule: newVal });
-      }
+    setFillRule: function setFillRule (newVal) {
+      this.mapObject.setStyle({ fillRule: newVal });
     },
-    setClassName: function setClassName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ className: newVal });
-      }
+    setClassName: function setClassName (newVal) {
+      this.mapObject.setStyle({ className: newVal });
     }
   }
 };
@@ -76459,17 +76300,11 @@ var Polyline = {
       noClip: this.noClip});
   },
   methods: {
-    setSmoothFactor: function setSmoothFactor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ smoothFactor: newVal });
-      }
+    setSmoothFactor: function setSmoothFactor (newVal) {
+      this.mapObject.setStyle({ smoothFactor: newVal });
     },
-    setNoClip: function setNoClip (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ noClip: newVal });
-      }
+    setNoClip: function setNoClip (newVal) {
+      this.mapObject.setStyle({ noClip: newVal });
     },
     addLatLng: function addLatLng (value) {
       this.mapObject.addLatLng(value);
@@ -76552,22 +76387,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -76719,79 +76551,44 @@ var Path = {
     setLStyle: function setLStyle (newVal) {
       this.mapObject.setStyle(newVal);
     },
-    setStroke: function setStroke (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setStroke: function setStroke (newVal) {
       this.mapObject.setStyle({ stroke: newVal });
     },
-    setColor: function setColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ color: newVal });
-      }
+    setColor: function setColor (newVal) {
+      this.mapObject.setStyle({ color: newVal });
     },
-    setWeight: function setWeight (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ weight: newVal });
-      }
+    setWeight: function setWeight (newVal) {
+      this.mapObject.setStyle({ weight: newVal });
     },
-    setOpacity: function setOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal !== undefined && newVal !== null) {
-        this.mapObject.setStyle({ opacity: newVal });
-      }
+    setOpacity: function setOpacity (newVal) {
+      this.mapObject.setStyle({ opacity: newVal });
     },
-    setLineCap: function setLineCap (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineCap: newVal });
-      }
+    setLineCap: function setLineCap (newVal) {
+      this.mapObject.setStyle({ lineCap: newVal });
     },
-    setLineJoin: function setLineJoin (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ lineJoin: newVal });
-      }
+    setLineJoin: function setLineJoin (newVal) {
+      this.mapObject.setStyle({ lineJoin: newVal });
     },
-    setDashArray: function setDashArray (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashArray: newVal });
-      }
+    setDashArray: function setDashArray (newVal) {
+      this.mapObject.setStyle({ dashArray: newVal });
     },
-    setDashOffset: function setDashOffset (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ dashOffset: newVal });
-      }
+    setDashOffset: function setDashOffset (newVal) {
+      this.mapObject.setStyle({ dashOffset: newVal });
     },
-    setFill: function setFill (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setFill: function setFill (newVal) {
       this.mapObject.setStyle({ fill: newVal });
     },
-    setFillColor: function setFillColor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillColor: newVal });
-      }
+    setFillColor: function setFillColor (newVal) {
+      this.mapObject.setStyle({ fillColor: newVal });
     },
-    setFillOpacity: function setFillOpacity (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillOpacity: newVal });
-      }
+    setFillOpacity: function setFillOpacity (newVal) {
+      this.mapObject.setStyle({ fillOpacity: newVal });
     },
-    setFillRule: function setFillRule (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ fillRule: newVal });
-      }
+    setFillRule: function setFillRule (newVal) {
+      this.mapObject.setStyle({ fillRule: newVal });
     },
-    setClassName: function setClassName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ className: newVal });
-      }
+    setClassName: function setClassName (newVal) {
+      this.mapObject.setStyle({ className: newVal });
     }
   }
 };
@@ -76821,17 +76618,11 @@ var Polyline = {
       noClip: this.noClip});
   },
   methods: {
-    setSmoothFactor: function setSmoothFactor (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ smoothFactor: newVal });
-      }
+    setSmoothFactor: function setSmoothFactor (newVal) {
+      this.mapObject.setStyle({ smoothFactor: newVal });
     },
-    setNoClip: function setNoClip (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
-      if (newVal) {
-        this.mapObject.setStyle({ noClip: newVal });
-      }
+    setNoClip: function setNoClip (newVal) {
+      this.mapObject.setStyle({ noClip: newVal });
     },
     addLatLng: function addLatLng (value) {
       this.mapObject.addLatLng(value);
@@ -76935,22 +76726,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -77087,22 +76875,19 @@ var Layer = {
       var attributionControl = this.$parent.mapObject.attributionControl;
       attributionControl.removeAttribution(old).addAttribution(val);
     },
-    setName: function setName (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setName: function setName () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setLayerType: function setLayerType (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setLayerType: function setLayerType () {
       this.parentContainer.removeLayer(this);
       if (this.visible) {
         this.parentContainer.addLayer(this);
       }
     },
-    setVisible: function setVisible (newVal, oldVal) {
-      if (newVal === oldVal) { return; }
+    setVisible: function setVisible (newVal) {
       if (this.mapObject) {
         if (newVal) {
           this.parentContainer.addLayer(this);
@@ -77269,6 +77054,7 @@ var debounce = function (fn, time) {
 };
 
 var capitalizeFirstLetter = function (string) {
+  if (!string || typeof string.charAt !== 'function') { return string; }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
@@ -77332,7 +77118,7 @@ var optionsMerger = function (props, instance) {
 
 var findRealParent = function (firstVueParent) {
   var found = false;
-  while (!found) {
+  while (firstVueParent && !found) {
     if (firstVueParent.mapObject === undefined) {
       firstVueParent = firstVueParent.$parent;
     } else {
@@ -77351,7 +77137,7 @@ var findRealParent = function (firstVueParent) {
 /*!***********************************************************!*\
   !*** ./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js ***!
   \***********************************************************/
-/*! exports provided: CircleMixin, ControlMixin, GridLayerMixin, ImageOverlayMixin, InteractiveLayerMixin, LayerMixin, LayerGroupMixin, OptionsMixin, PathMixin, PolygonMixin, PolylineMixin, PopperMixin, TileLayerMixin, TileLayerWMSMixin, LCircle, LCircleMarker, LControl, LControlAttribution, LControlLayers, LControlScale, LControlZoom, LFeatureGroup, LGeoJson, LGridLayer, LIcon, LIconDefault, LImageOverlay, LLayerGroup, LMap, LMarker, LPolygon, LPolyline, LPopup, LRectangle, LTileLayer, LTooltip, LWMSTileLayer, debounce, capitalizeFirstLetter, propsBinder, collectionCleaner, optionsMerger, findRealParent */
+/*! exports provided: debounce, capitalizeFirstLetter, propsBinder, collectionCleaner, optionsMerger, findRealParent, CircleMixin, ControlMixin, GridLayerMixin, ImageOverlayMixin, InteractiveLayerMixin, LayerMixin, LayerGroupMixin, OptionsMixin, PathMixin, PolygonMixin, PolylineMixin, PopperMixin, TileLayerMixin, TileLayerWMSMixin, LCircle, LCircleMarker, LControl, LControlAttribution, LControlLayers, LControlScale, LControlZoom, LFeatureGroup, LGeoJson, LGridLayer, LIcon, LIconDefault, LImageOverlay, LLayerGroup, LMap, LMarker, LPolygon, LPolyline, LPopup, LRectangle, LTileLayer, LTooltip, LWMSTileLayer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77769,6 +77555,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Constructor_vue_vue_type_template_id_769545df_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Constructor_vue_vue_type_template_id_769545df_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/database-view.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/database-view.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _database_view_vue_vue_type_template_id_207827fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./database-view.vue?vue&type=template&id=207827fc&scoped=true& */ "./resources/js/components/database-view.vue?vue&type=template&id=207827fc&scoped=true&");
+/* harmony import */ var _database_view_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./database-view.vue?vue&type=script&lang=js& */ "./resources/js/components/database-view.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _database_view_vue_vue_type_style_index_0_id_207827fc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./database-view.vue?vue&type=style&index=0&id=207827fc&scoped=true&lang=css& */ "./resources/js/components/database-view.vue?vue&type=style&index=0&id=207827fc&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _database_view_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _database_view_vue_vue_type_template_id_207827fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _database_view_vue_vue_type_template_id_207827fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "207827fc",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/database-view.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/database-view.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/database-view.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_database_view_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./database-view.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/database-view.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_database_view_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/database-view.vue?vue&type=style&index=0&id=207827fc&scoped=true&lang=css&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/components/database-view.vue?vue&type=style&index=0&id=207827fc&scoped=true&lang=css& ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_database_view_vue_vue_type_style_index_0_id_207827fc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./database-view.vue?vue&type=style&index=0&id=207827fc&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/database-view.vue?vue&type=style&index=0&id=207827fc&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_database_view_vue_vue_type_style_index_0_id_207827fc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_database_view_vue_vue_type_style_index_0_id_207827fc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_database_view_vue_vue_type_style_index_0_id_207827fc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_database_view_vue_vue_type_style_index_0_id_207827fc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_database_view_vue_vue_type_style_index_0_id_207827fc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/database-view.vue?vue&type=template&id=207827fc&scoped=true&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/database-view.vue?vue&type=template&id=207827fc&scoped=true& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_database_view_vue_vue_type_template_id_207827fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./database-view.vue?vue&type=template&id=207827fc&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/database-view.vue?vue&type=template&id=207827fc&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_database_view_vue_vue_type_template_id_207827fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_database_view_vue_vue_type_template_id_207827fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

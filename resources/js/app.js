@@ -7,7 +7,6 @@ Vue.component('constructor', require('./components/Constructor').default);
 import { Icon }  from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
-
 // this part resolve an issue where the markers would not appear
 delete Icon.Default.prototype._getIconUrl;
 
