@@ -153,8 +153,6 @@
 </template>
 
 <script>
-    // TODO добавить анимацию перехода между событиями
-    // TODO настроить скачивание файлов
     import Vue from 'vue'
     import {SlickItem, SlickList} from 'vue-slicksort'
     import {LMap, LTileLayer, LMarker, LTooltip, LIcon, LPolyline} from 'vue2-leaflet'
