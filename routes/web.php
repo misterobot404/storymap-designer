@@ -1,5 +1,6 @@
 <?php
 
-Route::get('/','DataLoadController@load');
+Route::get('/',function () {
+    return view('app');
+});
 
-Route::post('/upload','FileUploadController@upload');

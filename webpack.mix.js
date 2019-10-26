@@ -11,5 +11,12 @@ const mix = require('laravel-mix');
  |
  */
 
+// Using Dynamic Imports
+mix.babelConfig({
+    plugins: ['@babel/plugin-syntax-dynamic-import'],
+});
+
+// entry point for all asset compilation
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
+

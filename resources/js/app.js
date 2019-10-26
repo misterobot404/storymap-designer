@@ -1,29 +1,17 @@
 
-require('./bootstrap');
+// First we will load all of this project's JavaScript dependencies which includes Vue and other libraries.
 window.Vue = require('vue');
-Vue.component('constructor', require('./components/Constructor').default);
+import store from './store/store'
+import Constructor from "./components/Constructor";
 
-//********************
-import { Icon }  from 'leaflet'
-import 'leaflet/dist/leaflet.css'
-
-// this part resolve an issue where the markers would not appear
-delete Icon.Default.prototype._getIconUrl;
-
-Icon.Default.mergeOptions({
-    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-    iconUrl: require('leaflet/dist/images/marker-icon.png'),
-    shadowUrl: require('leaflet/dist/images/marker-shadow.png')
-});
-//**********************
-
-
-new Vue({ el: '#app' });
-
-/*
-import constructor from './components/Constructor.vue'
+// Next, we will create a fresh Vue application instance and attach it to the page.
+// Remember that global registration must take place before the root Vue instance is created (with new Vue).
 
 new Vue({
-    render: h => h(constructor),
-}).$mount('#app');
-*/
+    el: '#app',
+    store,
+    beforeCreate() {
+        this.$store.dispatch("getMap");
+    },
+    render: h => h(Constructor)
+});

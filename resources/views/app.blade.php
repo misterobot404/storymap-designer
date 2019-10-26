@@ -5,24 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{asset('favicon.png')}}">
-    <title>MapHelper</title>
-    <style>
-        #app {
-            font-family: 'Avenir', Helvetica, Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-align: center;
-        }
-    </style>
+    <title>LiSa</title>
 </head>
 <body>
 
-<div id="app">
-    <constructor :input-events="{{$map_events}}" :input-config="{{$map_config}}">
-        {{ csrf_field() }}
-    </constructor>
-</div>
+<div id="app">{{ csrf_field() }}</div>
+
 <!-- Scripts -->
-<script type="text/javascript" src='{{ asset('/js/app.js') }}'></script>
+<script type="text/javascript" src='{{ asset('js/app.js') }}'></script>
 </body>
 </html>

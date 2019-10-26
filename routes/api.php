@@ -17,4 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/save','DataSaveController@save');
+Route::post('/getMap','GetMapController@getMap');
+
+Route::post('/setMap','SetMapController@setMap');
+
+Route::post('/setMap/uploadImg','SetMapController@uploadImg');
