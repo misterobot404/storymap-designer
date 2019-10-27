@@ -3,7 +3,9 @@
         <constructor-main-event-list/>
         <div class="content">
             <constructor-main-map/>
-            <constructor-main-form/>
+            <transition name="form">
+                <constructor-main-form v-show="$store.getters.indexSelectedEvent !== -1"/>
+            </transition>
         </div>
     </div>
 </template>
@@ -45,5 +47,12 @@
         min-width: 200px;
         margin: 0 auto;
         padding-left: 10px;
+    }
+
+    .form-enter-active {
+        transition: opacity 1s;
+    }
+    .form-enter {
+        opacity: 0;
     }
 </style>

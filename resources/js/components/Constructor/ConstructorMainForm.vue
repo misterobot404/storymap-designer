@@ -1,75 +1,68 @@
 <template>
-    <!--    <div class="form">-->
-    <!--        <div class="formLeft">-->
-    <!--            <template v-if="getSelectedEvent !== undefined">-->
-    <!--                <input v-model.lazy="getSelectedEvent.name"-->
-    <!--                       placeholder="Заголовок события"-->
-    <!--                       class="inputHeader">-->
-    <!--                <textarea v-model.lazy="getSelectedEvent.title"-->
-    <!--                          placeholder="Описание события"-->
-    <!--                          class="inputTextarea">-->
-    <!--                    </textarea>-->
-    <!--            </template>-->
-    <!--            <template v-else>-->
-    <!--                <input placeholder="Заголовок события"-->
-    <!--                       class="inputHeader">-->
-    <!--                <textarea placeholder="Описание события"-->
-    <!--                          class="inputTextarea">-->
-    <!--                    </textarea>-->
-    <!--            </template>-->
-    <!--        </div>-->
-    <!--        <div class="formRight">-->
-    <!--            <div class="formRightContent">-->
-    <!--                <input v-if="getSelectedEvent !== undefined"-->
-    <!--                       v-model.lazy="getSelectedEvent.mediaUrl"-->
-    <!--                       placeholder="Insert media link"-->
-    <!--                       class="formRightInputUrl">-->
-    <!--                <input v-else-->
-    <!--                       placeholder="Insert media link"-->
-    <!--                       class="formRightInputUrl">-->
-    <!--                <form action="/upload" method="post" enctype="multipart/form-data" class="formRightUploadFile">-->
-    <!--                    <slot>-->
-    <!--                    </slot>-->
-    <!--                    <label class="formRightUploadButton">-->
-    <!--                        <img src="/images/cloud-upload.png">Upload from drive-->
-    <!--                        <input type="file" multiple name="image" onchange="this.form.submit()"-->
-    <!--                               style="display: none">-->
-    <!--                    </label>-->
-    <!--                </form>-->
-    <!--            </div>-->
-    <!--            <template-->
-    <!--                    v-if="getSelectedEvent !== undefined && getSelectedEvent.mediaUrl !== '' && getSelectedEvent.mediaUrl !== null">-->
-    <!--                <template v-if="checkExistImages">-->
-    <!--                    <img :src="getSelectedEvent.mediaUrl"-->
-    <!--                         alt="image"-->
-    <!--                         width="270"-->
-    <!--                         height="144"-->
-    <!--                         class="emptyMediaBlock">-->
-    <!--                </template>-->
-    <!--                <template v-else-if="getSelectedEvent.mediaUrl.indexOf('.youtu') !== -1">-->
-    <!--                    <youtube :video-id="getYouTubeIdOfSelectedEvent"-->
-    <!--                             :player-width="270"-->
-    <!--                             :player-height="144"-->
-    <!--                             class="emptyMediaBlock">-->
-    <!--                    </youtube>-->
-    <!--                </template>-->
-    <!--                <template v-else>-->
-    <!--                    <div class="emptyMediaBlock">-->
-    <!--                        <p>Broken link</p>-->
-    <!--                    </div>-->
-    <!--                </template>-->
-    <!--            </template>-->
-    <!--            <template v-else>-->
-    <!--                <div class="emptyMediaBlock">-->
-    <!--                    <p>Empty</p>-->
-    <!--                </div>-->
-    <!--            </template>-->
-    <!--        </div>-->
-    <!--    </div>-->
+        <div class="form">
+            <div class="formLeft">
+                <template v-if="indexSelectedEvent !== -1">
+                    <input v-model.lazy="model_title"
+                           placeholder="Заголовок события"
+                           class="inputHeader">
+                    <textarea v-model.lazy="model_description"
+                              placeholder="Описание события"
+                              class="inputTextarea">
+                        </textarea>
+                </template>
+            </div>
+            <div class="formRight">
+                <div class="formRightContent">
+                    <input v-if="indexSelectedEvent !== -1"
+                           v-model.lazy="model_mediaUrl"
+                           placeholder="Insert media link"
+                           class="formRightInputUrl">
+                    <input v-else
+                           placeholder="Insert media link"
+                           class="formRightInputUrl">
+                    <form action="/setDataMap/uploadImg" method="post" enctype="multipart/form-data" class="formRightUploadFile">
+                        <slot>
+                        </slot>
+                        <label class="formRightUploadButton">
+                            <img src="/images/cloud-upload.png">Upload from drive
+                            <input type="file" multiple name="image" onchange="this.form.submit()"
+                                   style="display: none">
+                        </label>
+                    </form>
+                </div>
+                <template v-if="indexSelectedEvent !== -1 && selectedEvent.mediaUrl !== '' && selectedEvent.mediaUrl !== null">
+                    <template v-if="checkExistImages">
+                        <img :src="selectedEvent.mediaUrl"
+                             alt="image"
+                             width="270"
+                             height="144"
+                             class="emptyMediaBlock">
+                    </template>
+                    <template v-else-if="selectedEvent.mediaUrl.indexOf('.youtu') !== -1">
+                        <youtube :video-id="getYouTubeIdOfSelectedEvent"
+                                 :player-width="270"
+                                 :player-height="144"
+                                 class="emptyMediaBlock">
+                        </youtube>
+                    </template>
+                    <template v-else>
+                        <div class="emptyMediaBlock">
+                            <p>Broken link</p>
+                        </div>
+                    </template>
+                </template>
+                <template v-else>
+                    <div class="emptyMediaBlock">
+                        <p>Empty</p>
+                    </div>
+                </template>
+            </div>
+        </div>
 </template>
 
 <script>
     import Vue from 'vue'
+    import {mapGetters,mapMutations} from 'vuex'
     import VueYouTubeEmbed from 'vue-youtube-embed'
 
     Vue.use(VueYouTubeEmbed);
@@ -82,7 +75,7 @@
             }
         },
         watch: {
-            /*'getSelectedEvent.mediaUrl': {
+            'selectedEvent.mediaUrl': {
                 immediate: true,
                 handler(val) {
                     const img = new Image();
@@ -91,13 +84,50 @@
                     img.src = val;
                 }
             },
-            */
         },
         computed: {
-            /*
+            ...mapGetters([
+                'events',
+                'selectedEvent',
+                'indexSelectedEvent',
+            ]),
+            model_title: {
+                get() {
+                    return this.selectedEvent.title
+                },
+                set(value) {
+                    const payload = {'index': this.indexSelectedEvent, 'title': value};
+                    this.SET_EVENT_TITLE(payload)
+                }
+            },
+            model_description: {
+                get() {
+                    return this.selectedEvent.description
+                },
+                set(value) {
+                    const payload = {'index': this.indexSelectedEvent, 'description': value};
+                    this.SET_EVENT_DESCRIPTION(payload)
+                }
+            },
             getYouTubeIdOfSelectedEvent: function () {
-                return this.$youtube.getIdFromURL(this.getSelectedEvent.mediaUrl);
-            },*/
+                return this.$youtube.getIdFromURL(this.selectedEvent.mediaUrl);
+            },
+            model_mediaUrl: {
+                get() {
+                    return this.selectedEvent.mediaUrl
+                },
+                set(value) {
+                    const payload = {'index': this.indexSelectedEvent, 'mediaUrl': value};
+                    this.SET_EVENT_MEDIA_URL(payload)
+                }
+            },
+        },
+        methods: {
+            ...mapMutations([
+                "SET_EVENT_TITLE",
+                "SET_EVENT_DESCRIPTION",
+                "SET_EVENT_MEDIA_URL"
+            ]),
         }
     }
 </script>

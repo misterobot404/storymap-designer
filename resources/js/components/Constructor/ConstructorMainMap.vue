@@ -5,9 +5,9 @@
                :center="config.tileCenter"
                :minZoom="config.minTileZoom"
                :maxZoom="config.maxTileZoom"
-               :maxBounds="config.bounds"
+               :maxBounds="config.tileBounds"
                :maxBoundsViscosity="maxBoundsViscosity"
-               @click="latLngUpdated"
+               @click="latLngClickUpdatePosition"
                @update:zoom="zoomUpdated"
                @update:center="centerUpdated">
             <l-tile-layer :url="config.tileUrl"
@@ -15,12 +15,12 @@
                           :attribution="config.tileAttribution"/>
             <l-marker v-for="(marker, index) in events"
                       :key="marker.id"
-                      :lat-lng="marker.marker"
+                      :lat-lng="marker.markerPosition"
                       :draggable="indexSelectedEvent === index"
                       @click="activateMarker(marker)"
-                      @update:latLng="latLngUpdated">
+                      @update:latLng="latLngDragUpdatePosition">
                 <l-tooltip>
-                    {{marker.name}}
+                    {{marker.title}}
                 </l-tooltip>
                 <l-icon v-if="indexSelectedEvent !== index"
                         :icon-size="[32, 38]"
@@ -74,17 +74,14 @@
             }
         },
         watch: {
-            'this.selectedEvent.marker': {
-                handler(val) {
+            'selectedEvent.markerPosition': function (val){
+                if (val !== undefined)
+                {
                     this.$refs.map.mapObject.setView(val);
                     //this.$refs.map.mapObject.flyTo(val);
                 }
             }
         },
-        // created: function () {
-        //     this.center = this.getSelectedEvent.marker;
-        //     this.SET_TILE_CENTER(new L.LatLng(-85, -170));
-        // },
         // mounted: function () {
         //     const width = 1280;
         //     const height = 720;
@@ -117,26 +114,30 @@
         },
         methods: {
             ...mapMutations([
-                "SET_TILE_URL",
                 "SET_TILE_CENTER",
                 "SET_SELECTED_EVENT_ID",
-                "SET_EVENT_MARKER_POSITION",
-                "SET_TILE_CENTER"
+                "SET_EVENT_MARKER_POSITION"
             ]),
             zoomUpdated: function (zoom) {
                 this.mapZoom = zoom;
             },
             centerUpdated: function (center) {
-                this.SET_TILE_CENTER = center;
+                this.SET_TILE_CENTER(center);
             },
-            latLngUpdated: function (latLng) {
-                this.SET_EVENT_MARKER_POSITION(this.indexSelectedEvent,latLng);
+            latLngDragUpdatePosition: function (latLng) {
+                const payload = {'index': this.indexSelectedEvent, 'position': latLng};
+                this.SET_EVENT_MARKER_POSITION(payload);
+            },
+            // Здесь в отличии от изменений координат "перетаскиванием" мы получим обьект с событием, откуда извелём позицию клика
+            latLngClickUpdatePosition: function (latLng) {
+                // Выполняем только если событие выбрано
+                if (this.indexSelectedEvent !== -1) {
+                    const payload = {'index': this.indexSelectedEvent, 'position': latLng.latlng};
+                    this.SET_EVENT_MARKER_POSITION(payload);
+                }
             },
             activateMarker: function (marker) {
-                // this.getIndexSelectedEvent === index ? this.events[index].marker = 0 : null;
                 this.SET_SELECTED_EVENT_ID(marker.id);
-                // this.center = marker.marker;
-                // this.zoom = 4;
             }
         }
     }

@@ -9,9 +9,13 @@ import map_events from './modules/map_events'
 export default new Vuex.Store({
     strict: true,
     actions: {
+        initStore: function ({commit}) {
+            commit('SET_EVENTS', window.init_map_events);
+            commit('SET_CONFIG', window.init_map_config)
+        },
         // Обращение к API
         setMap: function ({getters}) {
-            axios.post('api/setMap',{
+            axios.post('api/setDataMap',{
                 // Приведение обьекта в json
                 events: JSON.stringify(getters.events),
                 config: JSON.stringify(getters.config)
@@ -24,7 +28,7 @@ export default new Vuex.Store({
                 });
         },
         getMap: function ({commit}) {
-            axios.post('api/getMap')
+            axios.post('api/getDataMap')
                 .then(response => {
                     // Обязательно приведение json в обьект
                     commit('SET_EVENTS', JSON.parse(response.data.map_events));

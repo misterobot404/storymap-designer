@@ -10,8 +10,8 @@ import Constructor from "./components/Constructor";
 new Vue({
     el: '#app',
     store,
-    beforeCreate() {
-        this.$store.dispatch("getMap");
+    beforeMount() {
+        this.$store.dispatch('initStore');
     },
     render: h => h(Constructor)
 });

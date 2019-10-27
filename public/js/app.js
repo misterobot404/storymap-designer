@@ -1768,6 +1768,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -1899,15 +1901,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_youtube_embed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-youtube-embed */ "./node_modules/vue-youtube-embed/lib/vue-youtube-embed.js");
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue_youtube_embed__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-youtube-embed */ "./node_modules/vue-youtube-embed/lib/vue-youtube-embed.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1972,7 +1973,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORTED_MODULE_2__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ConstructorForm",
   data: function data() {
@@ -1981,23 +1983,67 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORT
     };
   },
   watch: {
-    /*'getSelectedEvent.mediaUrl': {
-        immediate: true,
-        handler(val) {
-            const img = new Image();
-            img.onload = () => this.checkExistImages = img.height > 0;
-            img.onerror = () => this.checkExistImages = false;
-            img.src = val;
-        }
-    },
-    */
+    'selectedEvent.mediaUrl': {
+      immediate: true,
+      handler: function handler(val) {
+        var _this = this;
+
+        var img = new Image();
+
+        img.onload = function () {
+          return _this.checkExistImages = img.height > 0;
+        };
+
+        img.onerror = function () {
+          return _this.checkExistImages = false;
+        };
+
+        img.src = val;
+      }
+    }
   },
-  computed: {
-    /*
-    getYouTubeIdOfSelectedEvent: function () {
-        return this.$youtube.getIdFromURL(this.getSelectedEvent.mediaUrl);
-    },*/
-  }
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['events', 'selectedEvent', 'indexSelectedEvent']), {
+    model_title: {
+      get: function get() {
+        return this.selectedEvent.title;
+      },
+      set: function set(value) {
+        var payload = {
+          'index': this.indexSelectedEvent,
+          'title': value
+        };
+        this.SET_EVENT_TITLE(payload);
+      }
+    },
+    model_description: {
+      get: function get() {
+        return this.selectedEvent.description;
+      },
+      set: function set(value) {
+        var payload = {
+          'index': this.indexSelectedEvent,
+          'description': value
+        };
+        this.SET_EVENT_DESCRIPTION(payload);
+      }
+    },
+    getYouTubeIdOfSelectedEvent: function getYouTubeIdOfSelectedEvent() {
+      return this.$youtube.getIdFromURL(this.selectedEvent.mediaUrl);
+    },
+    model_mediaUrl: {
+      get: function get() {
+        return this.selectedEvent.mediaUrl;
+      },
+      set: function set(value) {
+        var payload = {
+          'index': this.indexSelectedEvent,
+          'mediaUrl': value
+        };
+        this.SET_EVENT_MEDIA_URL(payload);
+      }
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])(["SET_EVENT_TITLE", "SET_EVENT_DESCRIPTION", "SET_EVENT_MEDIA_URL"]))
 });
 
 /***/ }),
@@ -2096,16 +2142,12 @@ leaflet__WEBPACK_IMPORTED_MODULE_2__["Icon"].Default.mergeOptions({
     };
   },
   watch: {
-    'this.selectedEvent.marker': {
-      handler: function handler(val) {
+    'selectedEvent.markerPosition': function selectedEventMarkerPosition(val) {
+      if (val !== undefined) {
         this.$refs.map.mapObject.setView(val); //this.$refs.map.mapObject.flyTo(val);
       }
     }
   },
-  // created: function () {
-  //     this.center = this.getSelectedEvent.marker;
-  //     this.SET_TILE_CENTER(new L.LatLng(-85, -170));
-  // },
   // mounted: function () {
   //     const width = 1280;
   //     const height = 720;
@@ -2128,20 +2170,33 @@ leaflet__WEBPACK_IMPORTED_MODULE_2__["Icon"].Default.mergeOptions({
   //     //this.center = new L.latLng(centerLat, centerLon);
   // },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['config', 'events', 'selectedEvent', 'indexSelectedEvent', 'arrayMarker'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(["SET_TILE_URL", "SET_TILE_CENTER", "SET_SELECTED_EVENT_ID", "SET_EVENT_MARKER_POSITION", "SET_TILE_CENTER"]), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(["SET_TILE_CENTER", "SET_SELECTED_EVENT_ID", "SET_EVENT_MARKER_POSITION"]), {
     zoomUpdated: function zoomUpdated(zoom) {
       this.mapZoom = zoom;
     },
     centerUpdated: function centerUpdated(center) {
-      this.SET_TILE_CENTER = center;
+      this.SET_TILE_CENTER(center);
     },
-    latLngUpdated: function latLngUpdated(latLng) {
-      this.SET_EVENT_MARKER_POSITION(this.indexSelectedEvent, latLng);
+    latLngDragUpdatePosition: function latLngDragUpdatePosition(latLng) {
+      var payload = {
+        'index': this.indexSelectedEvent,
+        'position': latLng
+      };
+      this.SET_EVENT_MARKER_POSITION(payload);
+    },
+    // Здесь в отличии от изменений координат "перетаскиванием" мы получим обьект с событием, откуда извелём позицию клика
+    latLngClickUpdatePosition: function latLngClickUpdatePosition(latLng) {
+      // Выполняем только если событие выбрано
+      if (this.indexSelectedEvent !== -1) {
+        var payload = {
+          'index': this.indexSelectedEvent,
+          'position': latLng.latlng
+        };
+        this.SET_EVENT_MARKER_POSITION(payload);
+      }
     },
     activateMarker: function activateMarker(marker) {
-      // this.getIndexSelectedEvent === index ? this.events[index].marker = 0 : null;
-      this.SET_SELECTED_EVENT_ID(marker.id); // this.center = marker.marker;
-      // this.zoom = 4;
+      this.SET_SELECTED_EVENT_ID(marker.id);
     }
   })
 });
@@ -2218,7 +2273,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.constructor[data-v-27afc2fa] {\n    margin: auto;\n    border-top: 1px dashed #CCC;\n    border-right: 1px solid #CCC;\n    border-bottom: 1px solid #CCC;\n    border-left: 1px solid #CCC;\n    display: flex;\n    padding: 10px;\n    height: 88vh;\n    min-height: 400px;\n    min-width: 428px;\n}\n.content[data-v-27afc2fa] {\n    display: flex;\n    flex-direction: column;\n    width: 96%;\n    min-width: 200px;\n    margin: 0 auto;\n    padding-left: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.constructor[data-v-27afc2fa] {\n    margin: auto;\n    border-top: 1px dashed #CCC;\n    border-right: 1px solid #CCC;\n    border-bottom: 1px solid #CCC;\n    border-left: 1px solid #CCC;\n    display: flex;\n    padding: 10px;\n    height: 88vh;\n    min-height: 400px;\n    min-width: 428px;\n}\n.content[data-v-27afc2fa] {\n    display: flex;\n    flex-direction: column;\n    width: 96%;\n    min-width: 200px;\n    margin: 0 auto;\n    padding-left: 10px;\n}\n.form-enter-active[data-v-27afc2fa] {\n    transition: opacity 1s;\n}\n.form-enter[data-v-27afc2fa] {\n    opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -17779,7 +17834,27 @@ var render = function() {
       _c(
         "div",
         { staticClass: "content" },
-        [_c("constructor-main-map"), _vm._v(" "), _c("constructor-main-form")],
+        [
+          _c("constructor-main-map"),
+          _vm._v(" "),
+          _c(
+            "transition",
+            { attrs: { name: "form" } },
+            [
+              _c("constructor-main-form", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.$store.getters.indexSelectedEvent !== -1,
+                    expression: "$store.getters.indexSelectedEvent !== -1"
+                  }
+                ]
+              })
+            ],
+            1
+          )
+        ],
         1
       )
     ],
@@ -17821,11 +17896,11 @@ var render = function() {
         helperClass: "eventItemDrag"
       },
       model: {
-        value: this.model_events,
+        value: _vm.model_events,
         callback: function($$v) {
-          _vm.$set(this, "model_events", $$v)
+          _vm.model_events = $$v
         },
-        expression: "this.model_events"
+        expression: "model_events"
       }
     },
     [
@@ -17867,7 +17942,7 @@ var render = function() {
                   _c("div", { staticClass: "eventItemTitle" }, [
                     _vm._v(
                       "\n                    " +
-                        _vm._s(event.name) +
+                        _vm._s(event.title) +
                         "\n                "
                     )
                   ]),
@@ -17933,9 +18008,174 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", { staticClass: "form" }, [
+    _c(
+      "div",
+      { staticClass: "formLeft" },
+      [
+        _vm.indexSelectedEvent !== -1
+          ? [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model.lazy",
+                    value: _vm.model_title,
+                    expression: "model_title",
+                    modifiers: { lazy: true }
+                  }
+                ],
+                staticClass: "inputHeader",
+                attrs: { placeholder: "Заголовок события" },
+                domProps: { value: _vm.model_title },
+                on: {
+                  change: function($event) {
+                    _vm.model_title = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model.lazy",
+                    value: _vm.model_description,
+                    expression: "model_description",
+                    modifiers: { lazy: true }
+                  }
+                ],
+                staticClass: "inputTextarea",
+                attrs: { placeholder: "Описание события" },
+                domProps: { value: _vm.model_description },
+                on: {
+                  change: function($event) {
+                    _vm.model_description = $event.target.value
+                  }
+                }
+              })
+            ]
+          : _vm._e()
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "formRight" },
+      [
+        _c("div", { staticClass: "formRightContent" }, [
+          _vm.indexSelectedEvent !== -1
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model.lazy",
+                    value: _vm.model_mediaUrl,
+                    expression: "model_mediaUrl",
+                    modifiers: { lazy: true }
+                  }
+                ],
+                staticClass: "formRightInputUrl",
+                attrs: { placeholder: "Insert media link" },
+                domProps: { value: _vm.model_mediaUrl },
+                on: {
+                  change: function($event) {
+                    _vm.model_mediaUrl = $event.target.value
+                  }
+                }
+              })
+            : _c("input", {
+                staticClass: "formRightInputUrl",
+                attrs: { placeholder: "Insert media link" }
+              }),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              staticClass: "formRightUploadFile",
+              attrs: {
+                action: "/setDataMap/uploadImg",
+                method: "post",
+                enctype: "multipart/form-data"
+              }
+            },
+            [_vm._t("default"), _vm._v(" "), _vm._m(0)],
+            2
+          )
+        ]),
+        _vm._v(" "),
+        _vm.indexSelectedEvent !== -1 &&
+        _vm.selectedEvent.mediaUrl !== "" &&
+        _vm.selectedEvent.mediaUrl !== null
+          ? [
+              _vm.checkExistImages
+                ? [
+                    _c("img", {
+                      staticClass: "emptyMediaBlock",
+                      attrs: {
+                        src: _vm.selectedEvent.mediaUrl,
+                        alt: "image",
+                        width: "270",
+                        height: "144"
+                      }
+                    })
+                  ]
+                : _vm.selectedEvent.mediaUrl.indexOf(".youtu") !== -1
+                ? [
+                    _c("youtube", {
+                      staticClass: "emptyMediaBlock",
+                      attrs: {
+                        "video-id": _vm.getYouTubeIdOfSelectedEvent,
+                        "player-width": 270,
+                        "player-height": 144
+                      }
+                    })
+                  ]
+                : [_vm._m(1)]
+            ]
+          : [_vm._m(2)]
+      ],
+      2
+    )
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "formRightUploadButton" }, [
+      _c("img", { attrs: { src: "/images/cloud-upload.png" } }),
+      _vm._v("Upload from drive\n                    "),
+      _c("input", {
+        staticStyle: { display: "none" },
+        attrs: {
+          type: "file",
+          multiple: "",
+          name: "image",
+          onchange: "this.form.submit()"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "emptyMediaBlock" }, [
+      _c("p", [_vm._v("Broken link")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "emptyMediaBlock" }, [
+      _c("p", [_vm._v("Empty")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -17967,11 +18207,11 @@ var render = function() {
         center: _vm.config.tileCenter,
         minZoom: _vm.config.minTileZoom,
         maxZoom: _vm.config.maxTileZoom,
-        maxBounds: _vm.config.bounds,
+        maxBounds: _vm.config.tileBounds,
         maxBoundsViscosity: _vm.maxBoundsViscosity
       },
       on: {
-        click: _vm.latLngUpdated,
+        click: _vm.latLngClickUpdatePosition,
         "update:zoom": _vm.zoomUpdated,
         "update:center": _vm.centerUpdated
       }
@@ -17991,19 +18231,19 @@ var render = function() {
           {
             key: marker.id,
             attrs: {
-              "lat-lng": marker.marker,
+              "lat-lng": marker.markerPosition,
               draggable: _vm.indexSelectedEvent === index
             },
             on: {
               click: function($event) {
                 return _vm.activateMarker(marker)
               },
-              "update:latLng": _vm.latLngUpdated
+              "update:latLng": _vm.latLngDragUpdatePosition
             }
           },
           [
             _c("l-tooltip", [
-              _vm._v("\n            " + _vm._s(marker.name) + "\n        ")
+              _vm._v("\n            " + _vm._s(marker.title) + "\n        ")
             ]),
             _vm._v(" "),
             _vm.indexSelectedEvent !== index
@@ -43696,8 +43936,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 new Vue({
   el: '#app',
   store: _store_store__WEBPACK_IMPORTED_MODULE_0__["default"],
-  beforeCreate: function beforeCreate() {
-    this.$store.dispatch("getMap");
+  beforeMount: function beforeMount() {
+    this.$store.dispatch('initStore');
   },
   render: function render(h) {
     return h(_components_Constructor__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -44264,6 +44504,12 @@ __webpack_require__.r(__webpack_exports__);
   getters: {
     config: function config(state) {
       return state.config;
+    },
+    // return -1 indicating that no element passed the test
+    indexSelectedEvent: function indexSelectedEvent(state, getters) {
+      return getters.events.findIndex(function (obj) {
+        return obj.id === state.config.selectedEventId;
+      });
     }
   }
 });
@@ -44284,7 +44530,11 @@ __webpack_require__.r(__webpack_exports__);
     addEvent: function addEvent(_ref) {
       var getters = _ref.getters,
           commit = _ref.commit;
-      commit('PUSH_EMPTY_EVENT', getters.config.nextEventId, getters.config.mapCenter); // Если добавленное событие является единственным назначаем его активным
+      var payload = {
+        'nextEventId': getters.config.nextEventId,
+        'tileCenter': getters.config.tileCenter
+      };
+      commit('PUSH_EMPTY_EVENT', payload); // Если добавленное событие является единственным назначаем его активным
 
       if (getters.config.selectedEventId === null) {
         commit('SET_SELECTED_EVENT_ID', getters.config.nextEventId);
@@ -44300,13 +44550,13 @@ __webpack_require__.r(__webpack_exports__);
 
       if (getters.indexSelectedEvent === -1) {
         // Если после удаления события массив событий пуст новый элемент назначать не нужно, выходим
-        if (getters.eventsLength === 0) {
-          getters.config.currentEventId = null;
+        if (state.events.length === 0) {
+          commit('SET_SELECTED_EVENT_ID', null);
           return;
         } // Если удаленный элемент являлся последним в массиве, смещаем текущий активный элемент назад
 
 
-        if (deletedEventIndex === getters.eventsLength) {
+        if (state.events.length === deletedEventIndex) {
           deletedEventIndex--;
         } // Установка нового активного элемента
 
@@ -44319,20 +44569,29 @@ __webpack_require__.r(__webpack_exports__);
     SET_EVENTS: function SET_EVENTS(state, events) {
       state.events = events;
     },
-    PUSH_EMPTY_EVENT: function PUSH_EMPTY_EVENT(state, nextId, center) {
+    PUSH_EMPTY_EVENT: function PUSH_EMPTY_EVENT(state, payload) {
       state.events.push({
-        name: "Empty",
-        id: nextId,
-        title: ' ',
-        markerPosition: center,
+        id: payload.nextEventId,
+        markerPosition: payload.tileCenter,
+        title: "Empty",
+        description: ' ',
         mediaUrl: ""
       });
     },
     DELETE_EVENT_BY_INDEX: function DELETE_EVENT_BY_INDEX(state, index) {
       state.events.splice(index, 1);
     },
-    SET_EVENT_MARKER_POSITION: function SET_EVENT_MARKER_POSITION(state, index, position) {
-      state[index].marker = position;
+    SET_EVENT_MARKER_POSITION: function SET_EVENT_MARKER_POSITION(state, payload) {
+      state.events[payload.index].markerPosition = payload.position;
+    },
+    SET_EVENT_TITLE: function SET_EVENT_TITLE(state, payload) {
+      state.events[payload.index].title = payload.title;
+    },
+    SET_EVENT_DESCRIPTION: function SET_EVENT_DESCRIPTION(state, payload) {
+      state.events[payload.index].description = payload.description;
+    },
+    SET_EVENT_MEDIA_URL: function SET_EVENT_MEDIA_URL(state, payload) {
+      state.events[payload.index].mediaUrl = payload.mediaUrl;
     }
   },
   state: {
@@ -44343,17 +44602,8 @@ __webpack_require__.r(__webpack_exports__);
     events: function events(state) {
       return state.events;
     },
-    eventsLength: function eventsLength(state) {
-      return state.events.length;
-    },
     selectedEvent: function selectedEvent(state, getters) {
       return state.events.find(function (obj) {
-        return obj.id === getters.config.selectedEventId;
-      });
-    },
-    // return -1 indicating that no element passed the test
-    indexSelectedEvent: function indexSelectedEvent(state, getters) {
-      return state.events.findIndex(function (obj) {
         return obj.id === getters.config.selectedEventId;
       });
     },
@@ -44364,7 +44614,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     arrayMarker: function arrayMarker(state) {
       return state.events.map(function (a) {
-        return a.marker;
+        return a.markerPosition;
       });
     }
   }
@@ -44397,10 +44647,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   strict: true,
   actions: {
+    initStore: function initStore(_ref) {
+      var commit = _ref.commit;
+      commit('SET_EVENTS', window.init_map_events);
+      commit('SET_CONFIG', window.init_map_config);
+    },
     // Обращение к API
-    setMap: function setMap(_ref) {
-      var getters = _ref.getters;
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/setMap', {
+    setMap: function setMap(_ref2) {
+      var getters = _ref2.getters;
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/setDataMap', {
         // Приведение обьекта в json
         events: JSON.stringify(getters.events),
         config: JSON.stringify(getters.config)
@@ -44410,9 +44665,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         alert("Save error: " + error.response);
       });
     },
-    getMap: function getMap(_ref2) {
-      var commit = _ref2.commit;
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/getMap').then(function (response) {
+    getMap: function getMap(_ref3) {
+      var commit = _ref3.commit;
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/getDataMap').then(function (response) {
         // Обязательно приведение json в обьект
         commit('SET_EVENTS', JSON.parse(response.data.map_events));
         commit('SET_CONFIG', JSON.parse(response.data.map_config));

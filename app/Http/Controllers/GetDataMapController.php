@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class GetMapController extends Controller
+class GetDataMapController extends Controller
 {
-    public function getMap()
+    public function getDataArray()
     {
         $config = DB::select('select map_config from maps where map_id=1');
         $events = DB::select('select map_events from maps where map_id=1');

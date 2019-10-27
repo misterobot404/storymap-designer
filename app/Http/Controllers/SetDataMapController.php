@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class SetMapController extends Controller
+class SetDataMapController extends Controller
 {
-    public function setMap(Request $request)
+    public function setData(Request $request)
     {
         DB::update('update maps set map_events = ? where map_id = 1', [$request->events]);
         DB::update('update maps set map_config = ? where map_id = 1', [$request->config]);

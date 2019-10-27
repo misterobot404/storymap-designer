@@ -17,8 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/getMap','GetMapController@getMap');
+Route::post('/getDataMap','GetDataMapController@getDataArray');
 
-Route::post('/setMap','SetMapController@setMap');
+Route::post('/setDataMap','SetDataMapController@setData');
 
-Route::post('/setMap/uploadImg','SetMapController@uploadImg');
+Route::post('/setDataMap/uploadImg','SetDataMapController@uploadImg');

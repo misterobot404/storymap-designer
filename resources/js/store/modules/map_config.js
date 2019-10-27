@@ -23,6 +23,10 @@ export default {
         config: [],
     },
     getters: {
-        config: state => state.config
+        config: state => state.config,
+        // return -1 indicating that no element passed the test
+        indexSelectedEvent: function (state, getters) {
+            return getters.events.findIndex(obj => obj.id === state.config.selectedEventId);
+        }
     }
 }

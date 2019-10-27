@@ -1,7 +1,7 @@
 <template>
     <event-list id="eventList"
                 class="eventList"
-                v-model="this.model_events"
+                v-model="model_events"
                 lockAxis="y"
                 :transitionDuration=250
                 :pressDelay=200
@@ -20,7 +20,7 @@
                      @mouseleave="showButtonDeleteEvent = null"
                      @click="selectEventById(event.id)">
                     <div class="eventItemTitle">
-                        {{ event.name }}
+                        {{ event.title }}
                     </div>
                     <button
                             :class="[ 'deleteEventButton', {'deleteEventButtonHide' : showButtonDeleteEvent !== index}]"
