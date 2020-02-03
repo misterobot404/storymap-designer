@@ -1,7 +1,20 @@
-# Start session using SSH
+# PostgreSQL
 
  psql -U homestead -h localhost
- 
+ \dt
+
+# Laravel
+
+dd(Cookie::get());
+dd(Cookie::get('name'));
+dd(Auth::user());
+
+ # Artisan
+  php artisan make:controller Name
+  php artisan config:cache
+  php artisan migrate:refresh --seed
+  php artisan ide-helper:generate
+  
 # Pure SQL commands
 
  <!---Create--->
@@ -42,14 +55,6 @@ event_description text,
 event_media varchar (100), 
 event_location varchar (100)
 );
-# Artisan
- php artisan make:controller Name
- php artisan ide-helper:generate
-
-# Compiling frontend (vue component)
-
- npm run dev
- npm run watch-poll
 
 # linux helper
 fg Name - comeback process

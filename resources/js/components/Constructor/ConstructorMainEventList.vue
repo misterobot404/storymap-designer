@@ -1,45 +1,50 @@
 <template>
     <event-list id="eventList"
-                class="eventList"
+                class="mainEventList"
                 v-model="model_events"
                 lockAxis="y"
                 :transitionDuration=250
                 :pressDelay=200
                 :lockToContainerEdges="true"
                 helperClass="eventItemDrag">
-        <!--fixme При вставки события вниз текущего экрана, скрол автоматически поднимается. Фикс во Vue 2.7-->
+        <!--FIXME: При вставки события вниз текущего экрана, скрол автоматически поднимается. Фикс во Vue 2.7-->
         <transition-group name="animatedEvents"
                           @after-leave="afterLeave"
-                          @enter="afterEnter">
+                          @enter="afterEnter"
+                          class="eventList">
+            <!--            Сюда нельзя повесить события, поэтому используем див ниже-->
+            <!--TODO: Настроить цвет событий при наведении и нажатии-->
             <event-item v-for="(event, index) in events"
                         :index="index"
                         :key="event.id"
-                        :class="['eventItem', {eventItemActive : event.id === config.selectedEventId}]">
-                <div style="display: flex"
-                     @mouseover="showButtonDeleteEvent = index"
+                        :class="['mainEventItem', {eventItemActive : event.id === config.selectedEventId}]">
+                <div @mouseover="showButtonDeleteEvent = index"
                      @mouseleave="showButtonDeleteEvent = null"
-                     @click="selectEventById(event.id)">
+                     @click="selectEventById(event.id)"
+                     class="eventItem">
                     <div class="eventItemTitle">
                         {{ event.title }}
                     </div>
-                    <button
-                            :class="[ 'deleteEventButton', {'deleteEventButtonHide' : showButtonDeleteEvent !== index}]"
-                            @click.stop="deleteEventByIndex(index)"
-                    >✖
-                    </button>
+                    <!--TODO: ПЕРЕДЕЛАТЬ кнопку удаления события-->
+<!--                    <button :class="[ 'deleteEventButton', {'deleteEventButtonHide' : showButtonDeleteEvent !== index}]"-->
+<!--                            @click.stop="deleteEventByIndex(index)"-->
+<!--                    >✖-->
+<!--                    </button>-->
                 </div>
             </event-item>
         </transition-group>
         <li @click="addEvent"
-            class="eventItem addEventButton">
-            <div class="plus">+</div>
+            class="mainEventItem addEventButton">
+                <div id="addEventButtonPlus"
+                     @mouseover="plusRotate"
+                >+</div>
         </li>
     </event-list>
 </template>
 
 <script>
     import {SlickItem, SlickList} from 'vue-slicksort'
-    import {mapMutations,mapGetters} from 'vuex'
+    import {mapMutations, mapGetters} from 'vuex'
 
     export default {
         name: "ConstructorEventList",
@@ -50,11 +55,12 @@
         data() {
             return {
                 deletedEventIndex: null,
-                showButtonDeleteEvent: null
+                showButtonDeleteEvent: null,
+                plusRotateValue: 0,
             }
         },
         computed: {
-            ...mapGetters(['config','events']),
+            ...mapGetters(['config', 'events']),
             model_events: {
                 get() {
                     return this.events
@@ -70,7 +76,6 @@
                 'SET_SELECTED_EVENT_ID',
                 'DELETE_EVENT_BY_INDEX'
             ]),
-
             addEvent: function () {
                 this.$store.dispatch('addEvent');
             },
@@ -83,151 +88,152 @@
             },
             // Хук срабатывающий после удаления и окончания анимации удаления события
             afterLeave: function () {
-                this.$store.dispatch("eventSelectionAfterDelete",this.deletedEventIndex);
+                this.$store.dispatch("eventSelectionAfterDelete", this.deletedEventIndex);
                 this.deletedEventIndex = null;
             },
             afterEnter: function () {
                 let element = document.getElementById("eventList");
                 element.scrollTop = element.scrollHeight - element.clientHeight;
+            },
+            // CSS method
+            plusRotate: function () {
+                this.plusRotateValue += 180;
+                var plus = document.getElementById('addEventButtonPlus');
+                plus.style.transform = 'rotate('+ this.plusRotateValue +'deg)';
             }
         }
     }
 </script>
 
-<style scoped>
-    .eventList {
-        min-width: 120px;
-        overflow-y: scroll;
-    }
+<style lang="sass" scoped>
+    .mainEventList
+        display: flex
+        flex-direction: column
+        align-items: center
+        width: 14%
+        min-width: 160px
+        max-width: 280px
+        overflow-y: scroll
 
-    .eventItem {
-        -webkit-box-align: center;
-        align-items: center;
-        box-sizing: border-box;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-        cursor: pointer;
-        list-style: none;
-        font-size: 20px;
-        display: flex;
-        justify-content: center;
-        height: 56px;
-        margin: 14px 14px 14px 10px; /*убираем верхнее и нижнее поле, равное 1em*/
-        max-width: 110px;
-        min-width: 50px;
-        border-radius: 5px;
-        background-color: #35495E;
-        color: #41B883;
-        border: 2px solid transparent;
-    }
+    .eventList
+        display: flex
+        flex-direction: column
+        align-items: center
+        width: 100%
 
-    .eventItem:hover {
-        background-color: #41B883;
-        color: #35495E;
-        border: 2px groove black;
-    }
+    .mainEventItem
+        display: flex
+        align-items: center
+        box-sizing: border-box
+        user-select: none
+        cursor: pointer
+        list-style: none
+        font-size: 20px
+        justify-content: center
+        height: 56px
+        margin-bottom: 14px
 
-    .eventItemTitle {
-        margin: 22px 11px 22px 35px;
-        min-width: 52px;
-        max-width: 52px;
-        min-height: 23px;
-        max-height: 23px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+        /*убираем верхнее и нижнее поле, равное 1em
+        width: 90%
+        border-radius: 5px
+        background-color: #C4D8F0
+        color: #111111
 
-    .deleteEventButton {
-        background-color: #35495E;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        font-size: 12px;
-        border-radius: 50%;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        height: 22px;
-        width: 22px;
-        align-content: center;
-    }
+        /*box-shadow: 0 1px 1px rgba(0,0,0,.25),
+        /*inset 0 2px 0 rgba(255,255,255,.6),
+        /*0 2px 0 rgba(0,0,0,.1),
+        /*inset 0 0 20px rgba(0,0,0,.1);
 
-    .deleteEventButtonHide {
-        visibility: hidden;
-    }
+        &:hover
+            background-color: #41B883
+            color: #35495E
+            border: 2px groove black
 
-    .addEventButton {
-        background-color: transparent;
-        border: 2px groove black;
-        color: #35495E;
-        font-size: 36px;
-        font-weight: lighter;
-        transition: 0.5s ease; /* скорость поворота */
-        padding: 22px;
-        overflow: hidden;
-    }
+    .eventItem
+        width: 100%
+        height: 100%
+        display: flex
+        justify-content: center
+        align-items: center
 
-    .addEventButton:hover {
-        background-color: transparent;
-    }
+    .eventItemActive
+        border: 2px solid black
 
-    .plus {
-        transition: 0.5s ease; /* скорость поворота */
-        transform-style: preserve-3d; /* стиль трансформирования 3-д */
-        padding: 14px 28px;
-    }
+        &:hover
+            color: white
+            background-color: #DA0000
+            border: transparent
 
-    .plus:hover {
-        transform: rotate(180deg);
-    }
+    .eventItemDrag
+        background-color: #41B883
+        color: #35495E
+        border: 2px dashed black
+        font-size: 20px
+        font-family: 'Avenir', Helvetica, Arial, sans-serif
 
-    .animatedEvents-enter-active {
-        transition: all 0.6s;
-    }
+    .eventItemTitle
+        width: 90%
+        overflow: hidden
+        text-overflow: ellipsis
 
-    .animatedEvents-enter {
-        opacity: 0;
-        transform: translateY(50px);
-    }
+    .deleteEventButton
+        display: flex
+        background-color: #35495E
+        color: white
+        text-align: center
+        text-decoration: none
+        font-size: 12px
+        border-radius: 50%
+        border: none
+        outline: none
+        cursor: pointer
+        flex-direction: column
+        align-items: flex-start
+        justify-content: center
+        height: 22px
+        width: 22px
+        align-content: center
 
-    .animatedEvents-leave-active {
-        animation: animatedEvents-in .5s reverse;
-    }
+    .deleteEventButtonHide
+        visibility: hidden
 
-    @keyframes animatedEvents-in {
-        0% {
-            transform: scale(0.1);
-        }
-        50% {
-            transform: scale(1.1);
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
+    .addEventButton
+        background-color: transparent
+        border: 2px groove black
+        color: #35495E
 
-    .eventItemActive {
-        color: white;
-        background-color: #DA0000;
-        border-radius: 2px;
-    }
+        &:hover
+            background-color: transparent
 
-    .eventItemActive:hover {
-        color: white;
-        background-color: #DA0000;
-        border: transparent;
-    }
+    #addEventButtonPlus
+        transition: 0.6s ease
 
-    .eventItemDrag {
-        background-color: #41B883;
-        color: #35495E;
-        border: 2px dashed black;
-        font-size: 20px;
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    }
+        /* скорость поворота
+        transform: rotate(0deg)
+        transform-style: preserve-3d
+
+        /* стиль трансформирования 3-д
+        font-size: 36px
+        line-height: 52px
+        width: 100%
+
+    .animatedEvents-enter-active
+        transition: all 0.6s
+
+    .animatedEvents-enter
+        opacity: 0
+        transform: translateY(50px)
+
+    .animatedEvents-leave-active
+        animation: animatedEvents-in .5s reverse
+
+    @keyframes animatedEvents-in
+        0%
+            transform: scale(0.1)
+
+        50%
+            transform: scale(1.1)
+
+        100%
+            transform: scale(1)
 </style>

@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+
 Vue.use(Vuex);
 
+import maps from './modules/maps'
 import map_config from './modules/map_config'
 import map_events from './modules/map_events'
 
@@ -10,23 +12,75 @@ export default new Vuex.Store({
     strict: true,
     actions: {
         initStore: function ({commit}) {
-            commit('SET_EVENTS', window.init_map_events);
-            commit('SET_CONFIG', window.init_map_config)
-        },
-        // Обращение к API
-        setMap: function ({getters}) {
-            axios.post('api/setDataMap',{
-                // Приведение обьекта в json
-                events: JSON.stringify(getters.events),
-                config: JSON.stringify(getters.config)
-            })
+            // Если пришли данные всех карт
+            if (window.maps) {
+                commit('SET_MAPS', window.maps);
+            }
+            // Если пришли данные одной карты
+            else if (window.map) {
+                commit('SET_EVENTS', JSON.parse(window.map.events));
+                commit('SET_CONFIG', JSON.parse(window.map.config))
+            }
+
+            // Если пользователь авторизирован установить количество карт
+            axios.get('/maps/count')
                 .then(response => {
-                    alert("Save successful")
+                    if (response.data.mapCount !== 0) {
+                        commit('SET_MAP_COUNT', JSON.parse(response.data.mapCount));
+                    }
                 })
                 .catch(error => {
-                    alert("Save error: " + error.response)
+                    console.log(error)
                 });
         },
+        setMap: function ({getters}) {
+            axios.post('/edit/savemap',
+                {
+                    map_id: window.map.id,
+                    events: JSON.stringify(getters.events),
+                    config: JSON.stringify(getters.config)
+                })
+                .then(response => {
+                    // TODO: Анимация сохранения
+                    alert("Save successful");
+                })
+                .catch(error => {
+                    alert("Save Error")
+                });
+        },
+        createMap: function ({commit}, data) {
+            axios.post('/maps',
+                {
+                    name: data.name,
+                    description: data.description
+                })
+                .then(response => {
+                    commit('SET_MAPS', JSON.parse(response.data.maps));
+                    commit('SET_MAP_COUNT', JSON.parse(response.data.mapCount));
+                })
+                .catch(error => {
+                    alert("Error")
+                });
+        },
+        destroyMap: function ({commit}, data) {
+            axios.delete('/maps/' + data.id)
+                .then(response => {
+                    commit('SET_MAPS', JSON.parse(response.data.maps));
+                    commit('SET_MAP_COUNT', JSON.parse(response.data.mapCount));
+                })
+                .catch(error => {
+                    alert("Error")
+                });
+        }
+    },
+    modules: {
+        maps,
+        map_config,
+        map_events
+    }
+})
+
+/*
         getMap: function ({commit}) {
             axios.post('api/getDataMap')
                 .then(response => {
@@ -38,13 +92,7 @@ export default new Vuex.Store({
                     alert("Error getMap: " + error.response);
                 });
         },
-    },
-    modules: {
-        map_config,
-        map_events
-    }
-})
-
+        */
 /*
 setMap: function (ctx) {
 ctx.rootState.map_config.config

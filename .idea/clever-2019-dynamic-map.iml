@@ -8,13 +8,9 @@
       <excludeFolder url="file://$MODULE_DIR$/app/Console" />
       <excludeFolder url="file://$MODULE_DIR$/app/Exceptions" />
       <excludeFolder url="file://$MODULE_DIR$/bootstrap" />
-      <excludeFolder url="file://$MODULE_DIR$/config" />
-      <excludeFolder url="file://$MODULE_DIR$/database" />
+      <excludeFolder url="file://$MODULE_DIR$/database/factories" />
       <excludeFolder url="file://$MODULE_DIR$/node_modules" />
-      <excludeFolder url="file://$MODULE_DIR$/resources/lang" />
-      <excludeFolder url="file://$MODULE_DIR$/resources/sass" />
       <excludeFolder url="file://$MODULE_DIR$/storage/framework" />
-      <excludeFolder url="file://$MODULE_DIR$/storage/logs" />
       <excludeFolder url="file://$MODULE_DIR$/tests" />
       <excludeFolder url="file://$MODULE_DIR$/vendor" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-ide-helper" />

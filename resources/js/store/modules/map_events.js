@@ -10,7 +10,7 @@ export default {
             commit('ITERATION_ID');
         },
         eventSelectionAfterDelete({state, getters, commit}, index) {
-            var deletedEventIndex = index;
+            let deletedEventIndex = index;
             // Если было удалёно активное событие (активное событие не надено), устанавливаем новое
             if (getters.indexSelectedEvent === -1) {
                 // Если после удаления события массив событий пуст новый элемент назначать не нужно, выходим

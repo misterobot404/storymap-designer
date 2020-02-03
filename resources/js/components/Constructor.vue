@@ -6,7 +6,6 @@
 </template>
 
 <script>
-
     import ConstructorMain from './Constructor/ConstructorMain'
     import ConstructorControlPanel from './Constructor/ConstructorControlPanel'
 
@@ -20,11 +19,11 @@
 
 </script>
 
-<style scoped>
-    .app {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-    }
+<style lang="sass" scoped>
+    .app
+        font-family: 'Avenir', Helvetica, Arial, sans-serif
+        -webkit-font-smoothing: antialiased
+        -moz-osx-font-smoothing: grayscale
+        text-align: center
+        margin: 8px
 </style>

@@ -17,8 +17,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/getDataMap','GetDataMapController@getDataArray');
-
-Route::post('/setDataMap','SetDataMapController@setData');
-
-Route::post('/setDataMap/uploadImg','SetDataMapController@uploadImg');

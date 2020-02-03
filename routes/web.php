@@ -1,9 +1,21 @@
 <?php
+use App\Map;
 
-Route::get('/','ConstructorPage@getPage');
+Route::get('/', function () {
+    return view('index');
+});
 
-// Просто получить view без данных, данные будут получены чере API
-//Route::get('/',function () {
-//    return view('app');
-//});
 
+Route::get('maps/count', function () {
+    return ['mapCount' => Map::getMapCount()];
+});
+
+// CRUD for MapController added without create.
+Route::resource('maps', 'MapController')->except('create')->middleware('auth');
+
+// Email verification added.
+Auth::routes(['verify' => true]);
+
+/* DEV HELPER
+ * artisan route:list
+ */

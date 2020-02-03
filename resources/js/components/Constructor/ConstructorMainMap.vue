@@ -1,11 +1,12 @@
 <template>
+<!--    :minZoom="config.minTileZoom"-->
+<!--    :maxZoom="config.maxTileZoom"-->
+<!--    :maxBounds="config.tileBounds"-->
         <l-map class="map"
                ref="map"
                :zoom="mapZoom"
                :center="config.tileCenter"
-               :minZoom="config.minTileZoom"
-               :maxZoom="config.maxTileZoom"
-               :maxBounds="config.tileBounds"
+
                :maxBoundsViscosity="maxBoundsViscosity"
                @click="latLngClickUpdatePosition"
                @update:zoom="zoomUpdated"
@@ -23,12 +24,12 @@
                     {{marker.title}}
                 </l-tooltip>
                 <l-icon v-if="indexSelectedEvent !== index"
-                        :icon-size="[32, 38]"
-                        icon-url="https://image.flaticon.com/icons/svg/148/148828.svg">
+                        :icon-size="iconSize"
+                        :icon-url="iconUrl">
                 </l-icon>
                 <l-icon v-else
-                        :icon-size="[48, 46]"
-                        icon-url="https://image.flaticon.com/icons/svg/148/148834.svg">
+                        :icon-size="iconSizeActive"
+                        :icon-url="iconUrl">
                 </l-icon>
             </l-marker>
             <l-polyline :lat-lngs="arrayMarker"
@@ -52,6 +53,7 @@
         shadowUrl: require('leaflet/dist/images/marker-shadow.png')
     });
 
+    // TODO: Добавить определение карёв карты
     export default {
         name: "ConstructorMap",
         components: {
@@ -70,7 +72,10 @@
                 //// l-polyline config
                 polylineOpacity: 0.6,
                 polylineDashArray: "6",
-                polylineWeight: 2
+                polylineWeight: 2,
+                iconUrl: "https://image.flaticon.com/icons/svg/148/148828.svg",
+                iconSize: [32, 38],
+                iconSizeActive: [48, 46]
             }
         },
         watch: {
@@ -82,27 +87,38 @@
                 }
             }
         },
-        // mounted: function () {
-        //     const width = 1280;
-        //     const height = 720;
-        //     this.maxZoom = 3;
-        //     this.minZoom = 0;
-        //     const orgLevel = 3;
-        //     const tileWidth = 256 * Math.pow(2, orgLevel);
-        //     const radius = tileWidth / 2 / Math.PI;
-        //     const rx = width - tileWidth / 2;
-        //     const ry = -height + tileWidth / 2;
-        //     const west = -180;
-        //     const east = (180 / Math.PI) * (rx / radius);
-        //     const north = 85.05;
-        //     const south = (360 / Math.PI) * (Math.atan(Math.exp(ry / radius)) - (Math.PI / 4));
-        //     //const rc = (tileWidth / 2 + ry) / 2;
-        //     //const centerLat = (360 / Math.PI) * (Math.atan(Math.exp(rc / radius)) - (Math.PI / 4));
-        //     //const centerLon = (west + east) / 2;
-        //     this.bounds = new L.LatLngBounds(new L.LatLng(south, west), new L.LatLng(north, east));
-        //     //this.zoom = this.$refs.map.mapObject.getBoundsZoom(bounds);
-        //     //this.center = new L.latLng(centerLat, centerLon);
-        // },
+        mounted: function () {
+            // const image = 'tile';
+            // const width = 3320;
+            // const height = 2197;
+            const maxLevel = 10;
+
+            // const minLevel = 0;
+            // const orgLevel = 3;
+            //
+            // // Some weird calculations to fit the image to the initial position
+            // // Leaflet has some bugs there. The fitBounds method is not correct for large scale bounds
+            // const tileWidth = 256 * Math.pow(2, orgLevel);
+            // const radius = tileWidth / 2 / Math.PI;
+            // const rx = width - tileWidth / 2;
+            // const ry = -height + tileWidth / 2;
+            //
+            // const west = -180;
+            // const east = (180 / Math.PI) * (rx / radius);
+            // const north = 85.05;
+            // const south = (360 / Math.PI) * (Math.atan(Math.exp(ry / radius)) - (Math.PI / 4));
+            // const rc = (tileWidth / 2 + ry) / 2;
+            // const centerLat = (360 / Math.PI) * (Math.atan(Math.exp(rc / radius)) - (Math.PI / 4));
+            // const centerLon = (west + east) / 2;
+            //
+            // const bounds = [[south, west], [north, east]];
+            // this.SET_TILE_BOUNDS(bounds);
+            //
+            // this.SET_MIN_TILE_ZOOM(minLevel);
+            // this.SET_MAX_TILE_ZOOM(maxLevel);
+            //
+            // this.centerUpdated(new L.latLng(centerLat, centerLon));
+        },
         computed: {
             ...mapGetters([
                 'config',
@@ -116,7 +132,10 @@
             ...mapMutations([
                 "SET_TILE_CENTER",
                 "SET_SELECTED_EVENT_ID",
-                "SET_EVENT_MARKER_POSITION"
+                "SET_EVENT_MARKER_POSITION",
+                "SET_TILE_BOUNDS",
+                "SET_MIN_TILE_ZOOM",
+                "SET_MAX_TILE_ZOOM"
             ]),
             zoomUpdated: function (zoom) {
                 this.mapZoom = zoom;
@@ -143,11 +162,9 @@
     }
 </script>
 
-<style scoped>
-    .map {
-        width: 100%;
-        margin: auto;
-        border: 1px solid #4d565661;
-    }
-
+<style lang="sass" scoped>
+    .map
+        width: 100%
+        margin: auto
+        border: 1px solid #4d565661
 </style>
