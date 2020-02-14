@@ -11,9 +11,9 @@
 </template>
 
 <script>
-    import ConstructorMainEventList from './ConstructorMainEventList'
-    import ConstructorMainMap from "./ConstructorMainMap"
-    import ConstructorMainForm from "./ConstructorMainForm";
+    import ConstructorMainEventList from './MainEventList'
+    import ConstructorMainMap from "./MainMap"
+    import ConstructorMainForm from "./MainForm";
 
     export default {
         name: "ConstructorMain",

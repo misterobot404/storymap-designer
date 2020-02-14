@@ -5,9 +5,7 @@
 @endsection
 
 @section('content')
-    <div id="app">
         <constructor>
             {{ csrf_field() }}
         </constructor>
-    </div>
 @endsection

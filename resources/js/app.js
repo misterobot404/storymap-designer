@@ -5,7 +5,7 @@ import vue from "vue";
 window.Vue = vue;
 import store from './store/store'
 // Без этого не работает динамический импорт WTF)))))))))))))
-require("./components/Constructor/ConstructorControlPanel");
+require("./components/Constructor/ControlPanel");
 
 // Next, we will create a fresh Vue application instance and attach it to the page.
 // Remember that global registration must take place before the root Vue instance is created (with new Vue).

@@ -1,183 +1,150 @@
 <template>
-    <div class="app container pt-5">
-        <div class="row m-4 w-50 mx-auto justify-content-center">
-            <input class="col-8 mr-lg-3 form-control input-search min-w-280 mb-2 rounded-lg shadow-sm" type="text" placeholder="Поиск по названию" v-model.trim="nameSearch">
-            <div class="w-75 row min-w-280 mb-4 justify-content-center">
-                <select class="col-lg-8 col-10 my-auto custom-select rounded-lg shadow-sm" v-model="sortMethod">
-                    <option value="sortByDataCreated">Сортировать по дате создания</option>
-                    <option value="sortByDataModified">Сортировать по дате изменения</option>
-                </select>
-<!--                pr-0 pl-1 m-0-->
-                <img class="btn btn-light col-lg-auto ml-lg-1 col-2 p-0" :src="sortImg" @click="sortUp = !sortUp">
-            </div>
-            <a class="btn btn-info button-create min-w-280 w-50 color-active-black" data-toggle="modal" data-target="#modal"> Создать атлас </a>
-        </div>
-        <div class="row justify-content-center text-center">
-            <div v-for="(map, index) in filteredMaps" :index="index">
-                <div class="col-sm card m-2 card-casual px-0 pb-2 shadow" onclick="">
-                    <img src="../../images/no-image.png" class="card-img-top" :alt="map.name">
-                    <div class="card-body">
-                        <h5 class="card-title"> {{map.name}} </h5>
-                        <p class="card-text"> {{map.description}} </p>
-                    </div>
-                    <a class="btn btn-light w-50 mx-auto" @click="$store.dispatch('destroyMap', {id: map.id})"> Удалить </a>
-                </div>
-            </div>
-        </div>
+    <div class="app container pt-5 mt-1">
+        <ul class="breadcrumb nav nav-pills text-center
+        flex-sm-row align-content-sm-start
+        flex-column align-content-center">
+            <li class="nav-item">
+                <a class="nav-link text-primary font-w-600" href="#">Все атласы</a>
 
-        <!-- Modal-->
-        <div class="modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Создание атласа</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"> &times; </span></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="name" class="pl-1"> Название атласа <span class="text-danger"> * </span></label>
-                                <input
-                                    :class="['form-control', name !== '' || errors.nameEmpty ? (errors.nameEmpty || errors.nameDuplicate ? 'is-invalid' : 'is-valid') : '']"
-                                    id="name" v-model.trim="name" type="text" autocomplete="off">
-                                <span v-show="errors.nameEmpty" class="invalid-feedback ml-1" role="alert"> Пожалуста, введите название атласа. </span>
-                                <span v-show="errors.nameDuplicate" class="invalid-feedback ml-1" role="alert"> Атлас с таким названием уже существует! </span>
-                            </div>
-                            <div class="form-group">
-                                <label for="description" class="pl-1"> Описание карты <span class="text-danger">*</span></label>
-                                <textarea
-                                    :class="['form-control', description !== '' || errors.descriptionEmpty ? (errors.descriptionEmpty ? 'is-invalid' : 'is-valid') : '']"
-                                    id="description" v-model.trim="description" autocomplete="off"/>
-                                <span v-show="errors.descriptionEmpty" class="invalid-feedback ml-1" role="alert"> Пожалуста, введите описание атласа. </span>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        <button class="btn btn-primary w-25" @click="createMap()">Создать</button>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-secondary" href="#">Мои атласы</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-secondary" href="#">Атласы по подписке</a>
+            </li>
+        </ul>
+
+        <ul class="nav mb-4 py-3 border-bottom">
+            <li class="nav-item col-sm">
+                <input class="mx-auto form-control input-search rounded-lg" type="text" placeholder="Поиск по названию" v-model.trim="nameSearch">
+            </li>
+            <li class="nav-item col-sm-auto row">
+                <div class="btn-group align-self-start">
+                    <button id="btnGroupSort" class="px-sm-3 btn dropdown-toggle dropdown-btn rounded-lg" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                        <i>Сортировать:</i>
+                        <span v-if="sortMethod==='sortByDataCreated'" style="margin-right: 1px">По дате создания</span>
+                        <span v-else style="margin-right: 1px">По дате изменения</span>
+                    </button>
+                    <div class="w-100 dropdown-menu shadow-sm rounded-lg" aria-labelledby="btnGroupSort">
+                        <span class="dropdown-header font-w-600" @click.stop>Выберите метод сортировки</span>
+                        <div class="dropdown-divider"/>
+                        <a class="dropdown-item text-dark" @click="setSortMethod('sortByDataCreated')">
+                            <svg width="12" height="19" aria-hidden="true" style="margin-right: 8px">
+                                <path v-show="sortMethod==='sortByDataCreated'" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"/>
+                            </svg>
+                            По дате создания</a>
+                        <a class="dropdown-item text-dark" @click="setSortMethod('sortByDataModified')">
+                            <svg width="12" height="19" aria-hidden="true" style="margin-right: 8px">
+                                <path v-show="sortMethod==='sortByDataModified'" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"/>
+                            </svg>
+                            По дате изменения</a>
                     </div>
                 </div>
-            </div>
-        </div>
+                <div class="col-auto btn btn-light ml-1 align-self-start rounded-lg" type="button" role="button" style="padding: 1px" @click="sortUp = !sortUp">
+                    <img :src="sortImg" class="img-fluid p-1" alt="sort">
+                </div>
+            </li>
+            <li class="nav-item col-sm-auto text-center">
+                <button id="btn-show-create-map" class="btn btn-primary mb-3 mx-auto" data-toggle="modal" data-target="#modal"> Создать </button>
+            </li>
+        </ul>
+
+        <MapList class="pt-3" :sort-up="sortUp" :sort-method="sortMethod" :name-search="nameSearch"/>
+        <!-- Modal-->
+        <CreateMapModal/>
     </div>
 </template>
 
 <script>
-    import $ from 'jquery';
-    import {mapMutations} from 'vuex';
+    import MapList from "./Manager/MapList";
+    import CreateMapModal from "./Manager/CreateMapModal";
 
     export default {
         name: "Constructor",
+        components: {
+            MapList,
+            CreateMapModal
+        },
         data() {
             return {
-                edit: "/edit/",
-                name: "",
+                /// data for MapList
                 nameSearch: "",
-                description: "",
+                //sortByDataCreated or sortByDataModified
                 sortMethod: "sortByDataCreated",
                 // sortUp: false - sortDawn, sortUp: true - sortUp
                 sortUp: false,
-                errors: {
-                    nameEmpty: false,
-                    descriptionEmpty: false,
-                    nameDuplicate: false
-                },
             }
         },
         computed: {
-            // Список атласов, в названии которых есть слово из поиска
-            filteredMaps: function () {
-                let maps = this.$store.getters.maps;
-                if (this.sortMethod === "sortByDataCreated") {
-                    if (this.sortUp === false) {
-                        this.SORT_BY_DATA_CREATED_DOWN();
-                    } else this.SORT_BY_DATA_CREATED_UP();
-                }
-                if (this.sortMethod === "sortByDataModified") {
-                    if (this.sortUp === false) {
-                        this.SORT_BY_DATA_MODIFIED_DOWN()
-                    } else this.SORT_BY_DATA_MODIFIED_UP();
-
-                }
-                let name = this.nameSearch;
-                return maps.filter(function (elem) {
-                    if (name === '') return true;
-                    else return elem.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
-                })
-            },
-            // Иконка для разного вида сортировки
             sortImg: function () {
-                if (this.sortUp === false)
-                    return "../../images/sort_down.png";
-                else return "../../images/sort_up.png"
-            }
-        },
-        watch: {
-            name: function () {
-                if (this.name !== '') {
-                    this.errors.nameEmpty = false;
-                    // nameDuplicate = true, если название повторяется
-                    this.errors.nameDuplicate = this.$store.getters.maps.find(map => map.name.toLowerCase() === this.name.toLowerCase()) !== undefined;
-                }
-            },
-            description: function () {
-                if (this.description !== '') {
-                    this.errors.descriptionEmpty = false;
-                }
+                // require для добавления картинки в дерево зависимостей webpack
+                if (this.sortUp === false) return require('../../images/sort_down.png');
+                else return require('../../images/sort_up.png');
             }
         },
         methods: {
-            ...mapMutations([
-                "SORT_BY_DATA_CREATED_DOWN",
-                "SORT_BY_DATA_CREATED_UP",
-                "SORT_BY_DATA_MODIFIED_DOWN",
-                "SORT_BY_DATA_MODIFIED_UP"
-            ]),
-            // Валидация ввода и создание атласа с помощью асинхронного запроса
-            createMap: function () {
-                if (this.name === "") {
-                    this.errors.nameEmpty = true;
-                }
-                if (this.description === "") {
-                    this.errors.descriptionEmpty = true;
-                }
-
-                if (!this.errors.nameEmpty && !this.errors.descriptionEmpty && !this.errors.nameDuplicate) {
-                    this.$store.dispatch('createMap', {name: this.name, description: this.description});
-                    $('#modal').modal('hide')
-                }
+            setSortMethod: function (method) {
+                this.sortMethod = method;
             }
-        },
-        mounted: function () {
-            // Нужно сохранить ссылку на компонент в переменной, для последующего обращения к data
-            let ref = this;
-
-            $('#modal')
-                // При скрытии модального окна поля формы очищаются
-                .on('hidden.bs.modal', function () {
-                    // Очистка данных, которые привязаны к полям формы
-                    ref.name = "";
-                    ref.description = "";
-                    // Очистка ошибок
-                    ref.errors.nameEmpty = false;
-                    ref.errors.descriptionEmpty = false;
-                    // Очистка полей формы
-                    $(this)
-                        .find("input,textarea,select")
-                        .val('')
-                        .end();
-                })
-                // При открытии формы фокус на названии атласа
-                .on('shown.bs.modal', function () {
-                    $('#name').trigger('focus')
-                });
         }
     }
 
 </script>
 
 <style lang="sass" scoped>
+
     .input-search
-        background: url(../../images/search_icon.png) no-repeat left center white
+        background: url('../../images/search_icon.png') no-repeat left center white
         background-size: 24px 24px
         padding-left: 30px
+
+    .dropdown-btn
+        background-color: #eff3f6
+        font-weight: 600
+        border: 1px solid #ced4da
+        -webkit-appearance: none
+        color: #464d54
+
+        &:hover
+            background-color: #e9ecef
+
+        i
+            font-style: normal
+            font-weight: 500
+            opacity: .75
+
+    .dropdown-toggle:after
+        vertical-align: 1px
+
+    .dropdown-menu
+        padding: 0
+        font-size: 14px
+        user-select: none
+        margin-top: 5px
+        overflow: hidden
+
+    .dropdown-header
+        background-color: #F6F8FA
+        color: #464d54
+        font-size: 14px
+
+    .dropdown-divider
+        margin: 0
+
+    .dropdown-item
+        cursor: pointer
+        padding: 8px 16px
+
+        &:active
+            background-color: #e6ebf1
+
+        &:last-child
+            border-bottom-left-radius: 4px
+            border-bottom-right-radius: 4px
+
+    #btn-show-create-map
+        &:focus
+            outline: none
 </style>

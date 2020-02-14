@@ -6,11 +6,9 @@
 @endsection
 
 @section('content')
-    <div id="app">
         <viewer>
             {{ csrf_field() }}
         </viewer>
-    </div>
 @endsection
 
 

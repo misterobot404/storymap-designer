@@ -22,6 +22,85 @@
             font-family: Arciform, -apple-system, sans-serif;
             letter-spacing: 0.05em;
         }
+
+        @media (max-width: 768px) {
+            #navbar-nav-guest > li:last-child {
+                margin-bottom: 8px !important;
+            }
+            .button-reg {
+            //border: none !important;
+                color: #fff !important;
+            }
+            .button-auth {
+                color: #fff !important;
+                margin-right: 0 !important;
+            }
+        }
+
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            font-size: 16px;
+            min-width: 364px;
+        }
+
+        .footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(249, 250, 251);
+            color: rgb(88, 96, 105);
+            font-size: 14px;
+            height: 66px;
+        }
+
+        .button-reg:hover, .button-auth:hover{
+            transition: .3s ease;
+            color: #B1B8BE !important;
+        }
+
+        .navbar {
+            min-height: 64px;
+            background-color: rgb(36, 41, 46);
+            color: rgb(255, 255, 255);
+        }
+
+        .header {
+            background-color: rgb(36, 41, 46);
+            color: rgb(255, 255, 255);
+        }
+
+        .button-auth {
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .button-reg {
+            border: 1px solid #e1e4e8;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 7px 14px;
+            position: relative;
+            width: 100%;
+        }
+
+        .navbar-logo {
+            width: 36px;
+            height: 36px;
+            vertical-align: text-bottom;
+        }
+        .navbar-logo-avatar {
+            width: 28px;
+            height: 28px;
+        }
+
+        .dropdown-toggle:after {
+            vertical-align: 0;
+        }
+
+        #navbarNavDropdown {
+            transition: 0.3s ease;
+        }
     </style>
 </head>
 
@@ -43,8 +122,6 @@
                 </button>
 
                 <div class="collapse navbar-collapse justify-content-end " id="navbarNavDropdown">
-                    <!-- Left Side Of Navbar (may be -> <ul class="navbar-nav mr-auto">) -->
-                    <!-- Right Side Of Navbar (may be -> <ul class="navbar-nav ml-auto">) -->
                     <ul id="navbar-nav-guest" class="navbar-nav">
                         <li class="nav-item text-center my-1">
                             <a href="{{ route('login') }}" class="button-auth text-white text-decoration-none">Авторизироваться</a>
@@ -93,7 +170,7 @@
             @endauth
         </nav>
     </header>
-    <main>
+    <main class="mb-2">
         @yield('content')
     </main>
     <footer class="footer">

@@ -22,7 +22,7 @@ export default new Vuex.Store({
                 commit('SET_CONFIG', JSON.parse(window.map.config))
             }
 
-            // Если пользователь авторизирован установить количество карт
+            // Установить текущее количество карт имеющихся карт, если пользователь авторизирован вернёт 0
             axios.get('/maps/count')
                 .then(response => {
                     if (response.data.mapCount !== 0) {

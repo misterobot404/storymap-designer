@@ -11356,92 +11356,6 @@ a.text-dark:focus {
   }
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  font-size: 16px;
-  min-width: 364px;
-}
-
-.footer {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-          justify-content: center;
-  background-color: #f9fafb;
-  color: #586069;
-  font-size: 14px;
-  height: 66px;
-}
-
-.button-reg:hover,
-.button-auth:hover {
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-  color: #B1B8BE !important;
-}
-
-@media (max-width: 768px) {
-  #navbar-nav-guest > li:last-child {
-    margin-bottom: 8px !important;
-  }
-
-  .button-reg {
-    color: #fff !important;
-  }
-
-  .button-auth {
-    color: #fff !important;
-    margin-right: 0 !important;
-  }
-}
-
-.navbar {
-  min-height: 64px;
-  background-color: #24292e;
-  color: white;
-}
-
-.header {
-  background-color: #24292e;
-  color: white;
-}
-
-.button-auth {
-  cursor: pointer;
-  margin-right: 20px;
-}
-
-.button-reg {
-  border: 1px solid #e1e4e8;
-  border-radius: 5px;
-  cursor: pointer;
-  padding: 7px 14px;
-  position: relative;
-  width: 100%;
-}
-
-.navbar-logo {
-  width: 36px;
-  height: 36px;
-  vertical-align: text-bottom;
-}
-
-.navbar-logo-avatar {
-  width: 28px;
-  height: 28px;
-}
-
-.dropdown-toggle:after {
-  vertical-align: 0;
-}
-
-#navbarNavDropdown {
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-}
-
 .font-size-32 {
   font-size: 32px !important;
 }
@@ -11457,6 +11371,13 @@ body {
   cursor: pointer;
 }
 
+.card-casual img {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
 .card-casual:hover {
   -webkit-transform: scale(1.02);
   transform: scale(1.02);
@@ -11466,11 +11387,15 @@ body {
   z-index: 2;
 }
 
-.color-active-black:active {
-  color: black !important;
+.w-85 {
+  width: 85% !important;
 }
 
 .min-w-280 {
   min-width: 280px;
+}
+
+.font-w-600 {
+  font-weight: 600;
 }
 

@@ -6,8 +6,6 @@
 @endsection
 
 @section('content')
-    <div id="app">
         <manager>
         </manager>
-    </div>
 @endsection
