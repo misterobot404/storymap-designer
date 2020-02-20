@@ -70,6 +70,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -80,12 +82,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      /// data for MapList
+      // FILTERS
       nameSearch: "",
       //sortByDataCreated or sortByDataModified
       sortMethod: "sortByDataCreated",
-      // sortUp: false - sortDawn, sortUp: true - sortUp
-      sortUp: false
+      // sortUp: false = sortDawn, sortUp: true = sortUp
+      sortUp: false,
+      // owner user filter
+      mapOwner: "all"
     };
   },
   computed: {
@@ -97,6 +101,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     setSortMethod: function setSortMethod(method) {
       this.sortMethod = method;
+    },
+    selectPage: function selectPage(page) {
+      this.mapOwner = page;
     }
   }
 });
@@ -200,7 +207,11 @@ __webpack_require__.r(__webpack_exports__);
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).find("input,textarea,select").val('').end();
     }) // При открытии формы фокус на названии атласа
     .on('shown.bs.modal', function () {
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#name').trigger('focus');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#name').trigger('focus'); // On close, modals should return focus to launching element - DISABLED
+
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#btn-show-create-map').one('focus', function () {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).blur();
+      });
     });
   },
   methods: {
@@ -244,6 +255,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 //
 //
 //
@@ -262,12 +281,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: {
     sortMethod: String,
     sortUp: Boolean,
-    nameSearch: String
+    nameSearch: String,
+    mapOwner: String
   },
   computed: {
     // Список атласов, в названии которых есть слово из поиска
     filteredMaps: function filteredMaps() {
-      var maps = this.$store.getters.maps;
+      var maps;
+
+      if (this.mapOwner === 'all') {
+        maps = [].concat(_toConsumableArray(this.$store.getters.maps), _toConsumableArray(this.$store.getters.mapsOther));
+      } else if (this.mapOwner === 'my') maps = _toConsumableArray(this.$store.getters.maps);else maps = _toConsumableArray(this.$store.getters.mapsOther);
 
       if (this.sortMethod === "sortByDataCreated") {
         if (this.sortUp === false) {
@@ -312,10 +336,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MapItem",
   props: {
-    map: Object
+    map: Object,
+    mapOwner: String
   }
 });
 
@@ -334,7 +362,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".input-search[data-v-4c56cadc] {\n  background: url(" + escape(__webpack_require__(/*! ../../images/search_icon.png */ "./resources/images/search_icon.png")) + ") no-repeat left center white;\n  background-size: 24px 24px;\n  padding-left: 30px;\n}\n.dropdown-btn[data-v-4c56cadc] {\n  background-color: #eff3f6;\n  font-weight: 600;\n  border: 1px solid #ced4da;\n  -webkit-appearance: none;\n  color: #464d54;\n}\n.dropdown-btn[data-v-4c56cadc]:hover {\n  background-color: #e9ecef;\n}\n.dropdown-btn i[data-v-4c56cadc] {\n  font-style: normal;\n  font-weight: 500;\n  opacity: 0.75;\n}\n.dropdown-toggle[data-v-4c56cadc]:after {\n  vertical-align: 1px;\n}\n.dropdown-menu[data-v-4c56cadc] {\n  padding: 0;\n  font-size: 14px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  margin-top: 5px;\n  overflow: hidden;\n}\n.dropdown-header[data-v-4c56cadc] {\n  background-color: #F6F8FA;\n  color: #464d54;\n  font-size: 14px;\n}\n.dropdown-divider[data-v-4c56cadc] {\n  margin: 0;\n}\n.dropdown-item[data-v-4c56cadc] {\n  cursor: pointer;\n  padding: 8px 16px;\n}\n.dropdown-item[data-v-4c56cadc]:active {\n  background-color: #e6ebf1;\n}\n.dropdown-item[data-v-4c56cadc]:last-child {\n  border-bottom-left-radius: 4px;\n  border-bottom-right-radius: 4px;\n}\n#btn-show-create-map[data-v-4c56cadc]:focus {\n  outline: none;\n}", ""]);
+exports.push([module.i, ".input-search[data-v-4c56cadc] {\n  background: url(" + escape(__webpack_require__(/*! ../../images/search_icon.png */ "./resources/images/search_icon.png")) + ") no-repeat left center white;\n  background-size: 24px 24px;\n  padding-left: 30px;\n}\n.dropdown-btn[data-v-4c56cadc] {\n  background-color: #eff3f6;\n  font-weight: 600;\n  border: 1px solid #ced4da;\n  -webkit-appearance: none;\n  color: #464d54;\n}\n.dropdown-btn[data-v-4c56cadc]:hover {\n  background-color: #e9ecef;\n}\n.dropdown-btn i[data-v-4c56cadc] {\n  font-style: normal;\n  font-weight: 500;\n  opacity: 0.75;\n}\n.dropdown-toggle[data-v-4c56cadc]:after {\n  vertical-align: 1px;\n}\n.dropdown-menu[data-v-4c56cadc] {\n  padding: 0;\n  font-size: 14px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  margin-top: 5px;\n  overflow: hidden;\n}\n.dropdown-header[data-v-4c56cadc] {\n  background-color: #F6F8FA;\n  color: #464d54;\n  font-size: 14px;\n}\n.dropdown-divider[data-v-4c56cadc] {\n  margin: 0;\n}\n.dropdown-item[data-v-4c56cadc] {\n  cursor: pointer;\n  padding: 8px 16px;\n}\n.dropdown-item[data-v-4c56cadc]:active {\n  background-color: #e6ebf1;\n}\n.nav-owner[data-v-4c56cadc] {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  cursor: pointer;\n  font-weight: 500;\n}", ""]);
 
 // exports
 
@@ -353,7 +381,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".modal-content[data-v-2599818c] {\n  border-radius: 8px;\n  overflow: hidden;\n}\n.modal-header[data-v-2599818c] {\n  background-color: #F6F8FA;\n}\n.close[data-v-2599818c]:focus, .close[data-v-2599818c]:active {\n  outline: none !important;\n  box-shadow: none;\n}", ""]);
+exports.push([module.i, ".modal-content[data-v-2599818c] {\n  border-radius: 8px;\n  overflow: hidden;\n}\n.modal-header[data-v-2599818c] {\n  background-color: #F6F8FA;\n}\n.modal-description[data-v-2599818c] {\n  max-height: 50vh;\n  min-height: 120px;\n  overflow-y: scroll;\n}\ntextarea.form-control.is-valid[data-v-2599818c] {\n  background-position: top calc(0.4em + 0.1875rem) right calc(0.4em + 0.1875rem + 13px);\n}\n.close[data-v-2599818c]:focus, .close[data-v-2599818c]:active {\n  outline: none !important;\n  box-shadow: none;\n}", ""]);
 
 // exports
 
@@ -466,7 +494,75 @@ var render = function() {
     "div",
     { staticClass: "app container pt-5 mt-1" },
     [
-      _vm._m(0),
+      _c(
+        "ul",
+        {
+          staticClass:
+            "breadcrumb nav nav-pills text-center\n    flex-sm-row align-content-sm-start\n    flex-column align-content-center"
+        },
+        [
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                class: [
+                  "nav-owner",
+                  "nav-link",
+                  _vm.mapOwner === "all" ? "text-primary" : "text-secondary"
+                ],
+                on: {
+                  click: function($event) {
+                    return _vm.selectPage("all")
+                  }
+                }
+              },
+              [_vm._v("Все атласы")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { class: ["nav-item", { active: _vm.mapOwner === "my" }] }, [
+            _c(
+              "a",
+              {
+                class: [
+                  "nav-owner",
+                  "nav-link",
+                  _vm.mapOwner === "my" ? "text-primary" : "text-secondary"
+                ],
+                on: {
+                  click: function($event) {
+                    return _vm.selectPage("my")
+                  }
+                }
+              },
+              [_vm._v("Мои атласы")]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "li",
+            { class: ["nav-item", { active: _vm.mapOwner === "other" }] },
+            [
+              _c(
+                "a",
+                {
+                  class: [
+                    "nav-owner",
+                    "nav-link",
+                    _vm.mapOwner === "other" ? "text-primary" : "text-secondary"
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.selectPage("other")
+                    }
+                  }
+                },
+                [_vm._v("Атласы по подписке")]
+              )
+            ]
+          )
+        ]
+      ),
       _vm._v(" "),
       _c("ul", { staticClass: "nav mb-4 py-3 border-bottom" }, [
         _c("li", { staticClass: "nav-item col-sm" }, [
@@ -653,7 +749,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(1)
+        _vm._m(0)
       ]),
       _vm._v(" "),
       _c("MapList", {
@@ -661,7 +757,8 @@ var render = function() {
         attrs: {
           "sort-up": _vm.sortUp,
           "sort-method": _vm.sortMethod,
-          "name-search": _vm.nameSearch
+          "name-search": _vm.nameSearch,
+          "map-owner": _vm.mapOwner
         }
       }),
       _vm._v(" "),
@@ -671,46 +768,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "ul",
-      {
-        staticClass:
-          "breadcrumb nav nav-pills text-center\n    flex-sm-row align-content-sm-start\n    flex-column align-content-center"
-      },
-      [
-        _c("li", { staticClass: "nav-item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link text-primary font-w-600",
-              attrs: { href: "#" }
-            },
-            [_vm._v("Все атласы")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c(
-            "a",
-            { staticClass: "nav-link text-secondary", attrs: { href: "#" } },
-            [_vm._v("Мои атласы")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c(
-            "a",
-            { staticClass: "nav-link text-secondary", attrs: { href: "#" } },
-            [_vm._v("Атласы по подписке")]
-          )
-        ])
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -726,7 +783,7 @@ var staticRenderFns = [
             "data-target": "#modal"
           }
         },
-        [_vm._v(" Создать ")]
+        [_vm._v(" Создать")]
       )
     ])
   }
@@ -862,6 +919,7 @@ var render = function() {
                       }
                     ],
                     class: [
+                      "modal-description",
                       "form-control",
                       _vm.description !== "" || _vm.errors.descriptionEmpty
                         ? _vm.errors.descriptionEmpty
@@ -869,12 +927,11 @@ var render = function() {
                           : "is-valid"
                         : ""
                     ],
-                    staticStyle: {
-                      "max-height": "50vh",
-                      "min-height": "60px",
-                      "overflow-y": "hidden"
+                    attrs: {
+                      id: "description",
+                      autocomplete: "off",
+                      maxlength: "1000"
                     },
-                    attrs: { id: "description", autocomplete: "off" },
                     domProps: { value: _vm.description },
                     on: {
                       input: function($event) {
@@ -998,7 +1055,7 @@ var render = function() {
       return _c(
         "div",
         { attrs: { index: index } },
-        [_c("MapItem", { attrs: { map: map } })],
+        [_c("MapItem", { attrs: { map: map, "map-owner": _vm.mapOwner } })],
         1
       )
     }),
@@ -1053,18 +1110,31 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-light w-25 mx-auto",
-          on: {
-            click: function($event) {
-              return _vm.$store.dispatch("destroyMap", { id: _vm.map.id })
+      _c("div", { staticClass: "row w-50 mx-auto" }, [
+        _vm.map.other !== true
+          ? _c(
+              "a",
+              {
+                staticClass: "btn btn-light col mx-1",
+                on: { click: function($event) {} }
+              },
+              [_vm._v(" ✎ ")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-light col mx-1",
+            on: {
+              click: function($event) {
+                return _vm.$store.dispatch("destroyMap", { id: _vm.map.id })
+              }
             }
-          }
-        },
-        [_vm._v(" × ")]
-      )
+          },
+          [_vm._v(" × ")]
+        )
+      ])
     ]
   )
 }

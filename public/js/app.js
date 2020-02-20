@@ -20455,7 +20455,7 @@ function addStyle (obj, options) {
 	// If a transform function was defined, run it on the css
 	if (options.transform && obj.css) {
 	    result = typeof options.transform === 'function'
-		 ? options.transform(obj.css) 
+		 ? options.transform(obj.css)
 		 : options.transform.default(obj.css);
 
 	    if (result) {
@@ -34150,7 +34150,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store/store */ "./resources/js/store/store.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 // First we will load all of this project's JavaScript dependencies which includes Vue and other libraries.
  // bootstrap.js + jquery + popper.js
 
@@ -34176,7 +34176,7 @@ new Vue({
       return __webpack_require__.e(/*! import() | Viewer */ "Viewer").then(__webpack_require__.bind(null, /*! ./components/Viewer */ "./resources/js/components/Viewer.vue"));
     }
   },
-  store: _store_store__WEBPACK_IMPORTED_MODULE_2__["default"],
+  store: _store__WEBPACK_IMPORTED_MODULE_2__["default"],
   beforeMount: function beforeMount() {
     this.$store.dispatch('initStore');
   }
@@ -34213,7 +34213,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   "c20867b2",
   null
-  
+
 )
 
 /* hot reload */
@@ -34233,7 +34233,7 @@ component.options.__file = "resources/js/components/Constructor/ControlPanel.vue
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ControlPanel.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Constructor/ControlPanel.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -34249,7 +34249,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanel_vue_vue_type_style_index_0_id_c20867b2_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--8-2!../../../../node_modules/sass-loader/lib/loader.js??ref--8-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./ControlPanel.vue?vue&type=style&index=0&id=c20867b2&lang=sass&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Constructor/ControlPanel.vue?vue&type=style&index=0&id=c20867b2&lang=sass&scoped=true&");
 /* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanel_vue_vue_type_style_index_0_id_c20867b2_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanel_vue_vue_type_style_index_0_id_c20867b2_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanel_vue_vue_type_style_index_0_id_c20867b2_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanel_vue_vue_type_style_index_0_id_c20867b2_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanel_vue_vue_type_style_index_0_id_c20867b2_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanel_vue_vue_type_style_index_0_id_c20867b2_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a);
 
 /***/ }),
 
@@ -34268,6 +34268,118 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanel_vue_vue_type_template_id_c20867b2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/store/index.js":
+/*!*************************************!*\
+  !*** ./resources/js/store/index.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _modules_maps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/maps */ "./resources/js/store/modules/maps.js");
+/* harmony import */ var _modules_map_config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/map_config */ "./resources/js/store/modules/map_config.js");
+/* harmony import */ var _modules_map_events__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/map_events */ "./resources/js/store/modules/map_events.js");
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  strict: true,
+  actions: {
+    initStore: function initStore(_ref) {
+      var commit = _ref.commit;
+
+      // Если пришли данные всех карт
+      if (window.maps) {
+        commit('SET_MAPS', window.maps);
+      } // Если пришли данные одной карты
+      else if (window.map) {
+          commit('SET_EVENTS', JSON.parse(window.map.events));
+          commit('SET_CONFIG', JSON.parse(window.map.config));
+        } // Установить текущее количество карт имеющихся карт, если пользователь авторизирован вернёт 0
+
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/maps/count').then(function (response) {
+        commit('SET_MAP_COUNT', response.data.mapCount);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    saveMap: function saveMap(_ref2) {
+      var getters = _ref2.getters;
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/edit/savemap', {
+        map_id: window.map.id,
+        events: JSON.stringify(getters.events),
+        config: JSON.stringify(getters.config)
+      }).then(function (response) {
+        // TODO: Анимация сохранения
+        alert("Save successful");
+      })["catch"](function (error) {
+        alert("Save Error");
+      });
+    },
+    createMap: function createMap(_ref3, data) {
+      var commit = _ref3.commit;
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/maps', {
+        name: data.name,
+        description: data.description
+      }).then(function (response) {
+        commit('SET_MAPS', JSON.parse(response.data.maps));
+        commit('SET_MAP_COUNT', JSON.parse(response.data.mapCount));
+      })["catch"](function (error) {
+        alert("Error");
+      });
+    },
+    destroyMap: function destroyMap(_ref4, data) {
+      var commit = _ref4.commit;
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a["delete"]('/maps/' + data.id).then(function (response) {
+        commit('SET_MAPS', JSON.parse(response.data.maps));
+        commit('SET_MAP_COUNT', JSON.parse(response.data.mapCount));
+      })["catch"](function (error) {
+        alert("Error");
+      });
+    }
+  },
+  modules: {
+    maps: _modules_maps__WEBPACK_IMPORTED_MODULE_3__["default"],
+    map_events: _modules_map_events__WEBPACK_IMPORTED_MODULE_5__["default"],
+    map_config: _modules_map_config__WEBPACK_IMPORTED_MODULE_4__["default"]
+  }
+}));
+/*
+        getMap: function ({commit}) {
+            axios.post('api/getDataMap')
+                .then(response => {
+                    // Обязательно приведение json в обьект
+                    commit('SET_EVENTS', JSON.parse(response.data.map_events));
+                    commit('SET_CONFIG', JSON.parse(response.data.map_config))
+                })
+                .catch(error => {
+                    alert("Error getMap: " + error.response);
+                });
+        },
+        */
+
+/*
+setMap: function (ctx) {
+ctx.rootState.map_config.config
+}
+===
+setMap: function ({rootState})
+rootState.map_config.config
+ */
 
 /***/ }),
 
@@ -34338,6 +34450,59 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
+  state: {
+    events: [],
+    animationProcessForRemovingEvent: false
+  },
+  getters: {
+    events: function events(state) {
+      return state.events;
+    },
+    selectedEvent: function selectedEvent(state, getters) {
+      return state.events.find(function (obj) {
+        return obj.id === getters.config.selectedEventId;
+      });
+    },
+    getEventIdByIndex: function getEventIdByIndex(state) {
+      return function (index) {
+        return state.events[index].id;
+      };
+    },
+    arrayMarker: function arrayMarker(state) {
+      return state.events.map(function (a) {
+        return a.markerPosition;
+      });
+    }
+  },
+  mutations: {
+    SET_EVENTS: function SET_EVENTS(state, events) {
+      state.events = events;
+    },
+    PUSH_EMPTY_EVENT: function PUSH_EMPTY_EVENT(state, payload) {
+      state.events.push({
+        id: payload.nextEventId,
+        markerPosition: payload.tileCenter,
+        title: "Empty",
+        description: ' ',
+        mediaUrl: ""
+      });
+    },
+    DELETE_EVENT_BY_INDEX: function DELETE_EVENT_BY_INDEX(state, index) {
+      state.events.splice(index, 1);
+    },
+    SET_EVENT_MARKER_POSITION: function SET_EVENT_MARKER_POSITION(state, payload) {
+      state.events[payload.index].markerPosition = payload.position;
+    },
+    SET_EVENT_TITLE: function SET_EVENT_TITLE(state, payload) {
+      state.events[payload.index].title = payload.title;
+    },
+    SET_EVENT_DESCRIPTION: function SET_EVENT_DESCRIPTION(state, payload) {
+      state.events[payload.index].description = payload.description;
+    },
+    SET_EVENT_MEDIA_URL: function SET_EVENT_MEDIA_URL(state, payload) {
+      state.events[payload.index].mediaUrl = payload.mediaUrl;
+    }
+  },
   actions: {
     addEvent: function addEvent(_ref) {
       var getters = _ref.getters,
@@ -34375,59 +34540,6 @@ __webpack_require__.r(__webpack_exports__);
 
         commit('SET_SELECTED_EVENT_ID', getters.getEventIdByIndex(deletedEventIndex));
       }
-    }
-  },
-  mutations: {
-    SET_EVENTS: function SET_EVENTS(state, events) {
-      state.events = events;
-    },
-    PUSH_EMPTY_EVENT: function PUSH_EMPTY_EVENT(state, payload) {
-      state.events.push({
-        id: payload.nextEventId,
-        markerPosition: payload.tileCenter,
-        title: "Empty",
-        description: ' ',
-        mediaUrl: ""
-      });
-    },
-    DELETE_EVENT_BY_INDEX: function DELETE_EVENT_BY_INDEX(state, index) {
-      state.events.splice(index, 1);
-    },
-    SET_EVENT_MARKER_POSITION: function SET_EVENT_MARKER_POSITION(state, payload) {
-      state.events[payload.index].markerPosition = payload.position;
-    },
-    SET_EVENT_TITLE: function SET_EVENT_TITLE(state, payload) {
-      state.events[payload.index].title = payload.title;
-    },
-    SET_EVENT_DESCRIPTION: function SET_EVENT_DESCRIPTION(state, payload) {
-      state.events[payload.index].description = payload.description;
-    },
-    SET_EVENT_MEDIA_URL: function SET_EVENT_MEDIA_URL(state, payload) {
-      state.events[payload.index].mediaUrl = payload.mediaUrl;
-    }
-  },
-  state: {
-    events: [],
-    animationProcessForRemovingEvent: false
-  },
-  getters: {
-    events: function events(state) {
-      return state.events;
-    },
-    selectedEvent: function selectedEvent(state, getters) {
-      return state.events.find(function (obj) {
-        return obj.id === getters.config.selectedEventId;
-      });
-    },
-    getEventIdByIndex: function getEventIdByIndex(state) {
-      return function (index) {
-        return state.events[index].id;
-      };
-    },
-    arrayMarker: function arrayMarker(state) {
-      return state.events.map(function (a) {
-        return a.markerPosition;
-      });
     }
   }
 });
@@ -34474,131 +34586,29 @@ __webpack_require__.r(__webpack_exports__);
   },
   state: {
     maps: [],
+    mapsOther: [{
+      name: "Чужая карта 1",
+      description: "Описание",
+      other: true
+    }, {
+      name: "Чужая карта 2",
+      description: "Описание",
+      other: true
+    }],
     mapCount: 0
   },
   getters: {
     maps: function maps(state) {
       return state.maps;
     },
+    mapsOther: function mapsOther(state) {
+      return state.mapsOther;
+    },
     mapCount: function mapCount(state) {
       return state.mapCount;
     }
   }
 });
-
-/***/ }),
-
-/***/ "./resources/js/store/store.js":
-/*!*************************************!*\
-  !*** ./resources/js/store/store.js ***!
-  \*************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _modules_maps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/maps */ "./resources/js/store/modules/maps.js");
-/* harmony import */ var _modules_map_config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/map_config */ "./resources/js/store/modules/map_config.js");
-/* harmony import */ var _modules_map_events__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/map_events */ "./resources/js/store/modules/map_events.js");
-
-
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  strict: true,
-  actions: {
-    initStore: function initStore(_ref) {
-      var commit = _ref.commit;
-
-      // Если пришли данные всех карт
-      if (window.maps) {
-        commit('SET_MAPS', window.maps);
-      } // Если пришли данные одной карты
-      else if (window.map) {
-          commit('SET_EVENTS', JSON.parse(window.map.events));
-          commit('SET_CONFIG', JSON.parse(window.map.config));
-        } // Установить текущее количество карт имеющихся карт, если пользователь авторизирован вернёт 0
-
-
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/maps/count').then(function (response) {
-        if (response.data.mapCount !== 0) {
-          commit('SET_MAP_COUNT', JSON.parse(response.data.mapCount));
-        }
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    setMap: function setMap(_ref2) {
-      var getters = _ref2.getters;
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/edit/savemap', {
-        map_id: window.map.id,
-        events: JSON.stringify(getters.events),
-        config: JSON.stringify(getters.config)
-      }).then(function (response) {
-        // TODO: Анимация сохранения
-        alert("Save successful");
-      })["catch"](function (error) {
-        alert("Save Error");
-      });
-    },
-    createMap: function createMap(_ref3, data) {
-      var commit = _ref3.commit;
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/maps', {
-        name: data.name,
-        description: data.description
-      }).then(function (response) {
-        commit('SET_MAPS', JSON.parse(response.data.maps));
-        commit('SET_MAP_COUNT', JSON.parse(response.data.mapCount));
-      })["catch"](function (error) {
-        alert("Error");
-      });
-    },
-    destroyMap: function destroyMap(_ref4, data) {
-      var commit = _ref4.commit;
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a["delete"]('/maps/' + data.id).then(function (response) {
-        commit('SET_MAPS', JSON.parse(response.data.maps));
-        commit('SET_MAP_COUNT', JSON.parse(response.data.mapCount));
-      })["catch"](function (error) {
-        alert("Error");
-      });
-    }
-  },
-  modules: {
-    maps: _modules_maps__WEBPACK_IMPORTED_MODULE_3__["default"],
-    map_config: _modules_map_config__WEBPACK_IMPORTED_MODULE_4__["default"],
-    map_events: _modules_map_events__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }
-}));
-/*
-        getMap: function ({commit}) {
-            axios.post('api/getDataMap')
-                .then(response => {
-                    // Обязательно приведение json в обьект
-                    commit('SET_EVENTS', JSON.parse(response.data.map_events));
-                    commit('SET_CONFIG', JSON.parse(response.data.map_config))
-                })
-                .catch(error => {
-                    alert("Error getMap: " + error.response);
-                });
-        },
-        */
-
-/*
-setMap: function (ctx) {
-ctx.rootState.map_config.config
-}
-===
-setMap: function ({rootState})
-rootState.map_config.config
- */
 
 /***/ }),
 
@@ -34620,8 +34630,8 @@ rootState.map_config.config
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/clever-2019-dynamic-map/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/clever-2019-dynamic-map/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/MDesigner/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/MDesigner/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

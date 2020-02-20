@@ -3,9 +3,6 @@ export default {
         SET_MAPS: (state, maps) => {
             state.maps = maps;
         },
-        SET_MAP_COUNT: (state, mapCount) => {
-            state.mapCount = mapCount;
-        },
         SORT_BY_DATA_CREATED_UP: (state) => {
             state.maps.sort(function(a,b){
                 return new Date(b.created_at) - new Date(a.created_at);
@@ -29,10 +26,11 @@ export default {
     },
     state: {
         maps: [],
-        mapCount: 0
+        mapsOther: [{name: "Чужая карта 1", description: "Описание", other: true},{name: "Чужая карта 2", description: "Описание", other: true}],
     },
     getters: {
         maps: state => state.maps,
-        mapCount: state => state.mapCount
+        mapsOther: state => state.mapsOther,
+        mapCount: state => state.maps.length + state.maps.mapsOther
     }
 }

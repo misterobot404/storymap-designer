@@ -1,17 +1,18 @@
 <template>
     <div class="app container pt-5 mt-1">
+
+        <!-- FILTER -->
         <ul class="breadcrumb nav nav-pills text-center
         flex-sm-row align-content-sm-start
         flex-column align-content-center">
             <li class="nav-item">
-                <a class="nav-link text-primary font-w-600" href="#">Все атласы</a>
-
+                <a :class="['nav-owner', 'nav-link', mapOwner === 'all' ? 'text-primary' : 'text-secondary']" @click="selectPage('all')">Все атласы</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-secondary" href="#">Мои атласы</a>
+            <li :class="['nav-item', {active: mapOwner === 'my'}]">
+                <a :class="['nav-owner', 'nav-link', mapOwner === 'my' ? 'text-primary' : 'text-secondary']" @click="selectPage('my')">Мои атласы</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-secondary" href="#">Атласы по подписке</a>
+            <li :class="['nav-item', {active: mapOwner === 'other'}]">
+                <a :class="['nav-owner', 'nav-link', mapOwner === 'other' ? 'text-primary' : 'text-secondary']" @click="selectPage('other')">Атласы по подписке</a>
             </li>
         </ul>
 
@@ -47,11 +48,12 @@
                 </div>
             </li>
             <li class="nav-item col-sm-auto text-center">
-                <button id="btn-show-create-map" class="btn btn-primary mb-3 mx-auto" data-toggle="modal" data-target="#modal"> Создать </button>
+                <button id="btn-show-create-map" class="btn btn-primary mb-3 mx-auto" data-toggle="modal" data-target="#modal"> Создать</button>
             </li>
         </ul>
 
-        <MapList class="pt-3" :sort-up="sortUp" :sort-method="sortMethod" :name-search="nameSearch"/>
+        <!-- Maps -->
+        <MapList class="pt-3" :sort-up="sortUp" :sort-method="sortMethod" :name-search="nameSearch" :map-owner="mapOwner"/>
         <!-- Modal-->
         <CreateMapModal/>
     </div>
@@ -69,12 +71,14 @@
         },
         data() {
             return {
-                /// data for MapList
+                // FILTERS
                 nameSearch: "",
                 //sortByDataCreated or sortByDataModified
                 sortMethod: "sortByDataCreated",
-                // sortUp: false - sortDawn, sortUp: true - sortUp
+                // sortUp: false = sortDawn, sortUp: true = sortUp
                 sortUp: false,
+                // owner user filter
+                mapOwner: "all"
             }
         },
         computed: {
@@ -87,10 +91,12 @@
         methods: {
             setSortMethod: function (method) {
                 this.sortMethod = method;
+            },
+            selectPage: function (page) {
+                this.mapOwner = page;
             }
         }
     }
-
 </script>
 
 <style lang="sass" scoped>
@@ -140,11 +146,8 @@
         &:active
             background-color: #e6ebf1
 
-        &:last-child
-            border-bottom-left-radius: 4px
-            border-bottom-right-radius: 4px
-
-    #btn-show-create-map
-        &:focus
-            outline: none
+    .nav-owner
+        user-select: none
+        cursor: pointer
+        font-weight: 500
 </style>

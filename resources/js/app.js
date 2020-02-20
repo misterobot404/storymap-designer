@@ -3,7 +3,7 @@ import bootstrap from 'bootstrap' // bootstrap.js + jquery + popper.js
 window.bootstrap = bootstrap;
 import vue from "vue";
 window.Vue = vue;
-import store from './store/store'
+import store from './store'
 // Без этого не работает динамический импорт WTF)))))))))))))
 require("./components/Constructor/ControlPanel");
 

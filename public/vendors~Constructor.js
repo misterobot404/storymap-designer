@@ -15596,34 +15596,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -15642,20 +15657,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -15750,6 +15773,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -15955,6 +15983,9 @@ var Options = {
 
 //
 
+/**
+ * Draw a path in the shape of a circle around a center positioned at `latLng` coordinates
+ */
 var script = {
   name: 'LCircle',
   mixins: [CircleMixin, Options],
@@ -15980,6 +16011,11 @@ var script = {
     this.parentContainer = findRealParent(this.$parent);
     this.parentContainer.addLayer(this, !this.visible);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
@@ -16119,34 +16155,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -16165,20 +16216,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -16273,6 +16332,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -16478,6 +16542,9 @@ var Options = {
 
 //
 
+/**
+ * A marker in the shape of a circle
+ */
 var script = {
   name: 'LCircleMarker',
   mixins: [CircleMixin, Options],
@@ -16507,6 +16574,11 @@ var script = {
     this.parentContainer = findRealParent(this.$parent);
     this.parentContainer.addLayer(this, !this.visible);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
@@ -16645,34 +16717,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -16691,20 +16778,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -16749,6 +16844,9 @@ var Options = {
 
 //
 
+/**
+ * Add any custom component as a leaflet control
+ */
 var script = {
   name: 'LControl',
   mixins: [ControlMixin, Options],
@@ -16756,20 +16854,20 @@ var script = {
     disableClickPropagation: {
       type: Boolean,
       custom: true,
-      default: true
-    }
+      default: true,
+    },
   },
-  mounted: function mounted () {
+  mounted: function mounted() {
     var this$1 = this;
 
     var LControl = leaflet__WEBPACK_IMPORTED_MODULE_0__["Control"].extend({
       element: undefined,
-      onAdd: function onAdd () {
+      onAdd: function onAdd() {
         return this.element;
       },
-      setElement: function setElement (el) {
+      setElement: function setElement(el) {
         this.element = el;
-      }
+      },
     });
     var options = optionsMerger(this.controlOptions, this);
     this.mapObject = new LControl(options);
@@ -16781,9 +16879,14 @@ var script = {
     }
     this.mapObject.addTo(this.parentContainer.mapObject);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
-  }
+  },
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -16919,34 +17022,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -16965,20 +17083,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var ControlMixin = {
@@ -17009,30 +17135,41 @@ var Options = {
   }
 };
 
+/**
+ * Add any custom component as a leaflet control-attribution
+ */
 var script = {
   name: 'LControlAttribution',
   mixins: [ControlMixin, Options],
   props: {
     prefix: {
       type: [String, Boolean],
-      default: null
-    }
+      default: null,
+    },
   },
-  mounted: function mounted () {
+  mounted: function mounted() {
     var this$1 = this;
 
-    var options = optionsMerger(Object.assign({}, this.controlOptions,
-      {prefix: this.prefix}), this);
+    var options = optionsMerger(
+      Object.assign({}, this.controlOptions,
+        {prefix: this.prefix}),
+      this
+    );
     this.mapObject = leaflet__WEBPACK_IMPORTED_MODULE_0__["control"].attribution(options);
     propsBinder(this, this.mapObject, this.$options.props);
     this.mapObject.addTo(this.$parent.mapObject);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
-  render: function render () {
+  render: function render() {
     return null;
-  }
+  },
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -17166,34 +17303,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -17212,20 +17364,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var ControlMixin = {
@@ -17256,6 +17416,9 @@ var Options = {
   }
 };
 
+/**
+ * Add any custom component as a leaflet control-layers
+ */
 var script = {
   name: 'LControlLayers',
   mixins: [ControlMixin, Options],
@@ -17297,6 +17460,11 @@ var script = {
     propsBinder(this, this.mapObject, this.$options.props);
     this.$parent.registerLayerControl(this);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
@@ -17448,34 +17616,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -17494,20 +17677,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var ControlMixin = {
@@ -17538,45 +17729,56 @@ var Options = {
   }
 };
 
+/**
+ * Add any custom component as a leaflet control-scale
+ */
 var script = {
   name: 'LControlScale',
   mixins: [ControlMixin, Options],
   props: {
     maxWidth: {
       type: Number,
-      default: 100
+      default: 100,
     },
     metric: {
       type: Boolean,
-      default: true
+      default: true,
     },
     imperial: {
       type: Boolean,
-      default: true
+      default: true,
     },
     updateWhenIdle: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  mounted: function mounted () {
+  mounted: function mounted() {
     var this$1 = this;
 
-    var options = optionsMerger(Object.assign({}, this.controlOptions,
-      {maxWidth: this.maxWidth,
-      metric: this.metric,
-      imperial: this.imperial,
-      updateWhenIdle: this.updateWhenIdle}), this);
+    var options = optionsMerger(
+      Object.assign({}, this.controlOptions,
+        {maxWidth: this.maxWidth,
+        metric: this.metric,
+        imperial: this.imperial,
+        updateWhenIdle: this.updateWhenIdle}),
+      this
+    );
     this.mapObject = leaflet__WEBPACK_IMPORTED_MODULE_0__["control"].scale(options);
     propsBinder(this, this.mapObject, this.$options.props);
     this.mapObject.addTo(this.$parent.mapObject);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
-  render: function render () {
+  render: function render() {
     return null;
-  }
+  },
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -17710,34 +17912,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -17756,20 +17973,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var ControlMixin = {
@@ -17800,45 +18025,56 @@ var Options = {
   }
 };
 
+/**
+ * Add any custom component as a leaflet control-zoom
+ */
 var script = {
   name: 'LControlZoom',
   mixins: [ControlMixin, Options],
   props: {
     zoomInText: {
       type: String,
-      default: '+'
+      default: '+',
     },
     zoomInTitle: {
       type: String,
-      default: 'Zoom in'
+      default: 'Zoom in',
     },
     zoomOutText: {
       type: String,
-      default: '-'
+      default: '-',
     },
     zoomOutTitle: {
       type: String,
-      default: 'Zoom out'
-    }
+      default: 'Zoom out',
+    },
   },
-  mounted: function mounted () {
+  mounted: function mounted() {
     var this$1 = this;
 
-    var options = optionsMerger(Object.assign({}, this.controlOptions,
-      {zoomInText: this.zoomInText,
-      zoomInTitle: this.zoomInTitle,
-      zoomOutText: this.zoomOutText,
-      zoomOutTitle: this.zoomOutTitle}), this);
+    var options = optionsMerger(
+      Object.assign({}, this.controlOptions,
+        {zoomInText: this.zoomInText,
+        zoomInTitle: this.zoomInTitle,
+        zoomOutText: this.zoomOutText,
+        zoomOutTitle: this.zoomOutTitle}),
+      this
+    );
     this.mapObject = leaflet__WEBPACK_IMPORTED_MODULE_0__["control"].zoom(options);
     propsBinder(this, this.mapObject, this.$options.props);
     this.mapObject.addTo(this.$parent.mapObject);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
-  render: function render () {
+  render: function render() {
     return null;
-  }
+  },
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -17972,34 +18208,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -18098,6 +18349,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -18135,6 +18391,9 @@ var Options = {
 
 //
 
+/**
+ * Group together elements of the maps  including: markers, geoJSON, polylines and polygon, tooltip and popup.
+ */
 var script = {
   name: 'LFeatureGroup',
   mixins: [LayerGroupMixin, Options],
@@ -18155,6 +18414,11 @@ var script = {
       this.parentContainer.addLayer(this);
     }
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
@@ -18293,34 +18557,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -18339,20 +18618,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -18447,6 +18734,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -18482,6 +18774,9 @@ var Options = {
   }
 };
 
+/**
+ * Easily display a geo-json on the map
+ */
 var script = {
   name: 'LGeoJson',
   mixins: [LayerGroup, Options],
@@ -18520,6 +18815,11 @@ var script = {
     this.parentContainer = findRealParent(this.$parent);
     this.parentContainer.addLayer(this, !this.visible);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
@@ -18685,34 +18985,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_1__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -18731,20 +19046,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -18839,6 +19162,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -18890,6 +19218,12 @@ var Options = {
 
 //
 
+/**
+ * Creates a map layer where each tile is an instantiated Vue component.
+ * Each tile component is given `coords` props by `l-grid-layer` to indicate
+ * the zoom level and position of the tile
+ * (see https://leafletjs.com/examples/extending/extending-2-layers.html#lgridlayer-and-dom-elements).
+ */
 var script = {
   name: 'LGridLayer',
   mixins: [GridLayerMixin, Options],
@@ -18898,23 +19232,23 @@ var script = {
     tileComponent: {
       type: Object,
       custom: true,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  data: function data () {
+  data: function data() {
     return {
-      tileComponents: {}
+      tileComponents: {},
     };
   },
 
   computed: {
-    TileConstructor: function TileConstructor () {
+    TileConstructor: function TileConstructor() {
       return vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend(this.tileComponent);
-    }
+    },
   },
 
-  mounted: function mounted () {
+  mounted: function mounted() {
     var this$1 = this;
 
     var GLayer = leaflet__WEBPACK_IMPORTED_MODULE_1__["GridLayer"].extend({});
@@ -18927,17 +19261,22 @@ var script = {
     this.parentContainer = findRealParent(this.$parent);
     this.parentContainer.addLayer(this, !this.visible);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
-  beforeDestroy: function beforeDestroy () {
+  beforeDestroy: function beforeDestroy() {
     this.parentContainer.removeLayer(this.mapObject);
     this.mapObject.off('tileunload', this.onUnload);
     this.mapObject = null;
   },
 
   methods: {
-    createTile: function createTile (coords) {
+    createTile: function createTile(coords) {
       var div = leaflet__WEBPACK_IMPORTED_MODULE_1__["DomUtil"].create('div');
       var dummy = leaflet__WEBPACK_IMPORTED_MODULE_1__["DomUtil"].create('div');
       div.appendChild(dummy);
@@ -18946,8 +19285,8 @@ var script = {
         el: dummy,
         parent: this,
         propsData: {
-          coords: coords
-        }
+          coords: coords,
+        },
       });
 
       var key = this.mapObject._tileCoordsToKey(coords);
@@ -18956,7 +19295,7 @@ var script = {
       return div;
     },
 
-    onUnload: function onUnload (e) {
+    onUnload: function onUnload(e) {
       var key = this.mapObject._tileCoordsToKey(e.coords);
       if (typeof this.tileComponents[key] !== 'undefined') {
         this.tileComponents[key].$destroy();
@@ -18965,10 +19304,10 @@ var script = {
       }
     },
 
-    setTileComponent: function setTileComponent (newVal) {
+    setTileComponent: function setTileComponent(newVal) {
       this.mapObject.redraw();
-    }
-  }
+    },
+  },
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -19104,34 +19443,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -19150,20 +19504,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -19180,86 +19542,89 @@ var findRealParent = function (firstVueParent) {
 
 //
 
+/**
+ * Easy and reactive way to configure the icon of a marker
+ */
 var script = {
   name: 'LIcon',
   props: {
     iconUrl: {
       type: String,
       custom: true,
-      default: null
+      default: null,
     },
     iconRetinaUrl: {
       type: String,
       custom: true,
-      default: null
+      default: null,
     },
     iconSize: {
       type: [Object, Array],
       custom: true,
-      default: null
+      default: null,
     },
     iconAnchor: {
       type: [Object, Array],
       custom: true,
-      default: null
+      default: null,
     },
     popupAnchor: {
       type: [Object, Array],
       custom: true,
-      default: function () { return [0, 0]; }
+      default: function () { return [0, 0]; },
     },
     tooltipAnchor: {
       type: [Object, Array],
       custom: true,
-      default: function () { return [0, 0]; }
+      default: function () { return [0, 0]; },
     },
     shadowUrl: {
       type: String,
       custom: true,
-      default: null
+      default: null,
     },
     shadowRetinaUrl: {
       type: String,
       custom: true,
-      default: null
+      default: null,
     },
     shadowSize: {
       type: [Object, Array],
       custom: true,
-      default: null
+      default: null,
     },
     shadowAnchor: {
       type: [Object, Array],
       custom: true,
-      default: null
+      default: null,
     },
     bgPos: {
       type: [Object, Array],
       custom: true,
-      default: function () { return [0, 0]; }
+      default: function () { return [0, 0]; },
     },
     className: {
       type: String,
       custom: true,
-      default: ''
+      default: '',
     },
     options: {
       type: Object,
       custom: true,
-      default: function () { return ({}); }
-    }
+      default: function () { return ({}); },
+    },
   },
 
-  data: function data () {
+  data: function data() {
     return {
       parentContainer: null,
       observer: null,
       recreationNeeded: false,
-      swapHtmlNeeded: false
+      swapHtmlNeeded: false,
     };
   },
 
-  mounted: function mounted () {
+  mounted: function mounted() {
     var this$1 = this;
 
     this.parentContainer = findRealParent(this.$parent);
@@ -19269,14 +19634,16 @@ var script = {
     this.observer = new MutationObserver(function () {
       this$1.scheduleHtmlSwap();
     });
-    this.observer.observe(
-      this.$el,
-      { attributes: true, childList: true, characterData: true, subtree: true }
-    );
+    this.observer.observe(this.$el, {
+      attributes: true,
+      childList: true,
+      characterData: true,
+      subtree: true,
+    });
     this.scheduleCreateIcon();
   },
 
-  beforeDestroy: function beforeDestroy () {
+  beforeDestroy: function beforeDestroy() {
     if (this.parentContainer.mapObject) {
       this.parentContainer.mapObject.setIcon(this.parentContainer.$props.icon);
     }
@@ -19285,21 +19652,26 @@ var script = {
   },
 
   methods: {
-    scheduleCreateIcon: function scheduleCreateIcon () {
+    scheduleCreateIcon: function scheduleCreateIcon() {
       this.recreationNeeded = true;
 
       this.$nextTick(this.createIcon);
     },
 
-    scheduleHtmlSwap: function scheduleHtmlSwap () {
+    scheduleHtmlSwap: function scheduleHtmlSwap() {
       this.htmlSwapNeeded = true;
 
       this.$nextTick(this.createIcon);
     },
 
-    createIcon: function createIcon () {
+    createIcon: function createIcon() {
       // If only html of a divIcon changed, we can just replace the DOM without the need of recreating the whole icon
-      if (this.htmlSwapNeeded && !this.recreationNeeded && this.iconObject && this.parentContainer.mapObject.getElement()) {
+      if (
+        this.htmlSwapNeeded &&
+        !this.recreationNeeded &&
+        this.iconObject &&
+        this.parentContainer.mapObject.getElement()
+      ) {
         this.parentContainer.mapObject.getElement().innerHTML = this.$el.innerHTML;
 
         this.htmlSwapNeeded = false;
@@ -19314,21 +19686,24 @@ var script = {
         leaflet__WEBPACK_IMPORTED_MODULE_0__["DomEvent"].off(this.iconObject, this.$listeners);
       }
 
-      var options = optionsMerger({
-        iconUrl: this.iconUrl,
-        iconRetinaUrl: this.iconRetinaUrl,
-        iconSize: this.iconSize,
-        iconAnchor: this.iconAnchor,
-        popupAnchor: this.popupAnchor,
-        tooltipAnchor: this.tooltipAnchor,
-        shadowUrl: this.shadowUrl,
-        shadowRetinaUrl: this.shadowRetinaUrl,
-        shadowSize: this.shadowSize,
-        shadowAnchor: this.shadowAnchor,
-        bgPos: this.bgPos,
-        className: this.className,
-        html: this.$el.innerHTML || this.html
-      }, this);
+      var options = optionsMerger(
+        {
+          iconUrl: this.iconUrl,
+          iconRetinaUrl: this.iconRetinaUrl,
+          iconSize: this.iconSize,
+          iconAnchor: this.iconAnchor,
+          popupAnchor: this.popupAnchor,
+          tooltipAnchor: this.tooltipAnchor,
+          shadowUrl: this.shadowUrl,
+          shadowRetinaUrl: this.shadowRetinaUrl,
+          shadowSize: this.shadowSize,
+          shadowAnchor: this.shadowAnchor,
+          bgPos: this.bgPos,
+          className: this.className,
+          html: this.$el.innerHTML || this.html,
+        },
+        this
+      );
 
       if (options.html) {
         this.iconObject = Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["divIcon"])(options);
@@ -19344,47 +19719,47 @@ var script = {
       this.htmlSwapNeeded = false;
     },
 
-    setIconUrl: function setIconUrl () {
+    setIconUrl: function setIconUrl() {
       this.scheduleCreateIcon();
     },
-    setIconRetinaUrl: function setIconRetinaUrl () {
+    setIconRetinaUrl: function setIconRetinaUrl() {
       this.scheduleCreateIcon();
     },
-    setIconSize: function setIconSize () {
+    setIconSize: function setIconSize() {
       this.scheduleCreateIcon();
     },
-    setIconAnchor: function setIconAnchor () {
+    setIconAnchor: function setIconAnchor() {
       this.scheduleCreateIcon();
     },
-    setPopupAnchor: function setPopupAnchor () {
+    setPopupAnchor: function setPopupAnchor() {
       this.scheduleCreateIcon();
     },
-    setTooltipAnchor: function setTooltipAnchor () {
+    setTooltipAnchor: function setTooltipAnchor() {
       this.scheduleCreateIcon();
     },
-    setShadowUrl: function setShadowUrl () {
+    setShadowUrl: function setShadowUrl() {
       this.scheduleCreateIcon();
     },
-    setShadowRetinaUrl: function setShadowRetinaUrl () {
+    setShadowRetinaUrl: function setShadowRetinaUrl() {
       this.scheduleCreateIcon();
     },
-    setShadowAnchor: function setShadowAnchor () {
+    setShadowAnchor: function setShadowAnchor() {
       this.scheduleCreateIcon();
     },
-    setBgPos: function setBgPos () {
+    setBgPos: function setBgPos() {
       this.scheduleCreateIcon();
     },
-    setClassName: function setClassName () {
+    setClassName: function setClassName() {
       this.scheduleCreateIcon();
     },
-    setHtml: function setHtml () {
+    setHtml: function setHtml() {
       this.scheduleCreateIcon();
-    }
+    },
   },
 
-  render: function render () {
+  render: function render() {
     return null;
-  }
+  },
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -19520,61 +19895,80 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
   for (var key in props) loop( key );
 };
 
+/**
+ * Set a default icon
+ * @deprecated since version 2.0
+ */
 var script = {
   name: 'LIconDefault',
   props: {
     imagePath: {
       type: String,
       custom: true,
-      default: ''
-    }
+      default: '',
+    },
   },
-  mounted: function mounted () {
+  mounted: function mounted() {
     leaflet__WEBPACK_IMPORTED_MODULE_0__["Icon"].Default.imagePath = this.imagePath;
     propsBinder(this, {}, this.$options.props);
   },
   methods: {
-    setImagePath: function setImagePath (newVal) {
+    setImagePath: function setImagePath(newVal) {
       leaflet__WEBPACK_IMPORTED_MODULE_0__["Icon"].Default.imagePath = newVal;
-    }
+    },
   },
-  render: function render () {
+  render: function render() {
     return null;
-  }
+  },
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -19708,34 +20102,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -19754,20 +20163,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -19862,6 +20279,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -19976,6 +20398,9 @@ var Options = {
   }
 };
 
+/**
+ * Easily display a image overlay.
+ */
 var script = {
   name: 'LImageOverlay',
   mixins: [ImageOverlayMixin, Options],
@@ -19989,6 +20414,11 @@ var script = {
     this.parentContainer = findRealParent(this.$parent);
     this.parentContainer.addLayer(this, !this.visible);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
@@ -20128,34 +20558,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -20254,6 +20699,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -20291,6 +20741,9 @@ var Options = {
 
 //
 
+/**
+ * Group together elements of the maps  including: markers, geoJSON, polylines and polygon, tooltip and popup.
+ */
 var script = {
   name: 'LLayerGroup',
   mixins: [LayerGroupMixin, Options],
@@ -20311,6 +20764,11 @@ var script = {
       this.parentContainer.addLayer(this);
     }
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
@@ -20451,7 +20909,7 @@ __webpack_require__.r(__webpack_exports__);
 var debounce = function (fn, time) {
   var timeout;
 
-  return function () {
+  return function() {
     var args = [], len = arguments.length;
     while ( len-- ) args[ len ] = arguments[ len ];
 
@@ -20467,34 +20925,49 @@ var debounce = function (fn, time) {
 };
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -20513,20 +20986,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var Options = {
@@ -20540,56 +21021,93 @@ var Options = {
 
 //
 
+/**
+ * Base component, contains and wrap all the other components.
+ */
 var script = {
   name: 'LMap',
   mixins: [Options],
   props: {
+    /**
+     * The center of the map, supports .sync modifier
+     */
     center: {
       type: [Object, Array],
       custom: true,
       default: function () { return [0, 0]; },
     },
+    /**
+     * The bounds of the map, supports .sync modifier
+     */
     bounds: {
       type: [Array, Object],
       custom: true,
       default: null,
     },
+    /**
+     * The max bounds of the map
+     */
     maxBounds: {
       type: [Array, Object],
       default: null,
     },
+    /**
+     * The zoom of the map, supports .sync modifier
+     */
     zoom: {
       type: Number,
       custom: true,
       default: 0,
     },
+    /**
+     * The minZoom of the map
+     */
     minZoom: {
       type: Number,
       default: null,
     },
+    /**
+     * The maxZoom of the map
+     */
     maxZoom: {
       type: Number,
       default: null,
     },
+    /**
+     * The paddingBottomRight of the map
+     */
     paddingBottomRight: {
       type: Array,
       custom: true,
       default: null,
     },
+    /**
+     * The paddingTopLeft of the map
+     */
     paddingTopLeft: {
       type: Array,
       custom: true,
       default: null,
     },
+    /**
+     * The padding of the map
+     */
     padding: {
       type: Array,
       custom: true,
       default: null,
     },
+    /**
+     * The worldCopyJump option for the map
+     */
     worldCopyJump: {
       type: Boolean,
       default: false,
     },
+    /**
+     * The crs option for the map
+     * @values CRS.EPSG3857
+     */
     crs: {
       type: Object,
       custom: true,
@@ -20702,9 +21220,17 @@ var script = {
     leaflet__WEBPACK_IMPORTED_MODULE_0__["DomEvent"].on(this.mapObject, this.$listeners);
     propsBinder(this, this.mapObject, this.$options.props);
     this.ready = true;
-    // DEPRECATED leaflet:load
+    /**
+     * DEPRECATED event
+     * @deprecated
+     */
     this.$emit('leaflet:load');
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
@@ -20738,9 +21264,7 @@ var script = {
       }
     },
     hideLayer: function hideLayer(layer) {
-      if (layer.layerType !== undefined) {
-        this.mapObject.removeLayer(layer.mapObject);
-      }
+      this.mapObject.removeLayer(layer.mapObject);
     },
     removeLayer: function removeLayer(layer, alreadyRemoved) {
       if (layer.layerType !== undefined) {
@@ -20810,10 +21334,22 @@ var script = {
       });
     },
     moveEndHandler: function moveEndHandler() {
+      /**
+       * Triggers when zoom is updated
+       * @type {number,string}
+       */
       this.$emit('update:zoom', this.mapObject.getZoom());
       var center = this.mapObject.getCenter();
+      /**
+       * Triggers when center is updated
+       * @type {object,array}
+       */
       this.$emit('update:center', center);
       var bounds = this.mapObject.getBounds();
+      /**
+       * Triggers when bounds are updated
+       * @type {object}
+       */
       this.$emit('update:bounds', bounds);
     },
     overlayAddHandler: function overlayAddHandler(e) {
@@ -20969,7 +21505,7 @@ var __vue_staticRenderFns__ = [];
   /* style */
   var __vue_inject_styles__ = function (inject) {
     if (!inject) { return }
-    inject("data-v-4d388c28_0", { source: ".vue2leaflet-map{height:100%;width:100%}", map: undefined, media: undefined });
+    inject("data-v-49b28618_0", { source: ".vue2leaflet-map{height:100%;width:100%}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -21018,7 +21554,7 @@ __webpack_require__.r(__webpack_exports__);
 var debounce = function (fn, time) {
   var timeout;
 
-  return function () {
+  return function() {
     var args = [], len = arguments.length;
     while ( len-- ) args[ len ] = arguments[ len ];
 
@@ -21034,34 +21570,49 @@ var debounce = function (fn, time) {
 };
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -21080,20 +21631,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -21188,6 +21747,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -21202,47 +21766,53 @@ var Options = {
   }
 };
 
+/**
+ * Marker component, lets you add and personalize markers on the map
+ */
 var script = {
   name: 'LMarker',
   mixins: [Layer, Options],
   props: {
     pane: {
       type: String,
-      default: 'markerPane'
+      default: 'markerPane',
     },
     draggable: {
       type: Boolean,
       custom: true,
-      default: false
+      default: false,
     },
     latLng: {
       type: [Object, Array],
       custom: true,
-      default: null
+      default: null,
     },
     icon: {
       type: [Object],
       custom: false,
-      default: function () { return new leaflet__WEBPACK_IMPORTED_MODULE_0__["Icon"].Default(); }
+      default: function () { return new leaflet__WEBPACK_IMPORTED_MODULE_0__["Icon"].Default(); },
     },
     zIndexOffset: {
       type: Number,
       custom: false,
-      default: null
-    }
+      default: null,
+    },
   },
-  data: function data () {
+  data: function data() {
     return {
-      ready: false
+      ready: false,
     };
   },
-  mounted: function mounted () {
+  mounted: function mounted() {
     var this$1 = this;
 
-    var options = optionsMerger(Object.assign({}, this.layerOptions,
-      {icon: this.icon,
-      zIndexOffset: this.zIndexOffset,
-      draggable: this.draggable}), this);
+    var options = optionsMerger(
+      Object.assign({}, this.layerOptions,
+        {icon: this.icon,
+        zIndexOffset: this.zIndexOffset,
+        draggable: this.draggable}),
+      this
+    );
     this.mapObject = Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["marker"])(this.latLng, options);
     leaflet__WEBPACK_IMPORTED_MODULE_0__["DomEvent"].on(this.mapObject, this.$listeners);
     this.mapObject.on('move', debounce(this.latLngSync, 100));
@@ -21251,16 +21821,23 @@ var script = {
     this.parentContainer.addLayer(this, !this.visible);
     this.ready = true;
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
   methods: {
-    setDraggable: function setDraggable (newVal, oldVal) {
+    setDraggable: function setDraggable(newVal, oldVal) {
       if (this.mapObject.dragging) {
-        newVal ? this.mapObject.dragging.enable() : this.mapObject.dragging.disable();
+        newVal
+          ? this.mapObject.dragging.enable()
+          : this.mapObject.dragging.disable();
       }
     },
-    setLatLng: function setLatLng (newVal) {
+    setLatLng: function setLatLng(newVal) {
       if (newVal == null) {
         return;
       }
@@ -21268,22 +21845,25 @@ var script = {
       if (this.mapObject) {
         var oldLatLng = this.mapObject.getLatLng();
         var newLatLng = Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["latLng"])(newVal);
-        if (newLatLng.lat !== oldLatLng.lat || newLatLng.lng !== oldLatLng.lng) {
+        if (
+          newLatLng.lat !== oldLatLng.lat ||
+          newLatLng.lng !== oldLatLng.lng
+        ) {
           this.mapObject.setLatLng(newLatLng);
         }
       }
     },
-    latLngSync: function latLngSync (event) {
+    latLngSync: function latLngSync(event) {
       this.$emit('update:latLng', event.latlng);
       this.$emit('update:lat-lng', event.latlng);
-    }
+    },
   },
-  render: function (h) {
+  render: function(h) {
     if (this.ready && this.$slots.default) {
       return h('div', { style: { display: 'none' } }, this.$slots.default);
     }
     return null;
-  }
+  },
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -21417,34 +21997,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -21463,20 +22058,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -21571,6 +22174,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -21813,6 +22421,9 @@ var Options = {
 
 //
 
+/**
+ * Easily draw a polygon on the map
+ */
 var script = {
   name: 'LPolygon',
   mixins: [PolygonMixin, Options],
@@ -21838,6 +22449,11 @@ var script = {
     this.parentContainer = findRealParent(this.$parent);
     this.parentContainer.addLayer(this, !this.visible);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
@@ -21976,34 +22592,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -22022,20 +22653,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -22130,6 +22769,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -22353,6 +22997,9 @@ var Options = {
 
 //
 
+/**
+ * Easily draw a polyline on the map
+ */
 var script = {
   name: 'LPolyline',
   mixins: [PolylineMixin, Options],
@@ -22378,6 +23025,11 @@ var script = {
     this.parentContainer = findRealParent(this.$parent);
     this.parentContainer.addLayer(this, !this.visible);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
@@ -22516,34 +23168,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -22562,20 +23229,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -22625,16 +23300,19 @@ var Options = {
   }
 };
 
+/**
+ * Display a popup on the map
+ */
 var script = {
   name: 'LPopup',
   mixins: [Popper, Options],
   props: {
     latLng: {
       type: [Object, Array],
-      default: function () { return []; }
-    }
+      default: function () { return []; },
+    },
   },
-  mounted: function mounted () {
+  mounted: function mounted() {
     var this$1 = this;
 
     var options = optionsMerger(this.popperOptions, this);
@@ -22648,18 +23326,26 @@ var script = {
     this.parentContainer = findRealParent(this.$parent);
     this.parentContainer.mapObject.bindPopup(this.mapObject);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
-  beforeDestroy: function beforeDestroy () {
+  beforeDestroy: function beforeDestroy() {
     if (this.parentContainer) {
       if (this.parentContainer.unbindPopup) {
         this.parentContainer.unbindPopup();
-      } else if (this.parentContainer.mapObject && this.parentContainer.mapObject.unbindPopup) {
+      } else if (
+        this.parentContainer.mapObject &&
+        this.parentContainer.mapObject.unbindPopup
+      ) {
         this.parentContainer.mapObject.unbindPopup();
       }
     }
-  }
+  },
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -22793,34 +23479,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -22839,20 +23540,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -22947,6 +23656,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -23189,6 +23903,9 @@ var Options = {
 
 //
 
+/**
+ * Easily draw a rectangle on the map
+ */
 var script = {
   name: 'LRectangle',
   mixins: [Polygon, Options],
@@ -23214,6 +23931,11 @@ var script = {
     this.parentContainer = findRealParent(this.$parent);
     this.parentContainer.addLayer(this, !this.visible);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
@@ -23352,34 +24074,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -23398,20 +24135,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -23506,6 +24251,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -23553,6 +24303,10 @@ var TileLayerMixin = {
       type: Boolean,
       default: false
     },
+    subdomains: {
+      type: String,
+      default: 'abc'
+    },
     detectRetina: {
       type: Boolean,
       default: false
@@ -23561,6 +24315,7 @@ var TileLayerMixin = {
   mounted: function mounted () {
     this.tileLayerOptions = Object.assign({}, this.gridLayerOptions,
       {tms: this.tms,
+      subdomains: this.subdomains,
       detectRetina: this.detectRetina});
   },
   render: function render () {
@@ -23579,20 +24334,23 @@ var Options = {
 
 //
 
+/**
+ * Load tiles from a map server and display them accordingly to map zoom, center and size
+ */
 var script = {
   name: 'LTileLayer',
   mixins: [TileLayerMixin, Options],
   props: {
     url: {
       type: String,
-      default: null
+      default: null,
     },
     tileLayerClass: {
       type: Function,
-      default: leaflet__WEBPACK_IMPORTED_MODULE_0__["tileLayer"]
-    }
+      default: leaflet__WEBPACK_IMPORTED_MODULE_0__["tileLayer"],
+    },
   },
-  mounted: function mounted () {
+  mounted: function mounted() {
     var this$1 = this;
 
     var options = optionsMerger(this.tileLayerOptions, this);
@@ -23602,9 +24360,14 @@ var script = {
     this.parentContainer = findRealParent(this.$parent);
     this.parentContainer.addLayer(this, !this.visible);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
-  }
+  },
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -23740,34 +24503,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -23786,20 +24564,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -23849,10 +24635,13 @@ var Options = {
   }
 };
 
+/**
+ * Display a tooltip on the map
+ */
 var script = {
   name: 'LTooltip',
   mixins: [Popper, Options],
-  mounted: function mounted () {
+  mounted: function mounted() {
     var this$1 = this;
 
     var options = optionsMerger(this.popperOptions, this);
@@ -23863,18 +24652,26 @@ var script = {
     this.parentContainer = findRealParent(this.$parent);
     this.parentContainer.mapObject.bindTooltip(this.mapObject);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
   },
-  beforeDestroy: function beforeDestroy () {
+  beforeDestroy: function beforeDestroy() {
     if (this.parentContainer) {
       if (this.parentContainer.unbindTooltip) {
         this.parentContainer.unbindTooltip();
-      } else if (this.parentContainer.mapObject && this.parentContainer.mapObject.unbindTooltip) {
+      } else if (
+        this.parentContainer.mapObject &&
+        this.parentContainer.mapObject.unbindTooltip
+      ) {
         this.parentContainer.mapObject.unbindTooltip();
       }
     }
-  }
+  },
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -24008,34 +24805,49 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -24054,20 +24866,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {
@@ -24162,6 +24982,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -24209,6 +25034,10 @@ var TileLayer = {
       type: Boolean,
       default: false
     },
+    subdomains: {
+      type: String,
+      default: 'abc'
+    },
     detectRetina: {
       type: Boolean,
       default: false
@@ -24217,6 +25046,7 @@ var TileLayer = {
   mounted: function mounted () {
     this.tileLayerOptions = Object.assign({}, this.gridLayerOptions,
       {tms: this.tms,
+      subdomains: this.subdomains,
       detectRetina: this.detectRetina});
   },
   render: function render () {
@@ -24276,16 +25106,19 @@ var Options = {
   }
 };
 
+/**
+ * Display WMS services as tile layers on the map
+ */
 var script = {
   name: 'LWMSTileLayer',
   mixins: [TileLayerWMS, Options],
   props: {
     baseUrl: {
       type: String,
-      default: null
-    }
+      default: null,
+    },
   },
-  mounted: function mounted () {
+  mounted: function mounted() {
     var this$1 = this;
 
     var options = optionsMerger(this.tileLayerWMSOptions, this);
@@ -24295,9 +25128,14 @@ var script = {
     this.parentContainer = findRealParent(this.$parent);
     this.parentContainer.addLayer(this, !this.visible);
     this.$nextTick(function () {
+      /**
+       * Triggers when the component is ready
+       * @type {object}
+       * @property {object} mapObject - reference to leaflet map object
+       */
       this$1.$emit('ready', this$1.mapObject);
     });
-  }
+  },
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -24506,6 +25344,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -24827,6 +25670,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -24961,6 +25809,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -25193,6 +26046,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -25292,6 +26150,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -25435,6 +26298,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -25704,6 +26572,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -26029,6 +26902,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -26375,6 +27253,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -26422,6 +27305,10 @@ var TileLayer = {
       type: Boolean,
       default: false
     },
+    subdomains: {
+      type: String,
+      default: 'abc'
+    },
     detectRetina: {
       type: Boolean,
       default: false
@@ -26430,6 +27317,7 @@ var TileLayer = {
   mounted: function mounted () {
     this.tileLayerOptions = Object.assign({}, this.gridLayerOptions,
       {tms: this.tms,
+      subdomains: this.subdomains,
       detectRetina: this.detectRetina});
   },
   render: function render () {
@@ -26531,6 +27419,11 @@ var Layer = {
       }
     },
     updateVisibleProp: function updateVisibleProp(value) {
+      /**
+       * Triggers when the visible prop needs to be updated
+       * @type {boolean}
+       * @property {boolean} value - value of the visible property
+       */
       this.$emit('update:visible', value);
     },
   },
@@ -26578,6 +27471,10 @@ var TileLayer = {
       type: Boolean,
       default: false
     },
+    subdomains: {
+      type: String,
+      default: 'abc'
+    },
     detectRetina: {
       type: Boolean,
       default: false
@@ -26586,6 +27483,7 @@ var TileLayer = {
   mounted: function mounted () {
     this.tileLayerOptions = Object.assign({}, this.gridLayerOptions,
       {tms: this.tms,
+      subdomains: this.subdomains,
       detectRetina: this.detectRetina});
   },
   render: function render () {
@@ -26663,7 +27561,7 @@ __webpack_require__.r(__webpack_exports__);
 var debounce = function (fn, time) {
   var timeout;
 
-  return function () {
+  return function() {
     var args = [], len = arguments.length;
     while ( len-- ) args[ len ] = arguments[ len ];
 
@@ -26679,34 +27577,49 @@ var debounce = function (fn, time) {
 };
 
 var capitalizeFirstLetter = function (string) {
-  if (!string || typeof string.charAt !== 'function') { return string; }
+  if (!string || typeof string.charAt !== 'function') {
+    return string;
+  }
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var propsBinder = function (vueElement, leafletElement, props, options) {
   var loop = function ( key ) {
     var setMethodName = 'set' + capitalizeFirstLetter(key);
-    var deepValue = (props[key].type === Object) ||
-      (props[key].type === Array) ||
-      (Array.isArray(props[key].type));
+    var deepValue =
+      props[key].type === Object ||
+      props[key].type === Array ||
+      Array.isArray(props[key].type);
     if (props[key].custom && vueElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        vueElement[setMethodName](newVal, oldVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          vueElement[setMethodName](newVal, oldVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (setMethodName === 'setOptions') {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["setOptions"])(leafletElement, newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     } else if (leafletElement[setMethodName]) {
-      vueElement.$watch(key, function (newVal, oldVal) {
-        leafletElement[setMethodName](newVal);
-      }, {
-        deep: deepValue
-      });
+      vueElement.$watch(
+        key,
+        function (newVal, oldVal) {
+          leafletElement[setMethodName](newVal);
+        },
+        {
+          deep: deepValue,
+        }
+      );
     }
   };
 
@@ -26725,20 +27638,28 @@ var collectionCleaner = function (options) {
 };
 
 var optionsMerger = function (props, instance) {
-  var options = instance.options && instance.options.constructor === Object ? instance.options : {};
+  var options =
+    instance.options && instance.options.constructor === Object
+      ? instance.options
+      : {};
   props = props && props.constructor === Object ? props : {};
   var result = collectionCleaner(options);
   props = collectionCleaner(props);
   var defaultProps = instance.$options.props;
   for (var key in props) {
-    var def = defaultProps[key] ? defaultProps[key].default : Symbol('unique');
+    var def = defaultProps[key]
+      ? defaultProps[key].default
+      : Symbol('unique');
     if (result[key] && def !== props[key]) {
-      console.warn((key + " props is overriding the value passed in the options props"));
+      console.warn(
+        (key + " props is overriding the value passed in the options props")
+      );
       result[key] = props[key];
     } else if (!result[key]) {
       result[key] = props[key];
     }
-  }  return result;
+  }
+  return result;
 };
 
 var findRealParent = function (firstVueParent) {

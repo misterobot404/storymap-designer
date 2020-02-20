@@ -9,9 +9,7 @@
     <!-- app.css bundle -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     <title>@yield('title')</title>
-    <script>
-        @yield('data-input')
-    </script>
+    <script> @yield('data-input') </script>
     <style>
         @font-face {
             font-family: 'Arciform';
@@ -27,10 +25,11 @@
             #navbar-nav-guest > li:last-child {
                 margin-bottom: 8px !important;
             }
+
             .button-reg {
-            //border: none !important;
                 color: #fff !important;
             }
+
             .button-auth {
                 color: #fff !important;
                 margin-right: 0 !important;
@@ -54,7 +53,7 @@
             height: 66px;
         }
 
-        .button-reg:hover, .button-auth:hover{
+        .button-reg:hover, .button-auth:hover {
             transition: .3s ease;
             color: #B1B8BE !important;
         }
@@ -89,6 +88,7 @@
             height: 36px;
             vertical-align: text-bottom;
         }
+
         .navbar-logo-avatar {
             width: 28px;
             height: 28px;
@@ -157,7 +157,7 @@
                         <a class="dropdown-item"
                            href="{{ route('logout') }}"
                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                           document.getElementById('logout-form').submit();">
                             Выйти
                         </a>
 

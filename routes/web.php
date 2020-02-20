@@ -5,10 +5,16 @@ Route::get('/', function () {
     return view('index');
 });
 
+
+////    AJAX
+
 // Get map count 0, if user non auth
 Route::get('maps/count', function () {
     return ['mapCount' => Map::getMapCount()];
 });
+
+////
+
 
 // CRUD for MapController added without create.
 Route::resource('maps', 'MapController')->except('create')->middleware('auth');

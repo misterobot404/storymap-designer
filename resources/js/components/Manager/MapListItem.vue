@@ -5,7 +5,10 @@
             <h5 class="card-title"> {{map.name}} </h5>
             <p class="card-text"> {{map.description}} </p>
         </div>
-        <a class="btn btn-light w-25 mx-auto" @click="$store.dispatch('destroyMap', {id: map.id})"> &times; </a>
+        <div class="row w-50 mx-auto">
+            <a v-if="map.other!==true" class="btn btn-light col mx-1" @click=""> &#x270E </a>
+            <a class="btn btn-light col mx-1" @click="$store.dispatch('destroyMap', {id: map.id})"> &times; </a>
+        </div>
     </div>
 </template>
 
@@ -13,7 +16,8 @@
     export default {
         name: "MapItem",
         props: {
-            map: Object
+            map: Object,
+            mapOwner: String
         }
     }
 </script>

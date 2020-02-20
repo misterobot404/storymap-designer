@@ -12,17 +12,17 @@
                     <form>
                         <div class="form-group">
                             <label for="name" class="pl-1"> Название атласа <span class="text-danger"> * </span></label>
-                            <input
-                                :class="['form-control', name !== '' || errors.nameEmpty ? (errors.nameEmpty || errors.nameDuplicate ? 'is-invalid' : 'is-valid') : '']"
-                                id="name" v-model.trim="name" type="text" autocomplete="off">
+                            <input id="name" v-model.trim="name" type="text" autocomplete="off"
+                                :class="['form-control', name !== '' ||
+                                errors.nameEmpty ? (errors.nameEmpty || errors.nameDuplicate ? 'is-invalid' : 'is-valid') : '']">
                             <span v-show="errors.nameEmpty" class="invalid-feedback ml-1" role="alert"> Пожалуста, введите название атласа. </span>
                             <span v-show="errors.nameDuplicate" class="invalid-feedback ml-1" role="alert"> Атлас с таким названием уже существует! </span>
                         </div>
                         <div class="form-group">
                             <label for="description" class="pl-1"> Описание атласа <span class="text-danger">*</span></label>
-                            <textarea style="max-height: 50vh; min-height: 60px; overflow-y: hidden"
-                                :class="['form-control', description !== '' || errors.descriptionEmpty ? (errors.descriptionEmpty ? 'is-invalid' : 'is-valid') : '']"
-                                id="description" v-model.trim="description" autocomplete="off"/>
+                            <textarea id="description" v-model.trim="description" autocomplete="off" maxlength="1000"
+                                :class="['modal-description','form-control', description !== ''
+                                || errors.descriptionEmpty ? (errors.descriptionEmpty ? 'is-invalid' : 'is-valid') : '']"/>
                             <span v-show="errors.descriptionEmpty" class="invalid-feedback ml-1" role="alert"> Пожалуста, введите описание атласа. </span>
                         </div>
                     </form>
@@ -88,7 +88,9 @@
                 })
                 // При открытии формы фокус на названии атласа
                 .on('shown.bs.modal', function () {
-                    $('#name').trigger('focus')
+                    $('#name').trigger('focus');
+                    // On close, modals should return focus to launching element - DISABLED
+                    $('#btn-show-create-map').one('focus', function(){$(this).blur();});
                 });
         },
         methods: {
@@ -111,12 +113,21 @@
 </script>
 
 <style lang="sass" scoped>
+
     .modal-content
         border-radius: 8px
         overflow: hidden
 
     .modal-header
         background-color: #F6F8FA
+
+    .modal-description
+        max-height: 50vh
+        min-height: 120px
+        overflow-y: scroll
+
+    textarea.form-control.is-valid
+        background-position: top calc(0.4em + 0.1875rem) right calc(0.4em + 0.1875rem + 13px)
 
     .close:focus, .close:active
         outline: none !important

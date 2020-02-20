@@ -1,11 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
-use Auth;
 use App\Map;
 
 class MapController extends Controller
@@ -17,7 +15,7 @@ class MapController extends Controller
      */
     public function index()
     {
-        return view('maps.index', ['maps' => Map::getMaps()]);
+        return view('maps.index',['maps' => Map::getMaps()]);
     }
 
     /**
@@ -29,7 +27,7 @@ class MapController extends Controller
     public function store(Request $request)
     {
         Map::createMap($request->name, $request->description);
-        return response(['maps' => Map::getMaps(), 'mapCount' => Map::getMapCount()]);
+        return response(['maps' => Map::getMaps()]);
     }
 
     /**
@@ -41,13 +39,13 @@ class MapController extends Controller
     public function destroy($id)
     {
         Map::destroy($id);
-        return response(['maps' => Map::getMaps(), 'mapCount' => Map::getMapCount()]);
+        return response(['maps' => Map::getMaps()]);
     }
+
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return Response
      */
     public function show($id)
     {
@@ -58,7 +56,6 @@ class MapController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return Response
      */
     public function edit($id)
     {
@@ -70,7 +67,6 @@ class MapController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return Response
      */
     public function update(Request $request, $id)
     {

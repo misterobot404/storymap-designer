@@ -11396,6 +11396,14 @@ a.text-dark:focus {
 }
 
 .font-w-600 {
-  font-weight: 600;
+  font-weight: 600 !important;
+}
+
+.font-w-500 {
+  font-weight: 500 !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 

@@ -8,10 +8,11 @@ import maps from './modules/maps'
 import map_config from './modules/map_config'
 import map_events from './modules/map_events'
 
+
 export default new Vuex.Store({
     strict: true,
     actions: {
-        initStore: function ({commit}) {
+        initStore: function ({commit})  {
             // Если пришли данные всех карт
             if (window.maps) {
                 commit('SET_MAPS', window.maps);
@@ -22,18 +23,14 @@ export default new Vuex.Store({
                 commit('SET_CONFIG', JSON.parse(window.map.config))
             }
 
-            // Установить текущее количество карт имеющихся карт, если пользователь авторизирован вернёт 0
+            // Установить текущее количество карт имеющихся карт, если пользователь не авторизирован вернёт 0
             axios.get('/maps/count')
                 .then(response => {
-                    if (response.data.mapCount !== 0) {
-                        commit('SET_MAP_COUNT', JSON.parse(response.data.mapCount));
-                    }
+                    commit('SET_MAP_COUNT', response.data.mapCount);
                 })
-                .catch(error => {
-                    console.log(error)
-                });
+                .catch(error => {console.log(error)});
         },
-        setMap: function ({getters}) {
+        saveMap: function ({getters}) {
             axios.post('/edit/savemap',
                 {
                     map_id: window.map.id,
@@ -45,7 +42,7 @@ export default new Vuex.Store({
                     alert("Save successful");
                 })
                 .catch(error => {
-                    alert("Save Error")
+                    alert(console.log(error))
                 });
         },
         createMap: function ({commit}, data) {
@@ -56,27 +53,25 @@ export default new Vuex.Store({
                 })
                 .then(response => {
                     commit('SET_MAPS', JSON.parse(response.data.maps));
-                    commit('SET_MAP_COUNT', JSON.parse(response.data.mapCount));
                 })
                 .catch(error => {
-                    alert("Error")
+                    alert(console.log(error))
                 });
         },
         destroyMap: function ({commit}, data) {
             axios.delete('/maps/' + data.id)
                 .then(response => {
                     commit('SET_MAPS', JSON.parse(response.data.maps));
-                    commit('SET_MAP_COUNT', JSON.parse(response.data.mapCount));
                 })
                 .catch(error => {
-                    alert("Error")
+                    alert(console.log(error))
                 });
         }
     },
     modules: {
         maps,
-        map_config,
-        map_events
+        map_events,
+        map_config
     }
 })
 
