@@ -15,13 +15,55 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com/downloads.html).
 
-Say what the step will be
+Add the laravel/homestead box to your Vagrant
+```
+vagrant box add laravel/homestead
+```
 
+Install Homestead by cloning the repository onto your host machine
 ```
-Give the example
+cd ~
+git clone https://github.com/laravel/homestead.git Homestead
 ```
+
+Create Homestead.yaml config file
+```
+cd ~/Homestead
+
+// Mac / Linux...
+bash init.sh
+
+// Windows...
+init.bat
+```
+
+Edit Homestead.yaml config
+```
+// Commented
+#authorize: ~/.ssh/id_rsa.pub
+#keys:
+#    - ~/.ssh/id_rsa
+
+// Change
+folders:
+    - map: ~/code
+      to: /home/vagrant/code
+
+sites:
+    - map: homestead.test
+      to: /home/vagrant/code/public
+// To
+folders:
+    - map: ~/Source/MapDesigner
+      to: /home/vagrant/MapDesigner
+
+sites:
+    - map: MapDesigner.test
+      to: /home/vagrant/MapDesigner/public
+```
+
 
 End with an example of getting some data out of the system or using it for a little demo
 
