@@ -1,14 +1,9 @@
 <p align="center">
-<img src="https://laravel.com/assets/img/components/logo-laravel.svg">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/512px-Vue.js_Logo_2.svg.png" width="100" height="100">
-</p>
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Openstreetmap_logo.svg/1200px-Openstreetmap_logo.svg.png" width="300">
 </p>
 
-## About MapHelper
-
-Combine powers of Laravel,Vue.js and leafletjs
+<h2 align="center"> About MapHelper </h2>
+Combine powers of Laravel (RESTful API), Vue.js () and leafletjs
 
 MapHelper is wrapper around leafletjs library that provides vueish-way to interact with the map.
 
