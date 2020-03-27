@@ -1,10 +1,15 @@
+<p align="center">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Openstreetmap_logo.svg/1200px-Openstreetmap_logo.svg.png" width="300">
+    <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+</p>
+
 # MapDesigner
 
 MapDesigner is a web application that provides a convenient way to create and distribute interactive maps. A feature of MapDesigner is the creation of scalable maps from custom images that do not have a geographic reference.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Installing
 
@@ -16,28 +21,20 @@ Say what the step will be
 Give the example
 ```
 
-And repeat
-
-```
-until finished
-```
-
 End with an example of getting some data out of the system or using it for a little demo
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
 Backend
+* [Homestead](https://laravel.com/docs/homestead) - official Vagrant box pre-packaged development environment
 * [Laravel](https://laravel.com/) - RESTful API service
 
 Frontend
 * [Vue.js](https://vuejs.org/) - Single-page application
 * [Vue Router](https://router.vuejs.org/) - Routing
 * [Vuex](https://vuex.vuejs.org/) - State management
-* [Vuetify ](https://vuetifyjs.com/en/) - UI Library 
+* [Vuetify](https://vuetifyjs.com/en/) - UI Library
+* [Leaflet](https://leafletjs.com/) - Open-source JavaScript library for interactive maps
 
 ## Authors
 
