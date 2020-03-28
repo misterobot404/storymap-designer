@@ -24,8 +24,7 @@ vagrant box add laravel/homestead
 
 Install Homestead by cloning the repository onto your host machine
 ```
-cd ~
-git clone https://github.com/laravel/homestead.git Homestead
+git clone https://github.com/laravel/homestead.git  ~/Homestead
 ```
 
 Create Homestead.yaml config file
@@ -43,12 +42,16 @@ Edit Homestead.yaml config
 ```
 // Make sure IP is set to
 ip: "192.168.10.10"
+```
 
+```
 // Commented
 #authorize: ~/.ssh/id_rsa.pub
 #keys:
 #    - ~/.ssh/id_rsa
+```
 
+```
 // Change
 
 folders:
@@ -79,17 +82,15 @@ git clone https://github.com/misterobot404/MapDesigner.git
 Run and connecting to homestead (initial startup takes longer)
 ```
 cd ~/Homestead
-vagrant up
-vagrant ssh
+vagrant up && vagrant ssh
 ```
 
 Allow Nginx sending precompressed files
 ```
-// Path to Nginx config
-/etc/nginx/nginx.conf
+sudo nano /etc/nginx/nginx.conf
 
 // Add to http context
-gzip_static  on;
+gzip_static on;
 ```
 
 Dependency updates
@@ -99,6 +100,12 @@ cd ~/MapDesigner/
 composer update
 npm install -g npm
 npm update
+```
+
+Run the migration to change the application database schema
+```
+php artisan migrate
+php artisan passport:install
 ```
 
 Setup is complete, exit and shut down the homestead
