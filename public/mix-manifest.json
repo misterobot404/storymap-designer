@@ -1,8 +1,8 @@
 {
-    "/js/app.js": "/js/app.js",
+    "/js/main.js": "/js/main.js",
     "/css/app.css": "/css/app.css",
-    "/Constructor.js": "/Constructor.js",
-    "/Manager.js": "/Manager.js",
-    "/Viewer.js": "/Viewer.js",
-    "/vendors~Constructor.js": "/vendors~Constructor.js"
+    "/home.js": "/home.js",
+    "/library.js": "/library.js",
+    "/login.js": "/login.js",
+    "/register.js": "/register.js"
 }

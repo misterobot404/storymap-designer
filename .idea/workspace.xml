@@ -1,36 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="0.7.1 adaptiv css + save / load from database">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Manager/Filters.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/store/modules/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/clever-2019-dynamic-map.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GlobalTODOList.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GlobalTODOList.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MapController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_18_115530_create_maps_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_12_18_115530_create_maps_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/Manager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~Constructor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors~Constructor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Manager.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Manager.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Manager/CreateMapModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Manager/CreateMapModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Manager/MapList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Manager/MapList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Manager/MapListItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Manager/MapListItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/map_events.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/map_events.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/maps.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/maps.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/maps/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/maps/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-    </list>
+    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,6 +13,20 @@
       <executable />
     </execution>
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="false" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
   <component name="ExportToHTMLSettings">
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../clever-2019-dynamic-map\exportToHTML" />
   </component>
@@ -52,18 +37,23 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package.json" />
-        <option value="Vue Single File Component" />
         <option value="JavaScript File" />
+        <option value="Vue Single File Component" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/misterobot404/clever-2019-dynamic-map.git" />
+      </set>
+    </option>
+  </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/resources/views/maps/edit.blade.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/app/Map.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/app/Http/Controllers/MapController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
   </component>
   <component name="JsBowerSettings">
     <node-interpreter value="project" />
@@ -75,9 +65,6 @@
     <exe-path />
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
-  </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -125,7 +112,6 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
       <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
-      <path value="$PROJECT_DIR$/vendor/erusev/parsedown" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
@@ -149,7 +135,6 @@
       <path value="$PROJECT_DIR$/vendor/laravel/framework" />
       <path value="$PROJECT_DIR$/vendor/laravel/tinker" />
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
-      <path value="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server" />
       <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
       <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
       <path value="$PROJECT_DIR$/vendor/psr/log" />
@@ -172,6 +157,30 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
       <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
       <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/vendor/symfony/psr-http-message-bridge" />
+      <path value="$PROJECT_DIR$/vendor/phpseclib/phpseclib" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/laminas/laminas-diactoros" />
+      <path value="$PROJECT_DIR$/vendor/laminas/laminas-zendframework-bridge" />
+      <path value="$PROJECT_DIR$/vendor/league/event" />
+      <path value="$PROJECT_DIR$/vendor/league/oauth2-server" />
+      <path value="$PROJECT_DIR$/vendor/defuse/php-encryption" />
+      <path value="$PROJECT_DIR$/vendor/facade/ignition-contracts" />
+      <path value="$PROJECT_DIR$/vendor/facade/ignition" />
+      <path value="$PROJECT_DIR$/vendor/league/commonmark" />
+      <path value="$PROJECT_DIR$/vendor/facade/flare-client-php" />
+      <path value="$PROJECT_DIR$/vendor/laravel/passport" />
+      <path value="$PROJECT_DIR$/vendor/scrivo/highlight.php" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/vendor/nyholm/psr7" />
+      <path value="$PROJECT_DIR$/vendor/php-http/message-factory" />
     </include_path>
   </component>
   <component name="ProjectId" id="1QHap8KhCf93o6huoltaU2hkC1H" />
@@ -188,7 +197,8 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/layouts" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.jscs" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -205,23 +215,24 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
+    <property name="settings.editor.selected.configurable" value="tv.twelvetone.intellij.plugins.intellivue.preferences.IntellivueConfigurable" />
+    <property name="settings.editor.splitter.proportion" value="0.21588595" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2019.1.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\misterobor\Source\clever-2019-dynamic-map\resources\lang\en" />
-      <recent name="C:\Users\misterobor\Source\clever-2019-dynamic-map\resources\Images" />
-      <recent name="C:\Users\misterobor\Source\clever-2019-dynamic-map\resources\views\maps" />
-      <recent name="C:\Users\misterobor\Source\clever-2019-dynamic-map\public\images\card" />
-      <recent name="C:\Users\misterobor\Source\clever-2019-dynamic-map\public\images" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\misterobor\Source\clever-2019-dynamic-map\resources\js\components\Manager" />
-      <recent name="C:\Users\misterobor\Source\clever-2019-dynamic-map\public\images\card" />
-      <recent name="C:\Users\misterobor\Source\clever-2019-dynamic-map\resources\views" />
-      <recent name="C:\Users\misterobor\Source\clever-2019-dynamic-map\app\Http\Controllers" />
-      <recent name="C:\Users\misterobor\Source\clever-2019-dynamic-map\resources\js\components" />
+      <recent name="C:\Users\misterobor\Source\MapDesigner\resources\js\layouts" />
+      <recent name="C:\Users\misterobor\Source\MapDesigner\resources\js\components" />
+      <recent name="C:\Users\misterobor\Source\MapDesigner\app" />
+      <recent name="C:\Users\misterobor\Source\MapDesigner\database\migrations" />
+      <recent name="C:\Users\misterobor\Source\MapDesigner\database\seeds" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\misterobor\Source\MapDesigner\resources\js\components" />
+      <recent name="C:\Users\misterobor\Source\MapDesigner\resources\js\pages" />
+      <recent name="C:\Users\misterobor\Source\MapDesigner\resources\js" />
+      <recent name="C:\Users\misterobor\Source\MapDesigner\resources\js\routes" />
+      <recent name="C:\Users\misterobor\Source\clever-2019-dynamic-map\resources\lang\en" />
     </key>
   </component>
   <component name="RunManager" selected="npm.watch-poll">
@@ -263,6 +274,9 @@
     </option>
     <option name="showServicesTree" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\misterobot\AppData\Roaming\Subversion</configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="" />
@@ -270,6 +284,31 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1562057752859</updated>
+      <workItem from="1583469502818" duration="112000" />
+      <workItem from="1583469628742" duration="68000" />
+      <workItem from="1583469706766" duration="53000" />
+      <workItem from="1583469772138" duration="24000" />
+      <workItem from="1583469807374" duration="48000" />
+      <workItem from="1583543762545" duration="1837000" />
+      <workItem from="1583977933719" duration="39000" />
+      <workItem from="1583978009495" duration="5986000" />
+      <workItem from="1583984930268" duration="2081000" />
+      <workItem from="1584252194391" duration="5000" />
+      <workItem from="1584268303084" duration="539000" />
+      <workItem from="1584586583198" duration="4000" />
+      <workItem from="1584588088899" duration="3000" />
+      <workItem from="1585094514075" duration="1277000" />
+      <workItem from="1585097832072" duration="1244000" />
+      <workItem from="1585103944638" duration="3888000" />
+      <workItem from="1585111851703" duration="498000" />
+      <workItem from="1585112894238" duration="2074000" />
+      <workItem from="1585195847538" duration="14907000" />
+      <workItem from="1585228522761" duration="4927000" />
+      <workItem from="1585268392751" duration="832000" />
+      <workItem from="1585273561866" duration="14111000" />
+      <workItem from="1585312373265" duration="3140000" />
+      <workItem from="1585316159778" duration="2588000" />
+      <workItem from="1585353042122" duration="6872000" />
     </task>
     <task id="LOCAL-00001" summary="0.6">
       <created>1562133005697</created>
@@ -341,7 +380,77 @@
       <option name="project" value="LOCAL" />
       <updated>1568421352344</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="0.1 remaster">
+      <created>1585275732432</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1585275732432</updated>
+    </task>
+    <task id="LOCAL-00012" summary="0.7.1 adaptiv css + save / load from database">
+      <created>1585296317740</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1585296317740</updated>
+    </task>
+    <task id="LOCAL-00013" summary="0.7.1 adaptiv css + save / load from database">
+      <created>1585300452170</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1585300452170</updated>
+    </task>
+    <task id="LOCAL-00014" summary="0.7.1 adaptiv css + save / load from database">
+      <created>1585300540641</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1585300540641</updated>
+    </task>
+    <task id="LOCAL-00015" summary="0.7.1 adaptiv css + save / load from database">
+      <created>1585300770051</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1585300770051</updated>
+    </task>
+    <task id="LOCAL-00016" summary="0.7.1 adaptiv css + save / load from database">
+      <created>1585318372487</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1585318372487</updated>
+    </task>
+    <task id="LOCAL-00017" summary="0.7.1 adaptiv css + save / load from database">
+      <created>1585357051291</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1585357051291</updated>
+    </task>
+    <task id="LOCAL-00018" summary="0.7.1 adaptiv css + save / load from database">
+      <created>1585358557983</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1585358557983</updated>
+    </task>
+    <task id="LOCAL-00019" summary="readme 1.0">
+      <created>1585363037463</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1585363037463</updated>
+    </task>
+    <task id="LOCAL-00020" summary="0.7.1 adaptiv css + save / load from database">
+      <created>1585363597549</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1585363597549</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -394,14 +503,16 @@
     <MESSAGE value="0.6.2 adaptiv css final" />
     <MESSAGE value="0.6.3 add FlyTo animatioin" />
     <MESSAGE value="0.7 adaptiv css + save / load from database" />
+    <MESSAGE value="0.1 remaster" />
+    <MESSAGE value="readme 1.0" />
     <MESSAGE value="0.7.1 adaptiv css + save / load from database" />
     <option name="LAST_COMMIT_MESSAGE" value="0.7.1 adaptiv css + save / load from database" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="907" y="169" key="#Inspections" timestamp="1580137936915">
+    <state x="907" y="169" key="#Inspections" timestamp="1582963131731">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="907" y="169" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1580137936915" />
+    <state x="907" y="169" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1582963131731" />
     <state x="552" y="178" key="#Log_Highlighting_(ideolog)" timestamp="1576755618061">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -410,54 +521,64 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1576755934053" />
-    <state x="552" y="178" key="#Plugins" timestamp="1576296985995">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="489" y="224" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585217150059">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="552" y="178" key="#Plugins/0.0.1920.1040@0.0.1920.1040" timestamp="1576296985995" />
-    <state x="688" y="316" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1577545460959">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
+    <state x="489" y="224" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.738@0.0.1366.738" timestamp="1585217150059" />
     <state x="688" y="316" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1577545460959" />
-    <state x="693" y="359" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1580425865460">
+    <state x="693" y="359" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1583469758570">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="693" y="359" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1580425865460" />
-    <state x="640" y="250" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1576745459199">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="693" y="359" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583469758570" />
+    <state x="455" y="177" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1585097732574">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="640" y="250" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1576745459199" />
+    <state x="455" y="177" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.738@0.0.1366.738" timestamp="1585097732574" />
+    <state x="640" y="250" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583469781109" />
     <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1576769550478">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1576769550478" />
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1581895297853">
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1583196974501">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581895297853" />
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583196974501" />
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1580350929664">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1580350929664" />
-    <state x="562" y="53" key="CommitChangelistDialog2" timestamp="1581688652584">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="400" y="0" key="CommitChangelistDialog2" timestamp="1585363673343">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
+    <state x="400" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1585363673343" />
     <state x="562" y="53" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581688652584" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1580425860626">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="526" y="194" key="FileChooserDialogImpl" timestamp="1583978263469">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1580425860626" />
+    <state x="526" y="194" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1583978263469" />
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1583469755100" />
     <state x="795" y="444" key="NewPhpFileDialog" timestamp="1579140156567">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="795" y="444" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579140156567" />
-    <state x="463" y="165" key="SettingsEditor" timestamp="1582114355632">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="562" y="6" key="RollbackChangesDialog" timestamp="1585300618954">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="463" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1582114355632" />
-    <state x="667" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1582155632549">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="562" y="6" key="RollbackChangesDialog/0.0.1366.738@0.0.1366.738" timestamp="1585300618954" />
+    <state x="210" y="23" key="SettingsEditor" timestamp="1585363449246">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="667" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582155632549" />
+    <state x="210" y="23" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1585363449246" />
+    <state x="593" y="166" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1583548933106" />
+    <state x="275" y="102" key="Vcs.Push.Dialog.v2" timestamp="1585363045422">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="275" y="102" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1585363045422" />
+    <state x="475" y="246" key="com.intellij.ide.util.TipDialog" timestamp="1585353535422">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="475" y="246" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585353535422" />
+    <state x="667" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583543761950" />
     <state x="747" y="210" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1581843749934">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -470,13 +591,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="581" y="71" width="757" height="897" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1582114049523" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1582074242368">
+    <state x="616" y="240" key="run.anything.popup" timestamp="1583230837998">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1582074242368" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1576118961870">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583230837998" />
+    <state x="443" y="160" width="672" height="482" key="search.everywhere.popup" timestamp="1585229532113">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1576118961870" />
+    <state x="443" y="160" width="672" height="482" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1585229532113" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583197023193" />
   </component>
 </project>

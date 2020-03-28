@@ -2,6 +2,7 @@
 
  psql -U homestead -h localhost
  \dt
+TRUNCATE TABLE Table1
 
 # Laravel
 

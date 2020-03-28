@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[1],{149:function(e,t,n){"use strict";n.r(t);var s={name:"welcome"},c=n(8),a=n(9),l=n.n(a),o=n(166),i=Object(c.a)(s,(function(){var e=this.$createElement;return(this._self._c||e)("v-col",{staticClass:"text-center"},[this._v("Домашняя страница")])}),[],!1,null,"23d0f63f",null);t.default=i.exports;l()(i,{VCol:o.a})}}]);

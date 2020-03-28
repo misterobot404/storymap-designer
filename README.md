@@ -85,7 +85,7 @@ cd ~/Homestead
 vagrant up && vagrant ssh
 ```
 
-Allow Nginx sending precompressed files
+Allow Nginx using precompressed files
 ```
 sudo nano /etc/nginx/nginx.conf
 
@@ -116,7 +116,7 @@ vagrant halt
 
 ### Running
 
-Start application on 192.168.10.10
+Start application on 192.168.10.10 and localhost:8000
 ```
 cd ~/Homestead
 vagrant up
