@@ -41,12 +41,16 @@ init.bat
 
 Edit Homestead.yaml config
 ```
+// Make sure IP installed
+ip: "192.168.10.10"
+
 // Commented
 #authorize: ~/.ssh/id_rsa.pub
 #keys:
 #    - ~/.ssh/id_rsa
 
 // Change
+
 folders:
     - map: ~/code
       to: /home/vagrant/code
@@ -54,7 +58,9 @@ folders:
 sites:
     - map: homestead.test
       to: /home/vagrant/code/public
+
 // To
+
 folders:
     - map: ~/Source/MapDesigner
       to: /home/vagrant/MapDesigner
@@ -64,8 +70,55 @@ sites:
       to: /home/vagrant/MapDesigner/public
 ```
 
+Get MapDesigner
+```
+cd ~/Source
+git clone https://github.com/misterobot404/MapDesigner.git
+```
 
-End with an example of getting some data out of the system or using it for a little demo
+Run and connecting to homestead (initial startup takes longer)
+```
+cd ~/Homestead
+vagrant up
+vagrant ssh
+```
+
+Allow Nginx sending precompressed files
+```
+// Path to Nginx config
+/etc/nginx/nginx.conf
+
+// Add to http context
+gzip_static  on;
+```
+
+Dependency updates
+```
+cd ~/MapDesigner/
+
+composer update
+npm install -g npm
+npm update
+```
+
+Setup is complete, exit and shut down the homestead
+```
+exit
+vagrant halt
+```
+
+### Running
+
+Start application on 192.168.10.10
+```
+cd ~/Homestead
+vagrant up
+```
+
+Shut down application
+```
+vagrant halt
+```
 
 ## Built With
 
