@@ -41,7 +41,7 @@ init.bat
 
 Edit Homestead.yaml config
 ```
-// Make sure IP installed
+// Make sure IP is set to
 ip: "192.168.10.10"
 
 // Commented
