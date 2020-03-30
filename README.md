@@ -91,6 +91,9 @@ sudo nano /etc/nginx/nginx.conf
 
 // Add to http context
 gzip_static on;
+gzip_min_length 1400;
+gzip_comp_level 9;
+gzip_types text/plain text/css application/json application/javascript text/xml application/xml text/javascript;
 ```
 
 Dependency updates
