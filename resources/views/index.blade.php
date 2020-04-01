@@ -6,11 +6,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>MapDesigner: Конструктор электронных атласов</title>
-    <link rel="icon" href="{{asset('favicon.png')}}">
+
+    <link href="{{asset('favicon.png')}}" rel="icon">
 
     <!-- CSS bundle -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons">
+    <!-- media + onload its trick to triggering an asynchronous stylesheet download -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" media="trick" onload="media='all'">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons&display=block" rel="stylesheet" media="trick" onload="media='all'">
+
 </head>
 
 <body>
@@ -18,6 +21,5 @@
 
 <!-- JS bundle -->
 <script type="text/javascript" src='{{ asset('js/main.js') }}'></script>
-
 </body>
 </html>

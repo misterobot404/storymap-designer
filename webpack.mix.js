@@ -17,9 +17,10 @@ mix.webpackConfig({
         new VuetifyLoaderPlugin(),
         new CompressionPlugin({
             algorithm: 'gzip',
-            minRatio: 0.8,
+            compressionOptions: { level: 9 },
             filename: '[path].gz[query]',
-            //deleteOriginalAssets: true
+            threshold: 1400,
+            minRatio: 1
         })
     ]
 });

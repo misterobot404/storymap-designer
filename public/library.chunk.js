@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["library"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["library.chunk"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/library.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************************************************!*\

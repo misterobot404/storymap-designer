@@ -1,7 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="" />
+    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="0.3 push all">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/misterobor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sasslintPlugin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/0.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/0.js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/1.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/1.js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/2.js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/3.js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/constr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/constr.js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/constructor..js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/constructor..js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/constructor.chunk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/constructor.chunk.js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/home.chunk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/home.chunk.js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/home.js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/library..js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/library..js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/library.chunk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/library.chunk.js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/viewer..js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/viewer..js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/viewer.chunk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/viewer.chunk.js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/viewer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/viewer.js.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/main.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/main.js.LICENSE.txt.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/main.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/main.js.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/library.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/library.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/library.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/library.js.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/login.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/login.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/register.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -215,7 +262,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="tv.twelvetone.intellij.plugins.intellivue.preferences.IntellivueConfigurable" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.folding" />
     <property name="settings.editor.splitter.proportion" value="0.21588595" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2019.1.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
@@ -309,6 +356,10 @@
       <workItem from="1585312373265" duration="3140000" />
       <workItem from="1585316159778" duration="2588000" />
       <workItem from="1585353042122" duration="6872000" />
+      <workItem from="1585614714930" duration="1412000" />
+      <workItem from="1585622513967" duration="12003000" />
+      <workItem from="1585644146226" duration="5850000" />
+      <workItem from="1585701421313" duration="1463000" />
     </task>
     <task id="LOCAL-00001" summary="0.6">
       <created>1562133005697</created>
@@ -450,7 +501,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585363597549</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="0.3 push all">
+      <created>1585545506426</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1585545506426</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -506,39 +564,29 @@
     <MESSAGE value="0.1 remaster" />
     <MESSAGE value="readme 1.0" />
     <MESSAGE value="0.7.1 adaptiv css + save / load from database" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.7.1 adaptiv css + save / load from database" />
+    <MESSAGE value="0.3 push all" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.3 push all" />
   </component>
   <component name="WindowStateProjectService">
     <state x="907" y="169" key="#Inspections" timestamp="1582963131731">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="907" y="169" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1582963131731" />
-    <state x="552" y="178" key="#Log_Highlighting_(ideolog)" timestamp="1576755618061">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="178" key="#Log_Highlighting_(ideolog)/0.0.1920.1040@0.0.1920.1040" timestamp="1576755618061" />
-    <state x="552" y="178" key="#Notifications" timestamp="1576755934053">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="178" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1576755934053" />
     <state x="489" y="224" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585217150059">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="489" y="224" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.738@0.0.1366.738" timestamp="1585217150059" />
     <state x="688" y="316" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1577545460959" />
-    <state x="693" y="359" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1583469758570">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="493" y="255" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1585543242856">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
+    <state x="493" y="255" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1366.738@0.0.1366.738" timestamp="1585543242856" />
     <state x="693" y="359" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583469758570" />
     <state x="455" y="177" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1585097732574">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="455" y="177" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.738@0.0.1366.738" timestamp="1585097732574" />
     <state x="640" y="250" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583469781109" />
-    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1576769550478">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1576769550478" />
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1583196974501">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -547,15 +595,19 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1580350929664" />
-    <state x="400" y="0" key="CommitChangelistDialog2" timestamp="1585363673343">
+    <state x="400" y="0" key="CommitChangelistDialog2" timestamp="1585641674317">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="400" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1585363673343" />
+    <state x="400" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1585641674317" />
     <state x="562" y="53" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581688652584" />
-    <state x="526" y="194" key="FileChooserDialogImpl" timestamp="1583978263469">
+    <state x="92" y="92" width="1182" height="554" key="DiffContextDialog" timestamp="1585645103550">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="526" y="194" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1583978263469" />
+    <state x="92" y="92" width="1182" height="554" key="DiffContextDialog/0.0.1366.738@0.0.1366.738" timestamp="1585645103550" />
+    <state x="526" y="194" key="FileChooserDialogImpl" timestamp="1585543236425">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="526" y="194" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1585543236425" />
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1583469755100" />
     <state x="795" y="444" key="NewPhpFileDialog" timestamp="1579140156567">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -565,19 +617,19 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="562" y="6" key="RollbackChangesDialog/0.0.1366.738@0.0.1366.738" timestamp="1585300618954" />
-    <state x="210" y="23" key="SettingsEditor" timestamp="1585363449246">
+    <state x="195" y="23" key="SettingsEditor" timestamp="1585634462220">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="210" y="23" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1585363449246" />
+    <state x="195" y="23" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1585634462220" />
     <state x="593" y="166" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1583548933106" />
-    <state x="275" y="102" key="Vcs.Push.Dialog.v2" timestamp="1585363045422">
+    <state x="275" y="102" key="Vcs.Push.Dialog.v2" timestamp="1585641120154">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="102" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1585363045422" />
-    <state x="475" y="246" key="com.intellij.ide.util.TipDialog" timestamp="1585353535422">
+    <state x="275" y="102" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1585641120154" />
+    <state x="475" y="246" key="com.intellij.ide.util.TipDialog" timestamp="1585702541216">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="475" y="246" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585353535422" />
+    <state x="475" y="246" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585702541216" />
     <state x="667" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583543761950" />
     <state x="747" y="210" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1581843749934">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -595,10 +647,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583230837998" />
-    <state x="443" y="160" width="672" height="482" key="search.everywhere.popup" timestamp="1585229532113">
+    <state x="443" y="160" width="672" height="482" key="search.everywhere.popup" timestamp="1585644871647">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="443" y="160" width="672" height="482" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1585229532113" />
+    <state x="443" y="160" width="672" height="482" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1585644871647" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583197023193" />
   </component>
 </project>
