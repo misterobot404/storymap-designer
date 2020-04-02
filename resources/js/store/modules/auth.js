@@ -49,7 +49,6 @@ export default {
                 })
                 .catch(({response}) => {
                     //commit('alerts/ADD_ERROR', response.data.message, {root: true});
-                    console.log(response.data.message);
                 })
                 .finally(() => {
                     // commit('loading/DISABLE', null, {root: true});
@@ -76,20 +75,16 @@ export default {
                     // remove token to axios header
                     delete axios.defaults.headers.common['Authorization'];
                 })
-                .catch(({response}) => {
-                    console.log(response.data.message);
-                })
         },
 
+        /**
+         * Checking registration data on the server and create user
+         *
+         * @param payload: username + password
+         */
         register: function ({}, payload) {
-
             axios.post('/api/register', payload)
-                .then(({response}) => {
-                    console.log(response.data.message);
-                })
-                .catch(({response}) => {
-                    console.log(response.data.message);
-                })
+                .then(() => {})
         }
     },
     mutations: {

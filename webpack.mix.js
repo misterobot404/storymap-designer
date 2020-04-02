@@ -1,8 +1,8 @@
 const mix = require('laravel-mix');
 
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const CompressionPlugin = require('compression-webpack-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 mix.webpackConfig({
     resolve: {
@@ -15,13 +15,13 @@ mix.webpackConfig({
     plugins: [
         //new BundleAnalyzerPlugin({analyzerHost: "192.168.10.10"}),
         new VuetifyLoaderPlugin(),
-        new CompressionPlugin({
-            algorithm: 'gzip',
-            compressionOptions: { level: 9 },
-            filename: '[path].gz[query]',
-            threshold: 1400,
-            minRatio: 1
-        })
+        // new CompressionPlugin({
+        //     algorithm: 'gzip',
+        //     compressionOptions: { level: 9 },
+        //     filename: '[path].gz[query]',
+        //     threshold: 1400,
+        //     minRatio: 1
+        // })
     ]
 });
 

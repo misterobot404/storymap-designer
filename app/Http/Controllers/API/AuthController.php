@@ -23,7 +23,7 @@ class AuthController extends Controller
     public function login()
     {
         // Проверяем существует ли пользователь с указанным email адресом
-        $user = User::whereEmail(request('username'))->first();
+        $user = User::whereEmail(request('email'))->first();
 
         if (!$user) {
             return response()->json([
@@ -57,7 +57,7 @@ class AuthController extends Controller
             'grant_type' => 'password',
             'client_id' => $client->id,
             'client_secret' => $client->secret,
-            'username' => request('username'),
+            'username' => request('email'),
             'password' => request('password'),
         ];
 

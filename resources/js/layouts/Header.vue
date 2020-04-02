@@ -55,9 +55,8 @@
         </template>
 
         <template v-else>
-            <AuthDialog/>
-
-            <RegDialog/>
+            <Authorization/>
+            <Registration/>
         </template>
 
         <v-btn icon>
@@ -82,14 +81,12 @@
 </template>
 
 <script>
-    import AuthDialog from "../components/AuthDialog";
-    import RegDialog from "../components/RegistrationDialog";
 
     export default {
         name: "Header",
         components: {
-            RegDialog,
-            AuthDialog
+            Registration: () => import(/* webpackChunkName: "registration" */ '../components/Registration'),
+            Authorization: () => import(/* webpackChunkName: "authorization" */ '../components/Authorization'),
         }
     }
 </script>

@@ -37,7 +37,7 @@
 
 <script>
     export default {
-        name: "AuthDialog",
+        name: "Authorization",
         data() {
             return {
                 dialog: false,
@@ -48,7 +48,7 @@
         methods: {
             auth: function () {
                 this.$store.dispatch('auth/login', {
-                    username: this.email,
+                    email: this.email,
                     password: this.password
                 });
                 this.dialog = false;

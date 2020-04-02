@@ -1,51 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="0.3 push all">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/misterobor.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sasslintPlugin.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/0.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/0.js.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/1.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/1.js.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/2.js.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/3.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/3.js.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/constr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/constr.js.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/constructor..js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/constructor..js.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/constructor.chunk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/constructor.chunk.js.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/home.chunk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/home.chunk.js.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/home.js.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/library..js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/library..js.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/library.chunk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/library.chunk.js.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/viewer..js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/viewer..js.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/viewer.chunk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/viewer.chunk.js.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/viewer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/viewer.js.gz" afterDir="false" />
+    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/authorization.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/registration.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/0.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/0.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/1.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/2.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/3.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/constr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/constr.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/constructor..js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/constructor..js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/constructor.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/constructor.chunk.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/home.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/home.chunk.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/home.js.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/main.js.LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/main.js.LICENSE.txt.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/main.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/main.js.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/library.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/library.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/library.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/library.js.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/login.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/login.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/main.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/library..js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/library..js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/library.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/library.chunk.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/library.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/library.js.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/register.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/viewer..js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/viewer..js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/viewer.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/viewer.chunk.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/viewer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/viewer.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/AuthDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Authorization.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/RegistrationDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Registration.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layouts/Header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/Header.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
@@ -359,7 +356,11 @@
       <workItem from="1585614714930" duration="1412000" />
       <workItem from="1585622513967" duration="12003000" />
       <workItem from="1585644146226" duration="5850000" />
-      <workItem from="1585701421313" duration="1463000" />
+      <workItem from="1585701421313" duration="10696000" />
+      <workItem from="1585722424819" duration="69000" />
+      <workItem from="1585729132420" duration="4944000" />
+      <workItem from="1585786990038" duration="10705000" />
+      <workItem from="1585818409205" duration="5425000" />
     </task>
     <task id="LOCAL-00001" summary="0.6">
       <created>1562133005697</created>
@@ -508,7 +509,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585545506426</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="0.3 push all">
+      <created>1585703421023</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1585703421023</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -595,10 +603,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1580350929664" />
-    <state x="400" y="0" key="CommitChangelistDialog2" timestamp="1585641674317">
+    <state x="400" y="0" key="CommitChangelistDialog2" timestamp="1585703418351">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="400" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1585641674317" />
+    <state x="400" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1585703418351" />
     <state x="562" y="53" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581688652584" />
     <state x="92" y="92" width="1182" height="554" key="DiffContextDialog" timestamp="1585645103550">
       <screen x="0" y="0" width="1366" height="738" />
@@ -622,14 +630,14 @@
     </state>
     <state x="195" y="23" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1585634462220" />
     <state x="593" y="166" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1583548933106" />
-    <state x="275" y="102" key="Vcs.Push.Dialog.v2" timestamp="1585641120154">
+    <state x="275" y="102" key="Vcs.Push.Dialog.v2" timestamp="1585703422762">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="102" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1585641120154" />
-    <state x="475" y="246" key="com.intellij.ide.util.TipDialog" timestamp="1585702541216">
+    <state x="275" y="102" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1585703422762" />
+    <state x="475" y="246" key="com.intellij.ide.util.TipDialog" timestamp="1585818622720">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="475" y="246" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585702541216" />
+    <state x="475" y="246" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585818622720" />
     <state x="667" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583543761950" />
     <state x="747" y="210" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1581843749934">
       <screen x="0" y="0" width="1920" height="1040" />
