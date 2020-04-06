@@ -54,7 +54,6 @@ export default {
                     // commit('loading/DISABLE', null, {root: true});
                     // commit('loading/SET_PROGRESS', 0, {root: true});
                 });
-
         },
 
         /**
@@ -83,9 +82,17 @@ export default {
          * @param payload: username + password
          */
         register: function ({}, payload) {
-            axios.post('/api/register', payload)
-                .then(() => {})
-        }
+            axios.post('/api/register', payload).then()
+        },
+
+        /**
+         * Checking name for repetition
+         *
+         * @param payload: name
+         */
+        checkRegistrationName: function ({}, payload) {
+            return axios.post('/api/checkRegistrationName', payload);
+        },
     },
     mutations: {
         SET_TOKEN: (state, token) => {

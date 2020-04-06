@@ -1,5 +1,8 @@
 {
+    "/vendors~authorization~registration.js": "/vendors~authorization~registration.js",
     "/js/main.js": "/js/main.js",
     "/css/app.css": "/css/app.css",
-    "/home.js": "/home.js"
+    "/authorization.js": "/authorization.js",
+    "/home.js": "/home.js",
+    "/registration.js": "/registration.js"
 }

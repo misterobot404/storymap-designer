@@ -98,4 +98,22 @@ class AuthController extends Controller
 
         return response()->json(['status' => 200]);
     }
+
+    public function checkRegistrationName()
+    {
+        // Проверяем имя пользователя на дублирование
+        $user = User::whereName(request('name'))->first();
+
+        if (!$user) {
+            return response()->json([
+                'name' => request('name'),
+                'message' => 'Name not repetition',
+                'status' => 200
+            ]);
+        } else return response()->json([
+            'name' => request('name'),
+            'message' => 'Name repetition',
+            'status' => 422
+        ]);
+    }
 }

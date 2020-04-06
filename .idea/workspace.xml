@@ -3,9 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/public/authorization.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/authorization.js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/main.js.LICENSE.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/public/registration.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/registration.js.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/vendors~authorization~registration.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/vendors~authorization~registration.js.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev-helper.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/0.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/0.js.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/1.js" beforeDir="false" />
@@ -20,11 +28,13 @@
       <change beforePath="$PROJECT_DIR$/public/constructor..js.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/constructor.chunk.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/constructor.chunk.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/favicon.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/home.chunk.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/home.chunk.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/home.js.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/main.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/main.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/main.js.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/library..js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/library..js.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/library.chunk.js" beforeDir="false" />
@@ -38,12 +48,10 @@
       <change beforePath="$PROJECT_DIR$/public/viewer.chunk.js.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/viewer.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/viewer.js.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/AuthDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Authorization.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/RegistrationDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Registration.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layouts/Header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/Header.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Registration.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Registration.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store/modules/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -360,7 +368,17 @@
       <workItem from="1585722424819" duration="69000" />
       <workItem from="1585729132420" duration="4944000" />
       <workItem from="1585786990038" duration="10705000" />
-      <workItem from="1585818409205" duration="5425000" />
+      <workItem from="1585818409205" duration="5617000" />
+      <workItem from="1585833932149" duration="640000" />
+      <workItem from="1585876532506" duration="12892000" />
+      <workItem from="1585901337587" duration="8353000" />
+      <workItem from="1585960288427" duration="3017000" />
+      <workItem from="1585981597614" duration="15065000" />
+      <workItem from="1586007661370" duration="3014000" />
+      <workItem from="1586045413927" duration="12273000" />
+      <workItem from="1586071387473" duration="2513000" />
+      <workItem from="1586081434510" duration="2309000" />
+      <workItem from="1586131914860" duration="4366000" />
     </task>
     <task id="LOCAL-00001" summary="0.6">
       <created>1562133005697</created>
@@ -516,7 +534,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585703421023</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="0.3 push all">
+      <created>1585825414520</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1585825414520</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -573,7 +598,8 @@
     <MESSAGE value="readme 1.0" />
     <MESSAGE value="0.7.1 adaptiv css + save / load from database" />
     <MESSAGE value="0.3 push all" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.3 push all" />
+    <MESSAGE value="0.3.1 reg dialog" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.3.1 reg dialog" />
   </component>
   <component name="WindowStateProjectService">
     <state x="907" y="169" key="#Inspections" timestamp="1582963131731">
@@ -590,10 +616,10 @@
     </state>
     <state x="493" y="255" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1366.738@0.0.1366.738" timestamp="1585543242856" />
     <state x="693" y="359" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583469758570" />
-    <state x="455" y="177" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1585097732574">
+    <state x="455" y="177" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1585881737165">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="455" y="177" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.738@0.0.1366.738" timestamp="1585097732574" />
+    <state x="455" y="177" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.738@0.0.1366.738" timestamp="1585881737165" />
     <state x="640" y="250" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583469781109" />
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1583196974501">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -603,10 +629,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1580350929664" />
-    <state x="400" y="0" key="CommitChangelistDialog2" timestamp="1585703418351">
+    <state x="400" y="0" key="CommitChangelistDialog2" timestamp="1586144801263">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="400" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1585703418351" />
+    <state x="400" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1586144801263" />
     <state x="562" y="53" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581688652584" />
     <state x="92" y="92" width="1182" height="554" key="DiffContextDialog" timestamp="1585645103550">
       <screen x="0" y="0" width="1366" height="738" />
@@ -630,14 +656,14 @@
     </state>
     <state x="195" y="23" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1585634462220" />
     <state x="593" y="166" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1583548933106" />
-    <state x="275" y="102" key="Vcs.Push.Dialog.v2" timestamp="1585703422762">
+    <state x="275" y="102" key="Vcs.Push.Dialog.v2" timestamp="1585825423012">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="102" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1585703422762" />
-    <state x="475" y="246" key="com.intellij.ide.util.TipDialog" timestamp="1585818622720">
+    <state x="275" y="102" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1585825423012" />
+    <state x="475" y="246" key="com.intellij.ide.util.TipDialog" timestamp="1586132030984">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="475" y="246" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1585818622720" />
+    <state x="475" y="246" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1586132030984" />
     <state x="667" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583543761950" />
     <state x="747" y="210" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1581843749934">
       <screen x="0" y="0" width="1920" height="1040" />

@@ -11,7 +11,7 @@ MapDesigner is a web application that provides a convenient way to create and di
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will provide you with an easy way to run a project on your local computer in Homestead for development and testing purposes.
 
 ### Installing
 
@@ -79,23 +79,12 @@ cd ~/Source
 git clone https://github.com/misterobot404/MapDesigner.git
 ```
 
-Run and connecting to homestead (initial startup takes longer)
-```
-cd ~/Homestead
-vagrant up && vagrant ssh
-```
+### Deployment
 
-Allow Nginx using precompressed files
-```
-sudo nano /etc/nginx/nginx.conf
+Connect to Homestead.
 
-// Add to http context
-gzip_static on;
-gzip_min_length 1400;
-gzip_comp_level 9;
-```
+Update dependencies
 
-Dependency updates
 ```
 cd ~/MapDesigner/
 
@@ -110,21 +99,50 @@ php artisan migrate
 php artisan passport:install
 ```
 
-Setup is complete, exit and shut down the homestead
+The project is ready for launch and testing.
+
+#### Advanced NGINX configuration
+
+Enable using precompressed files
 ```
-exit
-vagrant halt
+sudo nano /etc/nginx/nginx.conf
+
+// Add to http context
+gzip_static on;
+gzip_min_length 1400;
+gzip_comp_level 9;
+```
+
+Enable caching
+
+```
+sudo nano /etc/nginx/sites-available/MapDesigner.test
+
+// Add caching to the location
+
+// Example
+location = /favicon.ico {   
+        expires 7d;
+        add_header Cache-Control "public, no-transform";
+    }
 ```
 
 ### Running
 
-Start application on 192.168.10.10 and localhost:8000
+Run Homestead and application on IP 192.168.10.10 (initial startup takes longer)
+
 ```
 cd ~/Homestead
 vagrant up
 ```
 
-Shut down application
+To connect to Homestead (for change the environment settings)
+```
+cd ~/Homestead
+vagrant up
+```
+
+Shut down Homestead and application
 ```
 vagrant halt
 ```

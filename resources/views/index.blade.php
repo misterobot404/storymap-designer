@@ -6,7 +6,7 @@
 
     <title>MapDesigner: Конструктор электронных атласов</title>
 
-    <link href="{{asset('favicon.png')}}" rel="icon">
+    <link href="{{asset('favicon.ico')}}" rel="icon">
 
     <!-- CSS bundle -->
     <!-- media + onload its trick to triggering an asynchronous stylesheet download -->
