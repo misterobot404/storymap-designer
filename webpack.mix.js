@@ -1,27 +1,27 @@
 const mix = require('laravel-mix');
 
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+//const CompressionPlugin = require('compression-webpack-plugin');
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 mix.webpackConfig({
     resolve: {
         // We need to define the @ in order to tell the compiler what does the @ uses for.
-        extensions: ['.js','.vue'],
+        extensions: ['.js', '.vue'],
         alias: {
-            '@':__dirname + '/resources/js'
+            '@': __dirname + '/resources/js'
         }
     },
     plugins: [
         // new BundleAnalyzerPlugin({analyzerHost: "192.168.10.10"}),
         new VuetifyLoaderPlugin(),
-        new CompressionPlugin({
-            algorithm: 'gzip',
-            compressionOptions: { level: 9 },
-            filename: '[path].gz[query]',
-            threshold: 1400,
-            minRatio: 1
-        })
+        // new CompressionPlugin({
+        //     algorithm: 'gzip',
+        //     compressionOptions: { level: 9 },
+        //     filename: '[path].gz[query]',
+        //     threshold: 1400,
+        //     minRatio: 1
+        // })
     ]
 });
 

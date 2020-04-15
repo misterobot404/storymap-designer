@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from '@/routes'
 
 export default {
     namespaced: true,
@@ -9,14 +10,9 @@ export default {
     },
     getters: {
         isAuth: state => {
-            if (state.token !== null && state.user !== null) {
-
-                // saving auth data between sessions
-                window.localStorage.setItem('token', state.token);
-                window.localStorage.setItem('user', JSON.stringify(state.user));
+            if (state.token && state.user) {
                 // add token to axios header
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.token;
-
                 return true;
             } else return false;
         }
@@ -28,32 +24,10 @@ export default {
          *
          * @param state
          * @param commit
-         * @param payload: username + password
+         * @param payload: name + email + password
          */
         login: function ({state, commit}, payload) {
-
-            // commit('loading/ENABLE', null, {root: true});
-            //
-            // let config = {
-            //     onUploadProgress: progressEvent => {
-            //
-            //         let percentCompleted = Math.floor((progressEvent.loaded * 100) / progressEvent.total);
-            //         commit('loading/SET_PROGRESS', percentCompleted, {root: true});
-            //     }
-            // };
-
-            axios.post('/api/login', payload)
-                .then(({data}) => {
-                    commit('SET_TOKEN', data.token);
-                    commit('SET_USER', data.user);
-                })
-                .catch(({response}) => {
-                    //commit('alerts/ADD_ERROR', response.data.message, {root: true});
-                })
-                .finally(() => {
-                    // commit('loading/DISABLE', null, {root: true});
-                    // commit('loading/SET_PROGRESS', 0, {root: true});
-                });
+            return axios.post('/api/login', payload)
         },
 
         /**
@@ -62,44 +36,53 @@ export default {
          * @param commit
          */
         logout: function ({commit}) {
-
-            axios.post('/api/logout')
-                .then(() => {
-                    commit('SET_TOKEN', null);
-                    commit('SET_USER', null);
-
-                    window.localStorage.removeItem('token');
-                    window.localStorage.removeItem('user');
-
-                    // remove token to axios header
-                    delete axios.defaults.headers.common['Authorization'];
-                })
+            return axios.post('/api/logout')
         },
 
         /**
          * Checking registration data on the server and create user
          *
-         * @param payload: username + password
+         * @param payload: name + email + password
          */
         register: function ({}, payload) {
-            axios.post('/api/register', payload).then()
-        },
-
-        /**
-         * Checking name for repetition
-         *
-         * @param payload: name
-         */
-        checkRegistrationName: function ({}, payload) {
-            return axios.post('/api/checkRegistrationName', payload);
-        },
+            return axios.post('/api/register', payload)
+        }
     },
     mutations: {
-        SET_TOKEN: (state, token) => {
-            state.token = token;
+
+        /**
+         * Set authentication data
+         *
+         * @param state
+         * @param payload: token + user
+         */
+        LOGIN: (state, payload) => {
+
+            state.token = payload.token;
+            state.user = payload.user;
+
+            // saving auth token between sessions
+            window.localStorage.setItem('token', state.token);
+            window.localStorage.setItem('user', JSON.stringify(state.user));
         },
-        SET_USER: (state, user) => {
-            state.user = user;
+        /**
+         * Remove authentication data from state and localStorage. Remove token from axios header.
+         *
+         * @param state
+         */
+        LOGOUT: (state) => {
+
+            state.token = null;
+            state.user = null;
+
+            window.localStorage.removeItem('token');
+            window.localStorage.removeItem('user');
+
+            // remove token to axios header
+            delete axios.defaults.headers.common['Authorization'];
+
+            // if the user was on page with auth middleware
+            if (router.currentRoute.meta.middlewareAuth) router.push('/');
         }
     }
 }

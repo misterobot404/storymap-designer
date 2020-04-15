@@ -21,7 +21,7 @@ class CreateMapsTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('cascade');
 
-            $table->string('name')->unique();
+            $table->string('name');
             $table->text('description');
 
             $table->jsonb ('tile')->default('{

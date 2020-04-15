@@ -151,7 +151,7 @@ vagrant halt
 
 Backend
 * [Homestead](https://laravel.com/docs/homestead) - official Vagrant box pre-packaged development environment
-* [Laravel](https://laravel.com/) - RESTful API service
+* [Laravel](https://laravel.com/) - RESTful API service. API response format is HTTP status + JSON based on the [JSend](https://github.com/omniti-labs/jsend) specification
 
 Frontend
 * [Vue.js](https://vuejs.org/) - Single-page application
@@ -162,7 +162,7 @@ Frontend
 
 ## Authors
 
-* **Alexander Zakusilo** - *Initial work* - [misterobot404](https://github.com/misterobot404)
+* **Alexander Zakusilo** - *Programmer* - [misterobot404](https://github.com/misterobot404)
 * **IT management KNASTU** - *Supporting* - [knastu.ru](https://knastu.ru)
 
 ## Browser compatibility

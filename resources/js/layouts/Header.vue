@@ -15,28 +15,19 @@
             </router-link>
         </v-toolbar-title>
 
-        <v-btn
-            text
-            to="/library"
-        >
-            Библиотека
-        </v-btn>
-        <v-btn
-            text
-            to="/constructor"
-        >
-            Конструктор
-        </v-btn>
+        <v-progress-linear
+            :height=2
+            :active="$store.state.routeLoading.isLoading"
+            indeterminate
+            absolute
+            bottom
+        />
 
-        <v-btn
-            text
-            to="/viewer"
-        >
-            Вьюер
+        <v-btn text to="/library">
+            Библиотека
         </v-btn>
 
         <v-spacer/>
-
         <v-btn
             text
             class="hidden-sm-and-down"
@@ -44,14 +35,10 @@
         >
             Темная тема
         </v-btn>
+        <v-spacer/>
 
         <template v-if="$store.getters['auth/isAuth']">
-            <v-btn
-                text
-                @click="$store.dispatch('auth/logout')"
-            >
-                Выйти
-            </v-btn>
+            <Logout/>
         </template>
 
         <template v-else>
@@ -59,23 +46,6 @@
             <Registration/>
         </template>
 
-        <v-btn icon>
-            <v-icon>apps</v-icon>
-        </v-btn>
-        <v-btn
-            icon
-            large
-        >
-            <v-avatar
-                size="32px"
-                item
-            >
-                <v-img
-                    src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
-                    alt="Vuetify"
-                />
-            </v-avatar>
-        </v-btn>
     </v-app-bar>
 
 </template>
@@ -85,8 +55,9 @@
     export default {
         name: "Header",
         components: {
-            Registration: () => import(/* webpackChunkName: "registration" */ '../components/Registration'),
-            Authorization: () => import(/* webpackChunkName: "authorization" */ '../components/Authorization'),
+            Logout: () => import(/* webpackChunkName: "Logout" */ '../components/Logout'),
+            Registration: () => import(/* webpackChunkName: "Registration" */ '../components/Registration'),
+            Authorization: () => import(/* webpackChunkName: "Authorization" */ '../components/Authorization'),
         }
     }
 </script>

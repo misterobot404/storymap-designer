@@ -1,16 +1,19 @@
 import Vue from 'vue'
 
-import vuetify from "@/plugins/vuetify"
 import router from '@/routes'
 import store from '@/store'
 
-import App from '@/layouts'
+// plugins
+import vuetify from "@/plugins/vuetify"
+import "@/plugins/axios"
+
+import AppLayout from '@/layouts'
 
 new Vue({
     vuetify,
-    router,
     store,
-    render: h => h(App),
+    router,
+    render: h => h(AppLayout)
 }).$mount('#app');
 
 

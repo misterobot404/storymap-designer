@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" max-width="420px">
+    <v-dialog v-model="dialog" max-width="400px">
         <template v-slot:activator="{ on }">
             <v-btn
                 text
@@ -34,10 +34,13 @@
                         </v-col>
                         <v-col cols="12">
                             <v-text-field v-model="email"
+                                          @input="inputEmail"
+                                          :error-messages="emailError"
+                                          :loading="emailLoading"
+                                          :rules="rules.email"
                                           label="Эл. почта"
                                           autocomplete="email"
                                           prepend-icon="mail"
-                                          :rules="rules.email"
                                           hint="Вам нужно будет подтвердить, что этот адрес электронной почты принадлежит вам."
                                           required/>
                         </v-col>
@@ -70,7 +73,7 @@
                 <v-btn color="primary"
                        block
                        :loading="registrationProcess"
-                       :disabled="!valid || !filled || nameLoading || nameInputSuccessful"
+                       :disabled="!valid || !filled || nameLoading || nameInputSuccessful || emailLoading || emailInputSuccessful"
                        @click="registration()">Зарегистироваться
                 </v-btn>
             </v-card-actions>
@@ -80,25 +83,30 @@
 
 <script>
     import debounce from "lodash/debounce";
+    import axios from "axios";
+    import store from '@/store'
 
     export default {
         name: "Registration",
         data() {
             return {
-                dialog: false,
-                valid: false,
-
-                registrationProcess: false,
 
                 name: "",
+                email: "",
+                password: "",
+                passwordConfirm: "",
+
+                dialog: false,
+                valid: false,
                 nameInputSuccessful: false,
                 nameLoading: false,
                 nameError: "",
-                email: "",
-                password: "",
+                emailInputSuccessful: false,
+                emailLoading: false,
+                emailError: "",
                 passwordShow: false,
-                passwordConfirm: "",
                 passwordConfirmShow: false,
+                registrationProcess: false,
 
                 rules: {
                     name: [
@@ -111,10 +119,19 @@
                             return true
                         }
                     ],
-                    email: [v => {
-                        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                        return !v || pattern.test(v) || 'Введите действующий адрес электронной почты.'
-                    }],
+                    email: [
+                        v => {
+                            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                            return !v || pattern.test(v) || 'Введите действующий адрес электронной почты.'
+                        },
+                        // workaround for delayed asynchronous data validation
+                        v => {
+                            this.emailError = '';
+                            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                            if (v && pattern.test(v)) this.emailInputSuccessful = true;
+                            return true
+                        }
+                    ],
                     password: [v => !v || v.length >= 6 || 'Пароль должен содержать от 6 символов.'],
                     passwordConfirm: [v => !v || v === this.password || 'Пароли не совпадают. Повторите попытку.']
                 }
@@ -128,16 +145,38 @@
         methods: {
             registration: function () {
 
-                this.registrationProcess = true;
-
-                this.$store.dispatch('auth/register', {
+                const payload = {
                     name: this.name,
                     email: this.email,
                     password: this.password
-                });
+                };
 
-                this.registrationProcess = false;
-                this.dialog = false;
+                this.registrationProcess = true;
+                this.$store.dispatch('auth/register', {
+                    name: payload.name,
+                    email: payload.email,
+                    password: payload.password
+                })
+                    .then(() => {
+                        this.$store.dispatch('auth/login', {
+                            email: payload.email,
+                            password: payload.password
+                        })
+                            .then(({data}) => {
+                                let payload = {
+                                    user: data.data.user,
+                                    token: data.data.token
+                                };
+                                store.commit("auth/LOGIN", payload, {root: true});
+                                this.dialog = false;
+                            })
+                            .finally(() => {
+                                this.registrationProcess = false;
+                            })
+                    })
+                    .catch(() => {
+                        this.registrationProcess = false;
+                    })
             },
 
             // waiting for user input to finish
@@ -146,10 +185,10 @@
                 if (this.nameInputSuccessful) {
                     this.nameLoading = true;
 
-                    // verification via api
-                    this.$store.dispatch('auth/checkRegistrationName', {name: v})
-                        .then(({data}) => {
-                            if (data.status !== 200 && data.name === this.name)
+                    // Checking name for repetition via api
+                    axios.get('/api/users/' + v + '/check-available')
+                        .catch(() => {
+                            if (v === this.name)
                                 this.nameError = 'Это имя пользователя недоступно.';
                         })
                         .finally(() => {
@@ -158,7 +197,25 @@
 
                     this.nameInputSuccessful = false;
                 }
-            }, 600) // time to last input
+            }, 400),
+            inputEmail: debounce(function (v) {
+                // if the input was successful this.nameLoading will be TRUE
+                if (this.emailInputSuccessful) {
+                    this.emailLoading = true;
+
+                    // Checking name for repetition via api
+                    axios.get('/api/users/' + v + '/check-available')
+                        .catch(() => {
+                            if (v === this.email)
+                                this.emailError = 'Эта почта уже используется.';
+                        })
+                        .finally(() => {
+                            this.emailLoading = false;
+                        });
+
+                    this.emailInputSuccessful = false;
+                }
+            }, 400) // time to last input
         }
     }
 </script>

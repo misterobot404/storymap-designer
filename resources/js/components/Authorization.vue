@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" persistent max-width="600px">
+    <v-dialog v-model="dialog" max-width="400px">
         <template v-slot:activator="{ on }">
             <v-btn
                 text
@@ -10,48 +10,118 @@
             </v-btn>
         </template>
         <v-card>
-            <v-card-title>
-                <span class="headline">Войти</span>
-            </v-card-title>
-            <v-card-text>
-                <v-container>
+            <v-toolbar
+                color="primary"
+                dark
+                flat
+            >
+                <v-card-title>Войти</v-card-title>
+            </v-toolbar>
+            <v-card-text class="pt-2 pb-0">
+                <v-alert
+                    :value="showError"
+                    class="my-4"
+                    border="right"
+                    transition="scale-transition"
+                    colored-border
+                    type="error"
+                    elevation="2"
+                >
+                    <h4>Не удаётся войти.</h4>
+                    <span>Пожалуйста, проверьте правильность написания логина и пароля.</span>
+                </v-alert>
+                <v-form v-model="valid">
                     <v-row>
                         <v-col cols="12">
-                            <v-text-field label="Email*" v-model="email" required/>
+                            <v-text-field v-model="email"
+                                          :rules="rules.email"
+                                          label="Эл. почта"
+                                          autocomplete="email"
+                                          prepend-icon="mail"
+                                          required/>
                         </v-col>
                         <v-col cols="12">
-                            <v-text-field label="Password*" type="password" v-model="password" required/>
+                            <v-text-field v-model="password"
+                                          label="Пароль"
+                                          :type="passwordShow ? 'text' : 'password'"
+                                          :append-icon="passwordShow ? 'visibility_off' : 'visibility'"
+                                          @click:append="passwordShow = !passwordShow"
+                                          autocomplete="current-password"
+                                          prepend-icon="lock"
+                                          hint="Пароль должен содержать не менее 6 символов."
+                                          required/>
                         </v-col>
                     </v-row>
-                </v-container>
-                <small>*indicates required field</small>
+                </v-form>
             </v-card-text>
-            <v-card-actions>
-                <v-spacer/>
-                <v-btn color="blue darken-1" text @click="dialog = false">Закрыть</v-btn>
-                <v-btn color="blue darken-1" text @click="auth()">Войти</v-btn>
+            <v-card-actions class="px-6 pb-6">
+                <v-btn color="primary"
+                       block
+                       :loading="authProcess"
+                       :disabled="!valid || !filled"
+                       @click="auth()">Войти
+                </v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
 </template>
 
 <script>
+    import store from '@/store'
+
     export default {
         name: "Authorization",
         data() {
             return {
-                dialog: false,
+
                 email: "",
-                password: ""
+                password: "",
+
+                showError: false,
+                passwordShow: false,
+                valid: false,
+                dialog: false,
+                authProcess: false,
+
+                rules: {
+                    email: [
+                        v => {
+                            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                            return !v || pattern.test(v) || 'Введите корректный адрес электронной почты.'
+                        }
+                    ]
+                }
+            }
+        },
+        computed: {
+            filled: function () {
+                return this.email.length !== 0 && this.password.length !== 0
             }
         },
         methods: {
             auth: function () {
+
+                this.showError = false;
+                this.authProcess = true;
+
                 this.$store.dispatch('auth/login', {
                     email: this.email,
                     password: this.password
-                });
-                this.dialog = false;
+                })
+                    .then(({data}) => {
+                        let payload = {
+                            token: data.data.token,
+                            user: data.data.user
+                        };
+                        store.commit("auth/LOGIN", payload, {root: true});
+                        this.dialog = false;
+                    })
+                    .catch(() => {
+                        this.showError = true;
+                    })
+                    .finally(() => {
+                        this.authProcess = false;
+                    });
             }
         }
     }

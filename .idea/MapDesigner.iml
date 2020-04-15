@@ -7,11 +7,21 @@
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/app/Console" />
       <excludeFolder url="file://$MODULE_DIR$/app/Exceptions" />
+      <excludeFolder url="file://$MODULE_DIR$/app/Http/Controllers/Auth" />
+      <excludeFolder url="file://$MODULE_DIR$/app/Http/Middleware" />
+      <excludeFolder url="file://$MODULE_DIR$/app/Providers" />
       <excludeFolder url="file://$MODULE_DIR$/bootstrap" />
       <excludeFolder url="file://$MODULE_DIR$/config" />
+      <excludeFolder url="file://$MODULE_DIR$/database" />
+      <excludeFolder url="file://$MODULE_DIR$/database/factories" />
+      <excludeFolder url="file://$MODULE_DIR$/public" />
       <excludeFolder url="file://$MODULE_DIR$/resources/lang" />
       <excludeFolder url="file://$MODULE_DIR$/resources/sass" />
+      <excludeFolder url="file://$MODULE_DIR$/routes" />
       <excludeFolder url="file://$MODULE_DIR$/storage" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/framework" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/logs" />
       <excludeFolder url="file://$MODULE_DIR$/tests" />
       <excludeFolder url="file://$MODULE_DIR$/vendor" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/defuse/php-encryption" />
@@ -37,6 +47,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/type" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/psr-http-message-bridge" />
     </content>
+    <content url="file://$MODULE_DIR$/storage/logs" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="materialdesignicons" level="application" />

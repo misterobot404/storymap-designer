@@ -2,18 +2,15 @@
 export const routes = [
     {
         path: '/',
-        component: () => import(/* webpackChunkName: 'home' */ '@/pages/home')
+        component: () => import(/* webpackChunkName: 'home' */ '@/pages/Home')
     },
-    // {
-    //     path: '/library',
-    //     component: () => import(/* webpackChunkName: 'library' */ '@/pages/library')
-    // },
-    // {
-    //     path: '/constructor',
-    //     component: () => import(/* webpackChunkName: 'constr' */ '@/pages/constructor' )
-    // },
-    // {
-    //     path: '/viewer',
-    //     component: () => import(/* webpackChunkName: 'viewer' */ '@/pages/viewer')
-    // }
+    {
+        path: '/library',
+        component: () => import(/* webpackChunkName: 'library' */ '@/pages/Home'),
+        meta: { middlewareAuth: true }
+    },
+    {
+        path: '*',
+        component: () => import(/* webpackChunkName: '404' */ '@/pages/404')
+    }
 ];
