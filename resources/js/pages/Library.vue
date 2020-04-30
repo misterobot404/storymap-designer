@@ -1,153 +1,255 @@
 <template>
-    <div class="app container pt-5 mt-1">
+    <div
+        class="d-flex flex-column"
+        :style="{'min-height': minHeight}"
+    >
+        <!-- Creation hero -->
+        <v-container class="content-width">
+            <v-row
+                style="min-height: 144px"
+                align-content="center"
+            >
+                <v-col style="min-width: 230px">
+                    <h1 class="display-1 font-weight-medium pb-2">
+                        Мои атласы
+                    </h1>
+                    <p class="grey--text text--darken-2 mb-0 font-weight-light">
+                        Выберите атлас для редактирования, просмотра и управления.
+                    </p>
+                </v-col>
+                <v-col>
+                    <v-row
+                        class="align-center"
+                        :class="[$vuetify.breakpoint.xs ? 'justify-center' : 'justify-end']"
+                        style="height: 100%"
+                    >
+                        <v-btn
+                            class="ma-2"
+                            large
+                            color="primary"
+                            outlined
+                            rounded
+                        >
+                            <v-icon class="mr-1">create_new_folder</v-icon>
+                            Создать папку
+                        </v-btn>
+                        <v-btn
+                            @click="createMap()"
+                            class="ma-2"
+                            large
+                            color="primary"
+                            rounded
+                        >
+                            <v-icon class="mr-1">add</v-icon>
+                            Создать атлас
+                        </v-btn>
+                    </v-row>
+                </v-col>
+            </v-row>
+        </v-container>
 
-        <!-- FILTER -->
-        <ul class="breadcrumb nav nav-pills text-center
-        flex-sm-row align-content-sm-start
-        flex-column align-content-center">
-            <li class="nav-item">
-                <a :class="['nav-owner', 'nav-link', mapOwner === 'all' ? 'text-primary' : 'text-secondary']" @click="selectPage('all')">Все атласы</a>
-            </li>
-            <li :class="['nav-item', {active: mapOwner === 'my'}]">
-                <a :class="['nav-owner', 'nav-link', mapOwner === 'my' ? 'text-primary' : 'text-secondary']" @click="selectPage('my')">Мои атласы</a>
-            </li>
-            <li :class="['nav-item', {active: mapOwner === 'other'}]">
-                <a :class="['nav-owner', 'nav-link', mapOwner === 'other' ? 'text-primary' : 'text-secondary']" @click="selectPage('other')">Атласы по подписке</a>
-            </li>
-        </ul>
+        <!-- Grey field. Filter and maps. -->
+        <v-container
+            fluid
+            class="flex"
+            :class="{'grey lighten-4': !$vuetify.theme.dark}"
+        >
+            <v-container class="content-width">
 
-        <ul class="nav mb-4 py-3 border-bottom">
-            <li class="nav-item col-sm">
-                <input class="mx-auto form-control input-search rounded-lg" type="text" placeholder="Поиск по названию" v-model.trim="nameSearch">
-            </li>
-            <li class="nav-item col-sm-auto row">
-                <div class="btn-group align-self-start">
-                    <button id="btnGroupSort" class="px-sm-3 btn dropdown-toggle dropdown-btn rounded-lg" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                        <i>Сортировать:</i>
-                        <span v-if="sortMethod==='sortByDataCreated'" style="margin-right: 1px">По дате создания</span>
-                        <span v-else style="margin-right: 1px">По дате изменения</span>
-                    </button>
-                    <div class="w-100 dropdown-menu shadow-sm rounded-lg" aria-labelledby="btnGroupSort">
-                        <span class="dropdown-header font-w-600" @click.stop>Выберите метод сортировки</span>
-                        <div class="dropdown-divider"/>
-                        <a class="dropdown-item text-dark" @click="setSortMethod('sortByDataCreated')">
-                            <svg width="12" height="19" aria-hidden="true" style="margin-right: 8px">
-                                <path v-show="sortMethod==='sortByDataCreated'" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"/>
-                            </svg>
-                            По дате создания</a>
-                        <a class="dropdown-item text-dark" @click="setSortMethod('sortByDataModified')">
-                            <svg width="12" height="19" aria-hidden="true" style="margin-right: 8px">
-                                <path v-show="sortMethod==='sortByDataModified'" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"/>
-                            </svg>
-                            По дате изменения</a>
+                <!-- Filter -->
+                <v-row class="my-5 align-center">
+                    <!-- Roles -->
+                    <v-btn
+                        v-for="(role, index) in roles"
+                        :key="index"
+                        text
+                        rounded
+                        small
+                        class="mx-1 my-1"
+                        :class="{ 'v-btn--active' : role.name === selectedRole }"
+                        @click="selectedRole = role.name"
+                    >
+                        {{role.name}}
+                    </v-btn>
+
+                    <v-spacer/>
+
+                    <!-- Search -->
+                    <v-text-field
+                        dense
+                        flat
+                        rounded
+                        solo-inverted
+                        clearable
+                        hide-details
+                        prepend-inner-icon="search"
+                        label="Поиск по атласам..."
+                        style="max-width: 400px"
+                        class="my-2 mx-1"
+                    />
+
+                    <v-divider
+                        class="mx-3 my-auto hidden-md-and-down"
+                        style="height: 38px"
+                        inset
+                        vertical
+                    />
+
+                    <!-- View mode -->
+                    <v-btn-toggle
+                        v-model="selectedViewMode"
+                        color="primary"
+                        class="my-1 mx-1"
+                        :class="{ 'mx-auto' : $vuetify.breakpoint.mdAndDown}"
+                        dense
+                        mandatory
+                    >
+                        <v-tooltip top open-delay="200">
+                            <template v-slot:activator="{ on }">
+                                <v-btn
+                                    value="table"
+                                    v-on="on"
+                                    text
+                                >
+                                    <v-icon>border_all</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Показать таблицей</span>
+                        </v-tooltip>
+                        <v-tooltip top open-delay="200">
+                            <template v-slot:activator="{ on }">
+                                <v-btn
+                                    value="list"
+                                    v-on="on"
+                                    text
+                                >
+                                    <v-icon>reorder</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Показать списком</span>
+                        </v-tooltip>
+                    </v-btn-toggle>
+
+                    <div>
+
                     </div>
-                </div>
-                <div class="col-auto btn btn-light ml-1 align-self-start rounded-lg" type="button" role="button" style="padding: 1px" @click="sortUp = !sortUp">
-                    <img :src="sortImg" class="img-fluid p-1" alt="sort">
-                </div>
-            </li>
-            <li class="nav-item col-sm-auto text-center">
-                <button id="btn-show-create-map" class="btn btn-primary mb-3 mx-auto" data-toggle="modal" data-target="#modal"> Создать</button>
-            </li>
-        </ul>
 
-        <!-- Maps -->
-        <MapList class="pt-3" :sort-up="sortUp" :sort-method="sortMethod" :name-search="nameSearch" :map-owner="mapOwner"/>
-        <!-- Modal-->
-        <CreateMapModal/>
+                </v-row>
+
+                <!-- Maps -->
+                <v-row
+                    dense
+                    justify="center"
+                    class="mt-12"
+                >
+                    <v-col
+                        :cols="$vuetify.breakpoint.mdAndUp ? '3' : '12'"
+                        v-for="map in maps"
+                        :key="map.id"
+                        class="mx-2 mb-4"
+                    >
+                        <v-hover v-slot:default="{ hover }">
+                            <v-card
+                                :max-width="$vuetify.breakpoint.mdAndUp ? '450' : '360'"
+                                raised
+                                height="100%"
+                                class="mx-auto"
+                                style="cursor: pointer"
+                            >
+                                <v-img :src="require('@/assets/images/no-image.png')">
+                                    <v-expand-transition>
+                                        <div
+                                            v-if="hover"
+                                            class="d-flex blue darken-2 v-card--reveal display-3 white--text"
+                                            style="height: 100%"
+                                        >
+                                            OPEN
+                                        </div>
+                                    </v-expand-transition>
+                                </v-img>
+                                <div style="text-align: start;">
+                                    <v-card-title style="word-break: keep-all; line-height: 1.8rem;"> {{ map.name }}</v-card-title>
+                                    <v-card-subtitle> {{ map.subtitle ? map.subtitle : 'empty' }}</v-card-subtitle>
+                                    <v-card-text> {{ map.description }}</v-card-text>
+                                </div>
+                            </v-card>
+                        </v-hover>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-container>
+
+        <!-- Floating button. Scroll up -->
+        <v-fab-transition>
+            <v-btn
+                v-scroll="onScroll"
+                v-show="showScrollUpBtn"
+                x-large
+                fab
+                dark
+                fixed
+                bottom
+                right
+                color="primary"
+                @click="$vuetify.goTo(0)"
+            >
+                <v-icon>keyboard_arrow_up</v-icon>
+            </v-btn>
+        </v-fab-transition>
     </div>
 </template>
 
 <script>
-    import MapList from "@/components/Manager/MapList";
-    import CreateMapModal from "@/components/Manager/CreateMapModal";
+    import {mapState, mapActions} from "vuex"
 
     export default {
         name: "Constructor",
-        components: {
-            MapList,
-            CreateMapModal
-        },
+        components: {},
         data() {
             return {
-                // FILTERS
-                nameSearch: "",
-                //sortByDataCreated or sortByDataModified
-                sortMethod: "sortByDataCreated",
-                // sortUp: false = sortDawn, sortUp: true = sortUp
-                sortUp: false,
-                // owner user filter
-                mapOwner: "all"
+                selectedRole: "Все атласы",
+
+                roles: [
+                    {name: "Все атласы"},
+                    {name: "Автор"},
+                    {name: "Разработчик"},
+                    {name: "Пользователь"}
+                ],
+                selectedViewMode: "table",
+
+                showScrollUpBtn: false
             }
         },
         computed: {
-            sortImg: function () {
-                // require для добавления картинки в дерево зависимостей webpack
-                if (this.sortUp === false) return require('@/assets/images/sort_down.png');
-                else return require('@/assets/images/sort_up.png');
+            ...mapState('maps', [
+                'maps'
+            ]),
+            minHeight() {
+                const height = '100vh';
+                return `calc(${height} - ${this.$vuetify.application.top}px - ${this.$vuetify.application.footer}px)`
             }
         },
         methods: {
-            setSortMethod: function (method) {
-                this.sortMethod = method;
+            ...mapActions('maps', [
+                'getMaps',
+                'createMap'
+            ]),
+
+            onScroll(e) {
+                if (typeof window === 'undefined') return
+                const top = window.pageYOffset || e.target.scrollTop || 0
+                this.showScrollUpBtn = top > 20
             },
-            selectPage: function (page) {
-                this.mapOwner = page;
-            }
+        },
+        beforeMount() {
+            this.getMaps()
         }
     }
 </script>
 
 <style lang="sass" scoped>
 
-    .input-search
-        background: url('../assets/images/search_icon.png') no-repeat left center white
-        background-size: 24px 24px
-        padding-left: 30px
+    .content-width
+        width: 84%
 
-        .dropdown-btn
-            background-color: #eff3f6
-            font-weight: 600
-            border: 1px solid #ced4da
-            -webkit-appearance: none
-            color: #464d54
-
-            &:hover
-                background-color: #e9ecef
-
-            i
-                font-style: normal
-                font-weight: 500
-                opacity: .75
-
-        .dropdown-toggle:after
-            vertical-align: 1px
-
-        .dropdown-menu
-            padding: 0
-            font-size: 14px
-            user-select: none
-            margin-top: 5px
-            overflow: hidden
-
-        .dropdown-header
-            background-color: #F6F8FA
-            color: #464d54
-            font-size: 14px
-
-        .dropdown-divider
-            margin: 0
-
-        .dropdown-item
-            cursor: pointer
-            padding: 8px 16px
-
-            &:active
-                background-color: #e6ebf1
-
-        .nav-owner
-            user-select: none
-            cursor: pointer
-            font-weight: 500
 </style>

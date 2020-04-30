@@ -13,7 +13,11 @@ new Vue({
     vuetify,
     store,
     router,
-    render: h => h(AppLayout)
+    render: h => h(AppLayout),
+    mounted() {
+        // Load theme
+        if (window.localStorage.getItem("darkTheme") === "true") this.$vuetify.theme.dark = true
+    }
 }).$mount('#app');
 
 

@@ -7,5 +7,5 @@ axios.interceptors.response.use(
     error => {
         if (error.response.status === 401) {
             store.commit("auth/LOGOUT", null, {root: true});
-        } else return error;
+        } else return Promise.reject(error);
     });

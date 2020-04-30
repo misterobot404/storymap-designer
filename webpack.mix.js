@@ -42,5 +42,11 @@ mix.babelConfig({
 });
 
 // File to compile
-mix.js('resources/js/main.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.js('resources/js/main.js', 'public/js');
+
+// FIX: PostCSS warning that it does nothing, no plugin is set
+mix.options({
+    postCss: [
+        require('autoprefixer'),
+    ],
+})

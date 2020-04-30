@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 import router from '@/routes'
 
 export default {
@@ -6,7 +6,7 @@ export default {
 
     state: {
         token: window.localStorage.getItem('token'),
-        user: window.localStorage.getItem('user')
+        user: JSON.parse(window.localStorage.getItem('user'))
     },
     getters: {
         isAuth: state => {

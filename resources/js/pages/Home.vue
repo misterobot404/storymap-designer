@@ -1,46 +1,215 @@
 <template>
-    <v-col>
+    <div>
+        <!-- hero -->
+        <v-img
+            :src="require('@/assets/images/home_art.jpg')"
+            class="white--text"
+            gradient="to right, rgba(5, 11, 31, .8), rgba(5, 11, 31, .8)"
+            :min-height="minHeight"
+        >
+            <v-container
+                class="fill-height px-4"
+                :class="[$vuetify.breakpoint.mdAndUp ? '' : 'py-6']"
+            >
+                <v-responsive
+                    class="d-flex align-center"
+                    height="100%"
+                    max-width="680"
+                    width="100%"
+                >
+                    <h1 class="display-2 font-weight-black mb-4 text-left white--text"
+                        :style="['padding-top: 48px']">
+                        Есть вещи, которые нельзя изобразить<br>
+                        Для всего остального есть MapDesigner
+                    </h1>
 
-    </v-col>
+                    <p class="grey--text text--lighten-1 text-left mb-10">
+                        MapDesigner - это бесплатный сервис, который поможет вам рассказать истории в Интернете, освещающие места, события или предметы.<br>
+                        Конструктор позволяет быстро создавать гибкие иформационно-развлекательные ресурсы для использования их в сфере обучения, туризма и
+                        маркетинга.
+                    </p>
+
+                    <div
+                        :class="$vuetify.breakpoint.smAndDown ? 'flex-column align-start' : 'align-center'"
+                        class="d-flex flex-wrap"
+                    >
+                        <button type="button"
+                                class="font-weight-bold v-btn v-btn--depressed v-btn--tile theme--dark v-size--x-large primary"
+                                style="min-width: 164px;"
+                        >
+                            <span class="v-btn__content"> Узнать больше </span>
+                        </button>
+                        <span class="font-weight-bold ml-6 mr-2 my-4"> или </span>
+                        <v-btn color="primary" large text>
+                            Попробовать сейчас
+                        </v-btn>
+                    </div>
+                </v-responsive>
+            </v-container>
+        </v-img>
+
+        <!-- features -->
+        <div
+            class="text-center"
+            style="padding-top: 96px"
+        >
+            <h1 class="text-uppercase headline font-weight-bold mb-2 text-center">
+                Возможности
+            </h1>
+            <v-responsive
+                class="grey lighten-2 mx-auto mb-8"
+                max-width="28"
+            >
+                <v-divider style="border-width: 2px 0 0 0!important;"/>
+            </v-responsive>
+
+            <v-container>
+                <v-row>
+                    <v-col
+                        v-for="card in features"
+                        :key="card.title"
+                        cols="12"
+                        md="4"
+                    >
+                        <div class="container pa-0">
+                            <div
+                                class="row no-gutters "
+                                :class="[$vuetify.breakpoint.mdAndUp ? 'justify-start' : 'justify-center']"
+                            >
+                                <div class="col col-9">
+                                    <div class="body-2 font-weight-regular mb-1 text-left grey--text"> {{ card.subtitle}}</div>
+                                    <h3 class="text-uppercase title font-weight-bold mb-1 text-left"> {{ card.title}} </h3>
+                                    <v-responsive class="primary mr-auto mb-6" max-width="28">
+                                        <v-divider style="border-width: 2px 0 0 0!important;"/>
+                                    </v-responsive>
+                                    <p class="base-body body-1 grey--text text--darken-1 text-left mb-6">
+                                        {{ card.text }}
+                                    </p>
+                                </div>
+                                <div class="col col-2">
+                                    <div class="display-3 grey--text text--lighten-4 font-weight-bold pr-8">{{ card.callout}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </div>
+
+        <!-- example -->
+        <div
+            class="text-center"
+            style="padding-top: 48px"
+        >
+            <h1 class="text-uppercase headline font-weight-bold mb-2 text-center">
+                Примеры
+            </h1>
+            <v-responsive
+                class="grey lighten-2 mx-auto mb-11"
+                max-width="28"
+            >
+                <v-divider style="border-width: 2px 0 0 0!important;"/>
+            </v-responsive>
+
+            <v-container>
+                <v-row
+                    dense
+                    justify="center"
+                >
+                    <v-col
+                        :cols="$vuetify.breakpoint.mdAndUp ? '3' : '12'"
+                        v-for="card in examples"
+                        :key="card.title"
+                        class="mx-2 mb-4"
+                    >
+                        <v-hover v-slot:default="{ hover }">
+                            <v-card
+                                :max-width="$vuetify.breakpoint.mdAndUp ? '450' : '360'"
+                                raised
+                                height="100%"
+                                class="mx-auto"
+                                style="cursor: pointer"
+                            >
+                                <v-img :src="card.img">
+                                    <v-expand-transition>
+                                        <div
+                                            v-if="hover"
+                                            class="d-flex blue darken-2 v-card--reveal display-3 white--text"
+                                            style="height: 100%"
+                                        >
+                                            OPEN
+                                        </div>
+                                    </v-expand-transition>
+                                </v-img>
+                                <div style="text-align: start;">
+                                    <v-card-title style="word-break: keep-all; line-height: 1.8rem;"> {{card.title}}</v-card-title>
+                                    <v-card-subtitle> {{card.subtitle}}</v-card-subtitle>
+                                    <v-card-text> {{ card.text }}</v-card-text>
+                                </div>
+                            </v-card>
+                        </v-hover>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </div>
+    </div>
 </template>
 
 <script>
     export default {
-        name: "Home"
+        name: "Home",
+        computed: {
+            minHeight() {
+                const height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh'
+
+                return `calc(${height} - ${this.$vuetify.application.top}px)`
+            },
+        },
+        data() {
+            return {
+                features: [
+                    {
+                        title: 'Экономьте своё время и деньги',
+                        subtitle: 'Лучшая производительность',
+                        text: 'Конструктор позволяет быстро создать гибкий электронный атлас на нужную тему абсолютно бесплатно. Существует удобная возможность командной разработки.',
+                        callout: '01',
+                    },
+                    {
+                        title: 'Применяйте в различных областях',
+                        subtitle: 'Большая гибкость',
+                        text: 'Эл. атласы рекомендуется применять в областях, где требуется увеличить доступность, наглядность и эфективность восприятия информации, например, обучение, туризм и маркетинг.',
+                        callout: '02',
+                    },
+                    {
+                        title: 'Распостраняйте ресурс в интернете',
+                        subtitle: 'Удобное использование',
+                        text: 'Эл. атлас можно встраивать на любые веб-ресурсы, информационные стенды и т.д. Созданным эл. атласом можно поделиться с любым пользователем сервиса.',
+                        callout: '03',
+                    }
+                ],
+                examples: [
+                    {
+                        img: require('@/assets/images/examples/human.png'),
+                        title: 'Организм человека',
+                        subtitle: 'Обучение',
+                        text: 'Внутреннее строение организма человека с моделями всех основных органов. За объект был взят макет, никто из людей не пострадал.'
+                    },
+                    {
+                        img: require('@/assets/images/examples/dv.jpg'),
+                        title: 'Парки и заповедники Дальнего Востока',
+                        subtitle: 'Туризм',
+                        text: 'Карта путешественника. Описание коллекций и особенностей парков для животных.'
+                    },
+                    {
+                        img: require('@/assets/images/examples/alch.jpg'),
+                        title: 'Таблица Менделеева',
+                        subtitle: 'Обучение',
+                        text: 'Классическая таблица химических элементов, описывающая свойства элементов и демонстрирующая модели.'
+                    }
+                ]
+            }
+        }
     }
 </script>
 
-<style lang>
-    .main-top {
-        color: rgb(255, 255, 255);
-        background: #2b3137 url('../assets/images/simple-codelines.svg') center 10%;
-        background-size: cover;
-        height: 64vh;
-        max-height: 680px;
-        min-height: 460px;
-    }
 
-    .main-bottom {
-        background-color: rgb(255, 255, 255);
-    }
-
-    .pulse {
-        animation: radial-pulse 2.2s infinite;
-    }
-
-    @keyframes radial-pulse {
-        0% {
-            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
-            text-shadow: 0 0 0 #3790DC;
-        }
-        50% {
-            text-shadow: 0 0 10px #2b76dc, 0 0 15px #2158dc;
-        }
-        75% {
-            box-shadow: 0 0 12px 20px rgba(0, 0, 0, 0);
-        }
-        100% {
-            text-shadow: 0 0 10px #2b76dc, 0 0 0 #3790DC;
-        }
-    }
-</style>

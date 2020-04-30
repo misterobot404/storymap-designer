@@ -6,11 +6,11 @@ export const routes = [
     },
     {
         path: '/library',
-        component: () => import(/* webpackChunkName: 'library' */ '@/pages/Home'),
+        component: () => import(/* webpackChunkName: 'library' */ '@/pages/Library'),
         meta: { middlewareAuth: true }
     },
     {
         path: '*',
-        component: () => import(/* webpackChunkName: '404' */ '@/pages/404')
+        component: () => import(/* webpackChunkName: 'page404' */ '@/pages/Page404')
     }
 ];

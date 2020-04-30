@@ -4,13 +4,15 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 import auth from './modules/auth'
-import routeLoading from './modules/routeLoading'
+import maps from './modules/maps'
+import layout from './modules/layout'
 
 export default new Vuex.Store({
     strict: true,
     modules: {
         auth,
-        routeLoading
+        maps,
+        layout
     }
 })
 

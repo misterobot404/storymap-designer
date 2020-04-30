@@ -28,7 +28,7 @@ Route::middleware('auth:api')->group(function () {
     // CRUD
     Route::get('/maps', 'API\MapController@index');
     Route::post('/maps', 'API\MapController@store');
-    Route::get('maps/{id}', 'API\MapController@show');
-    Route::put('maps/{id}', 'API\MapController@update');
+    Route::get('/maps/{id}', 'API\MapController@show');
+    Route::put('/maps/{id}', 'API\MapController@update');
     Route::delete('/maps/{id}', 'API\MapController@destroy');
 });

@@ -1,35 +1,41 @@
 <template>
     <v-app>
-
-        <Header/>
-
-        <v-content>
-            <v-container fill-height>
-
-                <v-row
-                    class="mx-auto"
-                    align="center"
-                    justify="center">
-                        <router-view/>
-                </v-row>
-
-            </v-container>
-        </v-content>
-
+        <NavigationDrawer/>
+        <AppBar/>
+        <Content/>
         <Footer/>
-
     </v-app>
 </template>
 
 <script>
-    import Header from './Header'
-    import Footer from './Footer'
+    import AppBar from "./AppBar"
+    import Content from "./Content"
+    import NavigationDrawer from "./NavigationDrawer"
+    import Footer from "./Footer"
 
     export default {
         name: 'AppLayout',
         components: {
-            Header,
+            AppBar,
+            Content,
+            NavigationDrawer,
             Footer
         }
     }
 </script>
+
+<style lang="sass">
+
+    .link-text-simple
+        color: inherit !important
+        text-decoration: inherit !important
+
+    .v-card--reveal
+        align-items: center
+        bottom: 0
+        justify-content: center
+        opacity: .5
+        position: absolute
+        width: 100%
+
+</style>

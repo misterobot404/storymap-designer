@@ -12,18 +12,18 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 
-    store.commit("routeLoading/ENABLE", null, {root: true});
+    store.commit("layout/ENABLE_PAGE_LOADING", null, {root: true});
 
     // checking access to the router
     if (to.matched.some(record => record.meta.middlewareAuth)) {
         if (!store.getters['auth/isAuth']) {
-            if (from.fullPath === '/') store.commit("routeLoading/DISABLE", null, {root: true});
+            if (from.fullPath === '/') store.commit("layout/DISABLE_PAGE_LOADING", null, {root: true});
             next('/')
         } else next()
     } else next()
 });
 router.afterEach((to, from) => {
-    store.commit("routeLoading/DISABLE", null, {root: true});
+    store.commit("layout/DISABLE_PAGE_LOADING", null, {root: true});
 });
 
 export default router

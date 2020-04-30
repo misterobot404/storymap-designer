@@ -1,9 +1,9 @@
 {
     "/js/main.js": "/js/main.js",
-    "/css/app.css": "/css/app.css",
-    "/Authorization.js": "/Authorization.js",
+    "/AuthDialog.js": "/AuthDialog.js",
     "/Logout.js": "/Logout.js",
-    "/Registration.js": "/Registration.js",
     "/home.js": "/home.js",
-    "/vendors~Registration.js": "/vendors~Registration.js"
+    "/library.js": "/library.js",
+    "/page404.js": "/page404.js",
+    "/vendors~AuthDialog.js": "/vendors~AuthDialog.js"
 }

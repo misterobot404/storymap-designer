@@ -1,16 +1,26 @@
 <template>
-    <v-footer app>
+    <v-footer app
+              style="min-width: 320px !important;"
+              absolute
+    >
         <v-col
             class="text-center"
             cols="12">
-            {{ new Date().getFullYear() }} — MapDesigner
+            © LiSa Inc. {{ new Date().getFullYear() }}
         </v-col>
     </v-footer>
 </template>
 
 <script>
+    import {mapState} from "vuex";
+
     export default {
-        name: "Footer"
+        name: "Footer",
+        computed: {
+            ...mapState('layout', {
+                appName: state => state.appName
+            })
+        }
     }
 </script>
 
