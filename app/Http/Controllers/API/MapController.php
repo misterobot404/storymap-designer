@@ -9,6 +9,7 @@ use App\Map;
 
 class MapController extends Controller
 {
+    // CRUD
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +19,11 @@ class MapController extends Controller
     {
         // Get all maps of the current user.
         $maps = Map::where('user_id', auth()->id())->get();
+        // Remove unused keys
+        foreach ($maps as $value) {
+            unset($value->events);
+            unset($value->tile);
+        }
 
         return response()->json([
             "status" => "success",
@@ -35,6 +41,7 @@ class MapController extends Controller
         $map = new Map;
         $map->user_id = auth()->id();
         $map->name = request('name');
+        $map->subject = request('subject');
         $map->description = request('description');
         $map->save();
 
@@ -49,7 +56,7 @@ class MapController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param $id
      * @return JsonResponse
      */
     public function show($id)
@@ -80,7 +87,7 @@ class MapController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param int $id
+     * @param $id
      * @return JsonResponse
      */
     public function update($id)
@@ -120,14 +127,56 @@ class MapController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param $id
      * @return JsonResponse
      */
     public function destroy($id)
     {
-        $map = Map::find($id);
+        $pieces = explode(",", $id);
+        if (count($pieces)>1)
+        {
+            Map::whereIn('id', $pieces)->delete();
+        }
+        else
+        {
+            $map = Map::find($id);
 
-        if (!$map) {
+            if (!$map) {
+                return response()->json([
+                    "status" => "fail",
+                    "data" => [
+                        "id" => "Map not found",
+                    ]
+                ], 404);
+            }
+            if ($map->user_id !== auth()->id()) {
+                return response()->json([
+                    "status" => "fail",
+                    "data" => ["id" => "Access denied"]
+                ], 403);
+            }
+
+            Map::destroy($id);
+        }
+
+        $maps = Map::where('user_id', auth()->id())->get();
+        return response()->json([
+            "status" => "success",
+            "data" => ["maps" => $maps]
+        ], 200);
+    }
+
+    // Other
+    /**
+     * Store a newly created resource based on the existing.
+     *
+     * @return JsonResponse
+     */
+    public function duplicate()
+    {
+        $baseMap = Map::find(request('id'));
+
+        if (!$baseMap) {
             return response()->json([
                 "status" => "fail",
                 "data" => [
@@ -135,14 +184,21 @@ class MapController extends Controller
                 ]
             ], 404);
         }
-        if ($map->user_id !== auth()->id()) {
+        if ($baseMap->user_id !== auth()->id()) {
             return response()->json([
                 "status" => "fail",
                 "data" => ["id" => "Access denied"]
             ], 403);
         }
 
-        Map::destroy($id);
+        $map = new Map;
+        $map->user_id = auth()->id();
+        $map->name = $baseMap->name." - Copy";
+        $map->subject = $baseMap->subject;
+        $map->description = $baseMap->description;
+        $map->tile = $baseMap->tile;
+        $map->events = $baseMap->events;
+        $map->save();
 
         $maps = Map::where('user_id', auth()->id())->get();
 

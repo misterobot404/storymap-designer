@@ -24,9 +24,8 @@
                 </router-link>
             </v-list-item-content>
         </v-list-item>
-
+        <!-- separation -->
         <v-divider/>
-
         <!-- Library -->
         <template v-if="$store.getters['auth/isAuth']">
             <v-list-item
@@ -43,7 +42,6 @@
                 </v-list-item-content>
             </v-list-item>
         </template>
-
         <!-- Other links -->
         <template v-for="link in navigationLinks">
             <v-list-item
@@ -61,9 +59,8 @@
                 </v-list-item-content>
             </v-list-item>
         </template>
-
+        <!-- separation -->
         <v-divider/>
-
         <!-- Color theme toggle -->
         <v-list-item>
             <v-switch :input-value="this.$vuetify.theme.dark"
@@ -71,7 +68,6 @@
                       @change="setTheme"
                       label="Dark theme"/>
         </v-list-item>
-
         <!-- Copyright -->
         <template v-slot:append>
             <v-footer>

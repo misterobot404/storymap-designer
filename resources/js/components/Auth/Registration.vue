@@ -52,9 +52,9 @@
                 </v-row>
             </v-form>
         </v-card-text>
-        <v-card-actions class="px-6 pb-6">
+        <v-card-actions class="px-6 pb-6 justify-center">
             <v-btn color="primary"
-                   block
+                   class="px-6"
                    :loading="registrationProcess"
                    :disabled="!valid || !filled || nameLoading || nameInputSuccessful || emailLoading || emailInputSuccessful"
                    @click="registration()">Зарегистироваться

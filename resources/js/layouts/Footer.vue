@@ -5,6 +5,7 @@
     >
         <v-col
             class="text-center"
+            style="opacity: 0.84"
             cols="12">
             © LiSa Inc. {{ new Date().getFullYear() }}
         </v-col>

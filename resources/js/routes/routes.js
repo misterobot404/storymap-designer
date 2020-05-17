@@ -10,6 +10,18 @@ export const routes = [
         meta: { middlewareAuth: true }
     },
     {
+        path: '/constructor/:id',
+        component: () => import(/* webpackChunkName: 'constr' */ '@/pages/Constructor'),
+        props: true,
+        meta: { middlewareAuth: true }
+    },
+    {
+        path: '/viewer/:id',
+        component: () => import(/* webpackChunkName: 'viewer' */ '@/pages/Viewer'),
+        props: true,
+        meta: { middlewareAuth: true }
+    },
+    {
         path: '*',
         component: () => import(/* webpackChunkName: 'page404' */ '@/pages/Page404')
     }

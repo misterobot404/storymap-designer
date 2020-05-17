@@ -3,12 +3,13 @@
         class="d-flex flex-column"
         :style="{'min-height': minHeight}"
     >
-        <!-- Creation hero -->
+        <!-- Hero. Creat map / folder -->
         <v-container class="content-width">
             <v-row
                 style="min-height: 144px"
                 align-content="center"
             >
+                <!-- Hero -->
                 <v-col style="min-width: 230px">
                     <h1 class="display-1 font-weight-medium pb-2">
                         Мои атласы
@@ -17,6 +18,7 @@
                         Выберите атлас для редактирования, просмотра и управления.
                     </p>
                 </v-col>
+                <!-- Creat map / folder -->
                 <v-col>
                     <v-row
                         class="align-center"
@@ -33,31 +35,24 @@
                             <v-icon class="mr-1">create_new_folder</v-icon>
                             Создать папку
                         </v-btn>
-                        <v-btn
-                            @click="createMap()"
-                            class="ma-2"
-                            large
-                            color="primary"
-                            rounded
-                        >
-                            <v-icon class="mr-1">add</v-icon>
-                            Создать атлас
-                        </v-btn>
+                        <!-- ModalDialog. Create map -->
+                        <CreateMapDialog/>
                     </v-row>
                 </v-col>
             </v-row>
         </v-container>
-
         <!-- Grey field. Filter and maps. -->
         <v-container
             fluid
-            class="flex"
+            class="flex d-flex"
             :class="{'grey lighten-4': !$vuetify.theme.dark}"
         >
-            <v-container class="content-width">
-
+            <v-container class="content-width d-flex flex-column">
                 <!-- Filter -->
-                <v-row class="my-5 align-center">
+                <v-row
+                    class="my-5 align-center"
+                    style="flex: none"
+                >
                     <!-- Roles -->
                     <v-btn
                         v-for="(role, index) in roles"
@@ -71,11 +66,11 @@
                     >
                         {{role.name}}
                     </v-btn>
-
+                    <!-- space -->
                     <v-spacer/>
-
                     <!-- Search -->
                     <v-text-field
+                        v-model.trim="search"
                         dense
                         flat
                         rounded
@@ -87,14 +82,13 @@
                         style="max-width: 400px"
                         class="my-2 mx-1"
                     />
-
+                    <!-- separation -->
                     <v-divider
                         class="mx-3 my-auto hidden-md-and-down"
                         style="height: 38px"
                         inset
                         vertical
                     />
-
                     <!-- View mode -->
                     <v-btn-toggle
                         v-model="selectedViewMode"
@@ -129,53 +123,46 @@
                             <span>Показать списком</span>
                         </v-tooltip>
                     </v-btn-toggle>
-
-                    <div>
-
-                    </div>
-
                 </v-row>
-
-                <!-- Maps -->
-                <v-row
-                    dense
-                    justify="center"
-                    class="mt-12"
-                >
-                    <v-col
-                        :cols="$vuetify.breakpoint.mdAndUp ? '3' : '12'"
-                        v-for="map in maps"
-                        :key="map.id"
-                        class="mx-2 mb-4"
+                <!-- Loading -->
+                <template v-if="loadingMaps">
+                    <div
+                        class="justify-center align-center d-flex"
+                        style="flex:1"
                     >
-                        <v-hover v-slot:default="{ hover }">
-                            <v-card
-                                :max-width="$vuetify.breakpoint.mdAndUp ? '450' : '360'"
-                                raised
-                                height="100%"
-                                class="mx-auto"
-                                style="cursor: pointer"
-                            >
-                                <v-img :src="require('@/assets/images/no-image.png')">
-                                    <v-expand-transition>
-                                        <div
-                                            v-if="hover"
-                                            class="d-flex blue darken-2 v-card--reveal display-3 white--text"
-                                            style="height: 100%"
-                                        >
-                                            OPEN
-                                        </div>
-                                    </v-expand-transition>
-                                </v-img>
-                                <div style="text-align: start;">
-                                    <v-card-title style="word-break: keep-all; line-height: 1.8rem;"> {{ map.name }}</v-card-title>
-                                    <v-card-subtitle> {{ map.subtitle ? map.subtitle : 'empty' }}</v-card-subtitle>
-                                    <v-card-text> {{ map.description }}</v-card-text>
-                                </div>
-                            </v-card>
-                        </v-hover>
-                    </v-col>
-                </v-row>
+                        <v-progress-circular
+                            indeterminate
+                            :size="50"
+                            color="primary"
+                        />
+                    </div>
+                </template>
+                <!-- Maps empty -->
+                <template v-else-if="maps.length === 0">
+                    <v-row align="center" justify="center" class="flex-column my-6 mx-2">
+                        <v-img
+                            max-width="300"
+                            max-height="300"
+                            style="opacity: 0.92"
+                            :src="require('@/assets/images/no-data-icon.png')"
+                            contain
+                        />
+                        <div class="mb-4 headline font-weight-medium">У вас еще нет атласов.</div>
+                    </v-row>
+                </template>
+                <!-- Maps -->
+                <template v-else>
+                    <keep-alive>
+                        <!-- Table mode -->
+                        <template v-if="selectedViewMode === 'table'">
+                            <TableMaps :maps="filteredMaps"/>
+                        </template>
+                        <!-- List mode -->
+                        <template v-else>
+                            <ListMaps :maps="filteredMaps"/>
+                        </template>
+                    </keep-alive>
+                </template>
             </v-container>
         </v-container>
 
@@ -201,55 +188,86 @@
 
 <script>
     import {mapState, mapActions} from "vuex"
+    import CreateMapDialog from "@/components/Library/CreateMapDialog"
+    import TableMaps from "@/components/Library/TableMaps"
+    import ListMaps from "@/components/Library/ListMaps"
 
     export default {
         name: "Constructor",
-        components: {},
+        components: {
+            CreateMapDialog,
+            TableMaps,
+            ListMaps
+        },
         data() {
             return {
-                selectedRole: "Все атласы",
-
+                // Roles
+                selectedRole: localStorage.getItem("Library.selectedRole") !== null ? localStorage.getItem("Library.selectedRole") : "Все атласы",
                 roles: [
                     {name: "Все атласы"},
                     {name: "Автор"},
                     {name: "Разработчик"},
                     {name: "Пользователь"}
                 ],
-                selectedViewMode: "table",
-
-                showScrollUpBtn: false
+                // Other
+                selectedViewMode: localStorage.getItem("Library.selectedViewMode") !== null ? localStorage.getItem("Library.selectedViewMode") : "table",
+                showScrollUpBtn: false,
+                loadingMaps: false,
+                search: ""
             }
         },
         computed: {
             ...mapState('maps', [
                 'maps'
             ]),
+            // Min grey height
             minHeight() {
                 const height = '100vh';
                 return `calc(${height} - ${this.$vuetify.application.top}px - ${this.$vuetify.application.footer}px)`
+            },
+            // Search filter
+            filteredMaps: function () {
+                if (this.search) {
+                    let name = this.search;
+                    return this.maps.filter(function (elem) {
+                        if (name === '') return true;
+                        else return elem.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
+                    })
+                } else return this.maps;
+            }
+        },
+        watch: {
+            selectedViewMode(val) {
+                localStorage.setItem("Library.selectedViewMode", val)
+            },
+            selectedRole(val) {
+                localStorage.setItem("Library.selectedRole", val)
             }
         },
         methods: {
             ...mapActions('maps', [
-                'getMaps',
-                'createMap'
+                'getMaps'
             ]),
 
+            // showScrollUpBtn
             onScroll(e) {
                 if (typeof window === 'undefined') return
                 const top = window.pageYOffset || e.target.scrollTop || 0
                 this.showScrollUpBtn = top > 20
             },
         },
-        beforeMount() {
-            this.getMaps()
+        // Load maps
+        async beforeMount() {
+            this.loadingMaps = true;
+            await this.getMaps()
+                .finally(() => {
+                    this.loadingMaps = false;
+                })
         }
     }
 </script>
 
 <style lang="sass" scoped>
-
     .content-width
         width: 84%
-
 </style>

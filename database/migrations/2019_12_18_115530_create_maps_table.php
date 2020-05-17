@@ -22,6 +22,7 @@ class CreateMapsTable extends Migration
                 ->onDelete('cascade');
 
             $table->string('name');
+            $table->string('subject')->nullable();
             $table->text('description');
 
             $table->jsonb ('tile')->default('{

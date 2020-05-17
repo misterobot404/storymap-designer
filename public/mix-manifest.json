@@ -2,8 +2,11 @@
     "/js/main.js": "/js/main.js",
     "/AuthDialog.js": "/AuthDialog.js",
     "/Logout.js": "/Logout.js",
+    "/constr.js": "/constr.js",
     "/home.js": "/home.js",
     "/library.js": "/library.js",
     "/page404.js": "/page404.js",
-    "/vendors~AuthDialog.js": "/vendors~AuthDialog.js"
+    "/vendors~AuthDialog.js": "/vendors~AuthDialog.js",
+    "/vendors~library.js": "/vendors~library.js",
+    "/viewer.js": "/viewer.js"
 }

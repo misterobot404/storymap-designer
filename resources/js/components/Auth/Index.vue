@@ -40,9 +40,7 @@
                     </v-tabs>
                 </template>
             </v-toolbar>
-
             <v-divider/>
-
             <v-expand-transition>
                 <component v-bind:is="currentTabName" @done="dialog = false"/>
             </v-expand-transition>
@@ -51,8 +49,8 @@
 </template>
 
 <script>
-    import Authorization from "./Auth/Authorization";
-    import Registration from "./Auth/Registration";
+    import Authorization from "@/components/Auth/Authorization"
+    import Registration from "@/components/Auth/Registration"
     import {mapState} from 'vuex'
 
     export default {

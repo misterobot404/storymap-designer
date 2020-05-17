@@ -12,5 +12,3 @@ TODO: Вставка Viewer на сторонние ресурсы через If
 TODO: Timeline событий на  Viewer'е
 TODO: Поиск по событиям
 
-GLOBAL
-TODO: Переписать приложение под SPA на роутах vue и ajax

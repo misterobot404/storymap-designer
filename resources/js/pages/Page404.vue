@@ -11,13 +11,13 @@
                     Oops! 404
                 </h1>
 
-                <p class="mb-12 grey--text text--darken-2">
+                <p class="mb-8 grey--text text--darken-2">
                     Страница не найдена
                 </p>
 
                 <v-btn
                     color="primary"
-                    x-large
+                    large
                     to="/"
                 >
                     Главная страница

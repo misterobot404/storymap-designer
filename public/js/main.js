@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"Logout":"Logout","home":"home","library":"library","page404":"page404","vendors~AuthDialog":"vendors~AuthDialog","AuthDialog":"AuthDialog"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"Logout":"Logout","constr":"constr","home":"home","page404":"page404","vendors~AuthDialog":"vendors~AuthDialog","AuthDialog":"AuthDialog","vendors~library":"vendors~library","library":"library","viewer":"viewer"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -2153,18 +2153,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AppBar",
@@ -2173,13 +2161,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return __webpack_require__.e(/*! import() | Logout */ "Logout").then(__webpack_require__.bind(null, /*! ../components/Core/UserPanel */ "./resources/js/components/Core/UserPanel.vue"));
     },
     AuthDialog: function AuthDialog() {
-      return Promise.all(/*! import() | AuthDialog */[__webpack_require__.e("vendors~AuthDialog"), __webpack_require__.e("AuthDialog")]).then(__webpack_require__.bind(null, /*! ../components/Auth */ "./resources/js/components/Auth.vue"));
+      return Promise.all(/*! import() | AuthDialog */[__webpack_require__.e("vendors~AuthDialog"), __webpack_require__.e("AuthDialog")]).then(__webpack_require__.bind(null, /*! ../components/Auth/Index */ "./resources/js/components/Auth/Index.vue"));
     }
-  },
-  data: function data() {
-    return {
-      notificationImg: __webpack_require__(/*! @/assets/images/notification.svg */ "./resources/js/assets/images/notification.svg")
-    };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('layout', {
     appName: function appName(state) {
@@ -2254,6 +2237,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Footer",
@@ -2282,10 +2266,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
 //
 //
 //
@@ -5352,7 +5332,7 @@ var render = function() {
             [
               _c("v-progress-linear", {
                 attrs: {
-                  height: "3",
+                  color: "blue darken-3",
                   top: "",
                   active: _vm.pageLoading,
                   indeterminate: "",
@@ -5512,7 +5492,7 @@ var render = function() {
                                     _c("v-img", {
                                       staticClass: "mb-12",
                                       attrs: {
-                                        src: _vm.notificationImg,
+                                        src: __webpack_require__(/*! @/assets/images/notification.svg */ "./resources/js/assets/images/notification.svg"),
                                         contain: ""
                                       }
                                     }),
@@ -5648,11 +5628,21 @@ var render = function() {
       attrs: { app: "", absolute: "" }
     },
     [
-      _c("v-col", { staticClass: "text-center", attrs: { cols: "12" } }, [
-        _vm._v(
-          "\n        © LiSa Inc. " + _vm._s(new Date().getFullYear()) + "\n    "
-        )
-      ])
+      _c(
+        "v-col",
+        {
+          staticClass: "text-center",
+          staticStyle: { opacity: "0.84" },
+          attrs: { cols: "12" }
+        },
+        [
+          _vm._v(
+            "\n        © LiSa Inc. " +
+              _vm._s(new Date().getFullYear()) +
+              "\n    "
+          )
+        ]
+      )
     ],
     1
   )
@@ -62809,6 +62799,61 @@ module.exports = "/images/notification.svg?8285b5bd3366bee30f2ff4b538e6069a";
 
 /***/ }),
 
+/***/ "./resources/js/assets/images/subjects/biology.png":
+/*!*********************************************************!*\
+  !*** ./resources/js/assets/images/subjects/biology.png ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/biology.png?318cbcb9cd69e6f6fef03353d7ae02f4";
+
+/***/ }),
+
+/***/ "./resources/js/assets/images/subjects/computer_science.png":
+/*!******************************************************************!*\
+  !*** ./resources/js/assets/images/subjects/computer_science.png ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/computer_science.png?9397065116a627fbb50901691f0b7e31";
+
+/***/ }),
+
+/***/ "./resources/js/assets/images/subjects/custom.png":
+/*!********************************************************!*\
+  !*** ./resources/js/assets/images/subjects/custom.png ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/custom.png?88ea15807cdcf79d8f2c3714b4771dde";
+
+/***/ }),
+
+/***/ "./resources/js/assets/images/subjects/geography.png":
+/*!***********************************************************!*\
+  !*** ./resources/js/assets/images/subjects/geography.png ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/geography.png?6899e48a416a554447f33afe882064fd";
+
+/***/ }),
+
+/***/ "./resources/js/assets/images/subjects/history.png":
+/*!*********************************************************!*\
+  !*** ./resources/js/assets/images/subjects/history.png ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/history.png?b5e03ca93eb7b3b187efa6a1d0800509";
+
+/***/ }),
+
 /***/ "./resources/js/assets/logo.png":
 /*!**************************************!*\
   !*** ./resources/js/assets/logo.png ***!
@@ -63426,8 +63471,26 @@ var routes = [{
 }, {
   path: '/library',
   component: function component() {
-    return __webpack_require__.e(/*! import() | library */ "library").then(__webpack_require__.bind(null, /*! @/pages/Library */ "./resources/js/pages/Library.vue"));
+    return Promise.all(/*! import() | library */[__webpack_require__.e("vendors~library"), __webpack_require__.e("library")]).then(__webpack_require__.bind(null, /*! @/pages/Library */ "./resources/js/pages/Library.vue"));
   },
+  meta: {
+    middlewareAuth: true
+  }
+}, {
+  path: '/constructor/:id',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | constr */ "constr").then(__webpack_require__.bind(null, /*! @/pages/Constructor */ "./resources/js/pages/Constructor.vue"));
+  },
+  props: true,
+  meta: {
+    middlewareAuth: true
+  }
+}, {
+  path: '/viewer/:id',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | viewer */ "viewer").then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
+  },
+  props: true,
   meta: {
     middlewareAuth: true
   }
@@ -63638,23 +63701,62 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: {
-    maps: null
+    maps: null,
+    subjects: [{
+      name: "Информатика",
+      icon: __webpack_require__(/*! @/assets/images/subjects/computer_science.png */ "./resources/js/assets/images/subjects/computer_science.png")
+    }, {
+      name: "Биология",
+      icon: __webpack_require__(/*! @/assets/images/subjects/biology.png */ "./resources/js/assets/images/subjects/biology.png")
+    }, {
+      name: "География",
+      icon: __webpack_require__(/*! @/assets/images/subjects/geography.png */ "./resources/js/assets/images/subjects/geography.png")
+    }, {
+      name: "История",
+      icon: __webpack_require__(/*! @/assets/images/subjects/history.png */ "./resources/js/assets/images/subjects/history.png")
+    }, {
+      name: "Другое",
+      icon: __webpack_require__(/*! @/assets/images/subjects/custom.png */ "./resources/js/assets/images/subjects/custom.png")
+    }]
   },
-  getters: {},
   actions: {
     getMaps: function getMaps(_ref) {
       var commit = _ref.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('api/maps').then(function (response) {
-        // Обязательно приведение json в обьект
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('api/maps').then(function (response) {
         commit('SET_MAPS', response.data.data.maps);
       });
     },
-    createMap: function createMap(_ref2) {
+    createMap: function createMap(_ref2, data) {
       var commit = _ref2.commit;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/maps', {
-        name: "Map",
-        description: "Dec" + Date.now()
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/maps', {
+        name: data.name,
+        subject: data.subject,
+        description: data.description
       }).then(function (response) {
+        commit('SET_MAPS', response.data.data.maps);
+      });
+    },
+    duplicateMap: function duplicateMap(_ref3, data) {
+      var commit = _ref3.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/maps/duplicate', {
+        id: data.id
+      }).then(function (response) {
+        commit('SET_MAPS', response.data.data.maps);
+      });
+    },
+    destroyMap: function destroyMap(_ref4, data) {
+      var commit = _ref4.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('api/maps/' + data.id).then(function (response) {
+        commit('SET_MAPS', response.data.data.maps);
+      });
+    },
+    destroyMaps: function destroyMaps(_ref5, data) {
+      var commit = _ref5.commit;
+      var ids = [];
+      data.forEach(function (element) {
+        return ids.push(element.id);
+      });
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('api/maps/' + ids).then(function (response) {
         commit('SET_MAPS', response.data.data.maps);
       });
     }
@@ -63662,26 +63764,6 @@ __webpack_require__.r(__webpack_exports__);
   mutations: {
     SET_MAPS: function SET_MAPS(state, maps) {
       state.maps = maps;
-    },
-    SORT_BY_DATA_CREATED_UP: function SORT_BY_DATA_CREATED_UP(state) {
-      state.maps.sort(function (a, b) {
-        return new Date(b.created_at) - new Date(a.created_at);
-      });
-    },
-    SORT_BY_DATA_CREATED_DOWN: function SORT_BY_DATA_CREATED_DOWN(state) {
-      state.maps.sort(function (a, b) {
-        return new Date(a.created_at) - new Date(b.created_at);
-      });
-    },
-    SORT_BY_DATA_MODIFIED_UP: function SORT_BY_DATA_MODIFIED_UP(state) {
-      state.maps.sort(function (a, b) {
-        return new Date(b.updated_at) - new Date(a.updated_at);
-      });
-    },
-    SORT_BY_DATA_MODIFIED_DOWN: function SORT_BY_DATA_MODIFIED_DOWN(state) {
-      state.maps.sort(function (a, b) {
-        return new Date(a.updated_at) - new Date(b.updated_at);
-      });
     }
   }
 });

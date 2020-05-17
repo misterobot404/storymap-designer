@@ -4,52 +4,73 @@ export default {
     namespaced: true,
 
     state: {
-        maps: null
-    },
-    getters: {
+        maps: null,
+        subjects: [
+            {
+                name: "Информатика",
+                icon: require('@/assets/images/subjects/computer_science.png')
+            },
+            {
+                name: "Биология",
+                icon: require('@/assets/images/subjects/biology.png')
+            },
+            {
+                name: "География",
+                icon: require('@/assets/images/subjects/geography.png')
+            },
+            {
+                name: "История",
+                icon: require('@/assets/images/subjects/history.png')
+            },
+            {
+                name: "Другое",
+                icon: require('@/assets/images/subjects/custom.png')
+            }
+        ]
     },
     actions: {
         getMaps: function ({commit}) {
-            axios.get('api/maps')
+            return axios.get('api/maps')
                 .then(response => {
-                    // Обязательно приведение json в обьект
                     commit('SET_MAPS', response.data.data.maps);
                 })
         },
-        createMap: function ({commit}) {
-            axios.post('api/maps',
+        createMap: function ({commit}, data) {
+            return axios.post('api/maps',
                 {
-                    name: "Map" ,
-                    description: "Dec" + Date.now()
+                    name: data.name,
+                    subject: data.subject,
+                    description: data.description
                 })
                 .then(response => {
                     commit('SET_MAPS', response.data.data.maps);
                 })
-        }
+        },
+        duplicateMap: function ({commit}, data) {
+            return axios.post('api/maps/duplicate', { id: data.id })
+                .then(response => {
+                    commit('SET_MAPS', response.data.data.maps);
+                })
+        },
+        destroyMap: function ({commit}, data) {
+            return axios.delete('api/maps/' + data.id)
+                .then(response => {
+                    commit('SET_MAPS', response.data.data.maps);
+                })
+        },
+        destroyMaps: function ({commit}, data) {
+            let ids = [];
+            data.forEach(element => ids.push(element.id));
+
+            return axios.delete('api/maps/' + ids)
+                .then(response => {
+                    commit('SET_MAPS', response.data.data.maps);
+                })
+        },
     },
     mutations: {
         SET_MAPS: (state, maps) => {
             state.maps = maps;
-        },
-        SORT_BY_DATA_CREATED_UP: (state) => {
-            state.maps.sort(function(a,b){
-                return new Date(b.created_at) - new Date(a.created_at);
-            });
-        },
-        SORT_BY_DATA_CREATED_DOWN: (state) => {
-            state.maps.sort(function(a,b){
-                return new Date(a.created_at) - new Date(b.created_at);
-            });
-        },
-        SORT_BY_DATA_MODIFIED_UP: (state) => {
-            state.maps.sort(function(a,b){
-                return new Date(b.updated_at) - new Date(a.updated_at);
-            });
-        },
-        SORT_BY_DATA_MODIFIED_DOWN: (state) => {
-            state.maps.sort(function(a,b){
-                return new Date(a.updated_at) - new Date(b.updated_at);
-            });
         }
     }
 }

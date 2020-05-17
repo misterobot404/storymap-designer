@@ -1,145 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/misterobot.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vagrant.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/DemoData/1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/DemoData/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/DemoData/7310.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/DemoData/Rothenburg.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/DemoData/periodic_table-black.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/DemoData/periodic_table-black.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/DemoData/scale_1200.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/DemoData/scale_1200.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/LeafletPano.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/LeafletPano.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/MainForm.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/MainForm.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/MainForm.resx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/Program.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/Properties/AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/Properties/Resources.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/Properties/Resources.resx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/Properties/Settings.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/Properties/Settings.settings" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/Template.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/Tiler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/app.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/doc/LeafletPano.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LeafletPano/doc/TileScheme.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/New folder/avatar-default.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/New folder/cloud-upload.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/New folder/sort_down.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/New folder/sort_down1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/New folder/sort_up.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/New folder/vendor/leaflet/dist/layers-2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/New folder/vendor/leaflet/dist/layers.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/New folder/vendor/leaflet/dist/marker-icon-2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/New folder/vendor/leaflet/dist/marker-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/New folder/vendor/leaflet/dist/marker-shadow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/examples/alch.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/examples/dv.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/examples/human.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/home_art.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/notification.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Auth.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Core/UserPanel.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/layouts/AppBar.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/layouts/Content.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/layouts/NavigationDrawer.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/store/modules/layout.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/store/modules/maps.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/MapDesigner.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MapDesigner.iml" afterDir="false" />
+    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="0.4.6 home + library/2">
+      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/no-data-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/subjects/biology.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/subjects/computer_science.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/subjects/custom.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/subjects/geography.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/subjects/history.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/Library/CreateMapDialog.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/Library/TableMaps.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/authorization.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/public/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/MapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/MapController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_18_115530_create_maps_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_12_18_115530_create_maps_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/registration.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~registration.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/adventurealtitude.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/adventurecave.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/ancient.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/ancientruins.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/artoftravel.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/autumnclouds.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/beachjar.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/blurcamera.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/christmas.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/firepots.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/garden.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/greengrass.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/jellyfish.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/july4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/lightcave.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/marketgrains.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/moroccandays.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/mountain.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/mountaincabin.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/pigduck.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/rain.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/ruins.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/snowcabin.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/snowcup.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/spices.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/swedishfishing.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/articles/umbrella.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/avatar-default.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/card/alch.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/card/dv.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/card/human.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/cloud-upload.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/search_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/simple-codelines.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/sort_down.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/sort_down1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/sort_up.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/vendor/leaflet/dist/layers-2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/vendor/leaflet/dist/layers.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/vendor/leaflet/dist/marker-icon-2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/vendor/leaflet/dist/marker-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/vendor/leaflet/dist/marker-shadow.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/instagram/adventurealtitude.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/instagram/garden.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/instagram/pigduck.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/instagram/rain.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/instagram/spices.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/instagram/sunset.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/assets/logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Authorization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Auth/Authorization.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Home/About.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Home/Articles.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Home/Banner.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Home/Social.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Home/Subscribe.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Logout.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Registration.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Auth/Registration.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/New folder/avatar-default.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/New folder/cloud-upload.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/New folder/sort_down.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/New folder/sort_down1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/New folder/sort_up.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/New folder/vendor/leaflet/dist/layers-2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/New folder/vendor/leaflet/dist/layers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/New folder/vendor/leaflet/dist/marker-icon-2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/New folder/vendor/leaflet/dist/marker-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/assets/images/New folder/vendor/leaflet/dist/marker-shadow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Auth.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Auth/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Auth/Authorization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Auth/Authorization.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Auth/Registration.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Auth/Registration.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Manager/CreateMapModal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Manager/Filters.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Library/ListMaps.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Manager/MapList.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Manager/MapListItem.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layouts/AppBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/AppBar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/layouts/Footer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/Footer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layouts/Header.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layouts/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/404.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Page404.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layouts/NavigationDrawer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/NavigationDrawer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/Constructor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Constructor.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/pages/Library.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Library.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/plugins/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/plugins/axios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/Page404.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Page404.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/Viewer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Viewer.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/routeLoading.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/maps.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/maps.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -357,19 +260,19 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2019.1.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Auth" />
+      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components" />
+      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Layouts" />
+      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\pages" />
+      <recent name="C:\Users\misterobot\Source\MapDesigner\app\Http\Controllers\API" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\store\modules" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Home" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\app\Http\Controllers" />
       <recent name="C:\Users\misterobor\Source\MapDesigner\resources\js\layouts" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components" />
-      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Layouts" />
-      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Auth" />
-      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\pages" />
-      <recent name="C:\Users\misterobot\Source\MapDesigner\app\Http\Controllers\API" />
     </key>
   </component>
   <component name="RunManager" selected="npm.watch-poll">
@@ -508,7 +411,30 @@
       <workItem from="1588081478039" duration="761000" />
       <workItem from="1588116817769" duration="23961000" />
       <workItem from="1588201156621" duration="13526000" />
-      <workItem from="1588224390847" duration="2584000" />
+      <workItem from="1588224390847" duration="2961000" />
+      <workItem from="1588235282876" duration="11480000" />
+      <workItem from="1588289914470" duration="47000" />
+      <workItem from="1588290026698" duration="8682000" />
+      <workItem from="1588325808345" duration="691000" />
+      <workItem from="1588378575788" duration="1243000" />
+      <workItem from="1588723268601" duration="65000" />
+      <workItem from="1588723357539" duration="1189000" />
+      <workItem from="1588748256260" duration="223000" />
+      <workItem from="1588752787469" duration="1032000" />
+      <workItem from="1588760009085" duration="599000" />
+      <workItem from="1588808563242" duration="5317000" />
+      <workItem from="1588834302442" duration="12565000" />
+      <workItem from="1588895006144" duration="11027000" />
+      <workItem from="1588920678183" duration="8057000" />
+      <workItem from="1588985418277" duration="89000" />
+      <workItem from="1588985558207" duration="32044000" />
+      <workItem from="1589113487842" duration="6718000" />
+      <workItem from="1589161702365" duration="592000" />
+      <workItem from="1589588364563" duration="605000" />
+      <workItem from="1589594337204" duration="27560000" />
+      <workItem from="1589672847562" duration="2586000" />
+      <workItem from="1589689002922" duration="17938000" />
+      <workItem from="1589722254513" duration="2295000" />
     </task>
     <task id="LOCAL-00001" summary="0.6">
       <created>1562133005697</created>
@@ -685,7 +611,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586938413928</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="0.4.6 home + library/2">
+      <created>1588227402686</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1588227402687</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -742,12 +675,14 @@
     <MESSAGE value="0.7.1 adaptiv css + save / load from database" />
     <MESSAGE value="0.3 push all" />
     <MESSAGE value="0.3.1 reg dialog" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.3.1 reg dialog" />
+    <MESSAGE value="0.4.6 home + library/2" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.4.6 home + library/2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="907" y="169" key="#Inspections" timestamp="1582963131731">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="591" y="15" key="#Inspections" timestamp="1588294745434">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
+    <state x="591" y="15" key="#Inspections/0.0.1366.738@0.0.1366.738" timestamp="1588294745434" />
     <state x="907" y="169" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1582963131731" />
     <state x="489" y="224" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585217150059">
       <screen x="0" y="0" width="1366" height="738" />
@@ -772,11 +707,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="491" y="196" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.738@0.0.1366.738" timestamp="1586754206898" />
-    <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1580350929664" />
-    <state x="400" y="0" key="CommitChangelistDialog2" timestamp="1586938411310">
+    <state x="400" y="0" key="CommitChangelistDialog2" timestamp="1589708412820">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="400" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1586938411310" />
+    <state x="400" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1589708412820" />
     <state x="562" y="53" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581688652584" />
     <state x="92" y="92" width="1182" height="554" key="DiffContextDialog" timestamp="1585645103550">
       <screen x="0" y="0" width="1366" height="738" />
@@ -791,7 +725,6 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="566" y="315" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1586161976489" />
-    <state x="795" y="444" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579140156567" />
     <state x="562" y="6" key="RollbackChangesDialog" timestamp="1585300618954">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -801,10 +734,10 @@
     </state>
     <state x="311" y="28" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1587188330324" />
     <state x="593" y="166" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1583548933106" />
-    <state x="275" y="102" key="Vcs.Push.Dialog.v2" timestamp="1586938418263">
+    <state x="275" y="102" key="Vcs.Push.Dialog.v2" timestamp="1588227451677">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="102" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1586938418263" />
+    <state x="275" y="102" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1588227451677" />
     <state x="475" y="246" key="com.intellij.ide.util.TipDialog" timestamp="1587000700635">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -814,19 +747,15 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="747" y="210" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1581843749934" />
-    <state x="0" y="291" width="1690" height="841" key="dock-window-1" timestamp="1579049962863">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="0" y="291" width="1690" height="841" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1579049962863" />
     <state x="349" y="37" width="555" height="637" key="find.popup" timestamp="1587188269957">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="349" y="37" width="555" height="637" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1587188269957" />
     <state x="581" y="71" width="757" height="897" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1582114049523" />
-    <state x="438" y="170" key="run.anything.popup" timestamp="1587445342489">
+    <state x="438" y="170" key="run.anything.popup" timestamp="1588238581205">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="438" y="170" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1587445342489" />
+    <state x="438" y="170" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1588238581205" />
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583230837998" />
     <state x="443" y="160" width="672" height="482" key="search.everywhere.popup" timestamp="1587188274945">
       <screen x="0" y="0" width="1366" height="738" />

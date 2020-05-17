@@ -1,20 +1,12 @@
 <template>
-    <div>
-        <ConstructorControlPanel/>
-        <ConstructorMain/>
-    </div>
+    <v-col class="text-center">Конструктор {{id}}</v-col>
 </template>
 
 <script>
-    import ConstructorMain from '@/Constructor/Main'
-    import ConstructorControlPanel from '@/Constructor/ControlPanel'
-
     export default {
         name: "Constructor",
-        components: {
-            ConstructorControlPanel,
-            ConstructorMain
-        },
+        components: {},
+        props: ['id']
     }
 </script>
 

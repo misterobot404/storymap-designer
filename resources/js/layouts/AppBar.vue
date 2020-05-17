@@ -2,22 +2,19 @@
     <v-app-bar app style="min-width: 320px !important;">
         <v-container>
             <v-row align="center">
-
                 <!-- Page loading process -->
                 <v-progress-linear
-                    height="3"
+                    color="blue darken-3"
                     top
                     :active="pageLoading"
                     indeterminate
                     absolute
                 />
-
                 <!-- NavigationDrawer toggle -->
                 <v-app-bar-nav-icon
                     :class="['mr-2', isAuth ? 'hidden-lg-and-up' : 'hidden-md-and-up']"
                     @click="SET_DRAWER(true)"
                 />
-
                 <!-- Logo -->
                 <router-link to="/" class="mr-4 d-flex align-center link-text-simple">
                     <v-img
@@ -30,13 +27,12 @@
                     <!-- Name -->
                     <v-toolbar-title class="ml-4 hidden-xs-only">{{appName}}</v-toolbar-title>
                 </router-link>
-
+                <!-- separation -->
                 <v-divider
                     :class="['mx-4',' mt-0', isAuth ? 'hidden-md-and-down' : 'hidden-sm-and-down']"
                     inset
                     vertical
                 />
-
                 <!-- Other links -->
                 <v-btn
                     v-for="(link, index) in navigationLinks"
@@ -47,9 +43,8 @@
                 >
                     {{ link.text }}
                 </v-btn>
-
+                <!-- space -->
                 <v-spacer :class="[isAuth ? 'hidden-xl-only' : 'hidden-lg-and-up']"/>
-
                 <!-- Search -->
                 <v-text-field
                     flat
@@ -60,10 +55,8 @@
                     label="Search"
                     :class="['mx-6', isAuth ? 'hidden-lg-and-down' : 'hidden-md-and-down']"
                 />
-
                 <!-- User panel -->
                 <template v-if="isAuth">
-
                     <!-- Notification -->
                     <v-menu offset-y>
                         <template v-slot:activator="{ on }">
@@ -85,7 +78,7 @@
                                 <v-row align="center" justify="center" class="flex-column my-12 mx-2">
                                     <v-img
                                         class="mb-12"
-                                        :src=notificationImg
+                                        :src="require('@/assets/images/notification.svg')"
                                         contain
                                     />
                                     <div class="mb-4 font-weight-medium">Уведомления появятся здесь</div>
@@ -96,13 +89,11 @@
                             </v-card-text>
                         </v-card>
                     </v-menu>
-
                     <v-divider
                         class="hidden-sm-and-down mx-4 mt-0"
                         inset
                         vertical
                     />
-
                     <!-- My library -->
                     <v-btn
                         text
@@ -113,18 +104,15 @@
                     >
                         Моя библиотека
                     </v-btn>
-
                     <v-divider
                         class="hidden-sm-and-down mx-4 mt-0"
                         inset
                         vertical
                     />
-
                     <!-- User -->
                     <UserPanel/>
                 </template>
-
-                <!-- Login -->
+                <!-- Login btn -->
                 <template v-else>
                     <AuthDialog/>
                 </template>
@@ -140,12 +128,7 @@
         name: "AppBar",
         components: {
             UserPanel: () => import(/* webpackChunkName: "Logout" */ '../components/Core/UserPanel'),
-            AuthDialog: () => import(/* webpackChunkName: "AuthDialog" */ '../components/Auth')
-        },
-        data() {
-            return {
-                notificationImg: require('@/assets/images/notification.svg')
-            }
+            AuthDialog: () => import(/* webpackChunkName: "AuthDialog" */ '../components/Auth/Index')
         },
         computed: {
             ...mapState('layout', {
