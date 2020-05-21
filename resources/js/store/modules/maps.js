@@ -4,7 +4,7 @@ export default {
     namespaced: true,
 
     state: {
-        maps: null,
+        maps: [],
         subjects: [
             {
                 name: "Информатика",
@@ -30,13 +30,13 @@ export default {
     },
     actions: {
         getMaps: function ({commit}) {
-            return axios.get('api/maps')
+            return axios.get('/api/maps')
                 .then(response => {
                     commit('SET_MAPS', response.data.data.maps);
                 })
         },
         createMap: function ({commit}, data) {
-            return axios.post('api/maps',
+            return axios.post('/api/maps',
                 {
                     name: data.name,
                     subject: data.subject,
@@ -47,13 +47,13 @@ export default {
                 })
         },
         duplicateMap: function ({commit}, data) {
-            return axios.post('api/maps/duplicate', { id: data.id })
+            return axios.post('/api/maps/duplicate', { id: data.id })
                 .then(response => {
                     commit('SET_MAPS', response.data.data.maps);
                 })
         },
         destroyMap: function ({commit}, data) {
-            return axios.delete('api/maps/' + data.id)
+            return axios.delete('/api/maps/' + data.id)
                 .then(response => {
                     commit('SET_MAPS', response.data.data.maps);
                 })
@@ -62,7 +62,7 @@ export default {
             let ids = [];
             data.forEach(element => ids.push(element.id));
 
-            return axios.delete('api/maps/' + ids)
+            return axios.delete('/api/maps/' + ids)
                 .then(response => {
                     commit('SET_MAPS', response.data.data.maps);
                 })

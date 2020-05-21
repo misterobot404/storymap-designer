@@ -1,6 +1,6 @@
 <template>
     <v-slide-y-reverse-transition>
-        <div class="mt-4 d-flex justify-center flex-wrap">
+        <div class="mt-2 d-flex justify-center flex-wrap">
             <v-hover
                 v-for="map in maps"
                 :key="map.id"

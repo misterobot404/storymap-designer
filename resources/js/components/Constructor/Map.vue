@@ -6,7 +6,6 @@
                ref="map"
                :zoom="mapZoom"
                :center="config.tileCenter"
-
                :maxBoundsViscosity="maxBoundsViscosity"
                @click="latLngClickUpdatePosition"
                @update:zoom="zoomUpdated"
@@ -120,7 +119,7 @@
             // this.centerUpdated(new L.latLng(centerLat, centerLon));
         },
         computed: {
-            ...mapGetters([
+            ...mapGetters('map',[
                 'config',
                 'events',
                 'selectedEvent',
@@ -129,7 +128,7 @@
             ])
         },
         methods: {
-            ...mapMutations([
+            ...mapMutations('map',[
                 "SET_TILE_CENTER",
                 "SET_SELECTED_EVENT_ID",
                 "SET_EVENT_MARKER_POSITION",

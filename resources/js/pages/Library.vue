@@ -44,7 +44,7 @@
         <!-- Grey field. Filter and maps. -->
         <v-container
             fluid
-            class="flex d-flex"
+            class="flex d-flex py-0"
             :class="{'grey lighten-4': !$vuetify.theme.dark}"
         >
             <v-container class="content-width d-flex flex-column">
@@ -71,16 +71,17 @@
                     <!-- Search -->
                     <v-text-field
                         v-model.trim="search"
-                        dense
                         flat
+                        dense
                         rounded
-                        solo-inverted
                         clearable
+                        solo
                         hide-details
                         prepend-inner-icon="search"
                         label="Поиск по атласам..."
                         style="max-width: 400px"
                         class="my-2 mx-1"
+
                     />
                     <!-- separation -->
                     <v-divider
@@ -89,6 +90,42 @@
                         inset
                         vertical
                     />
+                    <v-menu
+                        transition="slide-y-transition"
+                        offset-y
+                        bottom
+                    >
+                        <template v-slot:activator="{ on: menu }">
+                            <v-tooltip top>
+                                <template v-slot:activator="{ on: tooltip }">
+                                    <v-btn
+                                        v-on="{ ...tooltip, ...menu }"
+                                        style="text-transform: unset !important; opacity: 0.84 !important;"
+                                        text
+                                        class="mr-2"
+                                    >
+                                        <span class="hidden-lg-and-down"> Категория:&nbsp; </span>
+                                        <span v-if="selectedSubjectIndex"> {{ subjects[selectedSubjectIndex-1].name }} </span>
+                                        <span v-else> Все </span>
+                                    </v-btn>
+                                </template>
+                                <span>Выбор категории</span>
+                            </v-tooltip>
+                        </template>
+                        <v-list>
+                            <v-list-item-group v-model="selectedSubjectIndex">
+                                <v-list-item>
+                                    <v-list-item-title>Все</v-list-item-title>
+                                </v-list-item>
+                                <v-list-item
+                                    v-for="(subject, index) in subjects"
+                                    :key="index"
+                                >
+                                    <v-list-item-title>{{ subject.name }}</v-list-item-title>
+                                </v-list-item>
+                            </v-list-item-group>
+                        </v-list>
+                    </v-menu>
                     <!-- View mode -->
                     <v-btn-toggle
                         v-model="selectedViewMode"
@@ -124,45 +161,59 @@
                         </v-tooltip>
                     </v-btn-toggle>
                 </v-row>
-                <!-- Loading -->
-                <template v-if="loadingMaps">
-                    <div
-                        class="justify-center align-center d-flex"
-                        style="flex:1"
-                    >
-                        <v-progress-circular
-                            indeterminate
-                            :size="50"
-                            color="primary"
-                        />
-                    </div>
-                </template>
-                <!-- Maps empty -->
-                <template v-else-if="maps.length === 0">
-                    <v-row align="center" justify="center" class="flex-column my-6 mx-2">
-                        <v-img
-                            max-width="300"
-                            max-height="300"
-                            style="opacity: 0.92"
-                            :src="require('@/assets/images/no-data-icon.png')"
-                            contain
-                        />
-                        <div class="mb-4 headline font-weight-medium">У вас еще нет атласов.</div>
-                    </v-row>
-                </template>
-                <!-- Maps -->
-                <template v-else>
-                    <keep-alive>
-                        <!-- Table mode -->
-                        <template v-if="selectedViewMode === 'table'">
-                            <TableMaps :maps="filteredMaps"/>
-                        </template>
-                        <!-- List mode -->
-                        <template v-else>
-                            <ListMaps :maps="filteredMaps"/>
-                        </template>
-                    </keep-alive>
-                </template>
+                <v-fab-transition>
+                    <!-- Loading -->
+                    <template v-if="loadingMaps">
+                        <div
+                            class="justify-center align-center d-flex"
+                            style="flex:1"
+                        >
+                            <v-progress-circular
+                                indeterminate
+                                :size="50"
+                                color="primary"
+                            />
+                        </div>
+                    </template>
+                    <!-- Maps empty -->
+                    <template v-else-if="!maps.length">
+                        <v-row align="center" justify="center" class="flex-column my-6 mx-2">
+                            <v-img
+                                max-width="300"
+                                max-height="300"
+                                style="opacity: 0.92"
+                                :src="require('@/assets/images/no-data-icon.png')"
+                                contain
+                            />
+                            <div class="mb-4 headline font-weight-medium">У вас еще нет атласов</div>
+                        </v-row>
+                    </template>
+                    <!-- Maps empty after filtering -->
+                    <template v-else-if="!filteredMaps.length">
+                        <v-row align="center" justify="center" class="flex-column my-6 mx-2">
+                            <v-img
+                                max-width="400"
+                                max-height="300"
+                                :src="require('@/assets/images/no-data-filtered-icon.png')"
+                                contain
+                            />
+                            <div class="mb-4 headline font-weight-medium">Ничего не найдено</div>
+                        </v-row>
+                    </template>
+                    <!-- Maps -->
+                    <template v-else>
+                        <keep-alive>
+                            <!-- Table mode -->
+                            <template v-if="selectedViewMode === 'table'">
+                                <TableMaps :maps="filteredMaps"/>
+                            </template>
+                            <!-- List mode -->
+                            <template v-else>
+                                <ListMaps :maps="filteredMaps"/>
+                            </template>
+                        </keep-alive>
+                    </template>
+                </v-fab-transition>
             </v-container>
         </v-container>
 
@@ -193,7 +244,7 @@
     import ListMaps from "@/components/Library/ListMaps"
 
     export default {
-        name: "Constructor",
+        name: "Library",
         components: {
             CreateMapDialog,
             TableMaps,
@@ -209,31 +260,41 @@
                     {name: "Разработчик"},
                     {name: "Пользователь"}
                 ],
+                // Filters
+                search: "",
+                selectedSubjectIndex: 0,
                 // Other
                 selectedViewMode: localStorage.getItem("Library.selectedViewMode") !== null ? localStorage.getItem("Library.selectedViewMode") : "table",
                 showScrollUpBtn: false,
-                loadingMaps: false,
-                search: ""
+                loadingMaps: false
             }
         },
         computed: {
             ...mapState('maps', [
-                'maps'
+                'maps',
+                'subjects'
             ]),
             // Min grey height
             minHeight() {
                 const height = '100vh';
                 return `calc(${height} - ${this.$vuetify.application.top}px - ${this.$vuetify.application.footer}px)`
             },
-            // Search filter
-            filteredMaps: function () {
+            // Filter
+            filteredMaps() {
+                let filteredMaps = this.maps;
+                // search filter
                 if (this.search) {
-                    let name = this.search;
-                    return this.maps.filter(function (elem) {
-                        if (name === '') return true;
-                        else return elem.name.toLowerCase().indexOf(name.toLowerCase()) > -1;
+                    filteredMaps = this.maps.filter(el => {
+                        return el.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
                     })
-                } else return this.maps;
+                }
+                // subject filter
+                if (this.selectedSubjectIndex) {
+                    filteredMaps = filteredMaps.filter(el => {
+                        return el.subject === this.subjects[this.selectedSubjectIndex - 1].name;
+                    })
+                }
+                return filteredMaps;
             }
         },
         watch: {

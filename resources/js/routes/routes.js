@@ -10,6 +10,7 @@ export const routes = [
         meta: { middlewareAuth: true }
     },
     {
+        name: 'constructor',
         path: '/constructor/:id',
         component: () => import(/* webpackChunkName: 'constr' */ '@/pages/Constructor'),
         props: true,

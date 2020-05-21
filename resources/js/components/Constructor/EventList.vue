@@ -14,7 +14,7 @@
                           class="eventList">
             <!--            Сюда нельзя повесить события, поэтому используем див ниже-->
             <!--TODO: Настроить цвет событий при наведении и нажатии-->
-            <event-item v-for="(event, index) in events"
+            <EventItem v-for="(event, index) in events"
                         :index="index"
                         :key="event.id"
                         :class="['mainEventItem', {eventItemActive : event.id === config.selectedEventId}]">
@@ -31,7 +31,7 @@
 <!--                    >✖-->
 <!--                    </button>-->
                 </div>
-            </event-item>
+            </EventItem>
         </transition-group>
         <li @click="addEvent"
             class="mainEventItem addEventButton">
@@ -60,7 +60,10 @@
             }
         },
         computed: {
-            ...mapGetters(['config', 'events']),
+            ...mapGetters('map', [
+                'config',
+                'events'
+            ]),
             model_events: {
                 get() {
                     return this.events
@@ -71,13 +74,13 @@
             }
         },
         methods: {
-            ...mapMutations([
+            ...mapMutations('map', [
                 'SET_EVENTS',
                 'SET_SELECTED_EVENT_ID',
                 'DELETE_EVENT_BY_INDEX'
             ]),
             addEvent: function () {
-                this.$store.dispatch('addEvent');
+                this.$store.dispatch('map/addEvent');
             },
             selectEventById: function (id) {
                 this.SET_SELECTED_EVENT_ID(id);
@@ -88,7 +91,7 @@
             },
             // Хук срабатывающий после удаления и окончания анимации удаления события
             afterLeave: function () {
-                this.$store.dispatch("eventSelectionAfterDelete", this.deletedEventIndex);
+                this.$store.dispatch("map/eventSelectionAfterDelete", this.deletedEventIndex);
                 this.deletedEventIndex = null;
             },
             afterEnter: function () {
@@ -113,6 +116,7 @@
         width: 14%
         min-width: 160px
         max-width: 280px
+        height: 100%
         overflow-y: scroll
 
     .eventList

@@ -84,10 +84,10 @@
             },
         },
         computed: {
-            ...mapGetters([
+            ...mapGetters('map', [
                 'events',
                 'selectedEvent',
-                'indexSelectedEvent',
+                'indexSelectedEvent'
             ]),
             model_title: {
                 get() {
@@ -121,7 +121,7 @@
             },
         },
         methods: {
-            ...mapMutations([
+            ...mapMutations('map', [
                 "SET_EVENT_TITLE",
                 "SET_EVENT_DESCRIPTION",
                 "SET_EVENT_MEDIA_URL"

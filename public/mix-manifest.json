@@ -7,6 +7,7 @@
     "/library.js": "/library.js",
     "/page404.js": "/page404.js",
     "/vendors~AuthDialog.js": "/vendors~AuthDialog.js",
-    "/vendors~library.js": "/vendors~library.js",
+    "/vendors~constr.js": "/vendors~constr.js",
+    "/vendors~constr~library.js": "/vendors~constr~library.js",
     "/viewer.js": "/viewer.js"
 }

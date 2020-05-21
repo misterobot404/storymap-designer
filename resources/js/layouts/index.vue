@@ -3,7 +3,9 @@
         <NavigationDrawer/>
         <AppBar/>
         <Content/>
-        <Footer/>
+        <template v-if="$route.name !== 'constructor'">
+            <Footer/>
+        </template>
     </v-app>
 </template>
 
@@ -30,12 +32,12 @@
         color: inherit !important
         text-decoration: inherit !important
 
-    .v-card--reveal
-        align-items: center
-        bottom: 0
-        justify-content: center
-        opacity: .5
-        position: absolute
-        width: 100%
+        .v-card--reveal
+            align-items: center
+            bottom: 0
+            justify-content: center
+            opacity: .5
+            position: absolute
+            width: 100%
 
 </style>

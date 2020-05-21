@@ -48,7 +48,7 @@
                 <!-- Search -->
                 <v-text-field
                     flat
-                    solo-inverted
+                    solo
                     clearable
                     hide-details
                     prepend-inner-icon="search"
