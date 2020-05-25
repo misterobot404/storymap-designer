@@ -1,6 +1,7 @@
 <template>
-    <event-list id="eventList"
-                class="mainEventList"
+    <EventList id="eventList"
+                class="d-flex flex-column pr-2"
+                style="width: 227px; min-width: 160px; max-width: 50%; overflow-y: scroll; resize: horizontal; "
                 v-model="model_events"
                 lockAxis="y"
                 :transitionDuration=250
@@ -8,38 +9,33 @@
                 :lockToContainerEdges="true"
                 helperClass="eventItemDrag">
         <!--FIXME: При вставки события вниз текущего экрана, скрол автоматически поднимается. Фикс во Vue 2.7-->
-        <transition-group name="animatedEvents"
-                          @after-leave="afterLeave"
-                          @enter="afterEnter"
-                          class="eventList">
-            <!--            Сюда нельзя повесить события, поэтому используем див ниже-->
-            <!--TODO: Настроить цвет событий при наведении и нажатии-->
-            <EventItem v-for="(event, index) in events"
-                        :index="index"
-                        :key="event.id"
-                        :class="['mainEventItem', {eventItemActive : event.id === config.selectedEventId}]">
-                <div @mouseover="showButtonDeleteEvent = index"
-                     @mouseleave="showButtonDeleteEvent = null"
-                     @click="selectEventById(event.id)"
-                     class="eventItem">
-                    <div class="eventItemTitle">
-                        {{ event.title }}
-                    </div>
-                    <!--TODO: ПЕРЕДЕЛАТЬ кнопку удаления события-->
-<!--                    <button :class="[ 'deleteEventButton', {'deleteEventButtonHide' : showButtonDeleteEvent !== index}]"-->
-<!--                            @click.stop="deleteEventByIndex(index)"-->
-<!--                    >✖-->
-<!--                    </button>-->
+        <EventItem v-for="(event, index) in events"
+                   :index="index"
+                   :key="event.id"
+                   class="d-flex mb-2 mainEventItem"
+                   :class="[{eventItemActive : event.id === config.selectedEventId}]">
+            <div @mouseover="showButtonDeleteEvent = index"
+                 @mouseleave="showButtonDeleteEvent = null"
+                 @click="selectEventById(event.id)"
+                 class="eventItem">
+                <div class="eventItemTitle">
+                    {{ event.title }}
                 </div>
-            </EventItem>
-        </transition-group>
+                <!--TODO: ПЕРЕДЕЛАТЬ кнопку удаления события-->
+                <!--                    <button :class="[ 'deleteEventButton', {'deleteEventButtonHide' : showButtonDeleteEvent !== index}]"-->
+                <!--                            @click.stop="deleteEventByIndex(index)"-->
+                <!--                    >✖-->
+                <!--                    </button>-->
+            </div>
+        </EventItem>
         <li @click="addEvent"
             class="mainEventItem addEventButton">
-                <div id="addEventButtonPlus"
-                     @mouseover="plusRotate"
-                >+</div>
+            <div id="addEventButtonPlus"
+                 @mouseover="plusRotate"
+            >+
+            </div>
         </li>
-    </event-list>
+    </EventList>
 </template>
 
 <script>
@@ -102,23 +98,13 @@
             plusRotate: function () {
                 this.plusRotateValue += 180;
                 var plus = document.getElementById('addEventButtonPlus');
-                plus.style.transform = 'rotate('+ this.plusRotateValue +'deg)';
+                plus.style.transform = 'rotate(' + this.plusRotateValue + 'deg)';
             }
         }
     }
 </script>
 
 <style lang="sass" scoped>
-    .mainEventList
-        display: flex
-        flex-direction: column
-        align-items: center
-        width: 14%
-        min-width: 160px
-        max-width: 280px
-        height: 100%
-        overflow-y: scroll
-
     .eventList
         display: flex
         flex-direction: column
@@ -126,27 +112,24 @@
         width: 100%
 
     .mainEventItem
-        display: flex
-        align-items: center
-        box-sizing: border-box
         user-select: none
         cursor: pointer
         list-style: none
         font-size: 20px
-        justify-content: center
         height: 56px
-        margin-bottom: 14px
 
         /*убираем верхнее и нижнее поле, равное 1em
-        width: 90%
+        width: 100%
         border-radius: 5px
         background-color: #C4D8F0
         color: #111111
+        margin-right: 8px
 
         /*box-shadow: 0 1px 1px rgba(0,0,0,.25),
         /*inset 0 2px 0 rgba(255,255,255,.6),
         /*0 2px 0 rgba(0,0,0,.1),
         /*inset 0 0 20px rgba(0,0,0,.1);
+
 
         &:hover
             background-color: #41B883

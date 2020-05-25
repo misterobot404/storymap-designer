@@ -4,8 +4,24 @@ export default {
     namespaced: true,
     state: {
         map: {},
-        //// MAP CONFIG
+        //// CONFIG
         config: {
+            "selectedEventId": null,
+            "nextEventId": 1,
+            "tileCenter": {
+                "lat": 54,
+                "lng": 73
+            },
+            "tileUrl": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+            "tileAttribution": "&copy; <a href=\"https://knastu.ru/\">knastu</a>",
+            "minTileZoom": 3,
+            "maxTileZoom": 4,
+            "tileBounds": {"_southWest": {"lat": 47, "lng": -180}, "_northEast": {"lat": 85, "lng": 45}}
+        },
+        //// EVENTS
+        events: [],
+        //// TILE
+        tile: {
             "selectedEventId": 1,
             "nextEventId": 2,
             "tileCenter": {
@@ -18,8 +34,6 @@ export default {
             "maxTileZoom": 4,
             "tileBounds": {"_southWest": {"lat": 47, "lng": -180}, "_northEast": {"lat": 85, "lng": 45}}
         },
-        //// MAP EVENTS
-        events: [],
         animationProcessForRemovingEvent: false
     },
     getters: {
@@ -40,10 +54,14 @@ export default {
         arrayMarker: state => state.events.map(a => a.markerPosition)
     },
     actions: {
-        getMap: function ({commit}, mapId) {
+        getMap: function ({state, dispatch, commit }, mapId) {
             return axios.get('/api/maps/' + mapId)
                 .then(response => {
                     commit('SET_MAP', response.data.data.map);
+                    // Push start event, if array empty
+                    if (state.events.length === 0) {
+                        dispatch('addEvent');
+                    }
                 })
         },
         //// MAP EVENTS

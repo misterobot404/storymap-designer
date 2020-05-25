@@ -47,7 +47,7 @@
             class="flex d-flex py-0"
             :class="{'grey lighten-4': !$vuetify.theme.dark}"
         >
-            <v-container class="content-width d-flex flex-column">
+            <v-container class="pb-0 content-width d-flex flex-column">
                 <!-- Filter -->
                 <v-row
                     class="my-5 align-center"
@@ -71,17 +71,16 @@
                     <!-- Search -->
                     <v-text-field
                         v-model.trim="search"
-                        flat
                         dense
+                        single-line
                         rounded
+                        filled
                         clearable
-                        solo
                         hide-details
                         prepend-inner-icon="search"
-                        label="Поиск по атласам..."
-                        style="max-width: 400px"
+                        label="Поиск атласа..."
                         class="my-2 mx-1"
-
+                        style="max-width: 400px"
                     />
                     <!-- separation -->
                     <v-divider
@@ -100,7 +99,7 @@
                                 <template v-slot:activator="{ on: tooltip }">
                                     <v-btn
                                         v-on="{ ...tooltip, ...menu }"
-                                        style="text-transform: unset !important; opacity: 0.84 !important;"
+                                        style="text-transform: unset !important; opacity: 0.87"
                                         text
                                         class="mr-2"
                                     >
@@ -142,7 +141,7 @@
                                     v-on="on"
                                     text
                                 >
-                                    <v-icon>border_all</v-icon>
+                                    <v-icon style="opacity: 0.87">view_module</v-icon>
                                 </v-btn>
                             </template>
                             <span>Показать таблицей</span>
@@ -154,66 +153,58 @@
                                     v-on="on"
                                     text
                                 >
-                                    <v-icon>reorder</v-icon>
+                                    <v-icon style="opacity: 0.87">reorder</v-icon>
                                 </v-btn>
                             </template>
                             <span>Показать списком</span>
                         </v-tooltip>
                     </v-btn-toggle>
                 </v-row>
-                <v-fab-transition>
-                    <!-- Loading -->
-                    <template v-if="loadingMaps">
-                        <div
-                            class="justify-center align-center d-flex"
-                            style="flex:1"
-                        >
-                            <v-progress-circular
-                                indeterminate
-                                :size="50"
-                                color="primary"
-                            />
-                        </div>
-                    </template>
-                    <!-- Maps empty -->
-                    <template v-else-if="!maps.length">
-                        <v-row align="center" justify="center" class="flex-column my-6 mx-2">
-                            <v-img
-                                max-width="300"
-                                max-height="300"
-                                style="opacity: 0.92"
-                                :src="require('@/assets/images/no-data-icon.png')"
-                                contain
-                            />
-                            <div class="mb-4 headline font-weight-medium">У вас еще нет атласов</div>
-                        </v-row>
-                    </template>
-                    <!-- Maps empty after filtering -->
-                    <template v-else-if="!filteredMaps.length">
-                        <v-row align="center" justify="center" class="flex-column my-6 mx-2">
-                            <v-img
-                                max-width="400"
-                                max-height="300"
-                                :src="require('@/assets/images/no-data-filtered-icon.png')"
-                                contain
-                            />
-                            <div class="mb-4 headline font-weight-medium">Ничего не найдено</div>
-                        </v-row>
-                    </template>
-                    <!-- Maps -->
-                    <template v-else>
-                        <keep-alive>
-                            <!-- Table mode -->
-                            <template v-if="selectedViewMode === 'table'">
-                                <TableMaps :maps="filteredMaps"/>
-                            </template>
-                            <!-- List mode -->
-                            <template v-else>
-                                <ListMaps :maps="filteredMaps"/>
-                            </template>
-                        </keep-alive>
-                    </template>
-                </v-fab-transition>
+                <!-- Loading -->
+                <template v-if="loadingMaps">
+                    <div
+                        class="justify-center align-center d-flex"
+                        style="flex:1"
+                    >
+                        <v-progress-circular
+                            indeterminate
+                            :size="64"
+                            color="primary"
+                        />
+                    </div>
+                </template>
+                <!-- Maps empty -->
+                <template v-else-if="!maps.length">
+                    <v-row align="center" justify="center" class="flex-column my-6 mx-2">
+                        <v-img
+                            max-width="300"
+                            max-height="300"
+                            style="opacity: 0.92"
+                            :src="require('@/assets/images/no-data-icon.png')"
+                            contain
+                        />
+                        <div class="mb-4 headline font-weight-medium">У вас еще нет атласов</div>
+                    </v-row>
+                </template>
+                <!-- Maps empty after filtering -->
+                <template v-else-if="!filteredMaps.length">
+                    <v-row align="center" justify="center" class="flex-column my-6 mx-2">
+                        <v-img
+                            max-width="400"
+                            max-height="300"
+                            :src="require('@/assets/images/no-data-filtered-icon.png')"
+                            contain
+                        />
+                        <div class="mb-4 headline font-weight-medium">Ничего не найдено</div>
+                    </v-row>
+                </template>
+                <!-- Maps -->
+                <template v-else>
+                    <!-- Table / List mode -->
+                    <keep-alive>
+                        <component :is="selectedViewMode === 'table' ? 'GridMaps' : 'ListMaps'" :maps="filteredMaps"/>
+                    </keep-alive>
+                </template>
             </v-container>
         </v-container>
 
@@ -222,13 +213,13 @@
             <v-btn
                 v-scroll="onScroll"
                 v-show="showScrollUpBtn"
-                x-large
                 fab
                 dark
                 fixed
                 bottom
                 right
                 color="primary"
+                style="bottom: 100px; right: 24px"
                 @click="$vuetify.goTo(0)"
             >
                 <v-icon>keyboard_arrow_up</v-icon>
@@ -240,14 +231,14 @@
 <script>
     import {mapState, mapActions} from "vuex"
     import CreateMapDialog from "@/components/Library/CreateMapDialog"
-    import TableMaps from "@/components/Library/TableMaps"
+    import GridMaps from "@/components/Library/GridMaps"
     import ListMaps from "@/components/Library/ListMaps"
 
     export default {
         name: "Library",
         components: {
             CreateMapDialog,
-            TableMaps,
+            GridMaps,
             ListMaps
         },
         data() {

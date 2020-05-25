@@ -2,30 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="0.5 library complete">
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/no-data-filtered-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/store/modules/map.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/Constructor/ControlPanel.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/Constructor/ControlPanelHelp.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/Constructor/ControlPanelSettings.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/Library/GridMaps.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.phpstorm.meta.php" beforeDir="false" afterPath="$PROJECT_DIR$/.phpstorm.meta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_18_115530_create_maps_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_12_18_115530_create_maps_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/ControlPanel.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/Main.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/MainEventList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/EventList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/MainForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/EventForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/MainMap.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/Map.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/Preset.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Library/TableMaps.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Library/TableMaps.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Auth/Authorization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Auth/Authorization.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Auth/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Auth/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Auth/Registration.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Auth/Registration.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/EventForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/EventForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/EventList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/EventList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/Map.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/Map.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Core/UserPanel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Core/UserPanel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Library/CreateMapDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Library/CreateMapDialog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Library/ListMaps.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Library/ListMaps.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Library/TableMaps.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/layouts/AppBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/AppBar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layouts/Footer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/Footer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layouts/NavigationDrawer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/NavigationDrawer.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/layouts/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/pages/Constructor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Constructor.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/pages/Library.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Library.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/maps.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/maps.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/map.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,8 +59,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package.json" />
-        <option value="Vue Single File Component" />
         <option value="JavaScript File" />
+        <option value="Vue Single File Component" />
       </list>
     </option>
   </component>
@@ -238,7 +240,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="com.sasslint.settings.SassLintSettingsPage" />
     <property name="settings.editor.splitter.proportion" value="0.21588595" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2019.1.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
@@ -251,11 +253,11 @@
       <recent name="C:\Users\misterobor\Source\MapDesigner\resources\js\layouts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Constructor" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\store\modules" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Auth" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Layouts" />
-      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\pages" />
     </key>
   </component>
   <component name="RunManager" selected="npm.watch-poll">
@@ -428,7 +430,19 @@
       <workItem from="1589952720851" duration="6115000" />
       <workItem from="1589974454359" duration="4685000" />
       <workItem from="1590016808192" duration="613000" />
-      <workItem from="1590019635617" duration="4002000" />
+      <workItem from="1590019635617" duration="11795000" />
+      <workItem from="1590033981006" duration="6050000" />
+      <workItem from="1590041691247" duration="9262000" />
+      <workItem from="1590060755285" duration="217000" />
+      <workItem from="1590112962070" duration="5533000" />
+      <workItem from="1590129378694" duration="5773000" />
+      <workItem from="1590189410706" duration="2593000" />
+      <workItem from="1590212630715" duration="5462000" />
+      <workItem from="1590242756412" duration="600000" />
+      <workItem from="1590279199209" duration="9354000" />
+      <workItem from="1590297503026" duration="1520000" />
+      <workItem from="1590303651425" duration="9641000" />
+      <workItem from="1590375808186" duration="4591000" />
     </task>
     <task id="LOCAL-00001" summary="0.6">
       <created>1562133005697</created>
@@ -619,7 +633,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589726500463</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="0.5 library complete">
+      <created>1590025455182</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1590025455182</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -686,6 +707,10 @@
     </state>
     <state x="591" y="15" key="#Inspections/0.0.1366.738@0.0.1366.738" timestamp="1588294745434" />
     <state x="907" y="169" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1582963131731" />
+    <state x="570" y="205" key="#Notifications" timestamp="1590025499226">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="570" y="205" key="#Notifications/0.0.1366.738@0.0.1366.738" timestamp="1590025499226" />
     <state x="489" y="224" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585217150059">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -709,10 +734,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="491" y="196" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.738@0.0.1366.738" timestamp="1586754206898" />
-    <state x="81" y="0" width="1078" height="738" key="CommitChangelistDialog2" timestamp="1590024302354">
+    <state x="81" y="0" width="1078" height="738" key="CommitChangelistDialog2" timestamp="1590032190249">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="81" y="0" width="1078" height="738" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1590024302354" />
+    <state x="81" y="0" width="1078" height="738" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1590032190249" />
     <state x="562" y="53" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581688652584" />
     <state x="92" y="92" width="1182" height="554" key="DiffContextDialog" timestamp="1585645103550">
       <screen x="0" y="0" width="1366" height="738" />
@@ -731,15 +756,15 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="562" y="6" key="RollbackChangesDialog/0.0.1366.738@0.0.1366.738" timestamp="1585300618954" />
-    <state x="311" y="28" key="SettingsEditor" timestamp="1587188330324">
+    <state x="311" y="28" key="SettingsEditor" timestamp="1590033748063">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="311" y="28" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1587188330324" />
+    <state x="311" y="28" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1590033748063" />
     <state x="593" y="166" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1583548933106" />
-    <state x="275" y="102" key="Vcs.Push.Dialog.v2" timestamp="1588227451677">
+    <state x="275" y="102" key="Vcs.Push.Dialog.v2" timestamp="1590025504547">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="102" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1588227451677" />
+    <state x="275" y="102" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1590025504547" />
     <state x="475" y="246" key="com.intellij.ide.util.TipDialog" timestamp="1587000700635">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -759,10 +784,10 @@
     </state>
     <state x="438" y="170" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1588238581205" />
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583230837998" />
-    <state x="443" y="160" width="672" height="482" key="search.everywhere.popup" timestamp="1587188274945">
+    <state x="443" y="160" width="672" height="482" key="search.everywhere.popup" timestamp="1590033687652">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="443" y="160" width="672" height="482" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1587188274945" />
+    <state x="443" y="160" width="672" height="482" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1590033687652" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583197023193" />
   </component>
 </project>

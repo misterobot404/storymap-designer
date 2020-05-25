@@ -70,7 +70,7 @@
         </v-list-item>
         <!-- Copyright -->
         <template v-slot:append>
-            <v-footer>
+            <v-footer :color="$vuetify.theme.dark ? '' : 'white'">
                 <v-col
                     class="text-center"
                     cols="12">

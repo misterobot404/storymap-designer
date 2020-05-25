@@ -25,6 +25,7 @@ class CreateMapsTable extends Migration
             $table->string('subject')->nullable();
             $table->text('description');
 
+            $table->json ('config')->nullable();
             $table->jsonb ('tile')->default('{
                 "url":"https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png",
                 "center": {"lat":-85,"lng":-170},
@@ -37,6 +38,7 @@ class CreateMapsTable extends Migration
                 }
             }');
             $table->json ('events')->nullable();
+
             $table->timestamps();
         });
     }

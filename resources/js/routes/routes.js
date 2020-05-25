@@ -5,6 +5,7 @@ export const routes = [
         component: () => import(/* webpackChunkName: 'home' */ '@/pages/Home')
     },
     {
+        name: 'library',
         path: '/library',
         component: () => import(/* webpackChunkName: 'library' */ '@/pages/Library'),
         meta: { middlewareAuth: true }

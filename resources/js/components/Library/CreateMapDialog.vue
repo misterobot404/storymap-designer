@@ -13,19 +13,37 @@
                 <v-icon class="mr-1">add</v-icon>
                 Создать атлас
             </v-btn>
+            <!-- Floating button -->
+            <v-fab-transition>
+                <v-btn
+                    v-scroll="onScroll"
+                    v-show="showFloatingBtnCreate"
+                    x-large
+                    fab
+                    dark
+                    fixed
+                    bottom
+                    right
+                    color="primary"
+                    v-on="on"
+                >
+                    <v-icon>add</v-icon>
+                </v-btn>
+            </v-fab-transition>
         </template>
         <!-- Dialog -->
         <v-card>
             <!-- Header -->
             <v-toolbar
-                color="primary"
+                color="blue"
                 dark
                 flat
-                class="pl-6 pr-7 mb-2 title"
-                style="opacity: 0.87"
+                class="pr-1"
             >
-                <v-icon class="mr-2">map</v-icon>
-                Создание атласа
+                <v-toolbar-title>
+                    <v-icon large class="mr-1">map</v-icon>
+                    Создание атласа
+                </v-toolbar-title>
                 <v-spacer/>
                 <v-btn
                     icon
@@ -37,7 +55,7 @@
             <!-- Body -->
             <v-card-text class="pb-0">
                 <v-form ref="form">
-                    <v-container>
+                    <v-container class="pb-0">
                         <v-row>
                             <v-col cols="12">
                                 <v-text-field
@@ -124,7 +142,8 @@
                 name: "",
                 description: "",
                 subject: "",
-                folders: []
+                folders: [],
+                showFloatingBtnCreate: false,
             }
         },
         computed: {
@@ -159,7 +178,13 @@
                 let subjectNames = [];
                 this.subjects.forEach(el => subjectNames.push(el.name));
                 return subjectNames;
-            }
+            },
+            // showScrollUpBtn
+            onScroll(e) {
+                if (typeof window === 'undefined') return
+                const top = window.pageYOffset || e.target.scrollTop || 0
+                this.showFloatingBtnCreate = top > 20
+            },
         }
     }
 </script>

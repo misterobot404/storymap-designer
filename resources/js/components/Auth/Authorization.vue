@@ -37,12 +37,17 @@
                 </v-row>
             </v-form>
         </v-card-text>
-        <v-card-actions class="px-6 pb-6 justify-center">
+        <v-card-actions class="pb-6 justify-center">
             <v-btn color="primary"
-                   class="px-6"
+                   outlined
+                   large
+                   class="pr-6 pl-5"
                    :loading="authProcess"
                    :disabled="!valid || !filled"
-                   @click="auth()">Войти
+                   @click="auth()"
+            >
+                <v-icon class="mr-1">exit_to_app</v-icon>
+                Войти
             </v-btn>
         </v-card-actions>
     </div>

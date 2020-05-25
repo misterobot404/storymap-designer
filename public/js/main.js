@@ -2153,6 +2153,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AppBar",
@@ -2224,6 +2229,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -4205,7 +4211,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".link-text-simple {\n  color: inherit !important;\n  text-decoration: inherit !important;\n}\n.link-text-simple .v-card--reveal {\n  align-items: center;\n  bottom: 0;\n  justify-content: center;\n  opacity: 0.5;\n  position: absolute;\n  width: 100%;\n}", ""]);
+exports.push([module.i, ".v-card--reveal {\n  align-items: center;\n  bottom: 0;\n  justify-content: center;\n  opacity: 0.5;\n  position: absolute;\n  width: 100%;\n}\n.link-text-simple {\n  color: inherit !important;\n  text-decoration: inherit !important;\n}", ""]);
 
 // exports
 
@@ -5416,16 +5422,18 @@ var render = function() {
               _vm._v(" "),
               _c("v-text-field", {
                 class: [
-                  "mx-6",
+                  "mx-4",
                   _vm.isAuth ? "hidden-lg-and-down" : "hidden-md-and-down"
                 ],
                 attrs: {
-                  flat: "",
-                  solo: "",
+                  dense: "",
+                  "single-line": "",
+                  rounded: "",
+                  filled: "",
                   clearable: "",
                   "hide-details": "",
                   "prepend-inner-icon": "search",
-                  label: "Search"
+                  label: "Поиск пользователей и атласов..."
                 }
               }),
               _vm._v(" "),
@@ -5627,7 +5635,15 @@ var render = function() {
     "v-footer",
     {
       staticStyle: { "min-width": "320px !important" },
-      attrs: { app: "", absolute: "" }
+      attrs: {
+        app: "",
+        absolute: "",
+        color: _vm.$vuetify.theme.dark
+          ? ""
+          : _vm.$route.name !== "library"
+          ? "white"
+          : "grey lighten-4"
+      }
     },
     [
       _c(
@@ -5682,6 +5698,7 @@ var render = function() {
             return [
               _c(
                 "v-footer",
+                { attrs: { color: _vm.$vuetify.theme.dark ? "" : "white" } },
                 [
                   _c(
                     "v-col",
@@ -5866,13 +5883,17 @@ var render = function() {
     [
       _c("NavigationDrawer"),
       _vm._v(" "),
-      _c("AppBar"),
+      _c(
+        "v-expand-transition",
+        [_vm.$route.name !== "constructor" ? _c("AppBar") : _vm._e()],
+        1
+      ),
       _vm._v(" "),
       _c("Content"),
       _vm._v(" "),
-      _vm.$route.name !== "constructor" ? [_c("Footer")] : _vm._e()
+      _vm.$route.name !== "constructor" ? _c("Footer") : _vm._e()
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -63298,6 +63319,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VApp */ "./node_modules/vuetify/lib/components/VApp/index.js");
+/* harmony import */ var vuetify_lib_components_transitions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/transitions */ "./node_modules/vuetify/lib/components/transitions/index.js");
 
 
 
@@ -63320,7 +63342,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 /* vuetify-loader */
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VExpandTransition: vuetify_lib_components_transitions__WEBPACK_IMPORTED_MODULE_6__["VExpandTransition"]})
 
 
 /* hot reload */
@@ -63530,6 +63553,7 @@ var routes = [{
     return __webpack_require__.e(/*! import() | home */ "home").then(__webpack_require__.bind(null, /*! @/pages/Home */ "./resources/js/pages/Home.vue"));
   }
 }, {
+  name: 'library',
   path: '/library',
   component: function component() {
     return Promise.all(/*! import() | library */[__webpack_require__.e("vendors~constr~library"), __webpack_require__.e("library")]).then(__webpack_require__.bind(null, /*! @/pages/Library */ "./resources/js/pages/Library.vue"));
@@ -63767,8 +63791,33 @@ __webpack_require__.r(__webpack_exports__);
   namespaced: true,
   state: {
     map: {},
-    //// MAP CONFIG
+    //// CONFIG
     config: {
+      "selectedEventId": null,
+      "nextEventId": 1,
+      "tileCenter": {
+        "lat": 54,
+        "lng": 73
+      },
+      "tileUrl": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+      "tileAttribution": "&copy; <a href=\"https://knastu.ru/\">knastu</a>",
+      "minTileZoom": 3,
+      "maxTileZoom": 4,
+      "tileBounds": {
+        "_southWest": {
+          "lat": 47,
+          "lng": -180
+        },
+        "_northEast": {
+          "lat": 85,
+          "lng": 45
+        }
+      }
+    },
+    //// EVENTS
+    events: [],
+    //// TILE
+    tile: {
       "selectedEventId": 1,
       "nextEventId": 2,
       "tileCenter": {
@@ -63790,8 +63839,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     },
-    //// MAP EVENTS
-    events: [],
     animationProcessForRemovingEvent: false
   },
   getters: {
@@ -63827,9 +63874,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   actions: {
     getMap: function getMap(_ref, mapId) {
-      var commit = _ref.commit;
+      var state = _ref.state,
+          dispatch = _ref.dispatch,
+          commit = _ref.commit;
       return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/maps/' + mapId).then(function (response) {
-        commit('SET_MAP', response.data.data.map);
+        commit('SET_MAP', response.data.data.map); // Push start event, if array empty
+
+        if (state.events.length === 0) {
+          dispatch('addEvent');
+        }
       });
     },
     //// MAP EVENTS

@@ -2,13 +2,10 @@
     <v-dialog v-model="dialog" max-width="420px">
         <template v-slot:activator="{ on }">
             <v-btn
-                class="ml-4"
-                large
-                outlined
-                color="primary"
+                class="ml-4 px-5"
                 v-on="on"
             >
-                <v-icon class="mr-1">account_circle</v-icon>
+                <v-icon class="mr-1">exit_to_app</v-icon>
                 Войти
             </v-btn>
         </template>

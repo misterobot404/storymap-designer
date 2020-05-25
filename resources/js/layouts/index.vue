@@ -1,11 +1,11 @@
 <template>
     <v-app>
         <NavigationDrawer/>
-        <AppBar/>
+        <v-expand-transition>
+            <AppBar v-if="$route.name !== 'constructor'"/>
+        </v-expand-transition>
         <Content/>
-        <template v-if="$route.name !== 'constructor'">
-            <Footer/>
-        </template>
+        <Footer v-if="$route.name !== 'constructor'"/>
     </v-app>
 </template>
 
@@ -26,18 +26,17 @@
     }
 </script>
 
+<!-- GLOBAL SCC STYLE -->
 <style lang="sass">
+    .v-card--reveal
+        align-items: center
+        bottom: 0
+        justify-content: center
+        opacity: .5
+        position: absolute
+        width: 100%
 
     .link-text-simple
         color: inherit !important
         text-decoration: inherit !important
-
-        .v-card--reveal
-            align-items: center
-            bottom: 0
-            justify-content: center
-            opacity: .5
-            position: absolute
-            width: 100%
-
 </style>

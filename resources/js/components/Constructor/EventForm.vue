@@ -1,5 +1,8 @@
 <template>
-        <div class="form">
+        <div
+            class="form"
+            style="width: 100%"
+        >
             <div class="formLeft">
                 <template v-if="indexSelectedEvent !== -1">
                     <input v-model.lazy="model_title"

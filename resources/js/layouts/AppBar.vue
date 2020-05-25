@@ -1,5 +1,8 @@
 <template>
-    <v-app-bar app style="min-width: 320px !important;">
+    <v-app-bar
+        app
+        style="min-width: 320px !important;"
+    >
         <v-container>
             <v-row align="center">
                 <!-- Page loading process -->
@@ -47,13 +50,15 @@
                 <v-spacer :class="[isAuth ? 'hidden-xl-only' : 'hidden-lg-and-up']"/>
                 <!-- Search -->
                 <v-text-field
-                    flat
-                    solo
+                    dense
+                    single-line
+                    rounded
+                    filled
                     clearable
                     hide-details
                     prepend-inner-icon="search"
-                    label="Search"
-                    :class="['mx-6', isAuth ? 'hidden-lg-and-down' : 'hidden-md-and-down']"
+                    label="Поиск пользователей и атласов..."
+                    :class="['mx-4', isAuth ? 'hidden-lg-and-down' : 'hidden-md-and-down']"
                 />
                 <!-- User panel -->
                 <template v-if="isAuth">

@@ -2,6 +2,7 @@
     <v-footer app
               style="min-width: 320px !important;"
               absolute
+              :color="$vuetify.theme.dark ? '' : $route.name !== 'library' ? 'white' : 'grey lighten-4'"
     >
         <v-col
             class="text-center"

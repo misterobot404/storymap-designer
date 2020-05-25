@@ -6,22 +6,18 @@
         <template v-slot:activator="{ on }">
             <v-btn
                 v-on="on"
-                large
+                x-large
                 :loading="logoutProcess"
-                text
+                icon
             >
-                <v-icon>person</v-icon>
-                <span class="ml-1 hidden-lg-only text-none">
-                    {{username}}
-                </span>
-                <v-icon class="hidden-lg-and-down">arrow_drop_down</v-icon>
+                <v-icon x-large>account_circle</v-icon>
             </v-btn>
         </template>
 
         <v-list>
             <v-list-item two-line to="/user">
-                <v-list-item-action>
-                    <v-icon>account_box</v-icon>
+                <v-list-item-action class="mr-5">
+                    <v-icon large>account_circle</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
                     <v-list-item-title class="subtitle-1">{{username}}</v-list-item-title>
