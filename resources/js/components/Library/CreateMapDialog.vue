@@ -39,10 +39,8 @@
                 flat
                 class="pr-1"
             >
-                <v-toolbar-title>
-                    <v-icon large class="mr-1">map</v-icon>
-                    Создание атласа
-                </v-toolbar-title>
+                <v-icon large class="mr-1">map</v-icon>
+                <v-toolbar-title> Создание атласа </v-toolbar-title>
                 <v-spacer/>
                 <v-btn
                     icon
