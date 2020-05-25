@@ -35,8 +35,7 @@
         <v-card>
             <!-- Header -->
             <v-toolbar
-                color="blue"
-                dark
+                height="68"
                 flat
                 class="pr-1"
             >
@@ -52,6 +51,7 @@
                     <v-icon>close</v-icon>
                 </v-btn>
             </v-toolbar>
+            <v-divider/>
             <!-- Body -->
             <v-card-text class="pb-0">
                 <v-form ref="form">

@@ -40,8 +40,7 @@
         <v-card-actions class="pb-6 justify-center">
             <v-btn color="primary"
                    outlined
-                   large
-                   class="pr-6 pl-5"
+                   class="px-5"
                    :loading="authProcess"
                    :disabled="!valid || !filled"
                    @click="auth()"

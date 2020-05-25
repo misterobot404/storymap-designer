@@ -1,33 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="0.5 library complete">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Constructor/ControlPanel.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Constructor/ControlPanelHelp.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Constructor/ControlPanelSettings.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Library/GridMaps.vue" afterDir="false" />
+    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODO.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_18_115530_create_maps_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_12_18_115530_create_maps_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Auth/Authorization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Auth/Authorization.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Auth/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Auth/Index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Auth/Registration.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Auth/Registration.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/EventForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/EventForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/EventList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/EventList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/Map.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/Map.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Core/UserPanel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Core/UserPanel.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Library/CreateMapDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Library/CreateMapDialog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Library/ListMaps.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Library/ListMaps.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Library/TableMaps.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layouts/AppBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/AppBar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layouts/Footer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/Footer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layouts/NavigationDrawer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/NavigationDrawer.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layouts/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/Constructor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Constructor.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/pages/Library.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Library.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/map.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -442,7 +422,7 @@
       <workItem from="1590279199209" duration="9354000" />
       <workItem from="1590297503026" duration="1520000" />
       <workItem from="1590303651425" duration="9641000" />
-      <workItem from="1590375808186" duration="4591000" />
+      <workItem from="1590375808186" duration="6989000" />
     </task>
     <task id="LOCAL-00001" summary="0.6">
       <created>1562133005697</created>
@@ -640,7 +620,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590025455182</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="0.5 library complete">
+      <created>1590386839487</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1590386839487</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -734,11 +721,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="491" y="196" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.738@0.0.1366.738" timestamp="1586754206898" />
-    <state x="81" y="0" width="1078" height="738" key="CommitChangelistDialog2" timestamp="1590032190249">
+    <state x="81" y="0" width="1078" height="738" key="CommitChangelistDialog2" timestamp="1590386833604">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="81" y="0" width="1078" height="738" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1590032190249" />
-    <state x="562" y="53" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581688652584" />
+    <state x="81" y="0" width="1078" height="738" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1590386833604" />
     <state x="92" y="92" width="1182" height="554" key="DiffContextDialog" timestamp="1585645103550">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

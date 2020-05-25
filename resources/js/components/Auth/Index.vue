@@ -1,8 +1,13 @@
 <template xmlns:v-slot="http://www.w3.org/1999/xlink">
-    <v-dialog v-model="dialog" max-width="420px">
+    <v-dialog
+        v-model="dialog"
+        max-width="420px"
+    >
         <template v-slot:activator="{ on }">
             <v-btn
                 class="ml-4 px-5"
+                color="primary"
+                outlined
                 v-on="on"
             >
                 <v-icon class="mr-1">exit_to_app</v-icon>

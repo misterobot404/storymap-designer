@@ -55,8 +55,7 @@
         <v-card-actions class="px-6 pb-6 justify-center">
             <v-btn color="primary"
                    outlined
-                   large
-                   class="px-6"
+                   class="px-5"
                    :loading="registrationProcess"
                    :disabled="!valid || !filled || nameLoading || nameInputSuccessful || emailLoading || emailInputSuccessful"
                    @click="registration()">Зарегистироваться

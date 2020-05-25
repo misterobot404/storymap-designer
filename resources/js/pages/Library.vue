@@ -144,7 +144,7 @@
                                     <v-icon style="opacity: 0.87">view_module</v-icon>
                                 </v-btn>
                             </template>
-                            <span>Показать таблицей</span>
+                            <span>Показать плитками</span>
                         </v-tooltip>
                         <v-tooltip top open-delay="200">
                             <template v-slot:activator="{ on }">
