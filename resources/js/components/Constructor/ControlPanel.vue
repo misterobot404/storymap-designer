@@ -1,21 +1,38 @@
 <template>
-    <div class="d-flex mb-3">
+    <div class="d-flex">
         <v-btn
             to="/library"
             height="40"
-            depressed
             class="mr-2"
         >
-            <v-icon class="mr-1"> arrow_back_ios </v-icon>
+            <v-icon class="mr-1" color="primary"> arrow_back_ios </v-icon>
             Моя библиотека
         </v-btn>
         <v-btn
             height="40"
             class="mx-2"
-            depressed
+            :loading="procSave"
+            :class="[{'primary--text': procSave}]"
+            @click="save()"
         >
-            <v-icon class="mr-1" style="opacity: 0.77"> save </v-icon>
+            <v-icon
+                :style="wasChanges ? '' : 'opacity: 0.76'"
+                class="mr-1"
+                :class="{'primary--text': wasChanges}"
+            >
+                save
+            </v-icon>
             Сохранить
+        </v-btn>
+        <v-btn
+            height="40"
+            class="mx-2"
+            @click="recoveryMap()"
+        >
+            <v-icon class="mr-1" style="opacity: 0.76">
+                restore
+            </v-icon>
+            Восстановить
         </v-btn>
         <Settings/>
         <Help/>
@@ -33,15 +50,15 @@
         <v-btn
             height="40"
             class="ml-2"
-            depressed
         >
-            <v-icon class="mr-1" style="opacity: 0.77">pageview</v-icon>
+            <v-icon color="primary" class="mr-1">pageview</v-icon>
             Предпросмотр
         </v-btn>
     </div>
 </template>
 
 <script>
+    import {mapGetters, mapActions} from 'vuex'
     import Settings from "@/components/Constructor/ControlPanelSettings"
     import Help from "@/components/Constructor/ControlPanelHelp"
 
@@ -56,9 +73,22 @@
                 procSave: false,
             }
         },
+        computed: {
+          ...mapGetters('map',[
+              'wasChanges'
+          ])
+        },
+        methods: {
+            ...mapActions('map', [
+                'saveMap',
+                'recoveryMap'
+            ]),
+            save() {
+                this.procSave = true;
+                this.saveMap().finally(() => {
+                    this.procSave = false;
+                })
+            }
+        }
     }
 </script>
-
-<style scoped>
-
-</style>

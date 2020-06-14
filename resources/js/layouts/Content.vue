@@ -1,9 +1,12 @@
 <template>
-    <v-content style="min-width: 320px !important;">
-        <keep-alive>
+    <v-main style="min-width: 320px !important;">
+        <!-- Max: maximum number of component instances to cache -->
+        <!-- Exclude: remove component from cached -->
+        <keep-alive exclude="Constructor">
+            <!-- cached by key -->
             <router-view/>
         </keep-alive>
-    </v-content>
+    </v-main>
 </template>
 
 <script>

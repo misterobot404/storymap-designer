@@ -4,10 +4,9 @@
             <v-btn
                 height="40"
                 class="mx-2"
-                depressed
                 v-on="on"
             >
-                <v-icon class="mr-1" style="opacity: 0.77"> settings </v-icon>
+                <v-icon class="mr-1" style="opacity: 0.76"> settings </v-icon>
                 Настройки
             </v-btn>
         </template>
@@ -19,12 +18,19 @@
                 <v-toolbar-title>Настройки</v-toolbar-title>
             </v-toolbar>
             <v-list three-line subheader>
-                <v-subheader>User Controls</v-subheader>
+                <v-subheader>Настройки интерфейса</v-subheader>
                 <v-list-item>
-                    <v-list-item-content>
-                        <v-list-item-title>Content filtering</v-list-item-title>
-                        <v-list-item-subtitle>Set the content filtering level to restrict apps that can be downloaded</v-list-item-subtitle>
-                    </v-list-item-content>
+                    <v-list-item>
+                        <v-list-item-action>
+                            <v-switch :input-value="this.$vuetify.theme.dark"
+                                      prepend-icon="nights_stay"
+                                      @change="CHANGE_THEME()"
+                            />
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Тёмная тема</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
                 </v-list-item>
                 <v-list-item>
                     <v-list-item-content>
@@ -69,6 +75,7 @@
 </template>
 
 <script>
+    import {mapMutations} from 'vuex'
     export default {
         name: "Settings",
         data () {
@@ -79,5 +86,10 @@
                 widgets: false,
             }
         },
+        methods: {
+            ...mapMutations('layout', [
+                'CHANGE_THEME',
+            ])
+        }
     }
 </script>

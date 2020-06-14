@@ -78,6 +78,9 @@ class MapController extends Controller
             ], 403);
         }
 
+        unset($map->user_id);
+        unset($map->created_at);
+        unset($map->updated_at);
         return response()->json([
             "status" => "success",
             "data" => ["map" => $map]
@@ -109,17 +112,21 @@ class MapController extends Controller
             ], 403);
         }
 
-        $inputMap = json_decode(request('map'), true);
-        $map->name = $inputMap['name'];
-        $map->description = $inputMap['description'];
-        $map->tile = $inputMap['tile'];
-        $map->events = $inputMap['events'];
+        $map->name = request('name');
+        $map->subject = request('subject');
+        $map->description = request('description');
+        $map->config = request('config');
+        $map->tile = request('tile');
+        $map->events = request('events');
         $map->save();
 
+        unset($map->user_id);
+        unset($map->created_at);
+        unset($map->updated_at);
         return response()->json([
             "status" => "success",
             "data" => [
-                "map" => Map::find($id)
+                "map" => $map
             ]
         ], 200);
     }

@@ -51,8 +51,8 @@
             </v-list-item>
             <v-list-item>
                 <v-switch :input-value="this.$vuetify.theme.dark"
+                          @change="CHANGE_THEME()"
                           prepend-icon="nights_stay"
-                          @change="setTheme"
                           label="Dark theme"/>
             </v-list-item>
             <v-divider/>
@@ -70,7 +70,7 @@
 
 <script>
     import store from '@/store'
-    import {mapState} from "vuex"
+    import {mapMutations, mapState} from "vuex"
 
     export default {
         name: "Logout",
@@ -87,6 +87,9 @@
             )
         },
         methods: {
+            ...mapMutations('layout', [
+                'CHANGE_THEME',
+            ]),
             logout: function () {
                 this.logoutProcess = true;
 
@@ -96,11 +99,6 @@
                         this.logoutProcess = false;
                     })
             },
-            setTheme() {
-                this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-                // Save theme
-                window.localStorage.setItem('darkTheme', this.$vuetify.theme.dark);
-            }
         }
     }
 </script>

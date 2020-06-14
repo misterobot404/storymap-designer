@@ -1,46 +1,47 @@
 <template>
-<!--    :minZoom="config.minTileZoom"-->
-<!--    :maxZoom="config.maxTileZoom"-->
-<!--    :maxBounds="config.tileBounds"-->
-<!--    :center="config.tileCenter" -->
-        <l-map class="map"
-               style="z-index: 0;"
-               ref="map"
-               :zoom="mapZoom"
-               :maxBoundsViscosity="maxBoundsViscosity"
-               @click="latLngClickUpdatePosition"
-               @update:zoom="zoomUpdated"
-               @update:center="centerUpdated">
-            <l-tile-layer :url="config.tileUrl"
-                          :noWrap="false"
-                          :attribution="config.tileAttribution"/>
-            <l-marker v-for="(marker, index) in events"
-                      :key="marker.id"
-                      :lat-lng="marker.markerPosition"
-                      :draggable="indexSelectedEvent === index"
-                      @click="activateMarker(marker)"
-                      @update:latLng="latLngDragUpdatePosition">
-                <l-tooltip>
-                    {{marker.title}}
-                </l-tooltip>
-                <l-icon v-if="indexSelectedEvent !== index"
-                        :icon-size="iconSize"
-                        :icon-url="iconUrl">
-                </l-icon>
-                <l-icon v-else
-                        :icon-size="iconSizeActive"
-                        :icon-url="iconUrl">
-                </l-icon>
-            </l-marker>
-            <l-polyline :lat-lngs="arrayMarker"
-                        :opacity="polylineOpacity"
-                        :dashArray="polylineDashArray"
-                        :weight="polylineWeight"/>
-        </l-map>
+    <!--    :minZoom="config.minTileZoom"-->
+    <!--    :maxZoom="config.maxTileZoom"-->
+    <!--    :maxBounds="config.tileBounds"-->
+    <!--    :center="config.tileCenter" -->
+    <l-map class="map"
+           style="z-index: 0;"
+           ref="map"
+           :zoom="mapZoom"
+           :maxBoundsViscosity="maxBoundsViscosity"
+           @click="latLngClickUpdatePosition"
+           @update:zoom="zoomUpdated"
+           @update:center="centerUpdated"
+    >
+        <l-tile-layer :url="tile.url"
+                      :noWrap="false"
+                      :attribution="tile.attribution"/>
+        <l-marker v-for="(marker, index) in events"
+                  :key="marker.id"
+                  :lat-lng="marker.markerPosition"
+                  :draggable="indexSelectedEvent === index"
+                  @click="activateMarker(marker)"
+                  @update:latLng="latLngDragUpdatePosition">
+            <l-tooltip>
+                {{marker.title}}
+            </l-tooltip>
+            <l-icon v-if="indexSelectedEvent !== index"
+                    :icon-size="iconSize"
+                    :icon-url="iconUrl">
+            </l-icon>
+            <l-icon v-else
+                    :icon-size="iconSizeActive"
+                    :icon-url="iconUrl">
+            </l-icon>
+        </l-marker>
+        <l-polyline :lat-lngs="arrayMarker"
+                    :opacity="polylineOpacity"
+                    :dashArray="polylineDashArray"
+                    :weight="polylineWeight"/>
+    </l-map>
 </template>
 
 <script>
-    import {mapMutations,mapGetters} from 'vuex'
+    import {mapState, mapGetters, mapMutations} from 'vuex'
     import {LMap, LTileLayer, LMarker, LTooltip, LIcon, LPolyline} from 'vue2-leaflet'
     import {Icon} from 'leaflet'
     import 'leaflet/dist/leaflet.css'
@@ -55,7 +56,7 @@
 
     // TODO: Добавить определение карёв карты
     export default {
-        name: "ConstructorMap",
+        name: "Map",
         components: {
             LMap,
             LTileLayer,
@@ -75,19 +76,23 @@
                 polylineWeight: 2,
                 iconUrl: "https://image.flaticon.com/icons/svg/148/148828.svg",
                 iconSize: [32, 38],
-                iconSizeActive: [48, 46]
+                iconSizeActive: [48, 46],
             }
         },
         watch: {
-            'selectedEvent.markerPosition': function (val){
-                if (val !== undefined)
-                {
+            'selectedEvent.markerPosition': function (val) {
+                if (val !== undefined) {
                     this.$refs.map.mapObject.setView(val);
                     //this.$refs.map.mapObject.flyTo(val);
                 }
+            },
+            'indexSelectedEvent'() {
+                if (this.events.length === 1) {
+                    setTimeout(() => this.$refs.map.mapObject.invalidateSize(), 800);
+                }
             }
         },
-        mounted: function () {
+        mounted() {
             // const image = 'tile';
             // const width = 3320;
             // const height = 2197;
@@ -120,22 +125,25 @@
             // this.centerUpdated(new L.latLng(centerLat, centerLon));
         },
         computed: {
-            ...mapGetters('map',[
-                'config',
-                'events',
+            ...mapState('map', [
+                'tile',
+                'events'
+            ]),
+            ...mapGetters('map', [
                 'selectedEvent',
                 'indexSelectedEvent',
                 'arrayMarker'
-            ])
+            ]),
         },
         methods: {
-            ...mapMutations('map',[
+            ...mapMutations('map', [
                 "SET_TILE_CENTER",
                 "SET_SELECTED_EVENT_ID",
                 "SET_EVENT_MARKER_POSITION",
                 "SET_TILE_BOUNDS",
                 "SET_MIN_TILE_ZOOM",
-                "SET_MAX_TILE_ZOOM"
+                "SET_MAX_TILE_ZOOM",
+                "SET_REF_MAP_OBJECT"
             ]),
             zoomUpdated: function (zoom) {
                 this.mapZoom = zoom;

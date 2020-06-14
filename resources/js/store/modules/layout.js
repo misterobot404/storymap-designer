@@ -1,3 +1,5 @@
+import Vuetify from '@/plugins/vuetify'
+
 export default {
     namespaced: true,
 
@@ -30,14 +32,21 @@ export default {
         pageLoading: false,
     },
     mutations: {
-        ENABLE_PAGE_LOADING: state => {
+        ENABLE_PAGE_LOADING(state) {
             state.pageLoading = true;
         },
-        DISABLE_PAGE_LOADING: state => {
+        DISABLE_PAGE_LOADING(state) {
             state.pageLoading = false;
         },
 
-        SET_DRAWER: (state, payload) => (state.drawer = payload)
+        CHANGE_THEME() {
+            Vuetify.framework.theme.dark = !Vuetify.framework.theme.dark;
+            // Save theme
+            window.localStorage.setItem('darkTheme', Vuetify.framework.theme.dark);
+        },
+        SET_DRAWER(state, payload) {
+            state.drawer = payload
+        }
     }
 }
 

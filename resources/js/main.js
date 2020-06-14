@@ -3,9 +3,16 @@ import Vue from 'vue'
 import router from '@/routes'
 import store from '@/store'
 
-// plugins
+// import plugins
 import vuetify from "@/plugins/vuetify"
 import "@/plugins/axios"
+// import html editor
+import { TiptapVuetifyPlugin } from 'tiptap-vuetify'
+import 'tiptap-vuetify/dist/main.css'
+Vue.use(TiptapVuetifyPlugin, {
+    vuetify,
+    iconsGroup: 'md'
+})
 
 import AppLayout from '@/layouts'
 

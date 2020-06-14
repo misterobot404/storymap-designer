@@ -25,20 +25,9 @@ class CreateMapsTable extends Migration
             $table->string('subject')->nullable();
             $table->text('description');
 
-            $table->json ('config')->nullable();
-            $table->jsonb ('tile')->default('{
-                "url":"https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png",
-                "center": {"lat":-85,"lng":-170},
-                "attribution": "&copy; <a href=\"https://knastu.ru/\">knastu</a>",
-                "minZoom": 3,
-                "maxZoom": 4,
-                "bounds": {
-                    "_southWest": {"lat": 47, "lng": -180},
-                    "_northEast": {"lat": 85, "lng": 45}
-                }
-            }');
-            $table->json ('events')->nullable();
-
+            $table->jsonb('config')->default('{"selectedEventId":1,"eventListWidth":"227"}');
+            $table->jsonb('tile')->default('{"url":"https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png","attribution":"&copy; <a href=\"https://knastu.ru/\">knastu</a>","minZoom":3,"maxZoom":4,"bounds":{"_southWest":{"lat":47,"lng":-180},"_northEast":{"lat":85,"lng":45}}}');
+            $table->json('events')->default('[{"id":1,"markerPosition":{"lat":54,"lng":73},"title":"Стартовое событие","description":"","mediaUrl":""}]');
             $table->timestamps();
         });
     }

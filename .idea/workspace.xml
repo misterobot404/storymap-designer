@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="">
+    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="0.5 library complete">
+      <change afterPath="$PROJECT_DIR$/resources/js/assets/gif/help_part_1.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/misterobot.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/misterobot.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.phpstorm.meta.php" beforeDir="false" afterPath="$PROJECT_DIR$/.phpstorm.meta.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/MapController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/MapController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_18_115530_create_maps_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_12_18_115530_create_maps_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/ControlPanel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/ControlPanel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/ControlPanelHelp.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/ControlPanelHelp.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/ControlPanelSettings.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/ControlPanelSettings.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/EventForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/EventForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/EventList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/EventList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Constructor/Map.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Constructor/Map.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Core/UserPanel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Core/UserPanel.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Library/CreateMapDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Library/CreateMapDialog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layouts/Content.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/Content.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/Constructor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Constructor.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/layout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/map.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,8 +59,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package.json" />
-        <option value="JavaScript File" />
         <option value="Vue Single File Component" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -179,6 +203,7 @@
       <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
       <path value="$PROJECT_DIR$/vendor/nyholm/psr7" />
       <path value="$PROJECT_DIR$/vendor/php-http/message-factory" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
     </include_path>
   </component>
   <component name="ProjectId" id="1QHap8KhCf93o6huoltaU2hkC1H" />
@@ -221,19 +246,19 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2019.1.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\store\modules" />
-      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components" />
-      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Home" />
-      <recent name="C:\Users\misterobot\Source\MapDesigner\app\Http\Controllers" />
-      <recent name="C:\Users\misterobor\Source\MapDesigner\resources\js\layouts" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Constructor" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\store\modules" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Auth" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Layouts" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\store\modules" />
+      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components" />
+      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Home" />
+      <recent name="C:\Users\misterobot\Source\MapDesigner\app\Http\Controllers" />
+      <recent name="C:\Users\misterobor\Source\MapDesigner\resources\js\layouts" />
     </key>
   </component>
   <component name="RunManager" selected="npm.watch-poll">
@@ -419,7 +444,50 @@
       <workItem from="1590297503026" duration="1520000" />
       <workItem from="1590303651425" duration="9641000" />
       <workItem from="1590375808186" duration="7227000" />
-      <workItem from="1590393248351" duration="690000" />
+      <workItem from="1590393248351" duration="2564000" />
+      <workItem from="1590451073496" duration="6026000" />
+      <workItem from="1590462821534" duration="5860000" />
+      <workItem from="1590475166134" duration="2058000" />
+      <workItem from="1590479973391" duration="7291000" />
+      <workItem from="1590532255259" duration="1766000" />
+      <workItem from="1590558918403" duration="2747000" />
+      <workItem from="1590661535999" duration="12000" />
+      <workItem from="1590996381461" duration="49000" />
+      <workItem from="1590996467897" duration="8581000" />
+      <workItem from="1591079917313" duration="7457000" />
+      <workItem from="1591149264505" duration="4243000" />
+      <workItem from="1591173815951" duration="682000" />
+      <workItem from="1591249325250" duration="8930000" />
+      <workItem from="1591316707847" duration="20000" />
+      <workItem from="1591316782974" duration="8177000" />
+      <workItem from="1591345740985" duration="1190000" />
+      <workItem from="1591359715500" duration="2285000" />
+      <workItem from="1591418396279" duration="1246000" />
+      <workItem from="1591419855758" duration="3952000" />
+      <workItem from="1591488120623" duration="10543000" />
+      <workItem from="1591513368715" duration="108000" />
+      <workItem from="1591520268648" duration="8348000" />
+      <workItem from="1591572251874" duration="5158000" />
+      <workItem from="1591581709086" duration="21967000" />
+      <workItem from="1591613553771" duration="593000" />
+      <workItem from="1591623993032" duration="56000" />
+      <workItem from="1591656905961" duration="6642000" />
+      <workItem from="1591674895066" duration="2209000" />
+      <workItem from="1591685656625" duration="9801000" />
+      <workItem from="1591744349775" duration="1487000" />
+      <workItem from="1591748834788" duration="10078000" />
+      <workItem from="1591769939294" duration="14410000" />
+      <workItem from="1591831270514" duration="592000" />
+      <workItem from="1591835039874" duration="20042000" />
+      <workItem from="1591872690402" duration="2902000" />
+      <workItem from="1591882894529" duration="3041000" />
+      <workItem from="1591948619889" duration="594000" />
+      <workItem from="1591951926240" duration="5005000" />
+      <workItem from="1592003820005" duration="3007000" />
+      <workItem from="1592019934114" duration="29000" />
+      <workItem from="1592022427643" duration="22363000" />
+      <workItem from="1592086370788" duration="597000" />
+      <workItem from="1592099421518" duration="35685000" />
     </task>
     <task id="LOCAL-00001" summary="0.6">
       <created>1562133005697</created>
@@ -631,7 +699,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590389488948</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="0.5 library complete">
+      <created>1590394175064</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1590394175064</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -697,7 +772,6 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="591" y="15" key="#Inspections/0.0.1366.738@0.0.1366.738" timestamp="1588294745434" />
-    <state x="907" y="169" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1582963131731" />
     <state x="570" y="205" key="#Notifications" timestamp="1590025499226">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -710,25 +784,22 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="493" y="255" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1366.738@0.0.1366.738" timestamp="1587007439207" />
-    <state x="693" y="359" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583469758570" />
     <state x="455" y="177" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1587000752574">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="455" y="177" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.738@0.0.1366.738" timestamp="1587000752574" />
-    <state x="640" y="250" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583469781109" />
     <state x="491" y="189" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1587013550099">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="491" y="189" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.738@0.0.1366.738" timestamp="1587013550099" />
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583196974501" />
     <state x="491" y="196" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1586754206898">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="491" y="196" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.738@0.0.1366.738" timestamp="1586754206898" />
-    <state x="81" y="0" width="1078" height="738" key="CommitChangelistDialog2" timestamp="1590389487713">
+    <state x="81" y="0" width="1078" height="738" key="CommitChangelistDialog2" timestamp="1592128687784">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="81" y="0" width="1078" height="738" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1590389487713" />
+    <state x="81" y="0" width="1078" height="738" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1592128687784" />
     <state x="92" y="92" width="1182" height="554" key="DiffContextDialog" timestamp="1585645103550">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -737,7 +808,6 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="526" y="194" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1587007437912" />
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1583469755100" />
     <state x="566" y="315" key="NewPhpFileDialog" timestamp="1586161976489">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -751,33 +821,26 @@
     </state>
     <state x="311" y="28" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1590033748063" />
     <state x="593" y="166" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1583548933106" />
-    <state x="275" y="102" key="Vcs.Push.Dialog.v2" timestamp="1590025504547">
+    <state x="275" y="102" key="Vcs.Push.Dialog.v2" timestamp="1590394183477">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="102" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1590025504547" />
+    <state x="275" y="102" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1590394183477" />
     <state x="475" y="246" key="com.intellij.ide.util.TipDialog" timestamp="1587000700635">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="475" y="246" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1587000700635" />
     <state x="667" y="347" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583543761950" />
-    <state x="747" y="210" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1581843749934">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="747" y="210" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1581843749934" />
     <state x="349" y="37" width="555" height="637" key="find.popup" timestamp="1587188269957">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="349" y="37" width="555" height="637" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1587188269957" />
-    <state x="581" y="71" width="757" height="897" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1582114049523" />
     <state x="438" y="170" key="run.anything.popup" timestamp="1588238581205">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="438" y="170" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1588238581205" />
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583230837998" />
-    <state x="443" y="160" width="672" height="482" key="search.everywhere.popup" timestamp="1590033687652">
+    <state x="443" y="160" width="672" height="482" key="search.everywhere.popup" timestamp="1591591092113">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="443" y="160" width="672" height="482" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1590033687652" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1583197023193" />
+    <state x="443" y="160" width="672" height="482" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1591591092113" />
   </component>
 </project>

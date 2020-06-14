@@ -14,17 +14,21 @@
                 :size="128"
             />
         </v-overlay>
-
         <!-- Control panel -->
         <ControlPanel/>
+        <!-- Horizontal line -->
+        <v-divider
+            class="my-3"
+            style="border-style: dashed;"
+        />
         <!-- Constructor -->
         <div class="d-flex flex overflow-hidden">
             <!-- Event list -->
             <EventList/>
             <!-- Map + Event form -->
             <div
-                class="content d-flex flex-column align-center"
-                style="flex:1"
+                class="d-flex flex-column"
+                style="flex:1; min-width: 200px; padding-left: 12px;"
             >
                 <!-- Map -->
                 <Map/>
@@ -36,7 +40,7 @@
 </template>
 
 <script>
-    import {mapActions} from "vuex"
+    import {mapGetters,mapActions} from "vuex"
     import ControlPanel from "@/components/Constructor/ControlPanel"
     import EventList from "@/components/Constructor/EventList"
     import EventForm from "@/components/Constructor/EventForm"
@@ -56,28 +60,37 @@
                 loadingMap: false,
             }
         },
-        computed: {},
+        computed: {
+            ...mapGetters('map',[
+                'wasChanges'
+            ])
+        },
         methods: {
             ...mapActions('map', [
                 'getMap'
             ]),
+            // beforeunload
+            preventNav(event) {
+                if (!this.wasChanges) return;
+                event.preventDefault();
+                // Chrome requires returnValue to be set.
+                event.returnValue = "";
+            }
         },
-        // Load maps
         async beforeMount() {
+            // Method called before closing. Check changes map
+            window.addEventListener("beforeunload", this.preventNav);
+            // get map
             this.loadingMap = true;
             await this.getMap(this.id)
                 .finally(() => {
                     this.loadingMap = false;
                 })
-        }
+        },
+        beforeDestroy() {
+            // remove events from window
+            window.removeEventListener("beforeunload", this.preventNav);
+        },
     }
 </script>
-
-<style lang="sass" scoped>
-    .content
-        width: 96%
-        min-width: 200px
-        margin: 0 auto
-        padding-left: 10px
-</style>
 
