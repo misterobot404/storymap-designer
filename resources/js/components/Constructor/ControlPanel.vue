@@ -1,14 +1,25 @@
 <template>
     <div class="d-flex">
         <v-btn
-            to="/library"
+                v-if="!mapIsExample"
+                to="/library"
+                height="40"
+                class="mr-2"
+            >
+                <v-icon class="mr-1" color="primary"> arrow_back_ios</v-icon>
+                Моя библиотека
+            </v-btn>
+        <v-btn
+            v-if="mapIsExample"
+            to="/"
             height="40"
-            class="mr-2"
+            class="mr-2 primary--text"
         >
-            <v-icon class="mr-1" color="primary"> arrow_back_ios </v-icon>
-            Моя библиотека
+            <v-icon class="mr-1"> arrow_back_ios</v-icon>
+            Назад
         </v-btn>
         <v-btn
+            v-if="!mapIsExample"
             height="40"
             class="mx-2"
             :loading="procSave"
@@ -44,12 +55,13 @@
             clearable
             hide-details
             prepend-inner-icon="search"
-            label="Поиск событий..."
+            label="Поиск события..."
             class="mx-4"
         />
         <v-btn
             height="40"
             class="ml-2"
+            @click="mapIsExample ? $router.push({ path: `/viewer/example/${id}` }) : $router.push({ path: `/viewer/${id}` })"
         >
             <v-icon color="primary" class="mr-1">pageview</v-icon>
             Предпросмотр
@@ -58,7 +70,7 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex'
+    import {mapGetters, mapActions, mapState} from 'vuex'
     import Settings from "@/components/Constructor/ControlPanelSettings"
     import Help from "@/components/Constructor/ControlPanelHelp"
 
@@ -74,9 +86,13 @@
             }
         },
         computed: {
-          ...mapGetters('map',[
-              'wasChanges'
-          ])
+            ...mapGetters('map', [
+                'wasChanges'
+            ]),
+            ...mapState('map', ['id']),
+            mapIsExample() {
+                return this.$route.name === "constructor-example"
+            }
         },
         methods: {
             ...mapActions('map', [

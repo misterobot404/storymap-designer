@@ -9,6 +9,13 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -166,14 +173,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
-  computed: {
-    minHeight: function minHeight() {
-      var height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh';
-      return "calc(".concat(height, " - ").concat(this.$vuetify.application.top, "px)");
-    }
-  },
   data: function data() {
     return {
       features: [{
@@ -191,24 +199,22 @@ __webpack_require__.r(__webpack_exports__);
         subtitle: 'Удобное использование',
         text: 'Эл. атлас можно встраивать на любые веб-ресурсы, информационные стенды и т.д. Созданным эл. атласом можно поделиться с любым пользователем сервиса.',
         callout: '03'
-      }],
-      examples: [{
-        img: __webpack_require__(/*! @/assets/images/examples/human.png */ "./resources/js/assets/images/examples/human.png"),
-        title: 'Организм человека',
-        subtitle: 'Обучение',
-        text: 'Внутреннее строение организма человека с моделями всех основных органов. За объект был взят макет, никто из людей не пострадал.'
-      }, {
-        img: __webpack_require__(/*! @/assets/images/examples/dv.jpg */ "./resources/js/assets/images/examples/dv.jpg"),
-        title: 'Парки и заповедники Дальнего Востока',
-        subtitle: 'Туризм',
-        text: 'Карта путешественника. Описание коллекций и особенностей парков для животных.'
-      }, {
-        img: __webpack_require__(/*! @/assets/images/examples/alch.jpg */ "./resources/js/assets/images/examples/alch.jpg"),
-        title: 'Таблица Менделеева',
-        subtitle: 'Обучение',
-        text: 'Классическая таблица химических элементов, описывающая свойства элементов и демонстрирующая модели.'
       }]
     };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('maps', ['examples']), {
+    minHeight: function minHeight() {
+      var height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh';
+      return "calc(".concat(height, " - ").concat(this.$vuetify.application.top, "px)");
+    }
+  }),
+  methods: {
+    goToFutures: function goToFutures() {
+      var slide = this.$refs.futures; // Определение расстояния от начала страницы до нужного элемента
+
+      var top = window.scrollY + slide.getBoundingClientRect().y;
+      this.$vuetify.goTo(top);
+    }
   }
 });
 
@@ -301,17 +307,23 @@ var render = function() {
                     },
                     [
                       _c(
-                        "button",
+                        "v-btn",
                         {
-                          staticClass:
-                            "font-weight-bold v-btn v-btn--depressed v-btn--tile theme--dark v-size--x-large primary",
+                          staticClass: "font-weight-bold",
                           staticStyle: { "min-width": "164px" },
-                          attrs: { type: "button" }
+                          attrs: {
+                            color: "blue",
+                            "x-large": "",
+                            dark: "",
+                            tile: "",
+                            depressed: ""
+                          },
+                          on: { click: _vm.goToFutures }
                         },
                         [
-                          _c("span", { staticClass: "v-btn__content" }, [
-                            _vm._v(" Узнать больше ")
-                          ])
+                          _vm._v(
+                            "\n                        Узнать больше\n                    "
+                          )
                         ]
                       ),
                       _vm._v(" "),
@@ -323,7 +335,14 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "v-btn",
-                        { attrs: { color: "primary", large: "", text: "" } },
+                        {
+                          attrs: {
+                            color: "blue",
+                            large: "",
+                            text: "",
+                            to: "/constructor/example"
+                          }
+                        },
                         [
                           _vm._v(
                             "\n                        Попробовать сейчас\n                    "
@@ -344,7 +363,11 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "text-center", staticStyle: { "padding-top": "96px" } },
+        {
+          ref: "futures",
+          staticClass: "text-center",
+          staticStyle: { "padding-top": "96px" }
+        },
         [
           _c(
             "h1",
@@ -536,6 +559,13 @@ var render = function() {
                                           : "360",
                                         raised: "",
                                         height: "100%"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.$router.push({
+                                            path: "/viewer/example/" + card.id
+                                          })
+                                        }
                                       }
                                     },
                                     [
@@ -580,7 +610,7 @@ var render = function() {
                                                 "line-height": "1.8rem"
                                               }
                                             },
-                                            [_vm._v(" " + _vm._s(card.title))]
+                                            [_vm._v(" " + _vm._s(card.name))]
                                           ),
                                           _vm._v(" "),
                                           _c("v-card-subtitle", [
@@ -588,7 +618,9 @@ var render = function() {
                                           ]),
                                           _vm._v(" "),
                                           _c("v-card-text", [
-                                            _vm._v(" " + _vm._s(card.text))
+                                            _vm._v(
+                                              " " + _vm._s(card.description)
+                                            )
                                           ])
                                         ],
                                         1
@@ -624,39 +656,6 @@ var staticRenderFns = []
 render._withStripped = true
 
 
-
-/***/ }),
-
-/***/ "./resources/js/assets/images/examples/alch.jpg":
-/*!******************************************************!*\
-  !*** ./resources/js/assets/images/examples/alch.jpg ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/alch.jpg?16c0a3cb3cab11c0334a7015cd6d2c24";
-
-/***/ }),
-
-/***/ "./resources/js/assets/images/examples/dv.jpg":
-/*!****************************************************!*\
-  !*** ./resources/js/assets/images/examples/dv.jpg ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/dv.jpg?abe1f35ca8491b8d1ffdb31e3b316612";
-
-/***/ }),
-
-/***/ "./resources/js/assets/images/examples/human.png":
-/*!*******************************************************!*\
-  !*** ./resources/js/assets/images/examples/human.png ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/human.png?306c6b10056795e75fe933c9a5f401cd";
 
 /***/ }),
 

@@ -2,10 +2,10 @@
     <v-app>
         <NavigationDrawer/>
         <v-expand-transition>
-            <AppBar v-if="$route.name !== 'constructor'"/>
+            <AppBar v-if="hideEl"/>
         </v-expand-transition>
         <Content/>
-        <Footer v-if="$route.name !== 'constructor'"/>
+        <Footer v-if="hideEl"/>
     </v-app>
 </template>
 
@@ -22,6 +22,11 @@
             Content,
             NavigationDrawer,
             Footer
+        },
+        computed: {
+            hideEl() {
+                return this.$route.name !== 'constructor' && this.$route.name !== 'constructor-example' && this.$route.name !== 'viewer' && this.$route.name !== 'viewer-example'
+            }
         }
     }
 </script>

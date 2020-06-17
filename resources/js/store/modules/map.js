@@ -10,7 +10,7 @@ export default {
         description: "",
         config: {eventListWidth: 227}, // {selectedEventId, eventListWidth}
         tile: {}, // {attribution, bounds, maxZoom, minZoom, url}
-        events: [], // [{title, description, id, markerPosition, mediaUrl}]
+        events: [], // [{title, description, id, marker {position, url, height }, mediaUrl}]
         //// OTHER. Computed data.
         // To detect changes to the current map.
         oldMap: null,
@@ -30,7 +30,7 @@ export default {
         getEventIdByIndex: state => index => {
             return state.events[index].id;
         },
-        arrayMarker: state => state.events.map(a => a.markerPosition),
+        arrayMarker: state => state.events.map(a => a.marker.position),
         // Detect changes map
         wasChanges(state) {
             // data not get
@@ -50,7 +50,7 @@ export default {
         }
     },
     actions: {
-        getMap: function ({state, dispatch, commit}, mapId) {
+        getMap({state, dispatch, commit}, mapId) {
             // Clear previous map
             commit('CLEAR_STATE');
             // Send request
@@ -61,7 +61,19 @@ export default {
                     commit('SET_NEXT_EVENT_ID');
                 })
         },
-        saveMap: function ({state, commit}) {
+        setEmptyExampleMap({state, commit, rootState}) {
+            let map = rootState.maps.editableExample;
+            commit('SET_MAP', map);
+            commit('SET_OLD_MAP', map);
+            commit('SET_NEXT_EVENT_ID');
+        },
+        setExampleMap({state, commit, rootState}, mapId) {
+            let map = rootState.maps.examples[mapId - 1];
+            commit('SET_MAP', map);
+            commit('SET_OLD_MAP', map);
+            commit('SET_NEXT_EVENT_ID');
+        },
+        saveMap({state, commit}) {
             // Save current width event list
             commit('SET_EVENT_LIST_WIDTH');
             // Send request
@@ -151,7 +163,7 @@ export default {
             state.subject = state.oldMap.subject;
             state.description = state.oldMap.description;
             // Copy object. Not reference
-            Object.assign(state.tile,state.oldMap.tile);
+            Object.assign(state.tile, state.oldMap.tile);
             // Copy array of object. Not references.
             state.events = state.oldMap.events.map(a => Object.assign({}, a));
         },
@@ -169,17 +181,21 @@ export default {
         PUSH_EMPTY_EVENT: (state) => {
             state.events.push({
                 id: state.nextEventId,
-                markerPosition: state.tileCenter,
                 title: "Событие " + (state.events.length + 1),
                 description: "",
-                mediaUrl: ""
+                mediaUrl: "",
+                marker: {
+                    position: state.tileCenter,
+                    url: "https://image.flaticon.com/icons/svg/148/148828.svg",
+                    size: [32, 38]
+                },
             });
         },
         DELETE_EVENT_BY_INDEX: (state, index) => {
             state.events.splice(index, 1);
         },
         SET_EVENT_MARKER_POSITION: (state, payload) => {
-            state.events[payload.index].markerPosition = payload.position
+            state.events[payload.index].marker.position = payload.position
         },
         SET_EVENT_TITLE: (state, payload) => {
             state.events[payload.index].title = payload.title
@@ -189,6 +205,10 @@ export default {
         },
         SET_EVENT_MEDIA_URL: (state, payload) => {
             state.events[payload.index].mediaUrl = payload.mediaUrl
+        },
+        SET_EVENT_ICON_URL: (state, payload) => {
+            state.events[payload.id].marker.url = payload.iconUrl;
+            state.events[payload.id].marker.size = payload.size;
         },
         //// Config
         ITERATION_ID: (state) => {

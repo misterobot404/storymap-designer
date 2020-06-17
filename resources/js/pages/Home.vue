@@ -33,23 +33,29 @@
                         :class="$vuetify.breakpoint.smAndDown ? 'flex-column align-start' : 'align-center'"
                         class="d-flex flex-wrap"
                     >
-                        <button type="button"
-                                class="font-weight-bold v-btn v-btn--depressed v-btn--tile theme--dark v-size--x-large primary"
-                                style="min-width: 164px;"
+                        <v-btn
+                            color="blue"
+                            x-large
+                            dark
+                            tile
+                            depressed
+                            @click="goToFutures"
+                            class="font-weight-bold"
+                            style="min-width: 164px;"
                         >
-                            <span class="v-btn__content"> Узнать больше </span>
-                        </button>
+                            Узнать больше
+                        </v-btn>
                         <span class="font-weight-bold ml-6 mr-2 my-4"> или </span>
-                        <v-btn color="primary" large text>
+                        <v-btn color="blue" large text to="/constructor/example">
                             Попробовать сейчас
                         </v-btn>
                     </div>
                 </v-responsive>
             </v-container>
         </v-img>
-
         <!-- features -->
         <div
+            ref="futures"
             class="text-center"
             style="padding-top: 96px"
         >
@@ -95,7 +101,6 @@
                 </v-row>
             </v-container>
         </div>
-
         <!-- example -->
         <div
             class="text-center"
@@ -129,6 +134,7 @@
                                 height="100%"
                                 class="mx-auto"
                                 style="cursor: pointer"
+                                @click="$router.push({ path: `/viewer/example/${card.id}` })"
                             >
                                 <v-img :src="card.img">
                                     <v-expand-transition>
@@ -142,9 +148,9 @@
                                     </v-expand-transition>
                                 </v-img>
                                 <div style="text-align: start;">
-                                    <v-card-title style="word-break: keep-all; line-height: 1.8rem;"> {{card.title}}</v-card-title>
+                                    <v-card-title style="word-break: keep-all; line-height: 1.8rem;"> {{card.name}}</v-card-title>
                                     <v-card-subtitle> {{card.subtitle}}</v-card-subtitle>
-                                    <v-card-text> {{ card.text }}</v-card-text>
+                                    <v-card-text> {{ card.description }}</v-card-text>
                                 </div>
                             </v-card>
                         </v-hover>
@@ -156,15 +162,10 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex'
+
     export default {
         name: "Home",
-        computed: {
-            minHeight() {
-                const height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh'
-
-                return `calc(${height} - ${this.$vuetify.application.top}px)`
-            },
-        },
         data() {
             return {
                 features: [
@@ -187,26 +188,24 @@
                         callout: '03',
                     }
                 ],
-                examples: [
-                    {
-                        img: require('@/assets/images/examples/human.png'),
-                        title: 'Организм человека',
-                        subtitle: 'Обучение',
-                        text: 'Внутреннее строение организма человека с моделями всех основных органов. За объект был взят макет, никто из людей не пострадал.'
-                    },
-                    {
-                        img: require('@/assets/images/examples/dv.jpg'),
-                        title: 'Парки и заповедники Дальнего Востока',
-                        subtitle: 'Туризм',
-                        text: 'Карта путешественника. Описание коллекций и особенностей парков для животных.'
-                    },
-                    {
-                        img: require('@/assets/images/examples/alch.jpg'),
-                        title: 'Таблица Менделеева',
-                        subtitle: 'Обучение',
-                        text: 'Классическая таблица химических элементов, описывающая свойства элементов и демонстрирующая модели.'
-                    }
-                ]
+            }
+        },
+        computed: {
+            ...mapState('maps',[
+                'examples'
+            ]),
+            minHeight() {
+                const height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh'
+
+                return `calc(${height} - ${this.$vuetify.application.top}px)`
+            },
+        },
+        methods: {
+            goToFutures() {
+                let slide = this.$refs.futures;
+                // Определение расстояния от начала страницы до нужного элемента
+                let top = window.scrollY + slide.getBoundingClientRect().y;
+                this.$vuetify.goTo(top);
             }
         }
     }

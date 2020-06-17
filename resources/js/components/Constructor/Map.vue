@@ -15,22 +15,22 @@
         <l-tile-layer :url="tile.url"
                       :noWrap="false"
                       :attribution="tile.attribution"/>
-        <l-marker v-for="(marker, index) in events"
-                  :key="marker.id"
-                  :lat-lng="marker.markerPosition"
+        <l-marker v-for="(event, index) in events"
+                  :key="event.id"
+                  :lat-lng="event.marker.position"
                   :draggable="indexSelectedEvent === index"
-                  @click="activateMarker(marker)"
+                  @click="SET_SELECTED_EVENT_ID(event.id)"
                   @update:latLng="latLngDragUpdatePosition">
             <l-tooltip>
-                {{marker.title}}
+                {{event.title}}
             </l-tooltip>
             <l-icon v-if="indexSelectedEvent !== index"
-                    :icon-size="iconSize"
-                    :icon-url="iconUrl">
+                    :icon-size="event.marker.size"
+                    :icon-url="events[index].marker.url">
             </l-icon>
             <l-icon v-else
-                    :icon-size="iconSizeActive"
-                    :icon-url="iconUrl">
+                    :icon-size="[event.marker.size[0]*1.5, event.marker.size[1]*1.5]"
+                    :icon-url="events[index].marker.url">
             </l-icon>
         </l-marker>
         <l-polyline :lat-lngs="arrayMarker"
@@ -43,16 +43,7 @@
 <script>
     import {mapState, mapGetters, mapMutations} from 'vuex'
     import {LMap, LTileLayer, LMarker, LTooltip, LIcon, LPolyline} from 'vue2-leaflet'
-    import {Icon} from 'leaflet'
     import 'leaflet/dist/leaflet.css'
-    // this part resolve an issue where the markers would not appear
-    delete Icon.Default.prototype._getIconUrl;
-
-    Icon.Default.mergeOptions({
-        iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-        iconUrl: require('leaflet/dist/images/marker-icon.png'),
-        shadowUrl: require('leaflet/dist/images/marker-shadow.png')
-    });
 
     // TODO: Добавить определение карёв карты
     export default {
@@ -73,14 +64,11 @@
                 //// l-polyline config
                 polylineOpacity: 0.6,
                 polylineDashArray: "6",
-                polylineWeight: 2,
-                iconUrl: "https://image.flaticon.com/icons/svg/148/148828.svg",
-                iconSize: [32, 38],
-                iconSizeActive: [48, 46],
+                polylineWeight: 2
             }
         },
         watch: {
-            'selectedEvent.markerPosition': function (val) {
+            'selectedEvent.marker.position': function (val) {
                 if (val !== undefined) {
                     this.$refs.map.mapObject.setView(val);
                     //this.$refs.map.mapObject.flyTo(val);
@@ -88,7 +76,7 @@
             },
             'indexSelectedEvent'() {
                 if (this.events.length === 1) {
-                    setTimeout(() => this.$refs.map.mapObject.invalidateSize(), 800);
+                    setTimeout(() => this.$refs.map.mapObject.invalidateSize(), 1000);
                 }
             }
         },
@@ -133,7 +121,7 @@
                 'selectedEvent',
                 'indexSelectedEvent',
                 'arrayMarker'
-            ]),
+            ])
         },
         methods: {
             ...mapMutations('map', [
@@ -163,9 +151,6 @@
                     this.SET_EVENT_MARKER_POSITION(payload);
                 }
             },
-            activateMarker: function (marker) {
-                this.SET_SELECTED_EVENT_ID(marker.id);
-            }
         }
     }
 </script>

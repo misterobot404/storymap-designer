@@ -40,7 +40,7 @@
 </template>
 
 <script>
-    import {mapGetters,mapActions} from "vuex"
+    import {mapGetters, mapActions} from "vuex"
     import ControlPanel from "@/components/Constructor/ControlPanel"
     import EventList from "@/components/Constructor/EventList"
     import EventForm from "@/components/Constructor/EventForm"
@@ -54,20 +54,20 @@
             EventForm,
             Map
         },
-        props: ['id'],
         data() {
             return {
                 loadingMap: false,
             }
         },
         computed: {
-            ...mapGetters('map',[
+            ...mapGetters('map', [
                 'wasChanges'
             ])
         },
         methods: {
             ...mapActions('map', [
-                'getMap'
+                'getMap',
+                'setEmptyExampleMap'
             ]),
             // beforeunload
             preventNav(event) {
@@ -78,14 +78,21 @@
             }
         },
         async beforeMount() {
-            // Method called before closing. Check changes map
-            window.addEventListener("beforeunload", this.preventNav);
-            // get map
-            this.loadingMap = true;
-            await this.getMap(this.id)
-                .finally(() => {
-                    this.loadingMap = false;
-                })
+            // set example map
+            if (this.$route.name === "constructor-example") {
+                this.setEmptyExampleMap();
+            }
+            // set real map
+            else {
+                // method called before closing. Check changes map
+                window.addEventListener("beforeunload", this.preventNav);
+
+                this.loadingMap = true;
+                await this.getMap(this.$route.params.id)
+                    .finally(() => {
+                        this.loadingMap = false;
+                    })
+            }
         },
         beforeDestroy() {
             // remove events from window

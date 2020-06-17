@@ -3,11 +3,14 @@
     "/AuthDialog.js": "/AuthDialog.js",
     "/Logout.js": "/Logout.js",
     "/constr.js": "/constr.js",
+    "/constr~viewer.js": "/constr~viewer.js",
     "/home.js": "/home.js",
     "/library.js": "/library.js",
-    "/page404.js": "/page404.js",
+    "/pageDev.js": "/pageDev.js",
     "/vendors~AuthDialog.js": "/vendors~AuthDialog.js",
-    "/vendors~constr.js": "/vendors~constr.js",
-    "/vendors~constr~library.js": "/vendors~constr~library.js",
-    "/viewer.js": "/viewer.js"
+    "/vendors~constr~library~viewer.js": "/vendors~constr~library~viewer.js",
+    "/vendors~constr~viewer.js": "/vendors~constr~viewer.js",
+    "/viewer.js": "/viewer.js",
+    "/vendors~library~viewer.js": "/vendors~library~viewer.js",
+    "/vendors~viewer.js": "/vendors~viewer.js"
 }

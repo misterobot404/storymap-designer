@@ -27,7 +27,7 @@ class CreateMapsTable extends Migration
 
             $table->jsonb('config')->default('{"selectedEventId":1,"eventListWidth":"227"}');
             $table->jsonb('tile')->default('{"url":"https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png","attribution":"&copy; <a href=\"https://knastu.ru/\">knastu</a>","minZoom":3,"maxZoom":4,"bounds":{"_southWest":{"lat":47,"lng":-180},"_northEast":{"lat":85,"lng":45}}}');
-            $table->json('events')->default('[{"id":1,"markerPosition":{"lat":54,"lng":73},"title":"Стартовое событие","description":"","mediaUrl":""}]');
+            $table->json('events')->default('[{"id":1,"marker":{"position":{"lat":67,"lng":-41.1},"url":"https://image.flaticon.com/icons/svg/148/148828.svg","size":[32,38]},"title":"Стартовое событие","description":"","mediaUrl":""}]');
             $table->timestamps();
         });
     }
