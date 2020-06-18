@@ -38,13 +38,18 @@
                 />
                 <!-- Other links -->
                 <v-btn
-                    v-for="(link, index) in navigationLinks"
-                    :key="index"
-                    :to="link.to"
+                    @click="goToFutures"
                     :class="['mr-1', isAuth ? 'hidden-md-and-down' : 'hidden-sm-and-down']"
                     text
                 >
-                    {{ link.text }}
+                    Возможности
+                </v-btn>
+                <v-btn
+                    @click="goToExamples"
+                    :class="['mr-1', isAuth ? 'hidden-md-and-down' : 'hidden-sm-and-down']"
+                    text
+                >
+                    Примеры
                 </v-btn>
                 <!-- space -->
                 <v-spacer :class="[isAuth ? 'hidden-xl-only' : 'hidden-lg-and-up']"/>
@@ -139,7 +144,6 @@
             ...mapState('layout', {
                 appName: state => state.appName,
                 appLogo: state => state.appLogo,
-                navigationLinks: state => state.navigationLinks,
                 pageLoading: state => state.pageLoading
             }),
             ...mapGetters('auth', {
@@ -147,7 +151,35 @@
             })
         },
         methods: {
-            ...mapMutations('layout', ['SET_DRAWER'])
+            ...mapMutations('layout', ['SET_DRAWER']),
+            async goToFutures() {
+                if (this.$route.path === "/") {
+                    let slide = document.getElementById("futures");
+                    let top = window.scrollY + slide.getBoundingClientRect().y;
+                    await this.$vuetify.goTo(top);
+                } else {
+                    await this.$router.push("/").then(() => {
+                        let slide = document.getElementById("futures");
+                        // Определение расстояния от начала страницы до нужного элемента
+                        let top = window.scrollY + slide.getBoundingClientRect().y;
+                        this.$vuetify.goTo(top);
+                    });
+                }
+            },
+            async goToExamples() {
+                if (this.$route.path === "/") {
+                    let slide = document.getElementById("examples");
+                    let top = window.scrollY + slide.getBoundingClientRect().y;
+                    await this.$vuetify.goTo(top);
+                } else {
+                    await this.$router.push("/").then(() => {
+                        let slide = document.getElementById("examples");
+                        // Определение расстояния от начала страницы до нужного элемента
+                        let top = window.scrollY + slide.getBoundingClientRect().y;
+                        this.$vuetify.goTo(top);
+                    });
+                }
+            }
         }
     }
 </script>

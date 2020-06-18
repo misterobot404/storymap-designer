@@ -43,22 +43,32 @@
             </v-list-item>
         </template>
         <!-- Other links -->
-        <template v-for="link in navigationLinks">
-            <v-list-item
-                :key="link.text"
-                :to="link.to"
-                link
-            >
-                <v-list-item-action>
-                    <v-icon>{{ link.icon }}</v-icon>
-                </v-list-item-action>
-                <v-list-item-content>
-                    <v-list-item-title>
-                        {{ link.text }}
-                    </v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
-        </template>
+        <v-list-item
+            @click="goToFutures"
+            link
+        >
+            <v-list-item-action>
+                <v-icon>create</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+                <v-list-item-title>
+                    Возможности
+                </v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
+        <v-list-item
+            @click="goToExamples"
+            link
+        >
+            <v-list-item-action>
+                <v-icon>layers</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+                <v-list-item-title>
+                    Примеры
+                </v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
         <!-- separation -->
         <v-divider/>
         <!-- Color theme toggle -->
@@ -90,8 +100,7 @@
             ...mapState('layout', {
                 appName: state => state.appName,
                 appLogo: state => state.appLogo,
-                drawer: state => state.drawer,
-                navigationLinks: state => state.navigationLinks
+                drawer: state => state.drawer
             }),
             drawerModel: {
                 get() {
@@ -108,6 +117,34 @@
                 this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
                 // Save theme
                 window.localStorage.setItem('darkTheme', this.$vuetify.theme.dark);
+            },
+            async goToFutures() {
+                if (this.$route.path === "/") {
+                    let slide = document.getElementById("futures");
+                    let top = window.scrollY + slide.getBoundingClientRect().y;
+                    await this.$vuetify.goTo(top);
+                } else {
+                    await this.$router.push("/").then(() => {
+                        let slide = document.getElementById("futures");
+                        // Определение расстояния от начала страницы до нужного элемента
+                        let top = window.scrollY + slide.getBoundingClientRect().y;
+                        this.$vuetify.goTo(top);
+                    });
+                }
+            },
+            async goToExamples() {
+                if (this.$route.path === "/") {
+                    let slide = document.getElementById("examples");
+                    let top = window.scrollY + slide.getBoundingClientRect().y;
+                    await this.$vuetify.goTo(top);
+                } else {
+                    await this.$router.push("/").then(() => {
+                        let slide = document.getElementById("examples");
+                        // Определение расстояния от начала страницы до нужного элемента
+                        let top = window.scrollY + slide.getBoundingClientRect().y;
+                        this.$vuetify.goTo(top);
+                    });
+                }
             }
         }
     }

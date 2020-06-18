@@ -55,7 +55,7 @@
         </v-img>
         <!-- features -->
         <div
-            ref="futures"
+            id="futures"
             class="text-center"
             style="padding-top: 96px"
         >
@@ -101,8 +101,9 @@
                 </v-row>
             </v-container>
         </div>
-        <!-- example -->
+        <!-- examples -->
         <div
+            id="examples"
             class="text-center"
             style="padding-top: 48px"
         >
@@ -202,7 +203,7 @@
         },
         methods: {
             goToFutures() {
-                let slide = this.$refs.futures;
+                let slide = document.getElementById("futures");
                 // Определение расстояния от начала страницы до нужного элемента
                 let top = window.scrollY + slide.getBoundingClientRect().y;
                 this.$vuetify.goTo(top);

@@ -5,37 +5,39 @@
         class="d-flex flex-column"
     >
         <!-- Loading -->
-        <v-overlay
-            :value="loadingMap"
-            opacity="0.2"
-        >
-            <v-progress-circular
-                indeterminate
-                :size="128"
-            />
-        </v-overlay>
-        <!-- Control panel -->
-        <ControlPanel/>
-        <!-- Horizontal line -->
-        <v-divider
-            class="my-3"
-            style="border-style: dashed;"
-        />
-        <!-- Constructor -->
-        <div class="d-flex flex overflow-hidden">
-            <!-- Event list -->
-            <EventList/>
-            <!-- Map + Event form -->
-            <div
-                class="d-flex flex-column"
-                style="flex:1; min-width: 200px; padding-left: 12px;"
-            >
-                <!-- Map -->
-                <Map/>
-                <!-- Event form -->
-                <EventForm v-show="$store.getters.indexSelectedEvent !== -1"/>
+        <v-overlay :value="loadingMap">
+            <div class="d-flex flex-column align-center text-center">
+                <v-progress-circular
+                    indeterminate
+                    :size="128"
+                />
+                <span class="headline mt-4">Loading map</span>
             </div>
-        </div>
+        </v-overlay>
+        <template v-if="!loadingMap">
+            <!-- Control panel -->
+            <ControlPanel/>
+            <!-- Horizontal line -->
+            <v-divider
+                class="my-3"
+                style="border-style: dashed;"
+            />
+            <!-- Constructor -->
+            <div class="d-flex flex overflow-hidden">
+                <!-- Event list -->
+                <EventList/>
+                <!-- Map + Event form -->
+                <div
+                    class="d-flex flex-column"
+                    style="flex:1; min-width: 200px; padding-left: 12px;"
+                >
+                    <!-- Map -->
+                    <Map/>
+                    <!-- Event form -->
+                    <EventForm/>
+                </div>
+            </div>
+        </template>
     </v-container>
 </template>
 
@@ -89,7 +91,7 @@
 
                 this.loadingMap = true;
                 await this.getMap(this.$route.params.id)
-                    .finally(() => {
+                    .then(() => {
                         this.loadingMap = false;
                     })
             }

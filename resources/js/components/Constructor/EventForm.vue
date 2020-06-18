@@ -1,134 +1,131 @@
 <template>
-    <v-expand-transition>
-        <v-row
-            no-gutters
-            class="mt-3"
-            style="max-height: 40%"
-            v-if="indexSelectedEvent !== -1"
+    <v-row
+        no-gutters
+        class="mt-3"
+        style="max-height: 40%"
+    >
+        <v-col
+            class="pr-1 d-flex flex-column"
+            style="max-height: 100%; overflow: auto"
         >
-            <v-col
-                class="pr-1 d-flex flex-column"
-                style="max-height: 100%; overflow: auto"
+            <v-text-field
+                v-model.trim="model_title"
+                label="Название события..."
+                single-line
+                outlined
+                hide-details
+                clearable
+                class="border-color-gray"
+                style="flex-grow: 0;"
+            />
+            <tiptap-vuetify
+                v-model="model_description"
+                class="d-flex flex-grow-1 mt-3"
+                :extensions="extensions"
+                :card-props="{ outlined: true, style: 'width: 100%' }"
+                placeholder="Описание события..."
+            />
+        </v-col>
+        <v-col class="d-flex flex-column pl-2">
+            <v-card
+                height="100%"
+                outlined
+                class="d-flex flex-column"
             >
-                <v-text-field
-                    v-model.trim="model_title"
-                    label="Название события..."
-                    single-line
-                    outlined
-                    hide-details
-                    clearable
-                    class="border-color-gray"
-                    style="flex-grow: 0;"
-                />
-                <tiptap-vuetify
-                    v-model="model_description"
-                    class="d-flex flex-grow-1 mt-3"
-                    :extensions="extensions"
-                    :card-props="{ outlined: true, style: 'width: 100%' }"
-                    placeholder="Описание события..."
-                />
-            </v-col>
-            <v-col class="d-flex flex-column pl-2">
-                <v-card
-                    height="100%"
-                    outlined
-                    class="d-flex flex-column"
-                >
-                    <v-card-title style="font-size: 1rem !important;">
-                        <v-icon class="mr-2">perm_media</v-icon>
-                        Медиа-содержимое
-                    </v-card-title>
-                    <v-divider/>
-                    <v-card-text class="d-flex flex">
-                        <v-col class="d-flex flex-column justify-center">
-                            <v-btn block x-large class="mb-4 primary--text" style="flex-grow: 0">
-                                <v-icon class="mr-2">insert_photo</v-icon>
-                                Добавить медиа
-                            </v-btn>
-                            <v-btn
-                                block
-                                large
-                                style="flex-grow: 0"
-                                @click="changeIconDialog = true"
-                            >
-                                <v-img
-                                    max-height="32"
-                                    max-width="32"
-                                    contain
-                                    :src="selectedEvent.marker.url"
-                                    class="mr-2"
-                                />
-                                Изменить иконку
-                            </v-btn>
-                            <v-dialog
-                                v-model="changeIconDialog"
-                                max-width="290"
-                            >
-                                <v-card>
-                                    <v-card-title class="headline">Изменение иконки</v-card-title>
+                <v-card-title style="font-size: 1rem !important;">
+                    <v-icon class="mr-2">perm_media</v-icon>
+                    Медиа-содержимое
+                </v-card-title>
+                <v-divider/>
+                <v-card-text class="d-flex flex">
+                    <v-col class="d-flex flex-column justify-center">
+                        <v-btn block x-large class="mb-4 primary--text" style="flex-grow: 0">
+                            <v-icon class="mr-2">insert_photo</v-icon>
+                            Добавить медиа
+                        </v-btn>
+                        <v-btn
+                            block
+                            large
+                            style="flex-grow: 0"
+                            @click="changeIconDialog = true"
+                        >
+                            <v-img
+                                max-height="32"
+                                max-width="32"
+                                contain
+                                :src="selectedEvent.marker.url"
+                                class="mr-2"
+                            />
+                            Изменить иконку
+                        </v-btn>
+                        <v-dialog
+                            v-model="changeIconDialog"
+                            max-width="290"
+                        >
+                            <v-card>
+                                <v-card-title class="headline">Изменение иконки</v-card-title>
 
-                                    <v-card-text>
-                                        <v-text-field
-                                            v-model="iconUrl"
-                                            label="Ссылка на иконку"
-                                        />
-                                        <v-text-field
-                                            v-model="iconWidth"
-                                            label="Ширина"
-                                        />
-                                        <v-text-field
-                                            v-model="iconHeight"
-                                            label="Высота"
-                                        />
-                                    </v-card-text>
+                                <v-card-text>
+                                    <v-text-field
+                                        v-model="iconUrl"
+                                        label="Ссылка на иконку"
+                                    />
+                                    <v-text-field
+                                        v-model="iconWidth"
+                                        label="Ширина"
+                                    />
+                                    <v-text-field
+                                        v-model="iconHeight"
+                                        label="Высота"
+                                    />
+                                </v-card-text>
 
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn
-                                            color="primary"
-                                            text
-                                            @click="changeIconDialog = false"
-                                        >
-                                            Закрыть
-                                        </v-btn>
-                                        <v-btn
-                                            color="primary"
-                                            text
-                                            @click="changeIconDialog = false; SET_EVENT_ICON_URL({id:indexSelectedEvent, iconUrl: iconUrl, size: [iconWidth, iconHeight]})"
-                                        >
-                                            Применить
-                                        </v-btn>
-                                    </v-card-actions>
-                                </v-card>
-                            </v-dialog>
-                        </v-col>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        color="primary"
+                                        text
+                                        @click="changeIconDialog = false"
+                                    >
+                                        Закрыть
+                                    </v-btn>
+                                    <v-btn
+                                        color="primary"
+                                        text
+                                        @click="changeIconDialog = false; SET_EVENT_ICON_URL({id:indexSelectedEvent, iconUrl: iconUrl, size: [iconWidth, iconHeight]})"
+                                    >
+                                        Применить
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+                    </v-col>
 
-                        <v-col>
-                            <v-carousel
-                                cycle
-                                height="100%"
-                                hide-delimiter-background
-                                show-arrows-on-hover
-                                hide-delimiters
-                            >
-                                <v-carousel-item>
-                                    <v-sheet color="primary" height="100%">
-                                        <v-row
-                                            class="fill-height"
-                                            align="center"
-                                            justify="center"
-                                        >
-                                            <div class="display-1">Контент</div>
-                                        </v-row>
-                                    </v-sheet>
-                                </v-carousel-item>
-                            </v-carousel>
-                        </v-col>
-                    </v-card-text>
-                </v-card>
-            </v-col>
-        </v-row>
-    </v-expand-transition>
+                    <v-col>
+                        <v-carousel
+                            cycle
+                            height="100%"
+                            hide-delimiter-background
+                            show-arrows-on-hover
+                            hide-delimiters
+                        >
+                            <v-carousel-item>
+                                <v-sheet color="primary" height="100%">
+                                    <v-row
+                                        class="fill-height"
+                                        align="center"
+                                        justify="center"
+                                    >
+                                        <div class="display-1">Контент</div>
+                                    </v-row>
+                                </v-sheet>
+                            </v-carousel-item>
+                        </v-carousel>
+                    </v-col>
+                </v-card-text>
+            </v-card>
+        </v-col>
+    </v-row>
 </template>
 
 <script>

@@ -6,15 +6,15 @@
     <l-map class="map"
            style="z-index: 0;"
            ref="map"
-           :zoom="mapZoom"
+           :minZoom="minZoom"
+           :center.sync="sync_center"
            :maxBoundsViscosity="maxBoundsViscosity"
            @click="latLngClickUpdatePosition"
-           @update:zoom="zoomUpdated"
-           @update:center="centerUpdated"
     >
         <l-tile-layer :url="tile.url"
-                      :noWrap="false"
-                      :attribution="tile.attribution"/>
+                      noWrap
+                      :attribution="tile.attribution"
+        />
         <l-marker v-for="(event, index) in events"
                   :key="event.id"
                   :lat-lng="event.marker.position"
@@ -37,6 +37,23 @@
                     :opacity="polylineOpacity"
                     :dashArray="polylineDashArray"
                     :weight="polylineWeight"/>
+
+        <!-- Update center map btn-->
+        <v-tooltip top>
+            <template v-slot:activator="{ on }">
+                <v-btn
+                    @click.stop="$refs.map.mapObject.invalidateSize()"
+                    absolute
+                    small
+                    class="px-0"
+                    v-on="on"
+                    style="top: 10px; right: 10px; z-index: 401;"
+                >
+                    <v-icon>update</v-icon>
+                </v-btn>
+            </template>
+            <span>Обновить</span>
+        </v-tooltip>
     </l-map>
 </template>
 
@@ -59,7 +76,7 @@
         data() {
             return {
                 //// l-map config
-                mapZoom: 3,
+                minZoom: 3,
                 maxBoundsViscosity: 0.9,
                 //// l-polyline config
                 polylineOpacity: 0.6,
@@ -68,16 +85,8 @@
             }
         },
         watch: {
-            'selectedEvent.marker.position': function (val) {
-                if (val !== undefined) {
-                    this.$refs.map.mapObject.setView(val);
-                    //this.$refs.map.mapObject.flyTo(val);
-                }
-            },
-            'indexSelectedEvent'() {
-                if (this.events.length === 1) {
-                    setTimeout(() => this.$refs.map.mapObject.invalidateSize(), 1000);
-                }
+            'config.selectedEventId'() {
+                this.$refs.map.mapObject.flyTo(this.selectedEvent.marker.position);
             }
         },
         mounted() {
@@ -115,13 +124,23 @@
         computed: {
             ...mapState('map', [
                 'tile',
-                'events'
+                'config',
+                'events',
+                'tileCenter'
             ]),
             ...mapGetters('map', [
                 'selectedEvent',
                 'indexSelectedEvent',
                 'arrayMarker'
-            ])
+            ]),
+            sync_center: {
+                get() {
+                    return this.tileCenter
+                },
+                set(value) {
+                    this.SET_TILE_CENTER(value);
+                }
+            },
         },
         methods: {
             ...mapMutations('map', [
@@ -130,27 +149,23 @@
                 "SET_EVENT_MARKER_POSITION",
                 "SET_TILE_BOUNDS",
                 "SET_MIN_TILE_ZOOM",
-                "SET_MAX_TILE_ZOOM",
-                "SET_REF_MAP_OBJECT"
+                "SET_MAX_TILE_ZOOM"
             ]),
-            zoomUpdated: function (zoom) {
-                this.mapZoom = zoom;
-            },
-            centerUpdated: function (center) {
-                this.SET_TILE_CENTER(center);
-            },
             latLngDragUpdatePosition: function (latLng) {
+                // animation
+                this.$refs.map.mapObject.setView(this.selectedEvent.marker.position);
+                // set marker to position
                 const payload = {'index': this.indexSelectedEvent, 'position': latLng};
                 this.SET_EVENT_MARKER_POSITION(payload);
             },
             // Здесь в отличии от изменений координат "перетаскиванием" мы получим обьект с событием, откуда извелём позицию клика
             latLngClickUpdatePosition: function (latLng) {
-                // Выполняем только если событие выбрано
-                if (this.indexSelectedEvent !== -1) {
-                    const payload = {'index': this.indexSelectedEvent, 'position': latLng.latlng};
-                    this.SET_EVENT_MARKER_POSITION(payload);
-                }
-            },
+                // animation
+                this.$refs.map.mapObject.setView(this.selectedEvent.marker.position);
+                // set marker to position
+                const payload = {'index': this.indexSelectedEvent, 'position': latLng.latlng};
+                this.SET_EVENT_MARKER_POSITION(payload);
+            }
         }
     }
 </script>

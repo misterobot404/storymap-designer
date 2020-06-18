@@ -19,6 +19,7 @@
         >
             <!-- Delete btn -->
             <v-icon
+                v-show="events.length !== 1"
                 @mouseover="showButtonDeleteEvent = index"
                 @mouseleave="showButtonDeleteEvent = null"
                 :class="{'d-none' : showButtonDeleteEvent !== index}"

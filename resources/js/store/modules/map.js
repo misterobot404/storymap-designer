@@ -41,6 +41,7 @@ export default {
                 name: state.name,
                 subject: state.subject,
                 description: state.description,
+                config: state.config,
                 tile: state.tile,
                 events: state.events
             };
@@ -50,7 +51,7 @@ export default {
         }
     },
     actions: {
-        getMap({state, dispatch, commit}, mapId) {
+        getMap({state, getters, dispatch, commit}, mapId) {
             // Clear previous map
             commit('CLEAR_STATE');
             // Send request
@@ -59,19 +60,29 @@ export default {
                     commit('SET_MAP', response.data.data.map);
                     commit('SET_OLD_MAP', response.data.data.map);
                     commit('SET_NEXT_EVENT_ID');
+                    // set tile center on first event
+                    commit('SET_TILE_CENTER', getters.selectedEvent.marker.position);
                 })
         },
-        setEmptyExampleMap({state, commit, rootState}) {
+        setEmptyExampleMap({state, commit, rootState, getters}) {
+            // Clear previous map
+            commit('CLEAR_STATE');
             let map = rootState.maps.editableExample;
             commit('SET_MAP', map);
             commit('SET_OLD_MAP', map);
             commit('SET_NEXT_EVENT_ID');
+            // set tile center on first event
+            commit('SET_TILE_CENTER', getters.selectedEvent.marker.position);
         },
-        setExampleMap({state, commit, rootState}, mapId) {
+        setExampleMap({state, commit, rootState, getters}, mapId) {
+            // Clear previous map
+            commit('CLEAR_STATE');
             let map = rootState.maps.examples[mapId - 1];
             commit('SET_MAP', map);
             commit('SET_OLD_MAP', map);
             commit('SET_NEXT_EVENT_ID');
+            // set tile center on first event
+            commit('SET_TILE_CENTER', getters.selectedEvent.marker.position);
         },
         saveMap({state, commit}) {
             // Save current width event list
@@ -99,10 +110,6 @@ export default {
         //// Events
         addEvent({state, commit}) {
             commit('PUSH_EMPTY_EVENT');
-            // Если добавленное событие является единственным назначаем его активным
-            if (state.config.selectedEventId === null) {
-                commit('SET_SELECTED_EVENT_ID', state.nextEventId);
-            }
             commit('ITERATION_ID');
         },
         deleteEventByIndex({state, getters, commit}, index) {
@@ -110,19 +117,13 @@ export default {
             commit('DELETE_EVENT_BY_INDEX', index);
             // Если было удалёно активное событие (активное событие не надено), устанавливаем новое
             let deletedEventIndex = index;
-            if (getters.indexSelectedEvent === -1) {
-                // Если после удаления события массив событий пуст новый элемент назначать не нужно, выходим
-                if (state.events.length === 0) {
-                    commit('SET_SELECTED_EVENT_ID', null);
-                    return;
-                }
-                // Если удаленный элемент являлся последним в массиве, смещаем текущий активный элемент назад
-                if (state.events.length === deletedEventIndex) {
-                    deletedEventIndex--;
-                }
-                // Установка нового активного элемента
-                commit('SET_SELECTED_EVENT_ID', getters.getEventIdByIndex(deletedEventIndex));
+
+            // Если удаленный элемент являлся последним в массиве, смещаем текущий активный элемент назад
+            if (state.events.length === deletedEventIndex) {
+                deletedEventIndex--;
             }
+            // Установка нового активного элемента
+            commit('SET_SELECTED_EVENT_ID', getters.getEventIdByIndex(deletedEventIndex));
         }
     },
     mutations: {
@@ -142,6 +143,7 @@ export default {
                 name: map.name,
                 subject: map.subject,
                 description: map.description,
+                config: JSON.parse(map.config),
                 tile: JSON.parse(map.tile),
                 events: JSON.parse(map.events)
             };
@@ -164,6 +166,7 @@ export default {
             state.description = state.oldMap.description;
             // Copy object. Not reference
             Object.assign(state.tile, state.oldMap.tile);
+            Object.assign(state.config, state.oldMap.config);
             // Copy array of object. Not references.
             state.events = state.oldMap.events.map(a => Object.assign({}, a));
         },
@@ -173,6 +176,15 @@ export default {
                 if (element.id > maxId) maxId = element.id;
             });
             state.nextEventId = maxId + 1;
+        },
+        SET_MAP_NAME: (state, name) => {
+            state.name = name;
+        },
+        SET_MAP_DESCRIPTION: (state, description) => {
+            state.description = description;
+        },
+        SET_MAP_SUBJECT: (state, subject) => {
+            state.subject = subject;
         },
         //// Events
         SET_EVENTS: (state, events) => {

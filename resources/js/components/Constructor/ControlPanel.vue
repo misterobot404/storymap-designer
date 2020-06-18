@@ -22,8 +22,6 @@
             v-if="!mapIsExample"
             height="40"
             class="mx-2"
-            :loading="procSave"
-            :class="[{'primary--text': procSave}]"
             @click="save()"
         >
             <v-icon
@@ -35,6 +33,26 @@
             </v-icon>
             Сохранить
         </v-btn>
+        <v-dialog
+            v-model="procSave"
+            overlay-opacity="0"
+            persistent
+            width="300"
+        >
+            <v-card
+                color="primary"
+                dark
+            >
+                <v-card-text class="pt-3">
+                    Сохранение
+                    <v-progress-linear
+                        indeterminate
+                        color="white"
+                        class="mb-0"
+                    ></v-progress-linear>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
         <v-btn
             height="40"
             class="mx-2"

@@ -179,6 +179,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
@@ -210,7 +211,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   methods: {
     goToFutures: function goToFutures() {
-      var slide = this.$refs.futures; // Определение расстояния от начала страницы до нужного элемента
+      var slide = document.getElementById("futures"); // Определение расстояния от начала страницы до нужного элемента
 
       var top = window.scrollY + slide.getBoundingClientRect().y;
       this.$vuetify.goTo(top);
@@ -364,9 +365,9 @@ var render = function() {
       _c(
         "div",
         {
-          ref: "futures",
           staticClass: "text-center",
-          staticStyle: { "padding-top": "96px" }
+          staticStyle: { "padding-top": "96px" },
+          attrs: { id: "futures" }
         },
         [
           _c(
@@ -497,7 +498,11 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "text-center", staticStyle: { "padding-top": "48px" } },
+        {
+          staticClass: "text-center",
+          staticStyle: { "padding-top": "48px" },
+          attrs: { id: "examples" }
+        },
         [
           _c(
             "h1",

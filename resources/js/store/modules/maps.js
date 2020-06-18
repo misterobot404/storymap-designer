@@ -2,7 +2,6 @@ import axios from "axios"
 
 export default {
     namespaced: true,
-
     state: {
         maps: [],
         editableExample: {
@@ -140,7 +139,21 @@ export default {
                 name: "Другое",
                 icon: require('@/assets/images/subjects/custom.png')
             }
-        ]
+        ],
+        tiles: [
+            {
+                name: "Карта Стандартная",
+                url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+            },
+            {
+                name: "Карта Ночь",
+                url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+            },
+            {
+                name: "Карта Карбон",
+                url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+            },
+        ],
     },
     actions: {
         getMaps: function ({commit}) {

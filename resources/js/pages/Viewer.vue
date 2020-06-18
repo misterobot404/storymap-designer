@@ -71,17 +71,11 @@
 
 <script>
     import {mapGetters, mapActions, mapMutations, mapState} from "vuex"
-    import ControlPanel from "@/components/Constructor/ControlPanel"
-    import EventList from "@/components/Constructor/EventList"
-    import EventForm from "@/components/Constructor/EventForm"
-    import Map from "@/components/Constructor/Map"
+    import Map from "@/components/Viewer/Map"
 
     export default {
         name: "Viewer",
         components: {
-            ControlPanel,
-            EventList,
-            EventForm,
             Map
         },
         data() {
@@ -148,7 +142,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

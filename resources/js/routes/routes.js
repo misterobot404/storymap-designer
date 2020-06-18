@@ -38,6 +38,6 @@ export const routes = [
     },
     {
         path: '*',
-        component: () => import(/* webpackChunkName: 'pageDev' */ '@/pages/PageDev')
+        component: () => import(/* webpackChunkName: 'page404' */ '@/pages/page404')
     }
 ];
