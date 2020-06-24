@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" max-width="600" scrollable>
+    <v-dialog v-model="dialog" max-width="800" scrollable>
         <!-- Open dialog button -->
         <template v-slot:activator="{ on }">
             <v-btn
@@ -8,7 +8,7 @@
                 v-on="on"
                 @click="dialog = true"
             >
-                <v-icon class="mr-1" style="opacity: 0.76"> settings </v-icon>
+                <v-icon class="mr-1" style="opacity: 0.76"> settings</v-icon>
                 Настройки
             </v-btn>
         </template>
@@ -27,70 +27,100 @@
                     icon
                     @click="dialog = false"
                 >
-                    <v-icon> close </v-icon>
+                    <v-icon> close</v-icon>
                 </v-btn>
             </v-toolbar>
             <v-divider/>
             <!-- Body -->
-            <v-card-text class="pb-0">
+            <v-card-text class="pa-0">
                 <v-form ref="form">
-                    <v-container class="py-1">
-                        <v-card-text class="pb-0">
-                            <v-form ref="form">
-                                <v-container class="pb-0">
-                                    <v-row>
-                                        <v-subheader>Основная информация</v-subheader>
-                                        <v-col cols="12">
-                                            <v-text-field
-                                                label="Название"
-                                                filled
-                                                v-model.trim="model_mapName"
-                                                :rules="[
+                        <v-card-text>
+                            <v-row no-gutters>
+                                <v-col>
+                                    <v-form ref="form">
+                                        <v-container class="py-0">
+                                            <v-row>
+                                                <v-subheader>Основная информация</v-subheader>
+                                                <v-col cols="12">
+                                                    <v-text-field
+                                                        label="Название"
+                                                        filled
+                                                        v-model.trim="model_mapName"
+                                                        :rules="[
                                         v => !!v || 'Введите название',
                                         v => maps.find(map => map.name === v) === undefined || 'Атлас с таким именем уже существует'
                                     ]"
-                                                required
-                                            />
-                                        </v-col>
-                                        <v-col cols="12">
-                                            <v-textarea
-                                                filled
-                                                clearable
-                                                label="Описание"
-                                                clear-icon="cancel"
-                                                v-model.trim="model_mapDescription"
-                                                :rules="[v => !!v || 'Введите описание']"
-                                                required
-                                            />
-                                        </v-col>
-                                        <v-col cols="12">
-                                            <v-select
-                                                v-model="model_mapSubject"
-                                                height="68"
-                                                filled
-                                                :items="getSubjectNames"
-                                                label="Категория"
-                                                :rules="[v => !!v || 'Выберите категорию']"
-                                                required
-                                            ></v-select>
-                                        </v-col>
-                                        <v-subheader>Подложка</v-subheader>
-                                        <v-col cols="12">
-                                            <v-select
-                                                v-model="model_tileUrl"
-                                                height="68"
-                                                filled
-                                                :items="getTileNames"
-                                                label="Категория"
-                                                :rules="[v => !!v || 'Выберите категорию']"
-                                                required
-                                            ></v-select>
-                                        </v-col>
-                                    </v-row>
-                                </v-container>
-                            </v-form>
+                                                        required
+                                                    />
+                                                </v-col>
+                                                <v-col cols="12">
+                                                    <v-textarea
+                                                        filled
+                                                        label="Описание"
+                                                        v-model.trim="model_mapDescription"
+                                                        :rules="[v => !!v || 'Введите описание']"
+                                                        required
+                                                    />
+                                                </v-col>
+                                                <v-col cols="12">
+                                                    <v-select
+                                                        v-model="model_mapSubject"
+                                                        height="68"
+                                                        filled
+                                                        :items="getSubjectNames"
+                                                        label="Категория"
+                                                        :rules="[v => !!v || 'Выберите категорию']"
+                                                        required
+                                                    ></v-select>
+                                                </v-col>
+                                            </v-row>
+                                        </v-container>
+                                    </v-form>
+                                </v-col>
+                                <v-divider class="mx-2" vertical/>
+                                <v-col>
+                                    <v-container class="py-0">
+                                        <v-row>
+                                            <v-subheader>Изменение подложки</v-subheader>
+                                            <v-col cols="12">
+                                                <v-select
+                                                    v-model="model_tileUrl"
+                                                    height="68"
+                                                    filled
+                                                    hide-details
+                                                    :items="getTileNames"
+                                                    label="Выберите"
+                                                    :rules="[v => !!v || 'Выберите категорию']"
+                                                    required
+                                                ></v-select>
+                                                <AddTileDialog/>
+                                            </v-col>
+                                            <v-col cols="12">
+                                                <v-switch
+                                                    v-model="model_tileShowPolyline"
+                                                    :items="getTileNames"
+                                                    label="Отображение связывающих линий"
+                                                />
+                                            </v-col>
+                                            <v-col cols="12">
+                                                <v-slider
+                                                    min="0"
+                                                    max="3"
+                                                    label="Минимальный зум"
+                                                />
+                                            </v-col>
+                                            <v-col cols="12">
+                                                <v-slider
+                                                    min="3"
+                                                    max="6"
+                                                    label="Максимальный зум"
+                                                />
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
+                                </v-col>
+                            </v-row>
                         </v-card-text>
-                    </v-container>
                 </v-form>
             </v-card-text>
         </v-card>
@@ -98,25 +128,32 @@
 </template>
 
 <script>
-    import {mapState, mapMutations} from 'vuex'
+    import {mapState, mapMutations, mapGetters} from 'vuex'
+    import ControlPanelSettingAddTileDialog from "@/components/Constructor/ControlPanelSettingAddTileDialog"
+
     export default {
         name: "Settings",
-        data () {
+        components: {
+            AddTileDialog: ControlPanelSettingAddTileDialog
+        },
+        data() {
             return {
                 dialog: false
             }
         },
         computed: {
-            ...mapState('map',[
-                'name' ,
+            ...mapState('map', [
+                'name',
                 'description',
                 'subject',
                 'tile'
             ]),
-            ...mapState('maps',[
-                'subjects',
+            ...mapState('maps', [
                 'maps',
                 'tiles'
+            ]),
+            ...mapGetters('maps', [
+                'subjects'
             ]),
             getSubjectNames() {
                 let subjectNames = [];
@@ -154,22 +191,32 @@
             },
             model_tileUrl: {
                 get() {
-                    return this.tiles.find(obj => obj.url === this.tile.url).name
+                    let tile = this.tiles.find(obj => obj.url === this.tile.url);
+                    if (tile !== undefined) return tile.name;
                 },
                 set(value) {
                     this.SET_TILE_URL(this.tiles.find(obj => obj.name === value).url)
                 }
-            }
+            },
+            model_tileShowPolyline: {
+                get() {
+                    return this.tile.showPolyline
+                },
+                set(value) {
+                    this.SET_SHOW_POLYLINE(value);
+                }
+            },
         },
         methods: {
-            ...mapMutations('layout',[
+            ...mapMutations('layout', [
                 'CHANGE_THEME',
             ]),
-            ...mapMutations('map',[
+            ...mapMutations('map', [
                 'SET_MAP_NAME',
                 'SET_MAP_DESCRIPTION',
                 'SET_MAP_SUBJECT',
-                'SET_TILE_URL'
+                'SET_TILE_URL',
+                'SET_SHOW_POLYLINE'
             ])
         }
     }

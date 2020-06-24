@@ -22,7 +22,7 @@ export default {
                 "marker": {"position": {"lat": 67, "lng": -41.1}, "url": "https://image.flaticon.com/icons/svg/148/148828.svg", "size": [32, 38]},
                 "title": "Стартовое событие",
                 "description": "",
-                "mediaUrl": ""
+                "mediaUrl": []
             }])
         },
         examples: [
@@ -118,7 +118,7 @@ export default {
                 ])
             }
         ],
-        subjects: [
+        localSubjects: [
             {
                 name: "Информатика",
                 icon: require('@/assets/images/subjects/computer_science.png')
@@ -140,20 +140,38 @@ export default {
                 icon: require('@/assets/images/subjects/custom.png')
             }
         ],
+        externalSubjects: [],
         tiles: [
             {
-                name: "Карта Стандартная",
+                name: "Стандартная",
                 url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
             },
             {
-                name: "Карта Ночь",
+                name: "Стандартная. Ночь",
                 url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
             },
             {
-                name: "Карта Карбон",
-                url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+                name: "Строение человека",
+                url: "/tile1/{z}-{x}-{y}.jpg"
+            },
+            {
+                name: "Карта фильма Властелин Колец",
+                url: "/tile2/{z}-{x}-{y}.jpg"
+            },
+            {
+                name: "Заповедники Дальнего востока",
+                url: "https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}"
+            },
+            {
+                name: "Солнечная система",
+                url: "/tile3/{z}-{x}-{y}.jpg"
             },
         ],
+    },
+    getters: {
+        subjects(state) {
+            return state.localSubjects.concat(state.externalSubjects);
+        },
     },
     actions: {
         getMaps: function ({commit}) {
@@ -194,10 +212,42 @@ export default {
                     commit('SET_MAPS', response.data.data.maps);
                 })
         },
+        getExternalSubjects: function ({commit}) {
+            return axios.get('/api/users/subjects')
+                .then(response => {
+                    commit('SET_EXTERNAL_SUBJECTS', JSON.parse(response.data.data.subjects));
+                })
+        },
+        createExternalSubject: function ({state, commit}, subject) {
+            commit('ADD_EXTERNAL_SUBJECT', subject);
+            return axios.post('/api/users/subjects', {subjects: JSON.stringify(state.externalSubjects)})
+                .then(response => {
+                    commit('SET_EXTERNAL_SUBJECTS', JSON.parse(response.data.data.subjects));
+                })
+        },
     },
     mutations: {
         SET_MAPS: (state, maps) => {
             state.maps = maps;
+        },
+        SET_EXTERNAL_SUBJECTS: (state, subjects) => {
+            if (subjects === null)
+                state.externalSubjects = [];
+            else state.externalSubjects = subjects;
+        },
+        ADD_EXTERNAL_SUBJECT: (state, subjects) => {
+            state.externalSubjects.push(subjects);
+        },
+        ADD_TILE(state,tile) {
+            state.tiles.push(tile);
+        },
+        SAVE_EDITABLE_EXAMPLE(state, map) {
+            state.editableExample.name = map.name;
+            state.editableExample.subject = map.subject;
+            state.editableExample.description = map.description;
+            state.editableExample.config = JSON.stringify(map.config);
+            state.editableExample.tile = JSON.stringify(map.tile);
+            state.editableExample.events = JSON.stringify(map.events);
         }
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-model="dialog"
-              max-width="460">
+              max-width="400">
         <!-- Open dialog button -->
         <template v-slot:activator="{ on }">
             <v-btn
@@ -61,7 +61,7 @@
                 <v-form ref="form">
                     <v-container class="pb-0">
                         <v-row>
-                            <v-col cols="12">
+                            <v-col cols="12" class="pb-0 pt-3">
                                 <v-text-field
                                     label="Название"
                                     filled
@@ -73,38 +73,25 @@
                                     required
                                 />
                             </v-col>
-                            <v-col cols="12">
+                            <v-col cols="12" class="pb-0 pt-1">
                                 <v-textarea
                                     filled
-                                    clearable
-                                    auto-grow
-                                    rows="1"
                                     label="Описание"
-                                    clear-icon="cancel"
                                     v-model.trim="description"
                                     :rules="[v => !!v || 'Введите описание']"
                                     required
                                 />
                             </v-col>
-                            <v-col cols="12" sm="6">
+                            <v-col cols="12" class="pb-0 pt-1">
                                 <v-select
                                     v-model="subject"
                                     height="68"
                                     filled
-                                    :items="getSubjectNames()"
+                                    :items="getSubjectNames"
                                     label="Категория"
                                     :rules="[v => !!v || 'Выберите категорию']"
                                     required
                                 ></v-select>
-                            </v-col>
-                            <v-col cols="12" sm="6">
-                                <v-autocomplete
-                                    filled
-                                    chips
-                                    :items="['6ИСб-1', 'ВТБ', 'КГБ', 'ИСВА']"
-                                    label="Папки"
-                                    multiple
-                                ></v-autocomplete>
                             </v-col>
                         </v-row>
                     </v-container>
@@ -135,7 +122,7 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex'
+    import {mapGetters, mapState} from 'vuex'
 
     export default {
         name: "CreateMapDialog",
@@ -153,8 +140,15 @@
         computed: {
             ...mapState('maps', [
                 'maps',
+            ]),
+            ...mapGetters('maps', [
                 'subjects'
-            ])
+            ]),
+            getSubjectNames() {
+                let subjectNames = [];
+                this.subjects.forEach(el => subjectNames.push(el.name));
+                return subjectNames;
+            }
         },
         methods: {
             createMap() {
@@ -177,11 +171,6 @@
             },
             clearField() {
                 this.$refs.form.reset()
-            },
-            getSubjectNames() {
-                let subjectNames = [];
-                this.subjects.forEach(el => subjectNames.push(el.name));
-                return subjectNames;
             },
             // showScrollUpBtn
             onScroll(e) {

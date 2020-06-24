@@ -22,6 +22,9 @@ Route::get('/users/{name}/check-available', 'API\UserController@nameAvailable');
 
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', 'API\AuthController@logout');
+    // get/set user subjects
+    Route::get('/users/subjects', 'API\UserController@getSubjects');
+    Route::post('/users/subjects', 'API\UserController@setSubjects');
     // Get user data
     Route::get('/users/current', 'API\UserController@getCurrent');
     // CRUD

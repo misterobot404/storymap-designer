@@ -2,9 +2,10 @@
     <v-row
         no-gutters
         class="mt-3"
-        style="max-height: 40%"
+        style="max-height: 36vh; min-height: 36vh;"
     >
         <v-col
+            cols="6"
             class="pr-1 d-flex flex-column"
             style="max-height: 100%; overflow: auto"
         >
@@ -26,7 +27,11 @@
                 placeholder="Описание события..."
             />
         </v-col>
-        <v-col class="d-flex flex-column pl-2">
+        <v-col
+            cols="6"
+            class="d-flex flex-column pl-2"
+            style="max-height: 100%;"
+        >
             <v-card
                 height="100%"
                 outlined
@@ -37,12 +42,55 @@
                     Медиа-содержимое
                 </v-card-title>
                 <v-divider/>
-                <v-card-text class="d-flex flex">
-                    <v-col class="d-flex flex-column justify-center">
-                        <v-btn block x-large class="mb-4 primary--text" style="flex-grow: 0">
+                <v-card-text
+                    class="d-flex flex"
+                    style="max-height: 100%; overflow: auto;"
+                >
+                    <v-col cols="6" class="d-flex flex-column justify-center">
+                        <!-- Add media -->
+                        <v-btn
+                            block
+                            large
+                            class="mb-4 primary--text"
+                            style="flex-grow: 0"
+                            @click="addMediaDialog=true"
+                        >
                             <v-icon class="mr-2">insert_photo</v-icon>
                             Добавить медиа
                         </v-btn>
+                        <v-dialog
+                            v-model="addMediaDialog"
+                            max-width="290"
+                        >
+                            <v-card>
+                                <v-card-title class="headline">Добавление медиа</v-card-title>
+                                <v-card-text>
+                                    <v-text-field
+                                        v-model="mediaUrl"
+                                        label="Внешняя ссылка"
+                                    />
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-spacer/>
+                                    <v-btn
+                                        color="primary"
+                                        text
+                                        @click="addMediaDialog = false"
+                                    >
+                                        Закрыть
+                                    </v-btn>
+                                    <v-btn
+                                        color="primary"
+                                        text
+                                        :disabled="mediaUrl === ''"
+                                        @click="addMediaDialog = false; ADD_EVENT_MEDIA_URL({index:indexSelectedEvent, mediaUrl: mediaUrl})"
+                                    >
+                                        Добавить
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+                        <!-- Change icon -->
                         <v-btn
                             block
                             large
@@ -64,7 +112,6 @@
                         >
                             <v-card>
                                 <v-card-title class="headline">Изменение иконки</v-card-title>
-
                                 <v-card-text>
                                     <v-text-field
                                         v-model="iconUrl"
@@ -79,7 +126,6 @@
                                         label="Высота"
                                     />
                                 </v-card-text>
-
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
                                     <v-btn
@@ -92,7 +138,7 @@
                                     <v-btn
                                         color="primary"
                                         text
-                                        @click="changeIconDialog = false; SET_EVENT_ICON_URL({id:indexSelectedEvent, iconUrl: iconUrl, size: [iconWidth, iconHeight]})"
+                                        @click="changeIconDialog = false; SET_EVENT_ICON_URL({index:indexSelectedEvent, iconUrl: iconUrl, size: [iconWidth, iconHeight]})"
                                     >
                                         Применить
                                     </v-btn>
@@ -100,27 +146,12 @@
                             </v-card>
                         </v-dialog>
                     </v-col>
-
-                    <v-col>
-                        <v-carousel
-                            cycle
-                            height="100%"
-                            hide-delimiter-background
-                            show-arrows-on-hover
-                            hide-delimiters
-                        >
-                            <v-carousel-item>
-                                <v-sheet color="primary" height="100%">
-                                    <v-row
-                                        class="fill-height"
-                                        align="center"
-                                        justify="center"
-                                    >
-                                        <div class="display-1">Контент</div>
-                                    </v-row>
-                                </v-sheet>
-                            </v-carousel-item>
-                        </v-carousel>
+                    <v-col
+                        cols="6"
+                        class="d-flex flex-column justify-center"
+                        style="max-height: 100%; overflow: auto;"
+                    >
+                        <MediaContent height="100%"/>
                     </v-col>
                 </v-card-text>
             </v-card>
@@ -129,9 +160,8 @@
 </template>
 
 <script>
-    import Vue from 'vue'
     import {mapGetters, mapMutations} from 'vuex'
-
+    import MediaContent from "@/components/MediaContentForEvent"
     import {
         TiptapVuetify,
         Heading,
@@ -149,30 +179,25 @@
         Blockquote,
         HardBreak,
         HorizontalRule,
-        History,
-        Table,
-        TableCell,
-        TableHeader,
-        TableRow
+        History
     } from 'tiptap-vuetify'
-
-    import VueYouTubeEmbed from 'vue-youtube-embed'
-
-    Vue.use(VueYouTubeEmbed);
 
     export default {
         name: "ConstructorForm",
         components: {
+            MediaContent,
             TiptapVuetify
         },
         data() {
             return {
-                checkExistImages: null,
-                // Dialog/ Change icon.
+                // Dialog. Change icon.
                 changeIconDialog: false,
                 iconUrl: "",
                 iconWidth: null,
                 iconHeight: null,
+                // Dialog. Add media.
+                addMediaDialog: false,
+                mediaUrl: "",
                 // declare extensions you want to use  in html editor
                 extensions: [
                     History,
@@ -194,24 +219,11 @@
                     Paragraph,
                     HardBreak,
                     Code,
-                    CodeBlock,
-                    Table,
-                    TableCell,
-                    TableHeader,
-                    TableRow
+                    CodeBlock
                 ],
             }
         },
         watch: {
-            'selectedEvent.mediaUrl': {
-                immediate: true,
-                handler(val) {
-                    const img = new Image();
-                    img.onload = () => this.checkExistImages = img.height > 0;
-                    img.onerror = () => this.checkExistImages = false;
-                    img.src = val;
-                }
-            },
             changeIconDialog(val) {
                 if (val) {
                     this.iconUrl = this.selectedEvent.marker.url;
@@ -251,16 +263,13 @@
                     const payload = {'index': this.indexSelectedEvent, 'mediaUrl': value};
                     this.SET_EVENT_MEDIA_URL(payload)
                 }
-            },
-            getYouTubeIdOfSelectedEvent: function () {
-                return this.$youtube.getIdFromURL(this.selectedEvent.mediaUrl);
-            },
+            }
         },
         methods: {
             ...mapMutations('map', [
                 "SET_EVENT_TITLE",
                 "SET_EVENT_DESCRIPTION",
-                "SET_EVENT_MEDIA_URL",
+                "ADD_EVENT_MEDIA_URL",
                 'SET_EVENT_ICON_URL'
             ]),
         }

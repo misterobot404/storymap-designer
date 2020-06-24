@@ -14,6 +14,7 @@
     import Content from "./Content"
     import NavigationDrawer from "./NavigationDrawer"
     import Footer from "./Footer"
+    import {mapGetters, mapActions} from "vuex"
 
     export default {
         name: 'AppLayout',
@@ -24,8 +25,26 @@
             Footer
         },
         computed: {
+            ...mapGetters('auth', {
+                isAuth: "isAuth"
+            }),
             hideEl() {
                 return this.$route.name !== 'constructor' && this.$route.name !== 'constructor-example' && this.$route.name !== 'viewer' && this.$route.name !== 'viewer-example'
+            }
+        },
+        methods: {
+            ...mapActions('maps', [
+                'getExternalSubjects'
+            ]),
+        },
+        watch: {
+            isAuth: {
+                immediate: true,
+                handler(val) {
+                    if (val) {
+                        this.getExternalSubjects()
+                    }
+                }
             }
         }
     }

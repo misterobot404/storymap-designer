@@ -15,7 +15,10 @@
                 style="cursor: pointer; z-index: 4;"
             >
                 <v-list-item>
-                    <v-list-item-avatar tile>
+                    <v-list-item-avatar
+                        tile
+                        v-if="getSubjectIcon(map.subject) !== ''"
+                    >
                         <img
                             :src="getSubjectIcon(map.subject)"
                             :alt="map.subject"
@@ -140,10 +143,10 @@
 </template>
 
 <script>
-    import {mapActions, mapState} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
 
     export default {
-        name: "TableMaps",
+        name: "GridMaps",
         props: {
             maps: Array
         },
@@ -154,7 +157,7 @@
             }
         },
         computed: {
-            ...mapState('maps', [
+            ...mapGetters('maps', [
                 'subjects'
             ])
         },

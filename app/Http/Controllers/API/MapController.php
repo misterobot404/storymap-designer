@@ -30,7 +30,6 @@ class MapController extends Controller
             "data" => ["maps" => $maps]
         ], 200);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -52,7 +51,6 @@ class MapController extends Controller
             "data" => ["maps" => $maps]
         ], 200);
     }
-
     /**
      * Display the specified resource.
      *
@@ -86,7 +84,6 @@ class MapController extends Controller
             "data" => ["map" => $map]
         ], 200);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -130,7 +127,6 @@ class MapController extends Controller
             ]
         ], 200);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -172,7 +168,6 @@ class MapController extends Controller
             "data" => ["maps" => $maps]
         ], 200);
     }
-
     // Other
     /**
      * Store a newly created resource based on the existing.

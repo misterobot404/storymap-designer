@@ -9,7 +9,7 @@ export default {
         user: JSON.parse(window.localStorage.getItem('user'))
     },
     getters: {
-        isAuth: state => {
+        isAuth: (state) => {
             if (state.token && state.user) {
                 // add token to axios header
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.token;

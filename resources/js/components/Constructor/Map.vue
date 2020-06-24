@@ -1,5 +1,4 @@
 <template>
-    <!--    :minZoom="config.minTileZoom"-->
     <!--    :maxZoom="config.maxTileZoom"-->
     <!--    :maxBounds="config.tileBounds"-->
     <!--    :center="config.tileCenter" -->
@@ -10,6 +9,7 @@
            :center.sync="sync_center"
            :maxBoundsViscosity="maxBoundsViscosity"
            @click="latLngClickUpdatePosition"
+           :options="{zoomControl: false}"
     >
         <l-tile-layer :url="tile.url"
                       noWrap
@@ -33,36 +33,22 @@
                     :icon-url="events[index].marker.url">
             </l-icon>
         </l-marker>
-        <l-polyline :lat-lngs="arrayMarker"
-                    :opacity="polylineOpacity"
-                    :dashArray="polylineDashArray"
-                    :weight="polylineWeight"/>
-
-        <!-- Update center map btn-->
-        <v-tooltip top>
-            <template v-slot:activator="{ on }">
-                <v-btn
-                    @click.stop="$refs.map.mapObject.invalidateSize()"
-                    absolute
-                    small
-                    class="px-0"
-                    v-on="on"
-                    style="top: 10px; right: 10px; z-index: 401;"
-                >
-                    <v-icon>update</v-icon>
-                </v-btn>
-            </template>
-            <span>Обновить</span>
-        </v-tooltip>
+        <template v-if="tile.showPolyline">
+            <l-polyline :lat-lngs="arrayMarker"
+                        :opacity="polylineOpacity"
+                        :dashArray="polylineDashArray"
+                        :weight="polylineWeight"/>
+        </template>
+        <!-- Zoom control -->
+        <l-control-zoom position="topright"/>
     </l-map>
 </template>
 
 <script>
     import {mapState, mapGetters, mapMutations} from 'vuex'
-    import {LMap, LTileLayer, LMarker, LTooltip, LIcon, LPolyline} from 'vue2-leaflet'
+    import {LMap, LTileLayer, LMarker, LTooltip, LIcon, LPolyline, LControlZoom} from 'vue2-leaflet'
     import 'leaflet/dist/leaflet.css'
 
-    // TODO: Добавить определение карёв карты
     export default {
         name: "Map",
         components: {
@@ -71,7 +57,8 @@
             LMarker,
             LTooltip,
             LIcon,
-            LPolyline
+            LPolyline,
+            LControlZoom
         },
         data() {
             return {
@@ -86,7 +73,8 @@
         },
         watch: {
             'config.selectedEventId'() {
-                this.$refs.map.mapObject.flyTo(this.selectedEvent.marker.position);
+                this.SET_TILE_CENTER(this.selectedEvent.marker.position);
+                //this.$refs.map.mapObject.flyTo(this.selectedEvent.marker.position);
             }
         },
         mounted() {
@@ -153,10 +141,11 @@
             ]),
             latLngDragUpdatePosition: function (latLng) {
                 // animation
-                this.$refs.map.mapObject.setView(this.selectedEvent.marker.position);
+                // this.$refs.map.mapObject.setView(this.selectedEvent.marker.position);
                 // set marker to position
                 const payload = {'index': this.indexSelectedEvent, 'position': latLng};
                 this.SET_EVENT_MARKER_POSITION(payload);
+                this.SET_TILE_CENTER(this.selectedEvent.marker.position);
             },
             // Здесь в отличии от изменений координат "перетаскиванием" мы получим обьект с событием, откуда извелём позицию клика
             latLngClickUpdatePosition: function (latLng) {

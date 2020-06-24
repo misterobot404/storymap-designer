@@ -261,10 +261,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Constructor/ControlPanelSettings.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vuetify-loader/lib/loader.js??ref--10-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Constructor/ControlPanelSettings.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vuetify-loader/lib/loader.js??ref--10-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -376,15 +376,199 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "CreateMapDialog",
+  data: function data() {
+    return {
+      dialog: false,
+      loading: false,
+      name: "",
+      tileUrl: ""
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('maps', ['tiles'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('maps', ['ADD_TILE']), {
+    addTile: function addTile() {
+      this.ADD_TILE({
+        name: this.name,
+        url: this.tileUrl
+      });
+      this.dialog = false;
+    }
+  })
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Constructor/ControlPanelSettings.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vuetify-loader/lib/loader.js??ref--10-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Constructor/ControlPanelSettings.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _components_Constructor_ControlPanelSettingAddTileDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/Constructor/ControlPanelSettingAddTileDialog */ "./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Settings",
+  components: {
+    AddTileDialog: _components_Constructor_ControlPanelSettingAddTileDialog__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
       dialog: false
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['name', 'description', 'subject', 'tile']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('maps', ['subjects', 'maps', 'tiles']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['name', 'description', 'subject', 'tile']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('maps', ['maps', 'tiles']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('maps', ['subjects']), {
     getSubjectNames: function getSubjectNames() {
       var subjectNames = [];
       this.subjects.forEach(function (el) {
@@ -427,18 +611,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       get: function get() {
         var _this = this;
 
-        return this.tiles.find(function (obj) {
+        var tile = this.tiles.find(function (obj) {
           return obj.url === _this.tile.url;
-        }).name;
+        });
+        if (tile !== undefined) return tile.name;
       },
       set: function set(value) {
         this.SET_TILE_URL(this.tiles.find(function (obj) {
           return obj.name === value;
         }).url);
       }
+    },
+    model_tileShowPolyline: {
+      get: function get() {
+        return this.tile.showPolyline;
+      },
+      set: function set(value) {
+        this.SET_SHOW_POLYLINE(value);
+      }
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('layout', ['CHANGE_THEME']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ['SET_MAP_NAME', 'SET_MAP_DESCRIPTION', 'SET_MAP_SUBJECT', 'SET_TILE_URL']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('layout', ['CHANGE_THEME']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ['SET_MAP_NAME', 'SET_MAP_DESCRIPTION', 'SET_MAP_SUBJECT', 'SET_TILE_URL', 'SET_SHOW_POLYLINE']))
 });
 
 /***/ }),
@@ -452,11 +645,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _components_MediaContentForEvent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/MediaContentForEvent */ "./resources/js/components/MediaContentForEvent.vue");
 /* harmony import */ var tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tiptap-vuetify */ "./node_modules/tiptap-vuetify/dist/bundle-esm.js");
-/* harmony import */ var vue_youtube_embed__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-youtube-embed */ "./node_modules/vue-youtube-embed/lib/vue-youtube-embed.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -593,51 +784,65 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORTED_MODULE_3__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ConstructorForm",
   components: {
+    MediaContent: _components_MediaContentForEvent__WEBPACK_IMPORTED_MODULE_1__["default"],
     TiptapVuetify: tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["TiptapVuetify"]
   },
   data: function data() {
     return {
-      checkExistImages: null,
-      // Dialog/ Change icon.
+      // Dialog. Change icon.
       changeIconDialog: false,
       iconUrl: "",
       iconWidth: null,
       iconHeight: null,
+      // Dialog. Add media.
+      addMediaDialog: false,
+      mediaUrl: "",
       // declare extensions you want to use  in html editor
       extensions: [tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["History"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Link"], [tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Heading"], {
         options: {
           levels: [1, 2, 3, 4]
         }
-      }], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Underline"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Strike"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Italic"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Bold"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["ListItem"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["BulletList"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["OrderedList"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Blockquote"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["HorizontalRule"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Paragraph"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["HardBreak"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Code"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["CodeBlock"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Table"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["TableCell"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["TableHeader"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["TableRow"]]
+      }], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Underline"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Strike"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Italic"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Bold"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["ListItem"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["BulletList"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["OrderedList"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Blockquote"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["HorizontalRule"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Paragraph"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["HardBreak"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["Code"], tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["CodeBlock"]]
     };
   },
   watch: {
-    'selectedEvent.mediaUrl': {
-      immediate: true,
-      handler: function handler(val) {
-        var _this = this;
-
-        var img = new Image();
-
-        img.onload = function () {
-          return _this.checkExistImages = img.height > 0;
-        };
-
-        img.onerror = function () {
-          return _this.checkExistImages = false;
-        };
-
-        img.src = val;
-      }
-    },
     changeIconDialog: function changeIconDialog(val) {
       if (val) {
         this.iconUrl = this.selectedEvent.marker.url;
@@ -646,7 +851,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORT
       }
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('map', ['selectedEvent', 'indexSelectedEvent']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('map', ['selectedEvent', 'indexSelectedEvent']), {
     model_title: {
       get: function get() {
         return this.selectedEvent.title;
@@ -682,12 +887,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORT
         };
         this.SET_EVENT_MEDIA_URL(payload);
       }
-    },
-    getYouTubeIdOfSelectedEvent: function getYouTubeIdOfSelectedEvent() {
-      return this.$youtube.getIdFromURL(this.selectedEvent.mediaUrl);
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])('map', ["SET_EVENT_TITLE", "SET_EVENT_DESCRIPTION", "SET_EVENT_MEDIA_URL", 'SET_EVENT_ICON_URL']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ["SET_EVENT_TITLE", "SET_EVENT_DESCRIPTION", "ADD_EVENT_MEDIA_URL", 'SET_EVENT_ICON_URL']))
 });
 
 /***/ }),
@@ -869,22 +1071,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
- // TODO: Добавить определение карёв карты
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Map",
@@ -894,7 +1082,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     LMarker: vue2_leaflet__WEBPACK_IMPORTED_MODULE_1__["LMarker"],
     LTooltip: vue2_leaflet__WEBPACK_IMPORTED_MODULE_1__["LTooltip"],
     LIcon: vue2_leaflet__WEBPACK_IMPORTED_MODULE_1__["LIcon"],
-    LPolyline: vue2_leaflet__WEBPACK_IMPORTED_MODULE_1__["LPolyline"]
+    LPolyline: vue2_leaflet__WEBPACK_IMPORTED_MODULE_1__["LPolyline"],
+    LControlZoom: vue2_leaflet__WEBPACK_IMPORTED_MODULE_1__["LControlZoom"]
   },
   data: function data() {
     return {
@@ -909,7 +1098,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   watch: {
     'config.selectedEventId': function configSelectedEventId() {
-      this.$refs.map.mapObject.flyTo(this.selectedEvent.marker.position);
+      this.SET_TILE_CENTER(this.selectedEvent.marker.position); //this.$refs.map.mapObject.flyTo(this.selectedEvent.marker.position);
     }
   },
   mounted: function mounted() {
@@ -955,13 +1144,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ["SET_TILE_CENTER", "SET_SELECTED_EVENT_ID", "SET_EVENT_MARKER_POSITION", "SET_TILE_BOUNDS", "SET_MIN_TILE_ZOOM", "SET_MAX_TILE_ZOOM"]), {
     latLngDragUpdatePosition: function latLngDragUpdatePosition(latLng) {
       // animation
-      this.$refs.map.mapObject.setView(this.selectedEvent.marker.position); // set marker to position
-
+      // this.$refs.map.mapObject.setView(this.selectedEvent.marker.position);
+      // set marker to position
       var payload = {
         'index': this.indexSelectedEvent,
         'position': latLng
       };
       this.SET_EVENT_MARKER_POSITION(payload);
+      this.SET_TILE_CENTER(this.selectedEvent.marker.position);
     },
     // Здесь в отличии от изменений координат "перетаскиванием" мы получим обьект с событием, откуда извелём позицию клика
     latLngClickUpdatePosition: function latLngClickUpdatePosition(latLng) {
@@ -1007,7 +1197,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -1588,9 +1777,9 @@ var render = function() {
                               _c("v-img", {
                                 staticClass: "mb-12",
                                 attrs: {
-                                  color: "grey lighten-1",
-                                  src: __webpack_require__(/*! @/assets/gif/help_part_1.gif */ "./resources/js/assets/gif/help_part_1.gif"),
-                                  height: "200px"
+                                  contain: "",
+                                  "max-height": "100%",
+                                  src: __webpack_require__(/*! @/assets/gif/help_part_1.gif */ "./resources/js/assets/gif/help_part_1.gif")
                                 }
                               }),
                               _vm._v(" "),
@@ -1620,11 +1809,12 @@ var render = function() {
                             "v-stepper-content",
                             { attrs: { step: "2" } },
                             [
-                              _c("v-card", {
+                              _c("v-img", {
                                 staticClass: "mb-12",
                                 attrs: {
-                                  color: "grey lighten-1",
-                                  height: "200px"
+                                  contain: "",
+                                  "max-height": "100%",
+                                  src: __webpack_require__(/*! @/assets/gif/help_part_2.gif */ "./resources/js/assets/gif/help_part_2.gif")
                                 }
                               }),
                               _vm._v(" "),
@@ -1654,11 +1844,12 @@ var render = function() {
                             "v-stepper-content",
                             { attrs: { step: "3" } },
                             [
-                              _c("v-card", {
+                              _c("v-img", {
                                 staticClass: "mb-12",
                                 attrs: {
-                                  color: "grey lighten-1",
-                                  height: "200px"
+                                  contain: "",
+                                  "max-height": "100%",
+                                  src: __webpack_require__(/*! @/assets/gif/help_part_3.gif */ "./resources/js/assets/gif/help_part_3.gif")
                                 }
                               }),
                               _vm._v(" "),
@@ -1692,11 +1883,12 @@ var render = function() {
                             "v-stepper-content",
                             { attrs: { step: "4" } },
                             [
-                              _c("v-card", {
+                              _c("v-img", {
                                 staticClass: "mb-12",
                                 attrs: {
-                                  color: "grey lighten-1",
-                                  height: "200px"
+                                  "max-height": "100%",
+                                  contain: "",
+                                  src: __webpack_require__(/*! @/assets/gif/help_part_4.gif */ "./resources/js/assets/gif/help_part_4.gif")
                                 }
                               }),
                               _vm._v(" "),
@@ -1733,11 +1925,12 @@ var render = function() {
                             "v-stepper-content",
                             { attrs: { step: "5" } },
                             [
-                              _c("v-card", {
+                              _c("v-img", {
                                 staticClass: "mb-12",
                                 attrs: {
-                                  color: "grey lighten-1",
-                                  height: "200px"
+                                  contain: "",
+                                  "max-height": "100%",
+                                  src: __webpack_require__(/*! @/assets/gif/help_part_5.gif */ "./resources/js/assets/gif/help_part_5.gif")
                                 }
                               }),
                               _vm._v(" "),
@@ -1784,11 +1977,12 @@ var render = function() {
                             "v-stepper-content",
                             { attrs: { step: "6" } },
                             [
-                              _c("v-card", {
+                              _c("v-img", {
                                 staticClass: "mb-12",
                                 attrs: {
-                                  color: "grey lighten-1",
-                                  height: "200px"
+                                  contain: "",
+                                  "max-height": "100%",
+                                  src: __webpack_require__(/*! @/assets/gif/help_part_6.gif */ "./resources/js/assets/gif/help_part_6.gif")
                                 }
                               }),
                               _vm._v(" "),
@@ -1833,6 +2027,272 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue?vue&type=template&id=12c78bee&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vuetify-loader/lib/loader.js??ref--10-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue?vue&type=template&id=12c78bee& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-dialog",
+    {
+      attrs: { "max-width": "400" },
+      scopedSlots: _vm._u([
+        {
+          key: "activator",
+          fn: function(ref) {
+            var on = ref.on
+            return [
+              _c(
+                "v-btn",
+                _vm._g(
+                  {
+                    staticClass: "mt-4 v-btn--active",
+                    attrs: { depressed: "", color: "primary" }
+                  },
+                  on
+                ),
+                [_vm._v("\n            Добавить подложку\n        ")]
+              )
+            ]
+          }
+        }
+      ]),
+      model: {
+        value: _vm.dialog,
+        callback: function($$v) {
+          _vm.dialog = $$v
+        },
+        expression: "dialog"
+      }
+    },
+    [
+      _vm._v(" "),
+      _c(
+        "v-card",
+        [
+          _c(
+            "v-toolbar",
+            { staticClass: "pr-1", attrs: { height: "68", flat: "" } },
+            [
+              _c(
+                "v-icon",
+                { staticClass: "mr-2", attrs: { large: "", color: "primary" } },
+                [_vm._v("\n                layers\n            ")]
+              ),
+              _vm._v(" "),
+              _c("v-toolbar-title", [_vm._v(" Добавление подложки")]),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { icon: "" },
+                  on: {
+                    click: function($event) {
+                      _vm.dialog = false
+                    }
+                  }
+                },
+                [_c("v-icon", [_vm._v("close")])],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-divider"),
+          _vm._v(" "),
+          _c(
+            "v-card-text",
+            { staticClass: "pb-0" },
+            [
+              _c(
+                "v-form",
+                { ref: "form" },
+                [
+                  _c(
+                    "v-container",
+                    { staticClass: "pb-0" },
+                    [
+                      _c(
+                        "v-row",
+                        [
+                          _c(
+                            "v-col",
+                            { staticClass: "pb-0 pt-3", attrs: { cols: "12" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "Название",
+                                  filled: "",
+                                  rules: [
+                                    function(v) {
+                                      return !!v || "Введите название"
+                                    },
+                                    function(v) {
+                                      return (
+                                        _vm.tiles.find(function(tile) {
+                                          return tile.name === v
+                                        }) === undefined ||
+                                        "Подложка с таким названием уже существует"
+                                      )
+                                    }
+                                  ],
+                                  required: ""
+                                },
+                                model: {
+                                  value: _vm.name,
+                                  callback: function($$v) {
+                                    _vm.name =
+                                      typeof $$v === "string" ? $$v.trim() : $$v
+                                  },
+                                  expression: "name"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { staticClass: "pt-1", attrs: { cols: "12" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  label: "Ссылка на подложку",
+                                  filled: "",
+                                  rules: [
+                                    function(v) {
+                                      return !!v || "Введите URL"
+                                    },
+                                    function(v) {
+                                      return (
+                                        _vm.tiles.find(function(tile) {
+                                          return tile.url === v
+                                        }) === undefined ||
+                                        "Подложка уже используется"
+                                      )
+                                    }
+                                  ],
+                                  required: ""
+                                },
+                                model: {
+                                  value: _vm.tileUrl,
+                                  callback: function($$v) {
+                                    _vm.tileUrl =
+                                      typeof $$v === "string" ? $$v.trim() : $$v
+                                  },
+                                  expression: "tileUrl"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "text-decoration-none",
+                                  attrs: {
+                                    href:
+                                      "http://leaflet-extras.github.io/leaflet-providers/preview/index.html",
+                                    target: "_blank"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Внешняя библиотека подложек.\n                            "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12" } },
+                            [
+                              _c("v-select", {
+                                attrs: {
+                                  height: "68",
+                                  filled: "",
+                                  "hide-details": "",
+                                  items: [
+                                    "Фреймы",
+                                    "Растяжение",
+                                    "Дублирование"
+                                  ],
+                                  value: "Фреймы",
+                                  label: "Вид отображения",
+                                  rules: [
+                                    function(v) {
+                                      return !!v || "Выберите тип отображения"
+                                    }
+                                  ],
+                                  required: ""
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-card-actions",
+            { staticClass: "px-9 py-4" },
+            [
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  staticClass: "px-7",
+                  attrs: {
+                    color: "primary",
+                    outlined: "",
+                    loading: _vm.loading
+                  },
+                  on: { click: _vm.addTile }
+                },
+                [_vm._v("\n                Добавить\n            ")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Constructor/ControlPanelSettings.vue?vue&type=template&id=d6ebd82c&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vuetify-loader/lib/loader.js??ref--10-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Constructor/ControlPanelSettings.vue?vue&type=template&id=d6ebd82c& ***!
@@ -1851,7 +2311,7 @@ var render = function() {
   return _c(
     "v-dialog",
     {
-      attrs: { "max-width": "600", scrollable: "" },
+      attrs: { "max-width": "800", scrollable: "" },
       scopedSlots: _vm._u([
         {
           key: "activator",
@@ -1876,7 +2336,7 @@ var render = function() {
                   _c(
                     "v-icon",
                     { staticClass: "mr-1", staticStyle: { opacity: "0.76" } },
-                    [_vm._v(" settings ")]
+                    [_vm._v(" settings")]
                   ),
                   _vm._v("\n            Настройки\n        ")
                 ],
@@ -1921,7 +2381,7 @@ var render = function() {
                     }
                   }
                 },
-                [_c("v-icon", [_vm._v(" close ")])],
+                [_c("v-icon", [_vm._v(" close")])],
                 1
               )
             ],
@@ -1932,154 +2392,189 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-card-text",
-            { staticClass: "pb-0" },
+            { staticClass: "pa-0" },
             [
               _c(
                 "v-form",
                 { ref: "form" },
                 [
                   _c(
-                    "v-container",
-                    { staticClass: "py-1" },
+                    "v-card-text",
                     [
                       _c(
-                        "v-card-text",
-                        { staticClass: "pb-0" },
+                        "v-row",
+                        { attrs: { "no-gutters": "" } },
                         [
                           _c(
-                            "v-form",
-                            { ref: "form" },
+                            "v-col",
+                            [
+                              _c(
+                                "v-form",
+                                { ref: "form" },
+                                [
+                                  _c(
+                                    "v-container",
+                                    { staticClass: "py-0" },
+                                    [
+                                      _c(
+                                        "v-row",
+                                        [
+                                          _c("v-subheader", [
+                                            _vm._v("Основная информация")
+                                          ]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "12" } },
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  label: "Название",
+                                                  filled: "",
+                                                  rules: [
+                                                    function(v) {
+                                                      return (
+                                                        !!v ||
+                                                        "Введите название"
+                                                      )
+                                                    },
+                                                    function(v) {
+                                                      return (
+                                                        _vm.maps.find(function(
+                                                          map
+                                                        ) {
+                                                          return map.name === v
+                                                        }) === undefined ||
+                                                        "Атлас с таким именем уже существует"
+                                                      )
+                                                    }
+                                                  ],
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value: _vm.model_mapName,
+                                                  callback: function($$v) {
+                                                    _vm.model_mapName =
+                                                      typeof $$v === "string"
+                                                        ? $$v.trim()
+                                                        : $$v
+                                                  },
+                                                  expression: "model_mapName"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "12" } },
+                                            [
+                                              _c("v-textarea", {
+                                                attrs: {
+                                                  filled: "",
+                                                  label: "Описание",
+                                                  rules: [
+                                                    function(v) {
+                                                      return (
+                                                        !!v ||
+                                                        "Введите описание"
+                                                      )
+                                                    }
+                                                  ],
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value:
+                                                    _vm.model_mapDescription,
+                                                  callback: function($$v) {
+                                                    _vm.model_mapDescription =
+                                                      typeof $$v === "string"
+                                                        ? $$v.trim()
+                                                        : $$v
+                                                  },
+                                                  expression:
+                                                    "model_mapDescription"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            { attrs: { cols: "12" } },
+                                            [
+                                              _c("v-select", {
+                                                attrs: {
+                                                  height: "68",
+                                                  filled: "",
+                                                  items: _vm.getSubjectNames,
+                                                  label: "Категория",
+                                                  rules: [
+                                                    function(v) {
+                                                      return (
+                                                        !!v ||
+                                                        "Выберите категорию"
+                                                      )
+                                                    }
+                                                  ],
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value: _vm.model_mapSubject,
+                                                  callback: function($$v) {
+                                                    _vm.model_mapSubject = $$v
+                                                  },
+                                                  expression: "model_mapSubject"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("v-divider", {
+                            staticClass: "mx-2",
+                            attrs: { vertical: "" }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
                             [
                               _c(
                                 "v-container",
-                                { staticClass: "pb-0" },
+                                { staticClass: "py-0" },
                                 [
                                   _c(
                                     "v-row",
                                     [
                                       _c("v-subheader", [
-                                        _vm._v("Основная информация")
+                                        _vm._v("Изменение подложки")
                                       ]),
                                       _vm._v(" "),
                                       _c(
                                         "v-col",
                                         { attrs: { cols: "12" } },
                                         [
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              label: "Название",
-                                              filled: "",
-                                              rules: [
-                                                function(v) {
-                                                  return (
-                                                    !!v || "Введите название"
-                                                  )
-                                                },
-                                                function(v) {
-                                                  return (
-                                                    _vm.maps.find(function(
-                                                      map
-                                                    ) {
-                                                      return map.name === v
-                                                    }) === undefined ||
-                                                    "Атлас с таким именем уже существует"
-                                                  )
-                                                }
-                                              ],
-                                              required: ""
-                                            },
-                                            model: {
-                                              value: _vm.model_mapName,
-                                              callback: function($$v) {
-                                                _vm.model_mapName =
-                                                  typeof $$v === "string"
-                                                    ? $$v.trim()
-                                                    : $$v
-                                              },
-                                              expression: "model_mapName"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-col",
-                                        { attrs: { cols: "12" } },
-                                        [
-                                          _c("v-textarea", {
-                                            attrs: {
-                                              filled: "",
-                                              clearable: "",
-                                              label: "Описание",
-                                              "clear-icon": "cancel",
-                                              rules: [
-                                                function(v) {
-                                                  return (
-                                                    !!v || "Введите описание"
-                                                  )
-                                                }
-                                              ],
-                                              required: ""
-                                            },
-                                            model: {
-                                              value: _vm.model_mapDescription,
-                                              callback: function($$v) {
-                                                _vm.model_mapDescription =
-                                                  typeof $$v === "string"
-                                                    ? $$v.trim()
-                                                    : $$v
-                                              },
-                                              expression: "model_mapDescription"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-col",
-                                        { attrs: { cols: "12" } },
-                                        [
                                           _c("v-select", {
                                             attrs: {
                                               height: "68",
                                               filled: "",
-                                              items: _vm.getSubjectNames,
-                                              label: "Категория",
-                                              rules: [
-                                                function(v) {
-                                                  return (
-                                                    !!v || "Выберите категорию"
-                                                  )
-                                                }
-                                              ],
-                                              required: ""
-                                            },
-                                            model: {
-                                              value: _vm.model_mapSubject,
-                                              callback: function($$v) {
-                                                _vm.model_mapSubject = $$v
-                                              },
-                                              expression: "model_mapSubject"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("v-subheader", [_vm._v("Подложка")]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-col",
-                                        { attrs: { cols: "12" } },
-                                        [
-                                          _c("v-select", {
-                                            attrs: {
-                                              height: "68",
-                                              filled: "",
+                                              "hide-details": "",
                                               items: _vm.getTileNames,
-                                              label: "Категория",
+                                              label: "Выберите",
                                               rules: [
                                                 function(v) {
                                                   return (
@@ -2095,6 +2590,61 @@ var render = function() {
                                                 _vm.model_tileUrl = $$v
                                               },
                                               expression: "model_tileUrl"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("AddTileDialog")
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12" } },
+                                        [
+                                          _c("v-switch", {
+                                            attrs: {
+                                              items: _vm.getTileNames,
+                                              label:
+                                                "Отображение связывающих линий"
+                                            },
+                                            model: {
+                                              value: _vm.model_tileShowPolyline,
+                                              callback: function($$v) {
+                                                _vm.model_tileShowPolyline = $$v
+                                              },
+                                              expression:
+                                                "model_tileShowPolyline"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12" } },
+                                        [
+                                          _c("v-slider", {
+                                            attrs: {
+                                              min: "0",
+                                              max: "3",
+                                              label: "Минимальный зум"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12" } },
+                                        [
+                                          _c("v-slider", {
+                                            attrs: {
+                                              min: "3",
+                                              max: "6",
+                                              label: "Максимальный зум"
                                             }
                                           })
                                         ],
@@ -2154,7 +2704,7 @@ var render = function() {
     "v-row",
     {
       staticClass: "mt-3",
-      staticStyle: { "max-height": "40%" },
+      staticStyle: { "max-height": "36vh", "min-height": "36vh" },
       attrs: { "no-gutters": "" }
     },
     [
@@ -2162,7 +2712,8 @@ var render = function() {
         "v-col",
         {
           staticClass: "pr-1 d-flex flex-column",
-          staticStyle: { "max-height": "100%", overflow: "auto" }
+          staticStyle: { "max-height": "100%", overflow: "auto" },
+          attrs: { cols: "6" }
         },
         [
           _c("v-text-field", {
@@ -2205,7 +2756,11 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-col",
-        { staticClass: "d-flex flex-column pl-2" },
+        {
+          staticClass: "d-flex flex-column pl-2",
+          staticStyle: { "max-height": "100%" },
+          attrs: { cols: "6" }
+        },
         [
           _c(
             "v-card",
@@ -2228,18 +2783,29 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-card-text",
-                { staticClass: "d-flex flex" },
+                {
+                  staticClass: "d-flex flex",
+                  staticStyle: { "max-height": "100%", overflow: "auto" }
+                },
                 [
                   _c(
                     "v-col",
-                    { staticClass: "d-flex flex-column justify-center" },
+                    {
+                      staticClass: "d-flex flex-column justify-center",
+                      attrs: { cols: "6" }
+                    },
                     [
                       _c(
                         "v-btn",
                         {
                           staticClass: "mb-4 primary--text",
                           staticStyle: { "flex-grow": "0" },
-                          attrs: { block: "", "x-large": "" }
+                          attrs: { block: "", large: "" },
+                          on: {
+                            click: function($event) {
+                              _vm.addMediaDialog = true
+                            }
+                          }
                         },
                         [
                           _c("v-icon", { staticClass: "mr-2" }, [
@@ -2247,6 +2813,99 @@ var render = function() {
                           ]),
                           _vm._v(
                             "\n                        Добавить медиа\n                    "
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-dialog",
+                        {
+                          attrs: { "max-width": "290" },
+                          model: {
+                            value: _vm.addMediaDialog,
+                            callback: function($$v) {
+                              _vm.addMediaDialog = $$v
+                            },
+                            expression: "addMediaDialog"
+                          }
+                        },
+                        [
+                          _c(
+                            "v-card",
+                            [
+                              _c("v-card-title", { staticClass: "headline" }, [
+                                _vm._v("Добавление медиа")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-text",
+                                [
+                                  _c("v-text-field", {
+                                    attrs: { label: "Внешняя ссылка" },
+                                    model: {
+                                      value: _vm.mediaUrl,
+                                      callback: function($$v) {
+                                        _vm.mediaUrl = $$v
+                                      },
+                                      expression: "mediaUrl"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-card-actions",
+                                [
+                                  _c("v-spacer"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { color: "primary", text: "" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.addMediaDialog = false
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                    Закрыть\n                                "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        color: "primary",
+                                        text: "",
+                                        disabled: _vm.mediaUrl === ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.addMediaDialog = false
+                                          _vm.ADD_EVENT_MEDIA_URL({
+                                            index: _vm.indexSelectedEvent,
+                                            mediaUrl: _vm.mediaUrl
+                                          })
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                    Добавить\n                                "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
                           )
                         ],
                         1
@@ -2369,7 +3028,7 @@ var render = function() {
                                         click: function($event) {
                                           _vm.changeIconDialog = false
                                           _vm.SET_EVENT_ICON_URL({
-                                            id: _vm.indexSelectedEvent,
+                                            index: _vm.indexSelectedEvent,
                                             iconUrl: _vm.iconUrl,
                                             size: [
                                               _vm.iconWidth,
@@ -2400,51 +3059,12 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-col",
-                    [
-                      _c(
-                        "v-carousel",
-                        {
-                          attrs: {
-                            cycle: "",
-                            height: "100%",
-                            "hide-delimiter-background": "",
-                            "show-arrows-on-hover": "",
-                            "hide-delimiters": ""
-                          }
-                        },
-                        [
-                          _c(
-                            "v-carousel-item",
-                            [
-                              _c(
-                                "v-sheet",
-                                { attrs: { color: "primary", height: "100%" } },
-                                [
-                                  _c(
-                                    "v-row",
-                                    {
-                                      staticClass: "fill-height",
-                                      attrs: {
-                                        align: "center",
-                                        justify: "center"
-                                      }
-                                    },
-                                    [
-                                      _c("div", { staticClass: "display-1" }, [
-                                        _vm._v("Контент")
-                                      ])
-                                    ]
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
+                    {
+                      staticClass: "d-flex flex-column justify-center",
+                      staticStyle: { "max-height": "100%", overflow: "auto" },
+                      attrs: { cols: "6" }
+                    },
+                    [_c("MediaContent", { attrs: { height: "100%" } })],
                     1
                   )
                 ],
@@ -2648,7 +3268,8 @@ var render = function() {
       attrs: {
         minZoom: _vm.minZoom,
         center: _vm.sync_center,
-        maxBoundsViscosity: _vm.maxBoundsViscosity
+        maxBoundsViscosity: _vm.maxBoundsViscosity,
+        options: { zoomControl: false }
       },
       on: {
         "update:center": function($event) {
@@ -2708,55 +3329,20 @@ var render = function() {
         )
       }),
       _vm._v(" "),
-      _c("l-polyline", {
-        attrs: {
-          "lat-lngs": _vm.arrayMarker,
-          opacity: _vm.polylineOpacity,
-          dashArray: _vm.polylineDashArray,
-          weight: _vm.polylineWeight
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "v-tooltip",
-        {
-          attrs: { top: "" },
-          scopedSlots: _vm._u([
-            {
-              key: "activator",
-              fn: function(ref) {
-                var on = ref.on
-                return [
-                  _c(
-                    "v-btn",
-                    _vm._g(
-                      {
-                        staticClass: "px-0",
-                        staticStyle: {
-                          top: "10px",
-                          right: "10px",
-                          "z-index": "401"
-                        },
-                        attrs: { absolute: "", small: "" },
-                        on: {
-                          click: function($event) {
-                            $event.stopPropagation()
-                            return _vm.$refs.map.mapObject.invalidateSize()
-                          }
-                        }
-                      },
-                      on
-                    ),
-                    [_c("v-icon", [_vm._v("update")])],
-                    1
-                  )
-                ]
+      _vm.tile.showPolyline
+        ? [
+            _c("l-polyline", {
+              attrs: {
+                "lat-lngs": _vm.arrayMarker,
+                opacity: _vm.polylineOpacity,
+                dashArray: _vm.polylineDashArray,
+                weight: _vm.polylineWeight
               }
-            }
-          ])
-        },
-        [_vm._v(" "), _c("span", [_vm._v("Обновить")])]
-      )
+            })
+          ]
+        : _vm._e(),
+      _vm._v(" "),
+      _c("l-control-zoom", { attrs: { position: "topright" } })
     ],
     2
   )
@@ -2859,7 +3445,62 @@ render._withStripped = true
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/help_part_1.gif?fa5e729e23d690512932164bbb25317b";
+module.exports = "/images/help_part_1.gif?a94e5bb01144108f20df894607afafe0";
+
+/***/ }),
+
+/***/ "./resources/js/assets/gif/help_part_2.gif":
+/*!*************************************************!*\
+  !*** ./resources/js/assets/gif/help_part_2.gif ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/help_part_2.gif?e6bf7ca041fa2c810fcdb40b0bb584d1";
+
+/***/ }),
+
+/***/ "./resources/js/assets/gif/help_part_3.gif":
+/*!*************************************************!*\
+  !*** ./resources/js/assets/gif/help_part_3.gif ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/help_part_3.gif?b9b2ceb41681cec3c584f3a199201016";
+
+/***/ }),
+
+/***/ "./resources/js/assets/gif/help_part_4.gif":
+/*!*************************************************!*\
+  !*** ./resources/js/assets/gif/help_part_4.gif ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/help_part_4.gif?9a09b600a3ce8d951181085b06487167";
+
+/***/ }),
+
+/***/ "./resources/js/assets/gif/help_part_5.gif":
+/*!*************************************************!*\
+  !*** ./resources/js/assets/gif/help_part_5.gif ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/help_part_5.gif?03a08737f79d97d802b00b112d478ffd";
+
+/***/ }),
+
+/***/ "./resources/js/assets/gif/help_part_6.gif":
+/*!*************************************************!*\
+  !*** ./resources/js/assets/gif/help_part_6.gif ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/help_part_6.gif?116fa5951a358c57cde019c050fe97e6";
 
 /***/ }),
 
@@ -3053,6 +3694,108 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ControlPanelSettingAddTileDialog_vue_vue_type_template_id_12c78bee___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ControlPanelSettingAddTileDialog.vue?vue&type=template&id=12c78bee& */ "./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue?vue&type=template&id=12c78bee&");
+/* harmony import */ var _ControlPanelSettingAddTileDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ControlPanelSettingAddTileDialog.vue?vue&type=script&lang=js& */ "./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
+/* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/index.js");
+/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VSelect */ "./node_modules/vuetify/lib/components/VSelect/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ControlPanelSettingAddTileDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ControlPanelSettingAddTileDialog_vue_vue_type_template_id_12c78bee___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ControlPanelSettingAddTileDialog_vue_vue_type_template_id_12c78bee___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* vuetify-loader */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_8__["VDivider"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_9__["VForm"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_11__["VSelect"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__["VTextField"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__["VToolbarTitle"]})
+
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanelSettingAddTileDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vuetify-loader/lib/loader.js??ref--10-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ControlPanelSettingAddTileDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanelSettingAddTileDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue?vue&type=template&id=12c78bee&":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue?vue&type=template&id=12c78bee& ***!
+  \*****************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanelSettingAddTileDialog_vue_vue_type_template_id_12c78bee___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vuetify-loader/lib/loader.js??ref--10-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ControlPanelSettingAddTileDialog.vue?vue&type=template&id=12c78bee& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue?vue&type=template&id=12c78bee&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanelSettingAddTileDialog_vue_vue_type_template_id_12c78bee___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ControlPanelSettingAddTileDialog_vue_vue_type_template_id_12c78bee___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Constructor/ControlPanelSettings.vue":
 /*!**********************************************************************!*\
   !*** ./resources/js/components/Constructor/ControlPanelSettings.vue ***!
@@ -3075,10 +3818,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 /* harmony import */ var vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VSelect */ "./node_modules/vuetify/lib/components/VSelect/index.js");
-/* harmony import */ var vuetify_lib_components_VSubheader__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VSubheader */ "./node_modules/vuetify/lib/components/VSubheader/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
-/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/index.js");
-/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
+/* harmony import */ var vuetify_lib_components_VSlider__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VSlider */ "./node_modules/vuetify/lib/components/VSlider/index.js");
+/* harmony import */ var vuetify_lib_components_VSubheader__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VSubheader */ "./node_modules/vuetify/lib/components/VSubheader/index.js");
+/* harmony import */ var vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VSwitch */ "./node_modules/vuetify/lib/components/VSwitch/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/index.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
 
 
 
@@ -3116,7 +3861,9 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_8__["VDivider"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_9__["VForm"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_11__["VSelect"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VSpacer"],VSubheader: vuetify_lib_components_VSubheader__WEBPACK_IMPORTED_MODULE_12__["VSubheader"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_13__["VTextField"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_14__["VTextarea"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_15__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_15__["VToolbarTitle"]})
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_8__["VDivider"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_9__["VForm"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_11__["VSelect"],VSlider: vuetify_lib_components_VSlider__WEBPACK_IMPORTED_MODULE_12__["VSlider"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VSpacer"],VSubheader: vuetify_lib_components_VSubheader__WEBPACK_IMPORTED_MODULE_13__["VSubheader"],VSwitch: vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_14__["VSwitch"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_15__["VTextField"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_16__["VTextarea"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_17__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_17__["VToolbarTitle"]})
 
 
 /* hot reload */
@@ -3175,14 +3922,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
-/* harmony import */ var vuetify_lib_components_VCarousel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VCarousel */ "./node_modules/vuetify/lib/components/VCarousel/index.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
-/* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/index.js");
-/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
-/* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/index.js");
-/* harmony import */ var vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VSheet */ "./node_modules/vuetify/lib/components/VSheet/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
+/* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
 
 
 
@@ -3217,10 +3962,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-
-
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardTitle"],VCarousel: vuetify_lib_components_VCarousel__WEBPACK_IMPORTED_MODULE_7__["VCarousel"],VCarouselItem: vuetify_lib_components_VCarousel__WEBPACK_IMPORTED_MODULE_7__["VCarouselItem"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VCol"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_9__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_10__["VDivider"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_11__["VIcon"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_12__["VImg"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VRow"],VSheet: vuetify_lib_components_VSheet__WEBPACK_IMPORTED_MODULE_13__["VSheet"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_8__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_14__["VTextField"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardTitle"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_8__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_9__["VDivider"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_11__["VImg"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__["VTextField"]})
 
 
 /* hot reload */
@@ -3389,11 +4131,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Map_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Map.vue?vue&type=script&lang=js& */ "./resources/js/components/Constructor/Map.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _Map_vue_vue_type_style_index_0_id_6b7892e8_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Map.vue?vue&type=style&index=0&id=6b7892e8&lang=sass&scoped=true& */ "./resources/js/components/Constructor/Map.vue?vue&type=style&index=0&id=6b7892e8&lang=sass&scoped=true&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
-/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
-/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
-/* harmony import */ var vuetify_lib_components_VTooltip__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VTooltip */ "./node_modules/vuetify/lib/components/VTooltip/index.js");
 
 
 
@@ -3412,14 +4149,6 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null
   
 )
-
-/* vuetify-loader */
-
-
-
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_6__["VIcon"],VTooltip: vuetify_lib_components_VTooltip__WEBPACK_IMPORTED_MODULE_7__["VTooltip"]})
-
 
 /* hot reload */
 if (false) { var api; }

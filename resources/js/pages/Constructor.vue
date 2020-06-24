@@ -40,14 +40,12 @@
         </template>
     </v-container>
 </template>
-
 <script>
     import {mapGetters, mapActions} from "vuex"
     import ControlPanel from "@/components/Constructor/ControlPanel"
     import EventList from "@/components/Constructor/EventList"
     import EventForm from "@/components/Constructor/EventForm"
     import Map from "@/components/Constructor/Map"
-
     export default {
         name: "Constructor",
         components: {

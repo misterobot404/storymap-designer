@@ -1,15 +1,14 @@
 <template>
-    <!--    :minZoom="config.minTileZoom"-->
     <!--    :maxZoom="config.maxTileZoom"-->
     <!--    :maxBounds="config.tileBounds"-->
     <!--    :center="config.tileCenter" -->
     <l-map class="map"
-           style="z-index: 0;"
+           style="width: 66vw; z-index: 0"
            ref="map"
            :minZoom="minZoom"
            :center.sync="sync_center"
            :maxBoundsViscosity="maxBoundsViscosity"
-           @click="latLngClickUpdatePosition"
+           :options="{zoomControl: false}"
     >
         <l-tile-layer :url="tile.url"
                       noWrap
@@ -18,51 +17,82 @@
         <l-marker v-for="(event, index) in events"
                   :key="event.id"
                   :lat-lng="event.marker.position"
-                  :draggable="indexSelectedEvent === index"
-                  @click="SET_SELECTED_EVENT_ID(event.id)"
-                  @update:latLng="latLngDragUpdatePosition">
+                  @click="SET_SELECTED_EVENT_ID(event.id)">
             <l-tooltip>
                 {{event.title}}
             </l-tooltip>
             <l-icon v-if="indexSelectedEvent !== index"
                     :icon-size="event.marker.size"
-                    :icon-url="events[index].marker.url">
-            </l-icon>
+                    :icon-url="events[index].marker.url"
+            />
             <l-icon v-else
                     :icon-size="[event.marker.size[0]*1.5, event.marker.size[1]*1.5]"
-                    :icon-url="events[index].marker.url">
-            </l-icon>
+                    :icon-url="events[index].marker.url"
+            />
         </l-marker>
-        <l-polyline :lat-lngs="arrayMarker"
-                    :opacity="polylineOpacity"
-                    :dashArray="polylineDashArray"
-                    :weight="polylineWeight"/>
+        <template v-if="tile.showPolyline">
+            <l-polyline :lat-lngs="arrayMarker"
+                        :opacity="polylineOpacity"
+                        :dashArray="polylineDashArray"
+                        :weight="polylineWeight"/>
+        </template>
 
-        <!-- Update center map btn-->
-        <v-tooltip top>
+        <!-- BUTTONS -->
+        <!-- Prev / next event -->
+        <v-btn
+            @dblclick.stop
+            fab
+            dark
+            text
+            x-large
+            absolute
+            color="primary"
+            class="v-btn--active"
+            style="bottom: 50%; left: 16px; z-index: 401;"
+            @click="prevEvent"
+        >
+            <v-icon x-large>keyboard_arrow_left</v-icon>
+        </v-btn>
+        <v-btn
+            @dblclick.stop
+            fab
+            dark
+            absolute
+            x-large
+            text
+            color="primary"
+            class="v-btn--active"
+            style="bottom: 50%; right: 16px; z-index: 401;"
+            @click="nextEvent"
+        >
+            <v-icon x-large>keyboard_arrow_right</v-icon>
+        </v-btn>
+        <!-- Back -->
+        <v-tooltip bottom>
             <template v-slot:activator="{ on }">
                 <v-btn
-                    @click.stop="$refs.map.mapObject.invalidateSize()"
+                    @click.stop="back"
                     absolute
-                    small
-                    class="px-0"
+                    text
+                    rounded
+                    x-large
+                    class="v-btn--active"
                     v-on="on"
-                    style="top: 10px; right: 10px; z-index: 401;"
+                    style="top: 16px; left: 16px; z-index: 401;"
                 >
-                    <v-icon>update</v-icon>
+                    <v-icon large>first_page</v-icon>
                 </v-btn>
             </template>
-            <span>Обновить</span>
+            <span>Назад</span>
         </v-tooltip>
     </l-map>
 </template>
 
 <script>
-    import {mapState, mapGetters, mapMutations} from 'vuex'
+    import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
     import {LMap, LTileLayer, LMarker, LTooltip, LIcon, LPolyline} from 'vue2-leaflet'
     import 'leaflet/dist/leaflet.css'
 
-    // TODO: Добавить определение карёв карты
     export default {
         name: "Map",
         components: {
@@ -89,38 +119,6 @@
                 this.$refs.map.mapObject.flyTo(this.selectedEvent.marker.position);
             }
         },
-        mounted() {
-            // const image = 'tile';
-            // const width = 3320;
-            // const height = 2197;
-            const maxLevel = 10;
-
-            // const minLevel = 0;
-            // const orgLevel = 3;
-            //
-            // // Some weird calculations to fit the image to the initial position
-            // // Leaflet has some bugs there. The fitBounds method is not correct for large scale bounds
-            // const tileWidth = 256 * Math.pow(2, orgLevel);
-            // const radius = tileWidth / 2 / Math.PI;
-            // const rx = width - tileWidth / 2;
-            // const ry = -height + tileWidth / 2;
-            //
-            // const west = -180;
-            // const east = (180 / Math.PI) * (rx / radius);
-            // const north = 85.05;
-            // const south = (360 / Math.PI) * (Math.atan(Math.exp(ry / radius)) - (Math.PI / 4));
-            // const rc = (tileWidth / 2 + ry) / 2;
-            // const centerLat = (360 / Math.PI) * (Math.atan(Math.exp(rc / radius)) - (Math.PI / 4));
-            // const centerLon = (west + east) / 2;
-            //
-            // const bounds = [[south, west], [north, east]];
-            // this.SET_TILE_BOUNDS(bounds);
-            //
-            // this.SET_MIN_TILE_ZOOM(minLevel);
-            // this.SET_MAX_TILE_ZOOM(maxLevel);
-            //
-            // this.centerUpdated(new L.latLng(centerLat, centerLon));
-        },
         computed: {
             ...mapState('map', [
                 'tile',
@@ -143,6 +141,9 @@
             },
         },
         methods: {
+            ...mapActions('map', [
+                'saveEmptyExampleMap'
+            ]),
             ...mapMutations('map', [
                 "SET_TILE_CENTER",
                 "SET_SELECTED_EVENT_ID",
@@ -151,21 +152,41 @@
                 "SET_MIN_TILE_ZOOM",
                 "SET_MAX_TILE_ZOOM"
             ]),
-            latLngDragUpdatePosition: function (latLng) {
-                // animation
-                this.$refs.map.mapObject.setView(this.selectedEvent.marker.position);
-                // set marker to position
-                const payload = {'index': this.indexSelectedEvent, 'position': latLng};
-                this.SET_EVENT_MARKER_POSITION(payload);
+            back() {
+                // set editable example map. Id 0 means editable.
+                if (this.$route.name === "viewer-example" && this.$route.params.id === "0") {
+                    // Do nothing. Map is already set.
+                    this.saveEmptyExampleMap();
+                }
+                this.$router.go(-1);
             },
-            // Здесь в отличии от изменений координат "перетаскиванием" мы получим обьект с событием, откуда извелём позицию клика
-            latLngClickUpdatePosition: function (latLng) {
-                // animation
-                this.$refs.map.mapObject.setView(this.selectedEvent.marker.position);
-                // set marker to position
-                const payload = {'index': this.indexSelectedEvent, 'position': latLng.latlng};
-                this.SET_EVENT_MARKER_POSITION(payload);
+            prevEvent() {
+                if (this.indexSelectedEvent === 0)
+                    this.SET_SELECTED_EVENT_ID(this.events[this.events.length - 1].id);
+                else if (this.indexSelectedEvent !== 0)
+                    this.SET_SELECTED_EVENT_ID(this.events[this.indexSelectedEvent - 1].id);
+            },
+            nextEvent() {
+                if (this.indexSelectedEvent === this.events.length - 1)
+                    this.SET_SELECTED_EVENT_ID(this.events[0].id);
+                else if (this.indexSelectedEvent !== this.events.length - 1)
+                    this.SET_SELECTED_EVENT_ID(this.events[this.indexSelectedEvent + 1].id);
+            },
+            keyDownEvent(e) {
+                if (e.keyCode === 37) {
+                    this.prevEvent();
+                } else if (e.keyCode === 39) {
+                    this.nextEvent();
+                }
             }
+        },
+        beforeMount() {
+            // add keydown event
+            window.addEventListener("keydown", e => this.keyDownEvent(e));
+        },
+        beforeDestroy() {
+            // remove keydown event
+            window.removeEventListener("keydown", e => this.keyDownEvent(e));
         }
     }
 </script>

@@ -44,25 +44,25 @@
                                 <small>Стандартную или пользовательскую</small>
                             </v-stepper-step>
                             <v-stepper-content step="1">
-                                <v-img color="grey lighten-1" :src="require('@/assets/gif/help_part_1.gif')" class="mb-12" height="200px"></v-img>
+                                <v-img contain max-height="100%" :src="require('@/assets/gif/help_part_1.gif')" class="mb-12"/>
                                 <v-btn color="primary" @click="e6 = 2">Продолжить</v-btn>
                             </v-stepper-content>
 
                             <v-stepper-step :complete="e6 > 2" step="2">Добавьте событие</v-stepper-step>
                             <v-stepper-content step="2">
-                                <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
+                                <v-img contain max-height="100%" :src="require('@/assets/gif/help_part_2.gif')" class="mb-12"/>
                                 <v-btn color="primary" @click="e6 = 3">Продолжить</v-btn>
                             </v-stepper-content>
 
                             <v-stepper-step :complete="e6 > 3" step="3">Установите название и описание</v-stepper-step>
                             <v-stepper-content step="3">
-                                <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
+                                <v-img contain max-height="100%" :src="require('@/assets/gif/help_part_3.gif')" class="mb-12"/>
                                 <v-btn color="primary" @click="e6 = 4">Продолжить</v-btn>
                             </v-stepper-content>
 
                             <v-stepper-step :complete="e6 > 4" step="4">Установите нужные медиа-обьекты к описываемому событию</v-stepper-step>
                             <v-stepper-content step="4">
-                                <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
+                                <v-img max-height="100%" contain :src="require('@/assets/gif/help_part_4.gif')" class="mb-12"/>
                                 <v-btn color="primary" @click="e6 = 5">Продолжить</v-btn>
                             </v-stepper-content>
 
@@ -71,7 +71,7 @@
                                 <small>Иконки и размер меток можно изменять</small>
                             </v-stepper-step>
                             <v-stepper-content step="5">
-                                <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
+                                <v-img contain max-height="100%" :src="require('@/assets/gif/help_part_5.gif')" class="mb-12"/>
                                 <v-btn color="primary" @click="e6 = 2">Продолжить</v-btn>
                                 <v-btn text color="primary" @click="e6 = 6" class="mx-2"> Завершить создание</v-btn>
                             </v-stepper-content>
@@ -81,7 +81,7 @@
                                 <small>Разместить атлас на нужном веб-ресурсе</small>
                             </v-stepper-step>
                             <v-stepper-content step="6">
-                                <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
+                                <v-img contain max-height="100%" :src="require('@/assets/gif/help_part_6.gif')" class="mb-12"/>
                                 <v-btn color="primary" @click="completed()"> Закрыть обучение </v-btn>
                             </v-stepper-content>
                         </v-stepper>

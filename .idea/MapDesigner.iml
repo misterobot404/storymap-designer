@@ -16,7 +16,6 @@
       <excludeFolder url="file://$MODULE_DIR$/public" />
       <excludeFolder url="file://$MODULE_DIR$/resources/lang" />
       <excludeFolder url="file://$MODULE_DIR$/resources/sass" />
-      <excludeFolder url="file://$MODULE_DIR$/resources/views" />
       <excludeFolder url="file://$MODULE_DIR$/storage" />
       <excludeFolder url="file://$MODULE_DIR$/storage/app" />
       <excludeFolder url="file://$MODULE_DIR$/storage/framework" />

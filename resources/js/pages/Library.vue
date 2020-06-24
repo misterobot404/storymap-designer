@@ -25,16 +25,7 @@
                         :class="[$vuetify.breakpoint.xs ? 'justify-center' : 'justify-end']"
                         style="height: 100%"
                     >
-                        <v-btn
-                            class="ma-2"
-                            large
-                            color="primary"
-                            outlined
-                            rounded
-                        >
-                            <v-icon class="mr-1">create_new_folder</v-icon>
-                            Создать папку
-                        </v-btn>
+                        <CreateSubjectDialog/>
                         <!-- ModalDialog. Create map -->
                         <CreateMapDialog/>
                     </v-row>
@@ -229,8 +220,9 @@
 </template>
 
 <script>
-    import {mapState, mapActions} from "vuex"
+    import {mapState, mapActions, mapGetters} from "vuex"
     import CreateMapDialog from "@/components/Library/CreateMapDialog"
+    import CreateSubjectDialog from "@/components/Library/CreateSubjectDialog"
     import GridMaps from "@/components/Library/GridMaps"
     import ListMaps from "@/components/Library/ListMaps"
 
@@ -238,6 +230,7 @@
         name: "Library",
         components: {
             CreateMapDialog,
+            CreateSubjectDialog,
             GridMaps,
             ListMaps
         },
@@ -263,6 +256,8 @@
         computed: {
             ...mapState('maps', [
                 'maps',
+            ]),
+            ...mapGetters('maps', [
                 'subjects'
             ]),
             // Min grey height

@@ -9,8 +9,8 @@ export default {
         subject: "",
         description: "",
         config: {eventListWidth: 227}, // {selectedEventId, eventListWidth}
-        tile: {}, // {attribution, bounds, maxZoom, minZoom, url}
-        events: [], // [{title, description, id, marker {position, url, height }, mediaUrl}]
+        tile: {}, // {attribution, bounds, maxZoom, minZoom, url, showPolyline}
+        events: [], // [{title, description, id, marker {position, url, height }, mediaUrl:[]}]
         //// OTHER. Computed data.
         // To detect changes to the current map.
         oldMap: null,
@@ -51,7 +51,7 @@ export default {
         }
     },
     actions: {
-        getMap({state, getters, dispatch, commit}, mapId) {
+        getMap({state, getters, commit}, mapId) {
             // Clear previous map
             commit('CLEAR_STATE');
             // Send request
@@ -73,6 +73,18 @@ export default {
             commit('SET_NEXT_EVENT_ID');
             // set tile center on first event
             commit('SET_TILE_CENTER', getters.selectedEvent.marker.position);
+        },
+        saveEmptyExampleMap({state, commit}) {
+           let editableMap = {
+               name: state.name,
+               subject: state.subject,
+               description: state.description,
+               config: state.config,
+               tile: state.tile,
+               events: state.events
+           }
+            // set tile center on first event
+            commit('maps/SAVE_EDITABLE_EXAMPLE', editableMap, { root: true });
         },
         setExampleMap({state, commit, rootState, getters}, mapId) {
             // Clear previous map
@@ -111,6 +123,7 @@ export default {
         addEvent({state, commit}) {
             commit('PUSH_EMPTY_EVENT');
             commit('ITERATION_ID');
+            commit('SET_SELECTED_EVENT_ID',state.events[state.events.length-1].id)
         },
         deleteEventByIndex({state, getters, commit}, index) {
             // Удалаяем событие
@@ -195,7 +208,7 @@ export default {
                 id: state.nextEventId,
                 title: "Событие " + (state.events.length + 1),
                 description: "",
-                mediaUrl: "",
+                mediaUrl: [],
                 marker: {
                     position: state.tileCenter,
                     url: "https://image.flaticon.com/icons/svg/148/148828.svg",
@@ -215,12 +228,15 @@ export default {
         SET_EVENT_DESCRIPTION: (state, payload) => {
             state.events[payload.index].description = payload.description
         },
-        SET_EVENT_MEDIA_URL: (state, payload) => {
-            state.events[payload.index].mediaUrl = payload.mediaUrl
+        ADD_EVENT_MEDIA_URL: (state, payload) => {
+            state.events[payload.index].mediaUrl.push(payload.mediaUrl)
+        },
+        REMOVE_EVENT_MEDIA_URL: (state, payload) => {
+            state.events[payload.indexEvent].mediaUrl.splice(payload.indexMediaUrl, 1);
         },
         SET_EVENT_ICON_URL: (state, payload) => {
-            state.events[payload.id].marker.url = payload.iconUrl;
-            state.events[payload.id].marker.size = payload.size;
+            state.events[payload.index].marker.url = payload.iconUrl;
+            state.events[payload.index].marker.size = payload.size;
         },
         //// Config
         ITERATION_ID: (state) => {
@@ -250,6 +266,9 @@ export default {
         },
         SET_MAX_TILE_ZOOM: (state, zoom) => {
             state.tile.maxZoom = zoom
-        }
+        },
+        SET_SHOW_POLYLINE: (state, value) => {
+            state.tile.showPolyline = value
+        },
     }
 }
