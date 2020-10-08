@@ -90,6 +90,7 @@ cd ~/MapDesigner/
 
 composer update
 npm install -g npm
+npm install
 npm update
 ```
 

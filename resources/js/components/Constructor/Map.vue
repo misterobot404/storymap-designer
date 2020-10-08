@@ -1,19 +1,25 @@
 <template>
     <!--    :maxZoom="config.maxTileZoom"-->
     <!--    :maxBounds="config.tileBounds"-->
-    <!--    :center="config.tileCenter" -->
     <l-map class="map"
            style="z-index: 0;"
            ref="map"
-           :minZoom="minZoom"
+           :minZoom="tile.minZoom"
+           :maxZoom="tile.maxZoom"
            :center.sync="sync_center"
            :maxBoundsViscosity="maxBoundsViscosity"
            @click="latLngClickUpdatePosition"
            :options="{zoomControl: false}"
     >
-        <l-tile-layer :url="tile.url"
-                      noWrap
-                      :attribution="tile.attribution"
+        <l-image-overlay
+            v-if="tile.url.indexOf('{z}') === -1 || tile.url.indexOf('{x}') === -1 || tile.url.indexOf('{y}') === -1"
+            :url="tile.url"
+        />
+        <l-tile-layer
+            v-else
+            :url="tile.url"
+            noWrap
+            :attribution="tile.attribution"
         />
         <l-marker v-for="(event, index) in events"
                   :key="event.id"
@@ -29,7 +35,7 @@
                     :icon-url="events[index].marker.url">
             </l-icon>
             <l-icon v-else
-                    :icon-size="[event.marker.size[0]*1.5, event.marker.size[1]*1.5]"
+                    :icon-size="[event.marker.size[0]*2, event.marker.size[1]*2]"
                     :icon-url="events[index].marker.url">
             </l-icon>
         </l-marker>
@@ -37,7 +43,7 @@
             <l-polyline :lat-lngs="arrayMarker"
                         :opacity="polylineOpacity"
                         :dashArray="polylineDashArray"
-                        :weight="polylineWeight"/>
+                        :weight="tile.polylineWeight !== undefined ? tile.polylineWeight : 2"/>
         </template>
         <!-- Zoom control -->
         <l-control-zoom position="topright"/>
@@ -46,7 +52,7 @@
 
 <script>
     import {mapState, mapGetters, mapMutations} from 'vuex'
-    import {LMap, LTileLayer, LMarker, LTooltip, LIcon, LPolyline, LControlZoom} from 'vue2-leaflet'
+    import {LMap, LTileLayer, LMarker, LTooltip, LIcon, LPolyline, LControlZoom, LImageOverlay} from 'vue2-leaflet'
     import 'leaflet/dist/leaflet.css'
 
     export default {
@@ -58,17 +64,16 @@
             LTooltip,
             LIcon,
             LPolyline,
-            LControlZoom
+            LControlZoom,
+            LImageOverlay
         },
         data() {
             return {
                 //// l-map config
-                minZoom: 3,
                 maxBoundsViscosity: 0.9,
                 //// l-polyline config
                 polylineOpacity: 0.6,
                 polylineDashArray: "6",
-                polylineWeight: 2
             }
         },
         watch: {

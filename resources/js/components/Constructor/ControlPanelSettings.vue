@@ -34,93 +34,118 @@
             <!-- Body -->
             <v-card-text class="pa-0">
                 <v-form ref="form">
-                        <v-card-text>
-                            <v-row no-gutters>
-                                <v-col>
-                                    <v-form ref="form">
-                                        <v-container class="py-0">
-                                            <v-row>
-                                                <v-subheader>Основная информация</v-subheader>
-                                                <v-col cols="12">
-                                                    <v-text-field
-                                                        label="Название"
-                                                        filled
-                                                        v-model.trim="model_mapName"
-                                                        :rules="[
+                    <v-card-text>
+                        <v-row no-gutters>
+                            <v-col>
+                                <v-form ref="form">
+                                    <v-container class="py-0">
+                                        <v-row>
+                                            <v-subheader>Основная информация</v-subheader>
+                                            <v-col cols="12">
+                                                <v-text-field
+                                                    label="Название"
+                                                    filled
+                                                    v-model.trim="model_mapName"
+                                                    :rules="[
                                         v => !!v || 'Введите название',
                                         v => maps.find(map => map.name === v) === undefined || 'Атлас с таким именем уже существует'
                                     ]"
-                                                        required
-                                                    />
-                                                </v-col>
-                                                <v-col cols="12">
-                                                    <v-textarea
-                                                        filled
-                                                        label="Описание"
-                                                        v-model.trim="model_mapDescription"
-                                                        :rules="[v => !!v || 'Введите описание']"
-                                                        required
-                                                    />
-                                                </v-col>
-                                                <v-col cols="12">
-                                                    <v-select
-                                                        v-model="model_mapSubject"
-                                                        height="68"
-                                                        filled
-                                                        :items="getSubjectNames"
-                                                        label="Категория"
-                                                        :rules="[v => !!v || 'Выберите категорию']"
-                                                        required
-                                                    ></v-select>
-                                                </v-col>
-                                            </v-row>
-                                        </v-container>
-                                    </v-form>
-                                </v-col>
-                                <v-divider class="mx-2" vertical/>
-                                <v-col>
-                                    <v-container class="py-0">
-                                        <v-row>
-                                            <v-subheader>Изменение подложки</v-subheader>
+                                                    required
+                                                />
+                                            </v-col>
+                                            <v-col cols="12">
+                                                <v-textarea
+                                                    filled
+                                                    label="Описание"
+                                                    v-model.trim="model_mapDescription"
+                                                    :rules="[v => !!v || 'Введите описание']"
+                                                    required
+                                                />
+                                            </v-col>
                                             <v-col cols="12">
                                                 <v-select
-                                                    v-model="model_tileUrl"
+                                                    v-model="model_mapSubject"
                                                     height="68"
                                                     filled
-                                                    hide-details
-                                                    :items="getTileNames"
-                                                    label="Выберите"
+                                                    :items="getSubjectNames"
+                                                    label="Категория"
                                                     :rules="[v => !!v || 'Выберите категорию']"
                                                     required
                                                 ></v-select>
-                                                <AddTileDialog/>
-                                            </v-col>
-                                            <v-col cols="12">
-                                                <v-switch
-                                                    v-model="model_tileShowPolyline"
-                                                    :items="getTileNames"
-                                                    label="Отображение связывающих линий"
-                                                />
-                                            </v-col>
-                                            <v-col cols="12">
-                                                <v-slider
-                                                    min="0"
-                                                    max="3"
-                                                    label="Минимальный зум"
-                                                />
-                                            </v-col>
-                                            <v-col cols="12">
-                                                <v-slider
-                                                    min="3"
-                                                    max="6"
-                                                    label="Максимальный зум"
-                                                />
                                             </v-col>
                                         </v-row>
                                     </v-container>
-                                </v-col>
-                            </v-row>
-                        </v-card-text>
+                                </v-form>
+                            </v-col>
+                            <v-divider class="mx-2" vertical/>
+                            <v-col>
+                                <v-container class="py-0">
+                                    <v-row>
+                                        <v-subheader>Изменение подложки</v-subheader>
+                                        <v-col cols="12">
+                                            <v-select
+                                                v-model="model_tileUrl"
+                                                height="68"
+                                                filled
+                                                hide-details
+                                                :items="getTileNames"
+                                                label="Выберите"
+                                                :rules="[v => !!v || 'Выберите категорию']"
+                                                required
+                                            />
+                                            <AddTileDialog/>
+                                        </v-col>
+                                        <v-col cols="12" class="pt-0">
+                                            <v-switch
+                                                v-model="model_tileShowPolyline"
+                                                :items="getTileNames"
+                                                label="Отображение связывающих линий"
+                                                hide-details
+                                            />
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-slider
+                                                v-model="model_tilePolylineWeight"
+                                                min="1"
+                                                max="10"
+                                                label="Толщина связывающих линий"
+                                                hide-details
+                                            />
+                                        </v-col>
+                                        <v-col cols="12" class="pt-2">
+                                            <v-text-field
+                                                label="Минимальный зум"
+                                                filled
+                                                dense
+                                                type="number"
+                                                step="1"
+                                                v-model.trim="model_tileMinZoom"
+                                                :rules="[
+                                                        v => !!v || 'Введите значение',
+                                                        v => v >= 0 || 'Значение меньше ноля',
+                                                        v => v <= tile.maxZoom || 'Минимальный зум должен быть меньше максимального'
+                                                        ]"
+                                            />
+                                        </v-col>
+                                        <v-col cols="12" class="pt-0">
+                                            <v-text-field
+                                                label="Максимальный зум"
+                                                filled
+                                                dense
+                                                type="number"
+                                                v-model.trim="model_tileMaxZoom"
+                                                :rules="[
+                                                        v => !!v || 'Введите значение',
+                                                        v => v >= 0 || 'Значение меньше ноля',
+                                                        v => v >= tile.minZoom || 'Максимальный зум должен быть больше минимального'
+                                                        ]"
+                                            />
+                                        </v-col>
+                                    </v-row>
+                                </v-container>
+                            </v-col>
+                        </v-row>
+                    </v-card-text>
                 </v-form>
             </v-card-text>
         </v-card>
@@ -198,6 +223,33 @@
                     this.SET_TILE_URL(this.tiles.find(obj => obj.name === value).url)
                 }
             },
+            model_tileMinZoom: {
+                get() {
+                    return this.tile.minZoom;
+                },
+                set(v) {
+                    if (!!v && v >= 0 && v <= this.tile.maxZoom)
+                        this.SET_MIN_TILE_ZOOM(parseInt(v));
+                }
+            },
+            model_tileMaxZoom: {
+                get() {
+                    return this.tile.maxZoom;
+                },
+                set(v) {
+                    if (!!v && v >= 0 && v >= this.tile.minZoom)
+                        this.SET_MAX_TILE_ZOOM(parseInt(v));
+                }
+            },
+            model_tilePolylineWeight: {
+                get() {
+                    if (this.tile.polylineWeight === undefined) return 2;
+                    else return this.tile.polylineWeight;
+                },
+                set(value) {
+                    this.SET_POLYLINE_WEIGHT(value);
+                }
+            },
             model_tileShowPolyline: {
                 get() {
                     return this.tile.showPolyline
@@ -205,7 +257,7 @@
                 set(value) {
                     this.SET_SHOW_POLYLINE(value);
                 }
-            },
+            }
         },
         methods: {
             ...mapMutations('layout', [
@@ -216,7 +268,10 @@
                 'SET_MAP_DESCRIPTION',
                 'SET_MAP_SUBJECT',
                 'SET_TILE_URL',
-                'SET_SHOW_POLYLINE'
+                'SET_SHOW_POLYLINE',
+                'SET_POLYLINE_WEIGHT',
+                'SET_MIN_TILE_ZOOM',
+                'SET_MAX_TILE_ZOOM'
             ])
         }
     }

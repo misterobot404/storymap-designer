@@ -9,7 +9,7 @@ export default {
         subject: "",
         description: "",
         config: {eventListWidth: 227}, // {selectedEventId, eventListWidth}
-        tile: {}, // {attribution, bounds, maxZoom, minZoom, url, showPolyline}
+        tile: {}, // {attribution, bounds, maxZoom, minZoom, url, showPolyline, polylineWeight}
         events: [], // [{title, description, id, marker {position, url, height }, mediaUrl:[]}]
         //// OTHER. Computed data.
         // To detect changes to the current map.
@@ -270,5 +270,8 @@ export default {
         SET_SHOW_POLYLINE: (state, value) => {
             state.tile.showPolyline = value
         },
+        SET_POLYLINE_WEIGHT: (state, value) => {
+            state.tile.polylineWeight = value
+        }
     }
 }

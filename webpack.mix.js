@@ -1,8 +1,8 @@
 const mix = require('laravel-mix');
 
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
-//const CompressionPlugin = require('compression-webpack-plugin');
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const CompressionPlugin = require('compression-webpack-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 mix.webpackConfig({
     resolve: {
