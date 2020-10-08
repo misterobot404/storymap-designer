@@ -11,9 +11,9 @@ MapDesigner is a web application that provides a convenient way to create and di
 
 ## Getting Started
 
-These instructions will provide you with an easy way to run a project on your local computer in Homestead for development and testing purposes.
+These instructions will provide you with an easy way to run a project.
 
-### Installing
+### Installation & Setup Homestead (optional)
 
 Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com/downloads.html).
 
@@ -71,20 +71,23 @@ folders:
 sites:
     - map: MapDesigner.test
       to: /home/vagrant/MapDesigner/public
+
 ```
 
-Get MapDesigner
+Run and connect to Homestead
 ```
-cd ~/Source
-git clone https://github.com/misterobot404/MapDesigner.git
+vagrant up
+vagrant ssh
 ```
 
 ### Deployment
 
-Connect to Homestead.
+Get project
+```
+git clone https://github.com/misterobot404/MapDesigner.git
+```
 
 Update dependencies
-
 ```
 cd ~/MapDesigner/
 
@@ -99,6 +102,7 @@ Run the migration to change the application database schema
 php artisan migrate
 php artisan passport:install
 ```
+Setup .env config for your environment.
 
 The project is ready for launch and testing.
 

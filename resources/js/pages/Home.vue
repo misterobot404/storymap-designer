@@ -159,14 +159,18 @@
                 </v-row>
             </v-container>
         </div>
+
+        <Feedback/>
     </div>
 </template>
 
 <script>
     import {mapState} from 'vuex'
+    import Feedback from "@/components/Core/Feedback";
 
     export default {
         name: "Home",
+        components: {Feedback},
         data() {
             return {
                 features: [
