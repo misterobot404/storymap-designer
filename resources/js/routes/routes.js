@@ -14,12 +14,12 @@ export const routes = [
     {
         name: 'constructor-example',
         path: '/constructor/example',
-        component: () => import(/* webpackChunkName: 'constr' */'@/pages/Constructor'),
+        component: () => import('@/pages/Constructor'),
     },
     {
         name: 'constructor',
         path: '/constructor/:id',
-        component: () => import(/* webpackChunkName: 'constr' */'@/pages/Constructor'),
+        component: () => import('@/pages/Constructor'),
         props: true,
         meta: { middlewareAuth: true }
     },

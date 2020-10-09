@@ -12,6 +12,8 @@ export default {
         drawer: false,
         // show / hide progress line
         pageLoading: false,
+        // show feedback dialog
+        feedbackDialog: false
     },
     mutations: {
         ENABLE_PAGE_LOADING(state) {
@@ -28,7 +30,14 @@ export default {
         },
         SET_DRAWER(state, payload) {
             state.drawer = payload
-        }
+        },
+
+        SHOW_FEEDBACK_DIALOG(state) {
+            state.feedbackDialog = true;
+        },
+        HIDE_FEEDBACK_DIALOG(state) {
+            state.feedbackDialog = false;
+        },
     }
 }
 

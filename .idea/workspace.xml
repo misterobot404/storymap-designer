@@ -4,92 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="0.9">
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/examples/dv-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/examples/human-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/assets/images/examples/solar-system-icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/MapDesigner.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MapDesigner.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/commandlinetools/Laravel_06_10_2020__15_29.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/commandlinetools/Laravel_06_10_2020__15_29.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/laravel-plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravel-plugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sasslintPlugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sasslintPlugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vagrant.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vagrant.xml" afterDir="false" />
+    <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.phpstorm.meta.php" beforeDir="false" afterPath="$PROJECT_DIR$/.phpstorm.meta.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/AuthDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/AuthDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/AuthDialog.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/AuthDialog.js.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/6.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/6.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/6.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/6.js.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/Logout.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/Logout.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/Logout.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/Logout.js.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/constr.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/constr.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/constr.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/constr.js.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/constr~viewer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/home.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/home.js.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/alch.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/biology.png.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/biology.png.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/computer_science.png.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/computer_science.png.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/custom.png.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/custom.png.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/dv.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/geography.png.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/geography.png.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/help_part_1.gif.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/help_part_1.gif.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/help_part_2.gif.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/help_part_2.gif.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/help_part_3.gif.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/help_part_3.gif.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/help_part_4.gif.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/help_part_4.gif.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/help_part_5.gif.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/help_part_5.gif.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/help_part_6.gif.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/help_part_6.gif.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/history.png.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/history.png.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/home_art.jpg.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/home_art.jpg.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/no-data-filtered-icon.png.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/no-data-filtered-icon.png.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/no-data-icon.png.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/no-data-icon.png.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/no-data-icon.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/no-image.png.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/no-image.png.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/notification.svg.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/notification.svg.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/page-404.png.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/page-404.png.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/page-dev.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/vendor/leaflet/dist/marker-icon-2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/vendor/leaflet/dist/marker-shadow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/constr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/constr.js.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/main.js.LICENSE.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/main.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/main.js.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/library.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/library.js.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/page404.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/pageDev.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~AuthDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors~AuthDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~constr.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors~constr.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~constr.js.LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~constr.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/vendors~constr.js.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~constr~library.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~constr~library.js.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~constr~library~viewer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~constr~viewer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~constr~viewer.js.LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~constr~viewer.js.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~library.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~library.js.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~library~viewer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~viewer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/viewer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/viewer.js.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Viewer/Map.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Viewer/Map.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/Constructor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Constructor.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/vendors~constr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/vendors~constr.js.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Core/Feedback.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Core/Feedback.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Core/UserPanel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Core/UserPanel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layouts/NavigationDrawer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/NavigationDrawer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layouts/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/pages/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Home.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/maps.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/maps.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/layout.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -589,7 +524,8 @@
       <workItem from="1601967213551" duration="340000" />
       <workItem from="1602040580195" duration="1339000" />
       <workItem from="1602045791722" duration="4460000" />
-      <workItem from="1602126826612" duration="13252000" />
+      <workItem from="1602126826612" duration="13916000" />
+      <workItem from="1602212955870" duration="10803000" />
     </task>
     <task id="LOCAL-00001" summary="0.6">
       <created>1562133005697</created>
@@ -843,7 +779,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601623095728</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="0.9.1 project clean">
+      <created>1602140464136</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1602140464136</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -905,7 +848,8 @@
     <MESSAGE value="0.7.5 Viewer + Examples" />
     <MESSAGE value="0.7.7 Viewer + Examples" />
     <MESSAGE value="0.9" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.9" />
+    <MESSAGE value="0.9.1 project clean" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.9.1 project clean" />
   </component>
   <component name="WindowStateProjectService">
     <state x="540" y="175" key="#CLI_Interpreters" timestamp="1601620209717">
@@ -928,10 +872,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="698" y="389" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1601531902940" />
-    <state x="583" y="6" key="CommitChangelistDialog2" timestamp="1602139574125">
+    <state x="583" y="6" key="CommitChangelistDialog2" timestamp="1602140456684">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="6" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1602139574125" />
+    <state x="583" y="6" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1602140456684" />
     <state x="219" y="224" key="FileChooserDialogImpl" timestamp="1601622885378">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -956,10 +900,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1602137050816" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1601623098581">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1602140471790">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1601623098581" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1602140471790" />
     <state x="17" y="80" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1602140197313">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

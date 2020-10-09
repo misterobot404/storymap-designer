@@ -159,13 +159,27 @@
                 </v-row>
             </v-container>
         </div>
-
-        <Feedback/>
+        <!-- feedback -->
+        <v-fab-transition>
+            <v-btn
+                @click="SHOW_FEEDBACK_DIALOG(true)"
+                fab
+                dark
+                large
+                fixed
+                bottom
+                right
+                color="primary"
+                style="bottom: 34px; right: 34px"
+            >
+                <v-icon>feedback</v-icon>
+            </v-btn>
+        </v-fab-transition>
     </div>
 </template>
 
 <script>
-    import {mapState} from 'vuex'
+    import {mapState, mapMutations} from 'vuex'
     import Feedback from "@/components/Core/Feedback";
 
     export default {
@@ -206,6 +220,7 @@
             },
         },
         methods: {
+            ...mapMutations('layout',["SHOW_FEEDBACK_DIALOG"]),
             goToFutures() {
                 let slide = document.getElementById("futures");
                 // Определение расстояния от начала страницы до нужного элемента

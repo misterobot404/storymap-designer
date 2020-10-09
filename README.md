@@ -143,8 +143,7 @@ vagrant up
 
 To connect to Homestead (for change the environment settings)
 ```
-cd ~/Homestead
-vagrant up
+vagrant ssh
 ```
 
 Shut down Homestead and application

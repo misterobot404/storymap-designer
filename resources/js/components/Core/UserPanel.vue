@@ -43,11 +43,11 @@
                 </v-list-item-action>
                 <v-list-item-title>Язык: Русский</v-list-item-title>
             </v-list-item>
-            <v-list-item @click="">
+            <v-list-item @click="SHOW_FEEDBACK_DIALOG()">
                 <v-list-item-action>
                     <v-icon>feedback</v-icon>
                 </v-list-item-action>
-                <v-list-item-title>Отправить отзыв</v-list-item-title>
+                <v-list-item-title>Обратная связь</v-list-item-title>
             </v-list-item>
             <v-list-item>
                 <v-switch :input-value="this.$vuetify.theme.dark"
@@ -89,6 +89,7 @@
         methods: {
             ...mapMutations('layout', [
                 'CHANGE_THEME',
+                'SHOW_FEEDBACK_DIALOG'
             ]),
             logout: function () {
                 this.logoutProcess = true;

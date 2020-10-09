@@ -104,7 +104,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return state.user.email;
     }
   })),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])('layout', ['CHANGE_THEME'])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])('layout', ['CHANGE_THEME', 'SHOW_FEEDBACK_DIALOG'])), {}, {
     logout: function logout() {
       var _this = this;
 
@@ -250,11 +250,17 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-list-item",
-            { on: { click: function($event) {} } },
+            {
+              on: {
+                click: function($event) {
+                  return _vm.SHOW_FEEDBACK_DIALOG()
+                }
+              }
+            },
             [
               _c("v-list-item-action", [_c("v-icon", [_vm._v("feedback")])], 1),
               _vm._v(" "),
-              _c("v-list-item-title", [_vm._v("Отправить отзыв")])
+              _c("v-list-item-title", [_vm._v("Обратная связь")])
             ],
             1
           ),

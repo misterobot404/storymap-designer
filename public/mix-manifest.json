@@ -2,7 +2,5 @@
     "/js/main.js": "/js/main.js",
     "/AuthDialog.js": "/AuthDialog.js",
     "/Logout.js": "/Logout.js",
-    "/vendors~AuthDialog.js": "/vendors~AuthDialog.js",
-    "/constr.js": "/constr.js",
-    "/vendors~constr.js": "/vendors~constr.js"
+    "/vendors~AuthDialog.js": "/vendors~AuthDialog.js"
 }

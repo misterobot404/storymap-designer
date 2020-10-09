@@ -69,6 +69,19 @@
                 </v-list-item-title>
             </v-list-item-content>
         </v-list-item>
+        <v-list-item
+            @click="SHOW_FEEDBACK_DIALOG(); SET_DRAWER(false)"
+            link
+        >
+            <v-list-item-action>
+                <v-icon>feedback</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+                <v-list-item-title>
+                    Обратная связь
+                </v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
         <!-- separation -->
         <v-divider/>
         <!-- Color theme toggle -->
@@ -112,7 +125,7 @@
             }
         },
         methods: {
-            ...mapMutations('layout', ['SET_DRAWER']),
+            ...mapMutations('layout', ['SET_DRAWER','SHOW_FEEDBACK_DIALOG']),
             setTheme() {
                 this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
                 // Save theme
