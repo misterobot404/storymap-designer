@@ -6,9 +6,6 @@
         </v-expand-transition>
         <Content/>
         <Footer v-if="hideEl"/>
-
-        <!-- Other -->
-        <Feedback/>
     </v-app>
 </template>
 
@@ -18,12 +15,10 @@
     import NavigationDrawer from "./NavigationDrawer"
     import Footer from "./Footer"
     import {mapGetters, mapActions} from "vuex"
-    import Feedback from "../components/Core/Feedback";
 
     export default {
         name: 'AppLayout',
         components: {
-            Feedback,
             AppBar,
             Content,
             NavigationDrawer,

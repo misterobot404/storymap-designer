@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
+// Feedback
+Route::post('/feedback', 'API\UserController@feedback');
 // Auth
 Route::post('/register', 'API\AuthController@register');
 Route::post('/login', 'API\AuthController@login');

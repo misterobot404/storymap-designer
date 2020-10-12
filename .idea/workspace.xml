@@ -5,26 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6577547c-ca80-47ca-b502-1158d580565a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/mail.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/6.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/6.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/6.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/6.js.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/Logout.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/Logout.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/Logout.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/Logout.js.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/constr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/constr.js.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/main.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/main.js.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~constr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendors~constr.js.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Core/Feedback.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Core/Feedback.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Core/UserPanel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Core/UserPanel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layouts/NavigationDrawer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/NavigationDrawer.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/layouts/Content.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/Content.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/layouts/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Home.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/layout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -215,7 +206,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="ToolWindowTypeScript.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.jscs" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -238,19 +229,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\MapDesigner\resources\views" />
+      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Constructor" />
+      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Viewer" />
+      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Library" />
+      <recent name="C:\Users\misterobot\Source\MapDesigner\database\migrations" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Constructor" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\store\modules" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Auth" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components" />
       <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Layouts" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Constructor" />
-      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Viewer" />
-      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\components\Library" />
-      <recent name="C:\Users\misterobot\Source\MapDesigner\database\migrations" />
-      <recent name="C:\Users\misterobot\Source\MapDesigner\resources\js\store\modules" />
     </key>
   </component>
   <component name="RunManager" selected="npm.watch-poll">
@@ -525,7 +516,8 @@
       <workItem from="1602040580195" duration="1339000" />
       <workItem from="1602045791722" duration="4460000" />
       <workItem from="1602126826612" duration="13916000" />
-      <workItem from="1602212955870" duration="10803000" />
+      <workItem from="1602212955870" duration="10868000" />
+      <workItem from="1602469877893" duration="19476000" />
     </task>
     <task id="LOCAL-00001" summary="0.6">
       <created>1562133005697</created>
@@ -786,7 +778,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602140464136</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="0.9.2 fc feedback">
+      <created>1602224064099</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1602224064101</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -849,7 +848,8 @@
     <MESSAGE value="0.7.7 Viewer + Examples" />
     <MESSAGE value="0.9" />
     <MESSAGE value="0.9.1 project clean" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.9.1 project clean" />
+    <MESSAGE value="0.9.2 fc feedback" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.9.2 fc feedback" />
   </component>
   <component name="WindowStateProjectService">
     <state x="540" y="175" key="#CLI_Interpreters" timestamp="1601620209717">
@@ -872,10 +872,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="698" y="389" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1601531902940" />
-    <state x="583" y="6" key="CommitChangelistDialog2" timestamp="1602140456684">
+    <state x="583" y="6" key="CommitChangelistDialog2" timestamp="1602224057784">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="583" y="6" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1602140456684" />
+    <state x="583" y="6" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1602224057784" />
     <state x="219" y="224" key="FileChooserDialogImpl" timestamp="1601622885378">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -900,10 +900,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1602137050816" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1602140471790">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1602224068759">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1602140471790" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1602224068759" />
     <state x="17" y="80" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1602140197313">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

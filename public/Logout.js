@@ -84,9 +84,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -139,7 +136,7 @@ var render = function() {
   return _c(
     "v-menu",
     {
-      attrs: { "close-on-content-click": false, "offset-y": "" },
+      attrs: { "offset-y": "" },
       scopedSlots: _vm._u([
         {
           key: "activator",
