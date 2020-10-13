@@ -1,10 +1,7 @@
 <template>
-    <v-dialog v-model="model_feedbackDialog"
-              transition="none"
-              internal-activator
-    >
+    <div class="feedback-dialog">
         <!-- Dialog -->
-        <v-card>
+        <v-card v-click-outside="HIDE_FEEDBACK_DIALOG">
             <!-- Header -->
             <v-toolbar
                 height="68"
@@ -40,7 +37,7 @@
                     elevation="2"
                 >
                     <h4>Спасибо за обращение!</h4>
-                    <span>Пожалуйста, проверьте правильность написания логина и пароля.</span>
+                    <span>Мы ответим Вам на почту при первой возможности.</span>
                 </v-alert>
                 <v-alert
                     :value="showError"
@@ -124,12 +121,12 @@
                 </v-btn>
             </v-card-actions>
         </v-card>
-    </v-dialog>
+    </div>
 </template>
 
 <script>
-import {mapMutations, mapState} from "vuex";
-import axios from "axios";
+import {mapMutations} from "vuex"
+import axios from "axios"
 
 export default {
     name: "Feedback",
@@ -143,17 +140,6 @@ export default {
             subject: "",
             message: ""
         }
-    },
-    computed: {
-        model_feedbackDialog: {
-            get() {
-                return this.feedbackDialog
-            },
-            set() {
-                this.HIDE_FEEDBACK_DIALOG()
-            }
-        },
-        ...mapState('layout', ["feedbackDialog"])
     },
     methods: {
         ...mapMutations('layout', ["HIDE_FEEDBACK_DIALOG"]),
@@ -191,9 +177,14 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-    ::v-deep .v-dialog
-        position: absolute
-        bottom: 0
-        right: 0
-        max-width: 440px
+.feedback-dialog
+    position: fixed
+    bottom: 0
+    right: 0
+    z-index: 5
+    max-width: 440px
+    border-radius: 4px
+    margin: 24px
+    transition: 2s cubic-bezier(0.25, 0.8, 0.25, 1)
+    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12)
 </style>

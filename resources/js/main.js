@@ -13,6 +13,9 @@ Vue.use(TiptapVuetifyPlugin, {
     vuetify,
     iconsGroup: 'md'
 })
+// import v-click-outside
+import vClickOutside from 'v-click-outside'
+Vue.use(vClickOutside)
 
 import AppLayout from '@/layouts'
 

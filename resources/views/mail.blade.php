@@ -1,6 +1,6 @@
-<strong>{{ $name }}</strong>
+<strong>Имя: {{ $name }}</strong>
 <br/>
-<strong>{{ $email }}</strong>
+<strong>Email: {{ $email }}</strong>
 <br/>
-<strong>{{ $subject }}</strong>
+<strong>Тема: {{ $subject }}</strong>
 <p>{{ $data }}</p>
