@@ -8,6 +8,8 @@
 /storage/framework/cache/
 /.hg
 .hgignore
+#idea folder
+.idea/
 .env
 .env.backup
 .phpunit.result.cache
