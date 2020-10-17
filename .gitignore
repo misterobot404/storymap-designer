@@ -1,8 +1,11 @@
-/node_modules
 /public/hot
 /public/storage
+/bootstrap/cache/config.php
 /storage/*.key
-/vendor
+/storage/logs/
+/storage/framework/views/
+/storage/framework/sessions/
+/storage/framework/cache/
 /.hg
 .hgignore
 .env
