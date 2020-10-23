@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>MapDesigner: Конструктор электронных атласов</title>
     <link href="{{asset('favicon.ico')}}" rel="icon">
     <!-- media + onload its trick to triggering an asynchronous stylesheet download -->

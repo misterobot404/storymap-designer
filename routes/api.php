@@ -1,40 +1,49 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\FeedbackController;
+use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\MapController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+/**
+ * API Authentication
+ */
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
 
-// Feedback
-Route::post('/feedback', 'API\UserController@feedback');
-// Auth
-Route::post('/register', 'API\AuthController@register');
-Route::post('/login', 'API\AuthController@login');
-// Register. Check available email / name
-Route::get('/users/{email}/check-available', 'API\UserController@emailAvailable')->where('email', '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
-Route::get('/users/{name}/check-available', 'API\UserController@nameAvailable');
+/**
+ * Проверка доступности почты / логина для регистрации
+ */
+Route::get('/users/{email}/check-available', [UserController::class, 'emailAvailable'])->where('email', '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
+Route::get('/users/{name}/check-available',  [UserController::class, 'nameAvailable']);
 
+/**
+ * Получить / установить темы атласов авторизированного пользователя
+ */
+Route::get('/users/subjects', [UserController::class, 'getSubjects'])->middleware('auth:api');
+Route::post('/users/subjects',  [UserController::class, 'setSubjects'])->middleware('auth:api');
+
+/**
+ * Получить данные авторизированного пользователя
+ */
+Route::get('/users/current',  [UserController::class, 'getCurrent']);
+
+/**
+ * Maps. CRUD
+ */
 Route::middleware('auth:api')->group(function () {
-    Route::post('/logout', 'API\AuthController@logout');
-    // get/set user subjects
-    Route::get('/users/subjects', 'API\UserController@getSubjects');
-    Route::post('/users/subjects', 'API\UserController@setSubjects');
-    // Get user data
-    Route::get('/users/current', 'API\UserController@getCurrent');
-    // CRUD
-    Route::get('/maps', 'API\MapController@index');
-    Route::post('/maps', 'API\MapController@store');
-    Route::get('/maps/{id}', 'API\MapController@show');
-    Route::put('/maps/{id}', 'API\MapController@update');
-    Route::delete('/maps/{id}', 'API\MapController@destroy');
+    Route::get('/maps', [MapController::class, 'index']);
+    Route::post('/maps', [MapController::class, 'store']);
+    Route::get('/maps/{id}', [MapController::class, 'show']);
+    Route::put('/maps/{id}', [MapController::class, 'update']);
+    Route::delete('/maps/{id}', [MapController::class, 'destroy']);
     // Other
-    Route::post('/maps/duplicate', 'API\MapController@duplicate');
+    Route::post('/maps/duplicate', [MapController::class, 'duplicate']);
 });
+
+/**
+ * Обратная связь
+ */
+Route::post('/feedback', [FeedbackController::class]);

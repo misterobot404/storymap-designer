@@ -2,9 +2,7 @@
 
 namespace App\Providers;
 
-use Laravel\Passport\Passport;
-use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,20 +13,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->environment() !== 'production') {
-            $this->app->register(IdeHelperServiceProvider::class);
-        }
+        //
     }
 
     /**
-     * Register any authentication / authorization services.
+     * Bootstrap any application services.
      *
      * @return void
      */
     public function boot()
     {
-        $this->registerPolicies();
-        
-        Passport::routes();
+        //
     }
 }
