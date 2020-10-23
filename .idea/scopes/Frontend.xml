@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Frontend" pattern="file[mapdesigner]:resources//*&amp;&amp;!file[mapdesigner]:vendor/*&amp;&amp;!file[mapdesigner]:vendor//*" />
+</component>

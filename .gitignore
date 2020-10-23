@@ -8,8 +8,6 @@
 /storage/framework/cache/
 /.hg
 .hgignore
-#idea folder
-.idea/
 /vendor
 /node_modules
 .env

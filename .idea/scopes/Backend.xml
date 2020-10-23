@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Backend" pattern="(file[mapdesigner]:app/Http/Controllers//*||file[mapdesigner]:app/Models//*||file[mapdesigner]:resources/js/*||file[mapdesigner]:resources/js//*||file:routes/api.php||file:routes/web.php)&amp;&amp;!file[mapdesigner]:resources//*&amp;&amp;!file[mapdesigner]:vendor/*&amp;&amp;!file:package.json" />
+</component>
