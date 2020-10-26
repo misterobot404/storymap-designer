@@ -19,7 +19,7 @@ import Content from "./Content"
 import NavigationDrawer from "./NavigationDrawer"
 import Footer from "./Footer"
 import {mapGetters, mapActions, mapState} from "vuex"
-import Feedback from "../components/Core/Feedback";
+import Feedback from "../components/Feedback"
 
 export default {
     name: 'AppLayout',

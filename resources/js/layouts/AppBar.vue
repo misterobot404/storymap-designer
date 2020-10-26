@@ -28,7 +28,7 @@
                         width="48"
                     />
                     <!-- Name -->
-                    <v-toolbar-title class="ml-4 hidden-xs-only">{{appName}}</v-toolbar-title>
+                    <v-toolbar-title class="ml-4 hidden-xs-only">{{ appName }}</v-toolbar-title>
                 </router-link>
                 <!-- separation -->
                 <v-divider
@@ -132,54 +132,56 @@
 </template>
 
 <script>
-    import {mapState, mapGetters, mapMutations} from "vuex"
+import {mapState, mapGetters, mapMutations} from "vuex"
+import UserPanel from "../components/UserPanel"
+import AuthDialog from "../components/Auth/Index"
 
-    export default {
-        name: "AppBar",
-        components: {
-            UserPanel: () => import(/* webpackChunkName: "Logout" */ '../components/Core/UserPanel'),
-            AuthDialog: () => import(/* webpackChunkName: "AuthDialog" */ '../components/Auth/Index')
-        },
-        computed: {
-            ...mapState('layout', {
-                appName: state => state.appName,
-                appLogo: state => state.appLogo,
-                pageLoading: state => state.pageLoading
-            }),
-            ...mapGetters('auth', {
-                isAuth: "isAuth"
-            })
-        },
-        methods: {
-            ...mapMutations('layout', ['SET_DRAWER']),
-            async goToFutures() {
-                if (this.$route.path === "/") {
+export default {
+    name: "AppBar",
+    components: {
+        UserPanel,
+        AuthDialog
+    },
+    computed: {
+        ...mapState('layout', {
+            appName: state => state.appName,
+            appLogo: state => state.appLogo,
+            pageLoading: state => state.pageLoading
+        }),
+        ...mapGetters('auth', {
+            isAuth: "isAuth"
+        })
+    },
+    methods: {
+        ...mapMutations('layout', ['SET_DRAWER']),
+        async goToFutures() {
+            if (this.$route.path === "/") {
+                let slide = document.getElementById("futures");
+                let top = window.scrollY + slide.getBoundingClientRect().y;
+                await this.$vuetify.goTo(top);
+            } else {
+                await this.$router.push("/").then(() => {
                     let slide = document.getElementById("futures");
+                    // Определение расстояния от начала страницы до нужного элемента
                     let top = window.scrollY + slide.getBoundingClientRect().y;
-                    await this.$vuetify.goTo(top);
-                } else {
-                    await this.$router.push("/").then(() => {
-                        let slide = document.getElementById("futures");
-                        // Определение расстояния от начала страницы до нужного элемента
-                        let top = window.scrollY + slide.getBoundingClientRect().y;
-                        this.$vuetify.goTo(top);
-                    });
-                }
-            },
-            async goToExamples() {
-                if (this.$route.path === "/") {
+                    this.$vuetify.goTo(top);
+                });
+            }
+        },
+        async goToExamples() {
+            if (this.$route.path === "/") {
+                let slide = document.getElementById("examples");
+                let top = window.scrollY + slide.getBoundingClientRect().y;
+                await this.$vuetify.goTo(top);
+            } else {
+                await this.$router.push("/").then(() => {
                     let slide = document.getElementById("examples");
+                    // Определение расстояния от начала страницы до нужного элемента
                     let top = window.scrollY + slide.getBoundingClientRect().y;
-                    await this.$vuetify.goTo(top);
-                } else {
-                    await this.$router.push("/").then(() => {
-                        let slide = document.getElementById("examples");
-                        // Определение расстояния от начала страницы до нужного элемента
-                        let top = window.scrollY + slide.getBoundingClientRect().y;
-                        this.$vuetify.goTo(top);
-                    });
-                }
+                    this.$vuetify.goTo(top);
+                });
             }
         }
     }
+}
 </script>

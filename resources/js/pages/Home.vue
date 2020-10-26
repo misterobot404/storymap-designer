@@ -180,7 +180,7 @@
 
 <script>
     import {mapState, mapMutations} from 'vuex'
-    import Feedback from "@/components/Core/Feedback";
+    import Feedback from "../components/Feedback";
 
     export default {
         name: "Home",
