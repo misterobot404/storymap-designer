@@ -77,12 +77,14 @@
                                     required
                                 />
                             </v-col>
-                            <v-col cols="12" class="pb-0 pt-1">
+                            <v-col id="selectSubject" cols="12" class="pb-0 pt-1" style="position: relative">
                                 <v-select
                                     v-model="subject"
+                                    attach="#selectSubject"
                                     :items="['Ошибки и баги', 'Предложения по улучшению']"
                                     :rules="[v => !!v || 'Обязательное поле']"
                                     label="Тема обращения"
+                                    style="left: 12px !important"
                                     filled
                                     required
                                 />
