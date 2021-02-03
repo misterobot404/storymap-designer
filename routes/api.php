@@ -46,4 +46,4 @@ Route::middleware('auth:api')->group(function () {
 /**
  * Обратная связь
  */
-Route::post('/feedback', [FeedbackController::class]);
+Route::post('/feedback', FeedbackController::class);
