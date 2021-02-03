@@ -1,7 +1,8 @@
 const mix = require('laravel-mix');
 
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
+// used compression-webpack-plugin
+// const CompressionPlugin = require('compression-webpack-plugin');
 
 mix.webpackConfig({
     resolve: {
@@ -12,13 +13,13 @@ mix.webpackConfig({
     },
     plugins: [
         new VuetifyLoaderPlugin(),
-        new CompressionPlugin({
-            algorithm: 'gzip',
-            compressionOptions: { level: 9 },
-            filename: '[path].gz[query]',
-            threshold: 1400,
-            minRatio: 1
-        })
+        // new CompressionPlugin({
+        //     algorithm: 'gzip',
+        //     compressionOptions: { level: 9 },
+        //     filename: '[path].gz[query]',
+        //     threshold: 1400,
+        //     minRatio: 1
+        // })
     ]
 });
 

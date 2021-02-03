@@ -1,0 +1,35 @@
+/*!
+    * tiptap v1.29.6
+    * (c) 2020 überdosis GbR (limited liability)
+    * @license MIT
+    */
+
+/*!
+    * tiptap-commands v1.14.6
+    * (c) 2020 überdosis GbR (limited liability)
+    * @license MIT
+    */
+
+/*!
+    * tiptap-extensions v1.33.1
+    * (c) 2020 überdosis GbR (limited liability)
+    * @license MIT
+    */
+
+/*!
+    * tiptap-utils v1.10.4
+    * (c) 2020 überdosis GbR (limited liability)
+    * @license MIT
+    */
+
+/*!
+ * Vue.js v2.6.12
+ * (c) 2014-2020 Evan You
+ * Released under the MIT License.
+ */
+
+/*!
+ * vuex v3.6.2
+ * (c) 2021 Evan You
+ * @license MIT
+ */
