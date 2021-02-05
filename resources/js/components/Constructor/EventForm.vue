@@ -160,6 +160,14 @@
 </template>
 
 <script>
+    import Vue from "vue"
+    import vuetify from "@/plugins/vuetify"
+    import {TiptapVuetifyPlugin} from 'tiptap-vuetify'
+    import 'tiptap-vuetify/dist/main.css'
+    Vue.use(TiptapVuetifyPlugin, {
+        vuetify,
+        iconsGroup: 'md'
+    })
     import {mapGetters, mapMutations} from 'vuex'
     import MediaContent from "@/components/MediaContentForEvent"
     import {

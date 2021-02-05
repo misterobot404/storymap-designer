@@ -127,8 +127,11 @@
 </template>
 
 <script>
+import Vue from "vue"
 import {mapMutations} from "vuex"
 import axios from "axios"
+import vClickOutside from "v-click-outside"
+Vue.use(vClickOutside)
 
 export default {
     name: "Feedback",
