@@ -51,31 +51,28 @@
 </template>
 
 <script>
-    import Authorization from "@/components/Auth/Authorization"
-    import Registration from "@/components/Auth/Registration"
-    import {mapState} from 'vuex'
+import Authorization from "@/components/Auth/Authorization"
+import Registration from "@/components/Auth/Registration"
+import {mapState} from 'vuex'
 
-    export default {
-        name: "Dialog",
-        components: {
-            Authorization,
-            Registration
-        },
-        data() {
-            return {
-                currentTabIndex: 0,
-                dialog: false
-            }
-        },
-        computed: {
-            ...mapState('layout', {
-                appName: state => state.appName,
-                appLogo: state => state.appLogo
-            }),
-            currentTabName: function () {
-                if (this.currentTabIndex === 0) return "Authorization"
-                else return "Registration"
-            }
+export default {
+    name: "IndexAuth",
+    components: {
+        Authorization,
+        Registration
+    },
+    data() {
+        return {
+            currentTabIndex: 0,
+            dialog: false
+        }
+    },
+    computed: {
+        ...mapState('layout', ['appName', 'appLogo']),
+        currentTabName() {
+            if (this.currentTabIndex === 0) return "Authorization"
+            else return "Registration"
         }
     }
+}
 </script>

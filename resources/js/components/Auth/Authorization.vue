@@ -26,6 +26,7 @@
                     <v-col cols="12">
                         <v-text-field v-model="password"
                                       label="Пароль"
+                                      :rules="rules.password"
                                       :type="passwordShow ? 'text' : 'password'"
                                       :append-icon="passwordShow ? 'visibility_off' : 'visibility'"
                                       @click:append="passwordShow = !passwordShow"
@@ -53,62 +54,50 @@
 </template>
 
 <script>
-    import store from '@/store'
+export default {
+    name: "Authorization",
+    data() {
+        return {
+            email: "",
+            password: "",
 
-    export default {
-        name: "Authorization",
-        data() {
-            return {
+            showError: false,
+            passwordShow: false,
+            valid: false,
+            authProcess: false,
 
-                email: "",
-                password: "",
-
-                showError: false,
-                passwordShow: false,
-                valid: false,
-                authProcess: false,
-
-                rules: {
-                    email: [
-                        v => {
-                            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                            return !v || pattern.test(v) || 'Введите корректный адрес электронной почты.'
-                        }
-                    ]
-                }
-            }
-        },
-        computed: {
-            filled: function () {
-                return this.email.length !== 0 && this.password.length !== 0
-            }
-        },
-        methods: {
-            auth: function () {
-
-                this.showError = false;
-                this.authProcess = true;
-
-                this.$store.dispatch('auth/login', {
-                    email: this.email,
-                    password: this.password
-                })
-                    .then(({data}) => {
-                        let payload = {
-                            token: data.data.token,
-                            user: data.data.user
-                        };
-                        store.commit("auth/LOGIN", payload, {root: true});
-                        this.$emit('done');
-                        this.$router.push('/library');
-                    })
-                    .catch(() => {
-                        this.showError = true;
-                    })
-                    .finally(() => {
-                        this.authProcess = false;
-                    });
+            rules: {
+                email: [
+                    v => {
+                        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                        return !v || pattern.test(v) || 'Введите корректный адрес электронной почты.'
+                    }
+                ],
+                password: [v => !v || v.length >= 6 || 'Пароль должен содержать от 6 символов.']
             }
         }
+    },
+    computed: {
+        filled() {
+            return this.email && this.password
+        }
+    },
+    methods: {
+        auth() {
+            this.showError = false;
+            this.authProcess = true;
+
+            this.$store.dispatch('auth/login', {
+                email: this.email,
+                password: this.password
+            })
+                .then(() => {
+                    this.$emit('done');
+                    this.$router.push('/library');
+                })
+                .catch(() => this.showError = true)
+                .finally(() => this.authProcess = false)
+        }
     }
+}
 </script>

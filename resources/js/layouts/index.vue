@@ -2,10 +2,10 @@
     <v-app>
         <NavigationDrawer/>
         <v-expand-transition>
-            <AppBar v-if="hideEl"/>
+            <AppBar v-if="hide"/>
         </v-expand-transition>
         <Content/>
-        <Footer v-if="hideEl"/>
+        <Footer v-if="hide"/>
 
         <v-fade-transition>
             <Feedback v-if="feedbackDialog"/>
@@ -18,7 +18,7 @@ import AppBar from "./AppBar"
 import Content from "./Content"
 import NavigationDrawer from "./NavigationDrawer"
 import Footer from "./Footer"
-import {mapGetters, mapActions, mapState} from "vuex"
+import {mapState} from "vuex"
 import Feedback from "../components/Feedback"
 
 export default {
@@ -32,28 +32,9 @@ export default {
     },
     computed: {
         ...mapState('layout', ["feedbackDialog"]),
-        ...mapGetters('auth', {
-            isAuth: "isAuth"
-        }),
-        hideEl() {
-            return this.$route.name !== 'constructor' && this.$route.name !== 'constructor-example' && this.$route.name !== 'viewer' && this.$route.name !== 'viewer-example'
-        },
+        // hide appbar and footer
+        hide() { return this.$route.name !== 'constructor' && this.$route.name !== 'constructor-example' && this.$route.name !== 'viewer' && this.$route.name !== 'viewer-example' }
     },
-    methods: {
-        ...mapActions('maps', [
-            'getExternalSubjects'
-        ]),
-    },
-    watch: {
-        isAuth: {
-            immediate: true,
-            handler(val) {
-                if (val) {
-                    this.getExternalSubjects()
-                }
-            }
-        }
-    }
 }
 </script>
 

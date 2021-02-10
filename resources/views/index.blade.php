@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>MapDesigner: Конструктор электронных атласов</title>
+    <title>MapDesigner - бесплатный онлайн конструктор карт и атласов</title>
+    <meta name="keywords" content="электронная карта, электронный ресурс, образовательный ресурс, онлайн конструктор, конструктор карт">
+    <meta name="description" content="Расскажите истории в Интернете, освещающие места, события или предметы. MapDesigner позволит быстро создавать гибкие карты и атласы для использования их в сфере обучения и туризма.">
     <link href="{{asset('favicon.ico')}}" rel="icon">
     <!-- media + onload its trick to triggering an asynchronous stylesheet download -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons&display=block" rel="stylesheet" media="trick"

@@ -18,38 +18,39 @@ export default {
         }
     },
     actions: {
-
         /**
          * Checking authorization data on the server and receiving a token
          *
          * @param state
          * @param commit
+         * @param dispatch
          * @param payload: name + email + password
          */
-        login: function ({state, commit}, payload) {
+        login({state, commit, dispatch}, payload) {
             return axios.post('/api/login', payload)
+                .then(response => {
+                    commit('LOGIN', {token: response.data.data.token, user: response.data.data.user});
+                    dispatch('maps/getExternalSubjects', null, {root: true})
+                })
         },
-
         /**
          * Disable authorization token to on the server
          *
          * @param commit
          */
-        logout: function ({commit}) {
+        logout({commit}) {
             return axios.post('/api/logout')
         },
-
         /**
          * Checking registration data on the server and create user
          *
          * @param payload: name + email + password
          */
-        register: function ({}, payload) {
+        register({}, payload) {
             return axios.post('/api/register', payload)
         }
     },
     mutations: {
-
         /**
          * Set authentication data
          *
@@ -57,10 +58,11 @@ export default {
          * @param payload: token + user
          */
         LOGIN: (state, payload) => {
-
             state.token = payload.token;
             state.user = payload.user;
 
+            // add token to axios header
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.token;
             // saving auth token between sessions
             window.localStorage.setItem('token', state.token);
             window.localStorage.setItem('user', JSON.stringify(state.user));
@@ -71,7 +73,6 @@ export default {
          * @param state
          */
         LOGOUT: (state) => {
-
             state.token = null;
             state.user = null;
 
