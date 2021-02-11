@@ -66,7 +66,6 @@
 </template>
 
 <script>
-    import store from '@/store'
     import {mapMutations, mapState} from "vuex"
 
     export default {
@@ -88,12 +87,10 @@
                 'CHANGE_THEME',
                 'SHOW_FEEDBACK_DIALOG'
             ]),
-            logout: function () {
+            logout() {
                 this.logoutProcess = true;
-
                 this.$store.dispatch('auth/logout')
                     .finally(() => {
-                        store.commit('auth/LOGOUT', null, {root: true});
                         this.logoutProcess = false;
                     })
             },

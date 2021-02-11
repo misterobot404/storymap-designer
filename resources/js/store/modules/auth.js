@@ -9,13 +9,7 @@ export default {
         user: JSON.parse(window.localStorage.getItem('user'))
     },
     getters: {
-        isAuth: (state) => {
-            if (state.token && state.user) {
-                // add token to axios header
-                axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.token;
-                return true;
-            } else return false;
-        }
+        isAuth: state => state.token
     },
     actions: {
         /**
@@ -40,15 +34,14 @@ export default {
          */
         logout({commit}) {
             return axios.post('/api/logout')
+                .then(_ => commit('LOGOUT'))
         },
         /**
          * Checking registration data on the server and create user
          *
          * @param payload: name + email + password
          */
-        register({}, payload) {
-            return axios.post('/api/register', payload)
-        }
+        register({}, payload) { return axios.post('/api/register', payload) }
     },
     mutations: {
         /**
@@ -72,7 +65,7 @@ export default {
          *
          * @param state
          */
-        LOGOUT: (state) => {
+        LOGOUT: state => {
             state.token = null;
             state.user = null;
 
