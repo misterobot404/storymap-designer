@@ -6,15 +6,9 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Map;
 
-
+// CRUD
 class MapController extends Controller
 {
-    // CRUD
-    /**
-     * Display a listing of the resource.
-     *
-     * @return JsonResponse
-     */
     public function index()
     {
         // Get all maps of the current user.
@@ -30,11 +24,7 @@ class MapController extends Controller
             "data" => ["maps" => $maps]
         ], 200);
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return JsonResponse
-     */
+
     public function store()
     {
         $map = new Map;
@@ -51,12 +41,7 @@ class MapController extends Controller
             "data" => ["maps" => $maps]
         ], 200);
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return JsonResponse
-     */
+
     public function show($id)
     {
         $map = Map::find($id);
@@ -84,12 +69,7 @@ class MapController extends Controller
             "data" => ["map" => $map]
         ], 200);
     }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param $id
-     * @return JsonResponse
-     */
+
     public function update($id)
     {
         $map = Map::find($id);
@@ -127,21 +107,13 @@ class MapController extends Controller
             ]
         ], 200);
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param $id
-     * @return JsonResponse
-     */
+
     public function destroy($id)
     {
         $pieces = explode(",", $id);
-        if (count($pieces)>1)
-        {
+        if (count($pieces) > 1) {
             Map::whereIn('id', $pieces)->delete();
-        }
-        else
-        {
+        } else {
             $map = Map::find($id);
 
             if (!$map) {
@@ -168,12 +140,8 @@ class MapController extends Controller
             "data" => ["maps" => $maps]
         ], 200);
     }
+
     // Other
-    /**
-     * Store a newly created resource based on the existing.
-     *
-     * @return JsonResponse
-     */
     public function duplicate()
     {
         $baseMap = Map::find(request('id'));
@@ -195,7 +163,7 @@ class MapController extends Controller
 
         $map = new Map;
         $map->user_id = auth()->id();
-        $map->name = $baseMap->name." - Copy";
+        $map->name = $baseMap->name . " - Copy";
         $map->subject = $baseMap->subject;
         $map->description = $baseMap->description;
         $map->tile = $baseMap->tile;

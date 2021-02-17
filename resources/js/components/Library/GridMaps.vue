@@ -143,7 +143,7 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapState} from 'vuex'
 
     export default {
         name: "GridMaps",
@@ -157,9 +157,7 @@
             }
         },
         computed: {
-            ...mapGetters('maps', [
-                'subjects'
-            ])
+            ...mapState('subjects', ['subjects'])
         },
         methods: {
             ...mapActions('maps', {

@@ -153,8 +153,8 @@
 </template>
 
 <script>
-    import {mapState, mapMutations, mapGetters} from 'vuex'
-    import ControlPanelSettingAddTileDialog from "@/components/Constructor/ControlPanelSettingAddTileDialog"
+    import {mapState, mapMutations} from 'vuex'
+    import ControlPanelSettingAddTileDialog from "./ControlPanelSettingAddTileDialog"
 
     export default {
         name: "Settings",
@@ -173,13 +173,11 @@
                 'subject',
                 'tile'
             ]),
-            ...mapState('maps', [
-                'maps',
-                'tiles'
-            ]),
-            ...mapGetters('maps', [
-                'subjects'
-            ]),
+            ...mapState({
+                maps: state => state.maps.maps,
+                tiles: state => state.tiles.tiles,
+                subjects: state => state.subjects.subjects
+            }),
             getSubjectNames() {
                 let subjectNames = [];
                 this.subjects.forEach(el => subjectNames.push(el.name));

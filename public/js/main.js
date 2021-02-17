@@ -69645,61 +69645,6 @@ module.exports = "/images/notification.svg?972dc5945aa324bf6bde21a291dbd644";
 
 /***/ }),
 
-/***/ "./resources/js/assets/images/subjects/biology.png":
-/*!*********************************************************!*\
-  !*** ./resources/js/assets/images/subjects/biology.png ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/biology.png?318cbcb9cd69e6f6fef03353d7ae02f4";
-
-/***/ }),
-
-/***/ "./resources/js/assets/images/subjects/computer_science.png":
-/*!******************************************************************!*\
-  !*** ./resources/js/assets/images/subjects/computer_science.png ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/computer_science.png?9397065116a627fbb50901691f0b7e31";
-
-/***/ }),
-
-/***/ "./resources/js/assets/images/subjects/custom.png":
-/*!********************************************************!*\
-  !*** ./resources/js/assets/images/subjects/custom.png ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/custom.png?88ea15807cdcf79d8f2c3714b4771dde";
-
-/***/ }),
-
-/***/ "./resources/js/assets/images/subjects/geography.png":
-/*!***********************************************************!*\
-  !*** ./resources/js/assets/images/subjects/geography.png ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/geography.png?6899e48a416a554447f33afe882064fd";
-
-/***/ }),
-
-/***/ "./resources/js/assets/images/subjects/history.png":
-/*!*********************************************************!*\
-  !*** ./resources/js/assets/images/subjects/history.png ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/history.png?b5e03ca93eb7b3b187efa6a1d0800509";
-
-/***/ }),
-
 /***/ "./resources/js/assets/logo.png":
 /*!**************************************!*\
   !*** ./resources/js/assets/logo.png ***!
@@ -70705,10 +70650,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/store */ "./resources/js/store/index.js");
 
- // add token to axios header
+ // check auth
 
 var authToken = window.localStorage.getItem('token');
-if (authToken) axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'] = 'Bearer ' + authToken; // 401 errors logout user
+
+if (authToken) {
+  // add token to axios header
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'] = 'Bearer ' + authToken; // get user data
+
+  _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('subjects/getSubjects', null, {
+    root: true
+  });
+} // 401 errors logout user
+
 
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function (response) {
   return response;
@@ -70899,10 +70853,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/auth */ "./resources/js/store/modules/auth.js");
-/* harmony import */ var _modules_layout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/layout */ "./resources/js/store/modules/layout.js");
-/* harmony import */ var _modules_map__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/map */ "./resources/js/store/modules/map.js");
-/* harmony import */ var _modules_maps__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/maps */ "./resources/js/store/modules/maps.js");
+/* harmony import */ var _modules_User_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/User/auth */ "./resources/js/store/modules/User/auth.js");
+/* harmony import */ var _modules_User_subjects__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/User/subjects */ "./resources/js/store/modules/User/subjects.js");
+/* harmony import */ var _modules_User_tiles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/User/tiles */ "./resources/js/store/modules/User/tiles.js");
+/* harmony import */ var _modules_layout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/layout */ "./resources/js/store/modules/layout.js");
+/* harmony import */ var _modules_map__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/map */ "./resources/js/store/modules/map.js");
+/* harmony import */ var _modules_maps__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/maps */ "./resources/js/store/modules/maps.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -70910,22 +70866,26 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
 
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   strict: true,
   modules: {
-    auth: _modules_auth__WEBPACK_IMPORTED_MODULE_2__["default"],
-    layout: _modules_layout__WEBPACK_IMPORTED_MODULE_3__["default"],
-    map: _modules_map__WEBPACK_IMPORTED_MODULE_4__["default"],
-    maps: _modules_maps__WEBPACK_IMPORTED_MODULE_5__["default"]
+    auth: _modules_User_auth__WEBPACK_IMPORTED_MODULE_2__["default"],
+    subjects: _modules_User_subjects__WEBPACK_IMPORTED_MODULE_3__["default"],
+    tiles: _modules_User_tiles__WEBPACK_IMPORTED_MODULE_4__["default"],
+    layout: _modules_layout__WEBPACK_IMPORTED_MODULE_5__["default"],
+    map: _modules_map__WEBPACK_IMPORTED_MODULE_6__["default"],
+    maps: _modules_maps__WEBPACK_IMPORTED_MODULE_7__["default"]
   }
 }));
 
 /***/ }),
 
-/***/ "./resources/js/store/modules/auth.js":
-/*!********************************************!*\
-  !*** ./resources/js/store/modules/auth.js ***!
-  \********************************************/
+/***/ "./resources/js/store/modules/User/auth.js":
+/*!*************************************************!*\
+  !*** ./resources/js/store/modules/User/auth.js ***!
+  \*************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -70966,8 +70926,9 @@ function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("
         commit('LOGIN', {
           token: response.data.data.token,
           user: response.data.data.user
-        });
-        dispatch('maps/getExternalSubjects', null, {
+        }); // get user data
+
+        dispatch('subjects/getSubjects', null, {
           root: true
         });
       });
@@ -71027,6 +70988,101 @@ function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("
       delete axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization']; // if the user was on page with auth middleware
 
       if (_routes__WEBPACK_IMPORTED_MODULE_1__["default"].currentRoute.meta.middlewareAuth) _routes__WEBPACK_IMPORTED_MODULE_1__["default"].push('/');
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/User/subjects.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/store/modules/User/subjects.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    subjects: []
+  },
+  actions: {
+    getSubjects: function getSubjects(_ref) {
+      var commit = _ref.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/users/subjects').then(function (response) {
+        commit('SET_SUBJECTS', JSON.parse(response.data.data.subjects));
+      });
+    },
+    createSubject: function createSubject(_ref2, subject) {
+      var state = _ref2.state,
+          commit = _ref2.commit;
+      commit('ADD_SUBJECT', subject);
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/users/subjects', {
+        subjects: JSON.stringify(state.subjects)
+      }).then(function (response) {
+        commit('SET_SUBJECTS', JSON.parse(response.data.data.subjects));
+      });
+    }
+  },
+  mutations: {
+    SET_SUBJECTS: function SET_SUBJECTS(state, subjects) {
+      subjects === null ? state.subjects = [] : state.subjects = subjects;
+    },
+    ADD_SUBJECT: function ADD_SUBJECT(state, subjects) {
+      state.subjects.push(subjects);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/User/tiles.js":
+/*!**************************************************!*\
+  !*** ./resources/js/store/modules/User/tiles.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    tiles: [{
+      name: "Стандартная",
+      url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+    }, {
+      name: "Стандартная. Ночь",
+      url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+    }, {
+      name: "Строение человека",
+      url: "/tile1/{z}-{x}-{y}.jpg"
+    }, {
+      name: "Карта фильма Властелин Колец",
+      url: "/tile2/{z}-{x}-{y}.jpg"
+    }, {
+      name: "Заповедники Дальнего востока",
+      url: "https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}"
+    }, {
+      name: "Солнечная система",
+      url: "/tile3/{z}-{x}-{y}.jpg"
+    }, {
+      name: "Астрономия",
+      url: "http://leafletjs.com/examples/crs-simple/uqm_map_full.png"
+    }]
+  },
+  actions: {},
+  mutations: {
+    ADD_TILE: function ADD_TILE(state, tile) {
+      state.tiles.push(tile);
     }
   }
 });
@@ -71435,7 +71491,7 @@ __webpack_require__.r(__webpack_exports__);
       id: 0,
       name: "Глобус",
       subject: "География",
-      description: "йцйцу",
+      description: "Описание",
       config: JSON.stringify({
         "eventListWidth": 227,
         "selectedEventId": 1
@@ -71804,51 +71860,7 @@ __webpack_require__.r(__webpack_exports__);
           "size": ["40", "40"]
         }
       }])
-    }],
-    localSubjects: [{
-      name: "Информатика",
-      icon: __webpack_require__(/*! @/assets/images/subjects/computer_science.png */ "./resources/js/assets/images/subjects/computer_science.png")
-    }, {
-      name: "Биология",
-      icon: __webpack_require__(/*! @/assets/images/subjects/biology.png */ "./resources/js/assets/images/subjects/biology.png")
-    }, {
-      name: "География",
-      icon: __webpack_require__(/*! @/assets/images/subjects/geography.png */ "./resources/js/assets/images/subjects/geography.png")
-    }, {
-      name: "История",
-      icon: __webpack_require__(/*! @/assets/images/subjects/history.png */ "./resources/js/assets/images/subjects/history.png")
-    }, {
-      name: "Другое",
-      icon: __webpack_require__(/*! @/assets/images/subjects/custom.png */ "./resources/js/assets/images/subjects/custom.png")
-    }],
-    externalSubjects: [],
-    tiles: [{
-      name: "Стандартная",
-      url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
-    }, {
-      name: "Стандартная. Ночь",
-      url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
-    }, {
-      name: "Строение человека",
-      url: "/tile1/{z}-{x}-{y}.jpg"
-    }, {
-      name: "Карта фильма Властелин Колец",
-      url: "/tile2/{z}-{x}-{y}.jpg"
-    }, {
-      name: "Заповедники Дальнего востока",
-      url: "https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}"
-    }, {
-      name: "Солнечная система",
-      url: "/tile3/{z}-{x}-{y}.jpg"
-    }, {
-      name: "Астрономия",
-      url: "http://leafletjs.com/examples/crs-simple/uqm_map_full.png"
     }]
-  },
-  getters: {
-    subjects: function subjects(state) {
-      return state.localSubjects.concat(state.externalSubjects);
-    }
   },
   actions: {
     getMaps: function getMaps(_ref) {
@@ -71890,36 +71902,11 @@ __webpack_require__.r(__webpack_exports__);
       return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/maps/' + ids).then(function (response) {
         commit('SET_MAPS', response.data.data.maps);
       });
-    },
-    getExternalSubjects: function getExternalSubjects(_ref6) {
-      var commit = _ref6.commit;
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/users/subjects').then(function (response) {
-        commit('SET_EXTERNAL_SUBJECTS', JSON.parse(response.data.data.subjects));
-      });
-    },
-    createExternalSubject: function createExternalSubject(_ref7, subject) {
-      var state = _ref7.state,
-          commit = _ref7.commit;
-      commit('ADD_EXTERNAL_SUBJECT', subject);
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/users/subjects', {
-        subjects: JSON.stringify(state.externalSubjects)
-      }).then(function (response) {
-        commit('SET_EXTERNAL_SUBJECTS', JSON.parse(response.data.data.subjects));
-      });
     }
   },
   mutations: {
     SET_MAPS: function SET_MAPS(state, maps) {
       state.maps = maps;
-    },
-    SET_EXTERNAL_SUBJECTS: function SET_EXTERNAL_SUBJECTS(state, subjects) {
-      subjects === null ? state.externalSubjects = [] : state.externalSubjects = subjects;
-    },
-    ADD_EXTERNAL_SUBJECT: function ADD_EXTERNAL_SUBJECT(state, subjects) {
-      state.externalSubjects.push(subjects);
-    },
-    ADD_TILE: function ADD_TILE(state, tile) {
-      state.tiles.push(tile);
     },
     SAVE_EDITABLE_EXAMPLE: function SAVE_EDITABLE_EXAMPLE(state, map) {
       state.editableExample.name = map.name;

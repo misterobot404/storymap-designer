@@ -8,7 +8,7 @@ export default {
             id: 0,
             name: "Глобус",
             subject: "География",
-            description: "йцйцу",
+            description: "Описание",
             config: JSON.stringify({"eventListWidth": 227, "selectedEventId": 1}),
             tile: JSON.stringify({
                 "url": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
@@ -267,64 +267,6 @@ export default {
                 }])
             }
         ],
-        localSubjects: [
-            {
-                name: "Информатика",
-                icon: require('@/assets/images/subjects/computer_science.png')
-            },
-            {
-                name: "Биология",
-                icon: require('@/assets/images/subjects/biology.png')
-            },
-            {
-                name: "География",
-                icon: require('@/assets/images/subjects/geography.png')
-            },
-            {
-                name: "История",
-                icon: require('@/assets/images/subjects/history.png')
-            },
-            {
-                name: "Другое",
-                icon: require('@/assets/images/subjects/custom.png')
-            }
-        ],
-        externalSubjects: [],
-        tiles: [
-            {
-                name: "Стандартная",
-                url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
-            },
-            {
-                name: "Стандартная. Ночь",
-                url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
-            },
-            {
-                name: "Строение человека",
-                url: "/tile1/{z}-{x}-{y}.jpg"
-            },
-            {
-                name: "Карта фильма Властелин Колец",
-                url: "/tile2/{z}-{x}-{y}.jpg"
-            },
-            {
-                name: "Заповедники Дальнего востока",
-                url: "https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}"
-            },
-            {
-                name: "Солнечная система",
-                url: "/tile3/{z}-{x}-{y}.jpg"
-            },
-            {
-                name: "Астрономия",
-                url: "http://leafletjs.com/examples/crs-simple/uqm_map_full.png"
-            },
-        ],
-    },
-    getters: {
-        subjects(state) {
-            return state.localSubjects.concat(state.externalSubjects);
-        },
     },
     actions: {
         getMaps({commit}) {
@@ -364,26 +306,10 @@ export default {
                 .then(response => {
                     commit('SET_MAPS', response.data.data.maps);
                 })
-        },
-        getExternalSubjects({commit}) {
-            return axios.get('/api/users/subjects')
-                .then(response => {
-                    commit('SET_EXTERNAL_SUBJECTS', JSON.parse(response.data.data.subjects));
-                })
-        },
-        createExternalSubject({state, commit}, subject) {
-            commit('ADD_EXTERNAL_SUBJECT', subject);
-            return axios.post('/api/users/subjects', {subjects: JSON.stringify(state.externalSubjects)})
-                .then(response => {
-                    commit('SET_EXTERNAL_SUBJECTS', JSON.parse(response.data.data.subjects));
-                })
-        },
+        }
     },
     mutations: {
         SET_MAPS: (state, maps) => { state.maps = maps },
-        SET_EXTERNAL_SUBJECTS: (state, subjects) => { subjects === null ? state.externalSubjects = [] : state.externalSubjects = subjects },
-        ADD_EXTERNAL_SUBJECT: (state, subjects) => { state.externalSubjects.push(subjects) },
-        ADD_TILE(state, tile) { state.tiles.push(tile) },
         SAVE_EDITABLE_EXAMPLE(state, map) {
             state.editableExample.name = map.name;
             state.editableExample.subject = map.subject;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -122,5 +122,28 @@ class AuthController extends Controller
         $accessToken->revoke();
 
         return response()->json(["status" => "success", "data" => null], 200);
+    }
+
+    public function getCurrentUser()
+    {
+        return response()->json(["status" => "success", "data" => ["user" => auth()->user()]], 200);
+    }
+
+    public function nameAvailableCheck($name)
+    {
+        $user = User::where('name', $name)->first();
+
+        if (!$user)
+            return response()->json(["status" => "success", "data" => null], 200);
+        else return response()->json(["status" => "fail", "data" => ["name" => "Name not available"]], 422);
+    }
+
+    public function emailAvailableCheck($email)
+    {
+        $user = User::where('email', $email)->first();
+
+        if (!$user)
+            return response()->json(["status" => "success", "data" => null], 200);
+        else return response()->json(["status" => "fail", "data" => ["email" => "Email not available"]], 422);
     }
 }

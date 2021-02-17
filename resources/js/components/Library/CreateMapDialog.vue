@@ -122,7 +122,7 @@
 </template>
 
 <script>
-    import {mapGetters, mapState} from 'vuex'
+    import {mapState} from 'vuex'
 
     export default {
         name: "CreateMapDialog",
@@ -138,12 +138,10 @@
             }
         },
         computed: {
-            ...mapState('maps', [
-                'maps',
-            ]),
-            ...mapGetters('maps', [
-                'subjects'
-            ]),
+            ...mapState({
+                maps: state => state.maps.maps,
+                subjects: state => state.subjects.subjects,
+            }),
             getSubjectNames() {
                 let subjectNames = [];
                 this.subjects.forEach(el => subjectNames.push(el.name));

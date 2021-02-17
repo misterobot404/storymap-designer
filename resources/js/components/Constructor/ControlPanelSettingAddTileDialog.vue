@@ -107,32 +107,30 @@
 </template>
 
 <script>
-    import {mapMutations, mapState} from 'vuex'
+import {mapMutations, mapState} from 'vuex'
 
-    export default {
-        name: "CreateMapDialog",
-        data() {
-            return {
-                dialog: false,
-                loading: false,
-                name: "",
-                tileUrl: ""
-            }
-        },
-        computed: {
-            ...mapState('maps', [
-                'tiles',
-            ])
-        },
-        methods: {
-            ...mapMutations('maps',[
-                'ADD_TILE'
-            ]),
-            addTile() {
-                this.ADD_TILE({name: this.name, url: this.tileUrl});
-                this.dialog = false;
-            }
+export default {
+    name: "CreateMapDialog",
+    data() {
+        return {
+            dialog: false,
+            loading: false,
+            name: "",
+            tileUrl: ""
+        }
+    },
+    computed: {
+        ...mapState('tiles', ['tiles'])
+    },
+    methods: {
+        ...mapMutations('maps', [
+            'ADD_TILE'
+        ]),
+        addTile() {
+            this.ADD_TILE({name: this.name, url: this.tileUrl});
+            this.dialog = false;
         }
     }
+}
 </script>
 

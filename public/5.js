@@ -153,7 +153,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       showFloatingBtnCreate: false
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('maps', ['maps'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('maps', ['subjects'])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    maps: function maps(state) {
+      return state.maps.maps;
+    },
+    subjects: function subjects(state) {
+      return state.subjects.subjects;
+    }
+  })), {}, {
     getSubjectNames: function getSubjectNames() {
       var subjectNames = [];
       this.subjects.forEach(function (el) {
@@ -278,18 +285,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       icon: ""
     };
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('maps', ['createExternalSubject'])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('subjects', ['createSubject'])), {}, {
     create: function create() {
       var _this = this;
 
       this.processCreate = true;
-      this.createExternalSubject({
+      this.createSubject({
         name: this.name,
         icon: this.icon
-      }).then(function () {
+      }).then(function (_) {
         _this.createSubjectDialog = false;
       })["finally"](function () {
-        _this.loading = false;
+        _this.processCreate = false;
       });
     }
   })
@@ -469,7 +476,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       loadingIds: []
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('maps', ['subjects'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('subjects', ['subjects'])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('maps', {
     destroyMapAction: 'destroyMap',
     duplicateMapAction: 'duplicateMap'
@@ -975,7 +982,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       loadingMaps: false
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])('maps', ['maps'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('maps', ['subjects'])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
+    maps: function maps(state) {
+      return state.maps.maps;
+    },
+    subjects: function subjects(state) {
+      return state.subjects.subjects;
+    }
+  })), {}, {
     // Min grey height
     minHeight: function minHeight() {
       var height = '100vh';

@@ -254,12 +254,10 @@
             }
         },
         computed: {
-            ...mapState('maps', [
-                'maps',
-            ]),
-            ...mapGetters('maps', [
-                'subjects'
-            ]),
+            ...mapState({
+                maps: state => state.maps.maps,
+                subjects: state => state.subjects.subjects,
+            }),
             // Min grey height
             minHeight() {
                 const height = '100vh';

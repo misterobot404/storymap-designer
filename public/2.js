@@ -396,7 +396,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       tileUrl: ""
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('maps', ['tiles'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('tiles', ['tiles'])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('maps', ['ADD_TILE'])), {}, {
     addTile: function addTile() {
       this.ADD_TILE({
@@ -420,7 +420,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _components_Constructor_ControlPanelSettingAddTileDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/Constructor/ControlPanelSettingAddTileDialog */ "./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue");
+/* harmony import */ var _ControlPanelSettingAddTileDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ControlPanelSettingAddTileDialog */ "./resources/js/components/Constructor/ControlPanelSettingAddTileDialog.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -586,14 +586,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Settings",
   components: {
-    AddTileDialog: _components_Constructor_ControlPanelSettingAddTileDialog__WEBPACK_IMPORTED_MODULE_1__["default"]
+    AddTileDialog: _ControlPanelSettingAddTileDialog__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
       dialog: false
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['name', 'description', 'subject', 'tile'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('maps', ['maps', 'tiles'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('maps', ['subjects'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['name', 'description', 'subject', 'tile'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    maps: function maps(state) {
+      return state.maps.maps;
+    },
+    tiles: function tiles(state) {
+      return state.tiles.tiles;
+    },
+    subjects: function subjects(state) {
+      return state.subjects.subjects;
+    }
+  })), {}, {
     getSubjectNames: function getSubjectNames() {
       var subjectNames = [];
       this.subjects.forEach(function (el) {

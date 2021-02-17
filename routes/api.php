@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\User\SubjectController;
 use App\Http\Controllers\API\FeedbackController;
-use App\Http\Controllers\API\UserController;
-use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\User\AuthController;
 use App\Http\Controllers\API\MapController;
+use Illuminate\Support\Facades\Route;
 
 /**
  * API Authentication
@@ -16,19 +16,22 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api'
 /**
  * Проверка доступности почты / логина для регистрации
  */
-Route::get('/users/{email}/check-available', [UserController::class, 'emailAvailable'])->where('email', '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
-Route::get('/users/{name}/check-available',  [UserController::class, 'nameAvailable']);
-
-/**
- * Получить / установить темы атласов авторизированного пользователя
- */
-Route::get('/users/subjects', [UserController::class, 'getSubjects'])->middleware('auth:api');
-Route::post('/users/subjects',  [UserController::class, 'setSubjects'])->middleware('auth:api');
+Route::get('/users/{email}/check-available', [AuthController::class, 'emailAvailableCheck'])->where('email', '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
+Route::get('/users/{name}/check-available', [AuthController::class, 'nameAvailableCheck']);
 
 /**
  * Получить данные авторизированного пользователя
  */
-Route::get('/users/current',  [UserController::class, 'getCurrent']);
+Route::get('/users/current', [AuthController::class, 'getCurrentUser']);
+
+/**
+ * Subjects. CRU
+ */
+Route::middleware('auth:api')->group(function () {
+    Route::get('/users/subjects', [SubjectController::class, 'index']);
+    Route::post('/users/subjects', [SubjectController::class, 'store']);
+    Route::delete('/users/subjects/{id}', [SubjectController::class, 'destroy']);
+});
 
 /**
  * Maps. CRUD

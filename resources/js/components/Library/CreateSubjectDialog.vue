@@ -55,33 +55,27 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex'
+import {mapActions} from 'vuex'
 
-    export default {
-        name: "CreateMapDialog",
-        data() {
-            return {
-                createSubjectDialog: false,
-                processCreate: false,
-                name: "",
-                icon: "",
-            }
-        },
-        methods: {
-            ...mapActions('maps', [
-                'createExternalSubject',
-            ]),
-            create() {
-                this.processCreate = true;
-                this.createExternalSubject({name: this.name, icon: this.icon})
-                    .then(() => {
-                        this.createSubjectDialog = false;
-                    })
-                    .finally(() => {
-                        this.loading = false;
-                    })
-            }
+export default {
+    name: "CreateMapDialog",
+    data() {
+        return {
+            createSubjectDialog: false,
+            processCreate: false,
+            name: "",
+            icon: "",
+        }
+    },
+    methods: {
+        ...mapActions('subjects', ['createSubject']),
+        create() {
+            this.processCreate = true;
+            this.createSubject({name: this.name, icon: this.icon})
+                .then(_ => { this.createSubjectDialog = false })
+                .finally(() => { this.processCreate = false })
         }
     }
+}
 </script>
 

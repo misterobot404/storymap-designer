@@ -24,7 +24,8 @@ export default {
             return axios.post('/api/login', payload)
                 .then(response => {
                     commit('LOGIN', {token: response.data.data.token, user: response.data.data.user});
-                    dispatch('maps/getExternalSubjects', null, {root: true})
+                    // get user data
+                    dispatch('subjects/getSubjects', null, {root: true})
                 })
         },
         /**
