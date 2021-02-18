@@ -71027,6 +71027,12 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         commit('SET_SUBJECTS', JSON.parse(response.data.data.subjects));
       });
+    },
+    deleteSubject: function deleteSubject(_ref3, name) {
+      var commit = _ref3.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/users/subjects/' + name).then(function (response) {
+        commit('SET_SUBJECTS', JSON.parse(response.data.data.subjects));
+      });
     }
   },
   mutations: {

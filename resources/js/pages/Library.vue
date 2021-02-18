@@ -6,7 +6,7 @@
         <!-- Hero. Creat map / folder -->
         <v-container class="content-width">
             <v-row
-                style="min-height: 144px"
+                style="min-height: 168px"
                 align-content="center"
             >
                 <!-- Hero -->
@@ -19,9 +19,8 @@
                     </p>
                 </v-col>
                 <!-- Creat map / folder -->
-                <v-col>
+                <v-col align-self="center">
                     <v-row
-                        class="align-center"
                         :class="[$vuetify.breakpoint.xs ? 'justify-center' : 'justify-end']"
                         style="height: 100%"
                     >
@@ -55,7 +54,7 @@
                         :class="{ 'v-btn--active' : role.name === selectedRole }"
                         @click="selectedRole = role.name"
                     >
-                        {{role.name}}
+                        {{ role.name }}
                     </v-btn>
                     <!-- space -->
                     <v-spacer/>
@@ -95,7 +94,7 @@
                                         class="mr-2"
                                     >
                                         <span class="hidden-lg-and-down"> Категория:&nbsp; </span>
-                                        <span v-if="selectedSubjectIndex"> {{ subjects[selectedSubjectIndex-1].name }} </span>
+                                        <span v-if="selectedSubjectIndex"> {{ subjects[selectedSubjectIndex - 1].name }} </span>
                                         <span v-else> Все </span>
                                     </v-btn>
                                 </template>
@@ -107,12 +106,22 @@
                                 <v-list-item>
                                     <v-list-item-title>Все</v-list-item-title>
                                 </v-list-item>
-                                <v-list-item
-                                    v-for="(subject, index) in subjects"
-                                    :key="index"
-                                >
-                                    <v-list-item-title>{{ subject.name }}</v-list-item-title>
-                                </v-list-item>
+                                <template v-for="(subject, index) in subjects">
+                                    <v-hover v-slot="{ hover }">
+                                        <v-list-item :key="index">
+                                            <v-list-item-title>{{ subject.name }}</v-list-item-title>
+                                            <v-list-item-action @click.stop>
+                                                <v-btn
+                                                    v-show="hover"
+                                                    @click=""
+                                                    icon
+                                                >
+                                                    <v-icon>close</v-icon>
+                                                </v-btn>
+                                            </v-list-item-action>
+                                        </v-list-item>
+                                    </v-hover>
+                                </template>
                             </v-list-item-group>
                         </v-list>
                     </v-menu>
@@ -220,99 +229,102 @@
 </template>
 
 <script>
-    import {mapState, mapActions, mapGetters} from "vuex"
-    import CreateMapDialog from "@/components/Library/CreateMapDialog"
-    import CreateSubjectDialog from "@/components/Library/CreateSubjectDialog"
-    import GridMaps from "@/components/Library/GridMaps"
-    import ListMaps from "@/components/Library/ListMaps"
+import {mapState, mapActions, mapGetters} from "vuex"
+import CreateMapDialog from "@/components/Library/CreateMapDialog"
+import CreateSubjectDialog from "@/components/Library/CreateSubjectDialog"
+import GridMaps from "@/components/Library/GridMaps"
+import ListMaps from "@/components/Library/ListMaps"
 
-    export default {
-        name: "Library",
-        components: {
-            CreateMapDialog,
-            CreateSubjectDialog,
-            GridMaps,
-            ListMaps
-        },
-        data() {
-            return {
-                // Roles
-                selectedRole: localStorage.getItem("Library.selectedRole") !== null ? localStorage.getItem("Library.selectedRole") : "Все атласы",
-                roles: [
-                    {name: "Все атласы"},
-                    {name: "Автор"},
-                    {name: "Разработчик"},
-                    {name: "Пользователь"}
-                ],
-                // Filters
-                search: "",
-                selectedSubjectIndex: 0,
-                // Other
-                selectedViewMode: localStorage.getItem("Library.selectedViewMode") !== null ? localStorage.getItem("Library.selectedViewMode") : "table",
-                showScrollUpBtn: false,
-                loadingMaps: false
-            }
-        },
-        computed: {
-            ...mapState({
-                maps: state => state.maps.maps,
-                subjects: state => state.subjects.subjects,
-            }),
-            // Min grey height
-            minHeight() {
-                const height = '100vh';
-                return `calc(${height} - ${this.$vuetify.application.top}px - ${this.$vuetify.application.footer}px)`
-            },
-            // Filter
-            filteredMaps() {
-                let filteredMaps = this.maps;
-                // search filter
-                if (this.search) {
-                    filteredMaps = this.maps.filter(el => {
-                        return el.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
-                    })
-                }
-                // subject filter
-                if (this.selectedSubjectIndex) {
-                    filteredMaps = filteredMaps.filter(el => {
-                        return el.subject === this.subjects[this.selectedSubjectIndex - 1].name;
-                    })
-                }
-                return filteredMaps;
-            }
-        },
-        watch: {
-            selectedViewMode(val) {
-                localStorage.setItem("Library.selectedViewMode", val)
-            },
-            selectedRole(val) {
-                localStorage.setItem("Library.selectedRole", val)
-            }
-        },
-        methods: {
-            ...mapActions('maps', [
-                'getMaps'
-            ]),
-
-            // showScrollUpBtn
-            onScroll(e) {
-                if (typeof window === 'undefined') return
-                const top = window.pageYOffset || e.target.scrollTop || 0
-                this.showScrollUpBtn = top > 20
-            },
-        },
-        // Load maps
-        async beforeMount() {
-            this.loadingMaps = true;
-            await this.getMaps()
-                .finally(() => {
-                    this.loadingMaps = false;
-                })
+export default {
+    name: "Library",
+    components: {
+        CreateMapDialog,
+        CreateSubjectDialog,
+        GridMaps,
+        ListMaps
+    },
+    data() {
+        return {
+            // Roles
+            selectedRole: localStorage.getItem("Library.selectedRole") !== null ? localStorage.getItem("Library.selectedRole") : "Все атласы",
+            roles: [
+                {name: "Все атласы"},
+                {name: "Автор"},
+                {name: "Разработчик"},
+                {name: "Пользователь"}
+            ],
+            // Filters
+            search: "",
+            selectedSubjectIndex: 0,
+            // Other
+            selectedViewMode: localStorage.getItem("Library.selectedViewMode") !== null ? localStorage.getItem("Library.selectedViewMode") : "table",
+            showScrollUpBtn: false,
+            loadingMaps: false
         }
+    },
+    computed: {
+        ...mapState({
+            maps: state => state.maps.maps,
+            subjects: state => state.subjects.subjects,
+        }),
+        // Min grey height
+        minHeight() {
+            const height = '100vh';
+            return `calc(${height} - ${this.$vuetify.application.top}px - ${this.$vuetify.application.footer}px)`
+        },
+        // Filter
+        filteredMaps() {
+            let filteredMaps = this.maps;
+            // search filter
+            if (this.search) {
+                filteredMaps = this.maps.filter(el => {
+                    return el.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+                })
+            }
+            // subject filter
+            if (this.selectedSubjectIndex) {
+                filteredMaps = filteredMaps.filter(el => {
+                    return el.subject === this.subjects[this.selectedSubjectIndex - 1].name;
+                })
+            }
+            return filteredMaps;
+        }
+    },
+    watch: {
+        selectedViewMode(val) {
+            localStorage.setItem("Library.selectedViewMode", val)
+        },
+        selectedRole(val) {
+            localStorage.setItem("Library.selectedRole", val)
+        }
+    },
+    methods: {
+        ...mapActions('maps', [
+            'getMaps'
+        ]),
+        ...mapActions('subjects', [
+            ''
+        ]),
+
+        // showScrollUpBtn
+        onScroll(e) {
+            if (typeof window === 'undefined') return
+            const top = window.pageYOffset || e.target.scrollTop || 0
+            this.showScrollUpBtn = top > 20
+        },
+    },
+    // Load maps
+    async beforeMount() {
+        this.loadingMaps = true;
+        await this.getMaps()
+            .finally(() => {
+                this.loadingMaps = false;
+            })
     }
+}
 </script>
 
 <style lang="sass" scoped>
-    .content-width
-        width: 84%
+.content-width
+    width: 84%
 </style>
