@@ -79,6 +79,7 @@
                         inset
                         vertical
                     />
+                    <!-- Subjects -->
                     <v-menu
                         transition="slide-y-transition"
                         offset-y
@@ -103,17 +104,20 @@
                         </template>
                         <v-list>
                             <v-list-item-group v-model="selectedSubjectIndex">
-                                <v-list-item>
+                                <v-list-item style="height: 48px !important">
                                     <v-list-item-title>Все</v-list-item-title>
+                                    <v-list-item-action @click.stop v-show="loadingSubjects">
+                                        <v-btn icon  small loading></v-btn>
+                                    </v-list-item-action>
                                 </v-list-item>
                                 <template v-for="(subject, index) in subjects">
                                     <v-hover v-slot="{ hover }">
-                                        <v-list-item :key="index">
+                                        <v-list-item :disabled="loadingSubjects" :key="index" style="height: 48px !important">
                                             <v-list-item-title>{{ subject.name }}</v-list-item-title>
                                             <v-list-item-action @click.stop>
                                                 <v-btn
-                                                    v-show="hover"
-                                                    @click=""
+                                                    @click="lDeleteSubject(index)"
+                                                    :style="hover ? 'opacity: 1' : 'opacity: 0'"
                                                     icon
                                                 >
                                                     <v-icon>close</v-icon>
@@ -229,7 +233,7 @@
 </template>
 
 <script>
-import {mapState, mapActions, mapGetters} from "vuex"
+import {mapState, mapActions} from "vuex"
 import CreateMapDialog from "@/components/Library/CreateMapDialog"
 import CreateSubjectDialog from "@/components/Library/CreateSubjectDialog"
 import GridMaps from "@/components/Library/GridMaps"
@@ -259,7 +263,8 @@ export default {
             // Other
             selectedViewMode: localStorage.getItem("Library.selectedViewMode") !== null ? localStorage.getItem("Library.selectedViewMode") : "table",
             showScrollUpBtn: false,
-            loadingMaps: false
+            loadingMaps: false,
+            loadingSubjects: false
         }
     },
     computed: {
@@ -299,12 +304,8 @@ export default {
         }
     },
     methods: {
-        ...mapActions('maps', [
-            'getMaps'
-        ]),
-        ...mapActions('subjects', [
-            ''
-        ]),
+        ...mapActions('maps', ['getMaps']),
+        ...mapActions('subjects', ['deleteSubject']),
 
         // showScrollUpBtn
         onScroll(e) {
@@ -312,14 +313,17 @@ export default {
             const top = window.pageYOffset || e.target.scrollTop || 0
             this.showScrollUpBtn = top > 20
         },
+        lDeleteSubject($index) {
+            this.loadingSubjects = true;
+            this.deleteSubject($index)
+                .finally(() => { this.loadingSubjects = false })
+        }
     },
     // Load maps
     async beforeMount() {
         this.loadingMaps = true;
         await this.getMaps()
-            .finally(() => {
-                this.loadingMaps = false;
-            })
+            .finally(() => { this.loadingMaps = false })
     }
 }
 </script>

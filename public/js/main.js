@@ -70650,7 +70650,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/store */ "./resources/js/store/index.js");
 
- // check auth
+ // 401 errors logout user
+
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  if (error.response.status === 401) {
+    _store__WEBPACK_IMPORTED_MODULE_1__["default"].commit("auth/LOGOUT", null, {
+      root: true
+    });
+  } else return Promise.reject(error);
+}); // check auth
 
 var authToken = window.localStorage.getItem('token');
 
@@ -70661,18 +70671,7 @@ if (authToken) {
   _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('subjects/getSubjects', null, {
     root: true
   });
-} // 401 errors logout user
-
-
-axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function (response) {
-  return response;
-}, function (error) {
-  if (error.response.status === 401) {
-    _store__WEBPACK_IMPORTED_MODULE_1__["default"].commit("auth/LOGOUT", null, {
-      root: true
-    });
-  } else return Promise.reject(error);
-});
+}
 
 /***/ }),
 
@@ -71015,7 +71014,7 @@ __webpack_require__.r(__webpack_exports__);
     getSubjects: function getSubjects(_ref) {
       var commit = _ref.commit;
       return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/users/subjects').then(function (response) {
-        commit('SET_SUBJECTS', JSON.parse(response.data.data.subjects));
+        commit('SET_SUBJECTS', response.data.data.subjects);
       });
     },
     createSubject: function createSubject(_ref2, subject) {
@@ -71023,15 +71022,15 @@ __webpack_require__.r(__webpack_exports__);
           commit = _ref2.commit;
       commit('ADD_SUBJECT', subject);
       return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/users/subjects', {
-        subjects: JSON.stringify(state.subjects)
+        subjects: state.subjects
       }).then(function (response) {
-        commit('SET_SUBJECTS', JSON.parse(response.data.data.subjects));
+        commit('SET_SUBJECTS', response.data.data.subjects);
       });
     },
-    deleteSubject: function deleteSubject(_ref3, name) {
+    deleteSubject: function deleteSubject(_ref3, index) {
       var commit = _ref3.commit;
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/users/subjects/' + name).then(function (response) {
-        commit('SET_SUBJECTS', JSON.parse(response.data.data.subjects));
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/users/subjects/' + index).then(function (response) {
+        commit('SET_SUBJECTS', response.data.data.subjects);
       });
     }
   },

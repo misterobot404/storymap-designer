@@ -274,6 +274,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CreateMapDialog",
@@ -295,6 +316,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         icon: this.icon
       }).then(function (_) {
         _this.createSubjectDialog = false;
+        _this.name = "";
+        _this.icon = "";
       })["finally"](function () {
         _this.processCreate = false;
       });
@@ -956,6 +979,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -988,7 +1015,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       // Other
       selectedViewMode: localStorage.getItem("Library.selectedViewMode") !== null ? localStorage.getItem("Library.selectedViewMode") : "table",
       showScrollUpBtn: false,
-      loadingMaps: false
+      loadingMaps: false,
+      loadingSubjects: false
     };
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
@@ -1034,27 +1062,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       localStorage.setItem("Library.selectedRole", val);
     }
   },
-  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('maps', ['getMaps'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('subjects', [''])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('maps', ['getMaps'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('subjects', ['deleteSubject'])), {}, {
     // showScrollUpBtn
     onScroll: function onScroll(e) {
       if (typeof window === 'undefined') return;
       var top = window.pageYOffset || e.target.scrollTop || 0;
       this.showScrollUpBtn = top > 20;
+    },
+    lDeleteSubject: function lDeleteSubject($index) {
+      var _this2 = this;
+
+      this.loadingSubjects = true;
+      this.deleteSubject($index)["finally"](function () {
+        _this2.loadingSubjects = false;
+      });
     }
   }),
   // Load maps
   beforeMount: function beforeMount() {
-    var _this2 = this;
+    var _this3 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _this2.loadingMaps = true;
+              _this3.loadingMaps = true;
               _context.next = 3;
-              return _this2.getMaps()["finally"](function () {
-                _this2.loadingMaps = false;
+              return _this3.getMaps()["finally"](function () {
+                _this3.loadingMaps = false;
               });
 
             case 3:
@@ -1258,7 +1294,6 @@ var render = function() {
                 [
                   _c(
                     "v-container",
-                    { staticClass: "pb-0" },
                     [
                       _c(
                         "v-row",
@@ -1482,12 +1517,40 @@ var render = function() {
       _c(
         "v-card",
         [
-          _c("v-card-title", { staticClass: "headline" }, [
-            _vm._v("\n            Добавить категорию\n        ")
-          ]),
+          _c(
+            "v-toolbar",
+            { staticClass: "pr-1", attrs: { height: "68", flat: "" } },
+            [
+              _c("v-icon", { staticClass: "mr-2", attrs: { large: "" } }, [
+                _vm._v("\n                subject\n            ")
+              ]),
+              _vm._v(" "),
+              _c("v-toolbar-title", [_vm._v(" Добавить категорию ")]),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { icon: "" },
+                  on: {
+                    click: function($event) {
+                      _vm.createSubjectDialog = false
+                    }
+                  }
+                },
+                [_c("v-icon", [_vm._v("close")])],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-divider"),
           _vm._v(" "),
           _c(
             "v-card-text",
+            { staticClass: "pb-0 pt-2" },
             [
               _c("v-text-field", {
                 attrs: { label: "Название" },
@@ -2518,7 +2581,39 @@ var render = function() {
                             [
                               _c(
                                 "v-list-item",
-                                [_c("v-list-item-title", [_vm._v("Все")])],
+                                { staticStyle: { height: "48px !important" } },
+                                [
+                                  _c("v-list-item-title", [_vm._v("Все")]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-item-action",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: _vm.loadingSubjects,
+                                          expression: "loadingSubjects"
+                                        }
+                                      ],
+                                      on: {
+                                        click: function($event) {
+                                          $event.stopPropagation()
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("v-btn", {
+                                        attrs: {
+                                          icon: "",
+                                          small: "",
+                                          loading: ""
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
                                 1
                               ),
                               _vm._v(" "),
@@ -2534,7 +2629,16 @@ var render = function() {
                                             return [
                                               _c(
                                                 "v-list-item",
-                                                { key: index },
+                                                {
+                                                  key: index,
+                                                  staticStyle: {
+                                                    height: "48px !important"
+                                                  },
+                                                  attrs: {
+                                                    disabled:
+                                                      _vm.loadingSubjects
+                                                  }
+                                                },
                                                 [
                                                   _c("v-list-item-title", [
                                                     _vm._v(_vm._s(subject.name))
@@ -2555,20 +2659,18 @@ var render = function() {
                                                       _c(
                                                         "v-btn",
                                                         {
-                                                          directives: [
-                                                            {
-                                                              name: "show",
-                                                              rawName: "v-show",
-                                                              value: hover,
-                                                              expression:
-                                                                "hover"
-                                                            }
-                                                          ],
+                                                          style: hover
+                                                            ? "opacity: 1"
+                                                            : "opacity: 0",
                                                           attrs: { icon: "" },
                                                           on: {
                                                             click: function(
                                                               $event
-                                                            ) {}
+                                                            ) {
+                                                              return _vm.lDeleteSubject(
+                                                                index
+                                                              )
+                                                            }
                                                           }
                                                         },
                                                         [
@@ -3037,8 +3139,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
 /* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
 
 
 
@@ -3067,7 +3172,10 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_6__["VDialog"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_8__["VTextField"]})
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_6__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_7__["VDivider"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__["VTextField"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_11__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_11__["VToolbarTitle"]})
 
 
 /* hot reload */

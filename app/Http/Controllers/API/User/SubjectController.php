@@ -10,7 +10,7 @@ class SubjectController extends Controller
 {
     public function index()
     {
-        // Get all maps of the current user.
+        // Get all subjects for current user.
         $user = User::find(auth()->id());
 
         return response()->json([
@@ -31,12 +31,19 @@ class SubjectController extends Controller
         ], 200);
     }
 
-    public function destroy($id)
+    public function destroy($index)
     {
-        $subjects = Subject::where('user_id', auth()->id())->get();
+        // Get all subjects for current user.
+        $user = User::find(auth()->id());
+
+        $new_subjects = $user->subjects;
+        array_splice($new_subjects, $index, 1);
+        $user->subjects = $new_subjects;
+        $user->save();
+
         return response()->json([
             "status" => "success",
-            "data" => ["subjects" => $subjects]
+            "data" => ["subjects" => $user->subjects]
         ], 200);
     }
 }

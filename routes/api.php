@@ -30,7 +30,7 @@ Route::get('/users/current', [AuthController::class, 'getCurrentUser']);
 Route::middleware('auth:api')->group(function () {
     Route::get('/users/subjects', [SubjectController::class, 'index']);
     Route::post('/users/subjects', [SubjectController::class, 'store']);
-    Route::delete('/users/subjects/{id}', [SubjectController::class, 'destroy']);
+    Route::delete('/users/subjects/{index}', [SubjectController::class, 'destroy']);
 });
 
 /**

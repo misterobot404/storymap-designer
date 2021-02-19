@@ -59,7 +59,7 @@
             <!-- Body -->
             <v-card-text class="pb-0">
                 <v-form ref="form">
-                    <v-container class="pb-0">
+                    <v-container>
                         <v-row>
                             <v-col cols="12" class="pb-0 pt-3">
                                 <v-text-field

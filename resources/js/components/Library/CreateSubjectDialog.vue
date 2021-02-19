@@ -16,11 +16,32 @@
             </v-btn>
         </template>
 
+        <!-- Dialog -->
         <v-card>
-            <v-card-title class="headline">
-                Добавить категорию
-            </v-card-title>
-            <v-card-text>
+            <!-- Header -->
+            <v-toolbar
+                height="68"
+                flat
+                class="pr-1"
+            >
+                <v-icon
+                    large
+                    class="mr-2"
+                >
+                    subject
+                </v-icon>
+                <v-toolbar-title> Добавить категорию </v-toolbar-title>
+                <v-spacer/>
+                <v-btn
+                    icon
+                    @click="createSubjectDialog = false"
+                >
+                    <v-icon>close</v-icon>
+                </v-btn>
+            </v-toolbar>
+            <v-divider/>
+            <!-- Body -->
+            <v-card-text class="pb-0 pt-2">
                 <v-text-field
                     v-model="name"
                     label="Название"
@@ -72,7 +93,11 @@ export default {
         create() {
             this.processCreate = true;
             this.createSubject({name: this.name, icon: this.icon})
-                .then(_ => { this.createSubjectDialog = false })
+                .then(_ => {
+                    this.createSubjectDialog = false;
+                    this.name = "";
+                    this.icon = "";
+                })
                 .finally(() => { this.processCreate = false })
         }
     }
