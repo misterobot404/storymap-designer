@@ -17,16 +17,16 @@
                 <v-list-item>
                     <v-list-item-avatar
                         tile
-                        v-if="getSubjectIcon(map.subject) !== ''"
+                        v-if="getSubjectIcon(map.subject_id) !== ''"
                     >
                         <img
-                            :src="getSubjectIcon(map.subject)"
-                            :alt="map.subject"
+                            :src="getSubjectIcon(map.subject_id)"
+                            :alt="map.subject_id"
                         />
                     </v-list-item-avatar>
                     <v-list-item-content>
                         <v-list-item-title class="headline">{{ map.name }}</v-list-item-title>
-                        <v-list-item-subtitle v-if="map.subject"> {{ map.subject }}</v-list-item-subtitle>
+                        <v-list-item-subtitle v-if="map.subject_id"> {{ map.subject_id }}</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-img
@@ -97,12 +97,6 @@
                                 </v-list-item-action>
                                 <v-list-item-title>Создать копию</v-list-item-title>
                             </v-list-item>
-                            <v-list-item @click="">
-                                <v-list-item-action class="mr-5">
-                                    <v-icon>folder</v-icon>
-                                </v-list-item-action>
-                                <v-list-item-title>Добавить в папку</v-list-item-title>
-                            </v-list-item>
                             <v-list-item @click="destroyMap(map)">
                                 <v-list-item-action class="mr-5">
                                     <v-icon>delete</v-icon>
@@ -143,45 +137,45 @@
 </template>
 
 <script>
-    import {mapActions, mapState} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 
-    export default {
-        name: "GridMaps",
-        props: {
-            maps: Array
+export default {
+    name: "GridMaps",
+    props: {
+        maps: Array
+    },
+    data() {
+        return {
+            showDescriptionId: null,
+            loadingIds: [],
+        }
+    },
+    computed: {
+        ...mapState('subjects', ['subjects'])
+    },
+    methods: {
+        ...mapActions('maps', {
+            destroyMapAction: 'destroyMap',
+            duplicateMapAction: 'duplicateMap',
+        }),
+        getSubjectIcon($subject_id) {
+            return (this.subjects.find(el => el.id === $subject_id)).icon;
         },
-        data() {
-            return {
-                showDescriptionId: null,
-                loadingIds: [],
-            }
+        destroyMap($map) {
+            this.loadingIds.push($map.id);
+            this.destroyMapAction($map)
+                .finally(() => {
+                    this.loadingIds = this.loadingIds.filter(el => el !== $map.id);
+                })
         },
-        computed: {
-            ...mapState('subjects', ['subjects'])
-        },
-        methods: {
-            ...mapActions('maps', {
-                destroyMapAction: 'destroyMap',
-                duplicateMapAction: 'duplicateMap',
-            }),
-            getSubjectIcon($subject) {
-                return this.subjects.find(el => el.name === $subject).icon;
-            },
-            destroyMap($map) {
-                this.loadingIds.push($map.id);
-                this.destroyMapAction($map)
-                    .finally(() => {
-                        this.loadingIds = this.loadingIds.filter(el => el !== $map.id);
-                    })
-            },
-            duplicateMap($map) {
-                this.loadingIds.push($map.id);
-                this.duplicateMapAction($map)
-                    .finally(() => {
-                        this.loadingIds = this.loadingIds.filter(el => el !== $map.id);
-                    })
-            }
+        duplicateMap($map) {
+            this.loadingIds.push($map.id);
+            this.duplicateMapAction($map)
+                .finally(() => {
+                    this.loadingIds = this.loadingIds.filter(el => el !== $map.id);
+                })
         }
     }
+}
 </script>
 

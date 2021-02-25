@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\API\User\SubjectController;
+use App\Http\Controllers\API\SubjectController;
 use App\Http\Controllers\API\FeedbackController;
-use App\Http\Controllers\API\User\AuthController;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\MapController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,18 +25,20 @@ Route::get('/users/{name}/check-available', [AuthController::class, 'nameAvailab
 Route::get('/users/current', [AuthController::class, 'getCurrentUser']);
 
 /**
- * Subjects. CRU
+ * Subjects. CRD
  */
 Route::middleware('auth:api')->group(function () {
-    Route::get('/users/subjects', [SubjectController::class, 'index']);
-    Route::post('/users/subjects', [SubjectController::class, 'store']);
-    Route::delete('/users/subjects/{index}', [SubjectController::class, 'destroy']);
+    Route::get('/subjects', [SubjectController::class, 'index']);
+    Route::post('/subjects/{id}', [SubjectController::class, 'update']);
+    Route::post('/subjects', [SubjectController::class, 'store']);
+    Route::delete('/subjects/{id}', [SubjectController::class, 'destroy']);
 });
 
 /**
- * Maps. CRUD
+ * Maps
  */
 Route::middleware('auth:api')->group(function () {
+    // CRUD
     Route::get('/maps', [MapController::class, 'index']);
     Route::post('/maps', [MapController::class, 'store']);
     Route::get('/maps/{id}', [MapController::class, 'show']);
@@ -44,6 +46,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/maps/{id}', [MapController::class, 'destroy']);
     // Other
     Route::post('/maps/duplicate', [MapController::class, 'duplicate']);
+    Route::post('/maps/toSubject', [MapController::class, 'toSubject']);
 });
 
 /**

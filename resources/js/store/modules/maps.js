@@ -276,37 +276,38 @@ export default {
                 })
         },
         createMap({commit}, data) {
-            return axios.post('/api/maps',
-                {
-                    name: data.name,
-                    subject: data.subject,
-                    description: data.description
-                })
-                .then(response => {
-                    commit('SET_MAPS', response.data.data.maps);
-                })
+            return axios.post('/api/maps', {
+                name: data.name,
+                subject_id: data.subject_id,
+                description: data.description
+            })
+                .then(response => { commit('SET_MAPS', response.data.data.maps) })
         },
         duplicateMap({commit}, data) {
             return axios.post('/api/maps/duplicate', {id: data.id})
-                .then(response => {
-                    commit('SET_MAPS', response.data.data.maps);
-                })
+                .then(response => { commit('SET_MAPS', response.data.data.maps) })
         },
         destroyMap({commit}, data) {
             return axios.delete('/api/maps/' + data.id)
-                .then(response => {
-                    commit('SET_MAPS', response.data.data.maps);
-                })
+                .then(response => { commit('SET_MAPS', response.data.data.maps) })
         },
         destroyMaps({commit}, data) {
             let ids = [];
             data.forEach(element => ids.push(element.id));
 
             return axios.delete('/api/maps/' + ids)
-                .then(response => {
-                    commit('SET_MAPS', response.data.data.maps);
-                })
-        }
+                .then(response => { commit('SET_MAPS', response.data.data.maps) })
+        },
+        setSubjectForMaps({commit}, payload) {
+            let map_ids = [];
+            payload.maps.forEach(el => map_ids.push(el.id));
+
+            return axios.post('/api/maps/toSubject', {
+                map_ids: map_ids,
+                subject_id: payload.subject_id
+            })
+                .then(response => { commit('SET_MAPS', response.data.data.maps) })
+        },
     },
     mutations: {
         SET_MAPS: (state, maps) => { state.maps = maps },

@@ -30,7 +30,7 @@ class MapController extends Controller
         $map = new Map;
         $map->user_id = auth()->id();
         $map->name = request('name');
-        $map->subject = request('subject');
+        $map->subject_id = request('subject_id');
         $map->description = request('description');
         $map->save();
 
@@ -164,7 +164,7 @@ class MapController extends Controller
         $map = new Map;
         $map->user_id = auth()->id();
         $map->name = $baseMap->name . " - Copy";
-        $map->subject = $baseMap->subject;
+        $map->subject_id = $baseMap->subject_id;
         $map->description = $baseMap->description;
         $map->tile = $baseMap->tile;
         $map->events = $baseMap->events;
@@ -175,6 +175,16 @@ class MapController extends Controller
         return response()->json([
             "status" => "success",
             "data" => ["maps" => $maps]
+        ], 200);
+    }
+
+    public function toSubject()
+    {
+        Map::whereIn('id', request('map_ids'))->update(['subject_id' => request('subject_id')]);
+
+        return response()->json([
+            "status" => "success",
+            "data" => ["maps" => Map::where('user_id', auth()->id())->get()]
         ], 200);
     }
 }

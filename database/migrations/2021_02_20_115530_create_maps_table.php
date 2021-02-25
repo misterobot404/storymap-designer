@@ -21,8 +21,12 @@ class CreateMapsTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('cascade');
 
+            $table->integer('subject_id')->unsigned()->nullable();
+            $table->foreign('subject_id')
+                ->references('id')->on('subjects')
+                ->onDelete('set null');
+
             $table->string('name');
-            $table->string('subject')->nullable();
             $table->text('description');
 
             $table->jsonb('config');

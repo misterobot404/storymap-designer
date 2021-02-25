@@ -116,7 +116,16 @@
                                             <v-list-item-title>{{ subject.name }}</v-list-item-title>
                                             <v-list-item-action @click.stop>
                                                 <v-btn
-                                                    @click="lDeleteSubject(index)"
+                                                    @click="openEditSubjectDialog(subject)"
+                                                    :style="hover ? 'opacity: 1' : 'opacity: 0'"
+                                                    icon
+                                                >
+                                                    <v-icon>edit</v-icon>
+                                                </v-btn>
+                                            </v-list-item-action>
+                                            <v-list-item-action @click.stop>
+                                                <v-btn
+                                                    @click="lDeleteSubject(subject.id)"
                                                     :style="hover ? 'opacity: 1' : 'opacity: 0'"
                                                     icon
                                                 >
@@ -212,6 +221,10 @@
             </v-container>
         </v-container>
 
+        <EditSubjectDialog
+            :showEditSubjectDialog.sync="showEditSubjectDialog"
+            :editableSubject="editableSubject"
+        />
         <!-- Floating button. Scroll up -->
         <v-fab-transition>
             <v-btn
@@ -234,16 +247,18 @@
 
 <script>
 import {mapState, mapActions} from "vuex"
-import CreateMapDialog from "@/components/Library/CreateMapDialog"
-import CreateSubjectDialog from "@/components/Library/CreateSubjectDialog"
-import GridMaps from "@/components/Library/GridMaps"
-import ListMaps from "@/components/Library/ListMaps"
+import CreateMapDialog from "../components/Library/CreateMapDialog"
+import CreateSubjectDialog from "../components/Library/CreateSubjectDialog"
+import EditSubjectDialog from "../components/Library/EditSubjectDialog";
+import GridMaps from "../components/Library/GridMaps"
+import ListMaps from "../components/Library/ListMaps"
 
 export default {
     name: "Library",
     components: {
         CreateMapDialog,
         CreateSubjectDialog,
+        EditSubjectDialog,
         GridMaps,
         ListMaps
     },
@@ -264,7 +279,10 @@ export default {
             selectedViewMode: localStorage.getItem("Library.selectedViewMode") !== null ? localStorage.getItem("Library.selectedViewMode") : "table",
             showScrollUpBtn: false,
             loadingMaps: false,
-            loadingSubjects: false
+            loadingSubjects: false,
+            // Subjects
+            showEditSubjectDialog: false,
+            editableSubject: null
         }
     },
     computed: {
@@ -313,9 +331,13 @@ export default {
             const top = window.pageYOffset || e.target.scrollTop || 0
             this.showScrollUpBtn = top > 20
         },
-        lDeleteSubject($index) {
+        openEditSubjectDialog(subject) {
+            this.editableSubject = subject;
+            this.showEditSubjectDialog = true;
+        },
+        lDeleteSubject($id) {
             this.loadingSubjects = true;
-            this.deleteSubject($index)
+            this.deleteSubject($id)
                 .finally(() => { this.loadingSubjects = false })
         }
     },

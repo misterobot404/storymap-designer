@@ -139,6 +139,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CreateMapDialog",
@@ -148,27 +150,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       loading: false,
       name: "",
       description: "",
-      subject: "",
+      subject_id: "",
       folders: [],
       showFloatingBtnCreate: false
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     maps: function maps(state) {
       return state.maps.maps;
     },
     subjects: function subjects(state) {
       return state.subjects.subjects;
     }
-  })), {}, {
-    getSubjectNames: function getSubjectNames() {
-      var subjectNames = [];
-      this.subjects.forEach(function (el) {
-        return subjectNames.push(el.name);
-      });
-      return subjectNames;
-    }
-  }),
+  })),
   methods: {
     createMap: function createMap() {
       var _this = this;
@@ -177,7 +171,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.loading = true;
         this.$store.dispatch('maps/createMap', {
           name: this.name,
-          subject: this.subject,
+          subject_id: this.subject_id,
           description: this.description
         }).then(function () {
           _this.dialog = false;
@@ -295,6 +289,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CreateMapDialog",
@@ -303,24 +303,172 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       createSubjectDialog: false,
       processCreate: false,
       name: "",
-      icon: ""
+      icon: null
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('subjects', ['subjects'])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('subjects', ['createSubject'])), {}, {
     create: function create() {
       var _this = this;
 
-      this.processCreate = true;
-      this.createSubject({
-        name: this.name,
-        icon: this.icon
-      }).then(function (_) {
-        _this.createSubjectDialog = false;
-        _this.name = "";
-        _this.icon = "";
-      })["finally"](function () {
-        _this.processCreate = false;
-      });
+      if (this.$refs.createSubjectForm.validate()) {
+        var formData = new FormData();
+        formData.append('name', this.name);
+        if (this.icon) formData.append('icon', this.icon);
+        this.processCreate = true;
+        this.createSubject(formData).then(function (_) {
+          _this.createSubjectDialog = false;
+          _this.name = "";
+          _this.icon = null;
+        })["finally"](function () {
+          _this.processCreate = false;
+        });
+      }
+    }
+  })
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Library/EditSubjectDialog.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vuetify-loader/lib/loader.js??ref--10-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Library/EditSubjectDialog.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "EditSubjectDialog",
+  props: {
+    showEditSubjectDialog: Boolean,
+    editableSubject: Object
+  },
+  data: function data() {
+    return {
+      processUpdate: false,
+      old_name: "",
+      new_name: "",
+      icon: null
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('subjects', ['subjects'])),
+  watch: {
+    editableSubject: {
+      handler: function handler(subject) {
+        this.old_name = subject.name;
+        this.new_name = "";
+        this.icon = null;
+      }
+    }
+  },
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('subjects', ['updateSubject'])), {}, {
+    lUpdateSubject: function lUpdateSubject() {
+      var _this = this;
+
+      if (this.$refs.editSubjectForm.validate()) {
+        var formData = new FormData();
+        formData.append('name', this.new_name);
+        if (this.icon) formData.append('icon', this.icon);
+        this.processUpdate = true;
+        this.updateSubject({
+          id: this.editableSubject.id,
+          data: formData
+        }).then(function (_) {
+          _this.$emit('update:showEditSubjectDialog', false);
+        })["finally"](function () {
+          _this.processUpdate = false;
+        });
+      }
     }
   })
 });
@@ -481,12 +629,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "GridMaps",
@@ -504,9 +646,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     destroyMapAction: 'destroyMap',
     duplicateMapAction: 'duplicateMap'
   })), {}, {
-    getSubjectIcon: function getSubjectIcon($subject) {
+    getSubjectIcon: function getSubjectIcon($subject_id) {
       return this.subjects.find(function (el) {
-        return el.name === $subject;
+        return el.id === $subject_id;
       }).icon;
     },
     destroyMap: function destroyMap($map) {
@@ -544,6 +686,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _ListMapsSetSubjectForMapsDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListMapsSetSubjectForMapsDialog */ "./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -636,6 +791,164 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ListMaps",
+  components: {
+    ListMapsSetSubjectForMaps: _ListMapsSetSubjectForMapsDialog__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  props: {
+    maps: Array
+  },
+  data: function data() {
+    return {
+      selected: [],
+      headers: [{
+        text: 'Название',
+        value: 'name'
+      }, {
+        text: 'Категория',
+        value: 'subject_name'
+      }, {
+        text: 'Дата создания',
+        value: 'created_at'
+      }, {
+        text: 'Дата обновления',
+        value: 'updated_at'
+      }, {
+        text: 'Действия',
+        value: 'actions',
+        sortable: false,
+        align: 'center'
+      }, {
+        text: '',
+        value: 'data-table-expand'
+      }],
+      loading: false,
+      sortBy: 'updated_at',
+      sortDesc: true
+    };
+  },
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('subjects', ['subjects'])), {}, {
+    mapsWithSubjectNames: function mapsWithSubjectNames() {
+      var _this = this;
+
+      var temp_maps = _toConsumableArray(this.maps);
+
+      temp_maps.forEach(function (map) {
+        return map.subject_name = _this.subjects.find(function (el) {
+          return el.id === map.subject_id;
+        }).name;
+      });
+      return temp_maps;
+    }
+  }),
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('maps', {
+    destroyMapAction: 'destroyMap',
+    destroyMapsAction: 'destroyMaps'
+  })), {}, {
+    destroyMap: function destroyMap($map) {
+      var _this2 = this;
+
+      this.loading = true;
+      this.destroyMapAction($map).then(function () {
+        var index = _this2.selected.findIndex(function (n) {
+          return n.id === $map.id;
+        });
+
+        if (index !== -1) {
+          _this2.selected.splice(index, 1);
+        }
+      })["finally"](function () {
+        _this2.loading = false;
+      });
+    },
+    destroyMaps: function destroyMaps($maps) {
+      var _this3 = this;
+
+      this.loading = true;
+      this.destroyMapsAction($maps)["finally"](function () {
+        _this3.loading = false;
+        _this3.selected = [];
+      });
+    }
+  })
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vuetify-loader/lib/loader.js??ref--10-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -656,64 +969,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "ListMaps",
+  name: "ListMapSetSubjectForMaps",
   props: {
-    maps: Array
+    selectedMaps: Array
   },
   data: function data() {
     return {
-      selected: [],
-      headers: [{
-        text: 'Название',
-        value: 'name'
-      }, {
-        text: 'Направление',
-        value: 'subject'
-      }, {
-        text: 'Дата создания',
-        value: 'created_at'
-      }, {
-        text: 'Дата обновления',
-        value: 'updated_at'
-      }, {
-        text: 'Действия',
-        value: 'actions',
-        sortable: false,
-        align: 'center'
-      }, {
-        text: '',
-        value: 'data-table-expand'
-      }],
+      selectedSubjectId: '',
+      dialog: false,
       loading: false
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('subjects', ['subjects'])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('maps', {
-    destroyMapAction: 'destroyMap',
-    destroyMapsAction: 'destroyMaps'
+    setSubjectForMapsAction: 'setSubjectForMaps'
   })), {}, {
-    destroyMap: function destroyMap($map) {
+    setSubjectForMaps: function setSubjectForMaps() {
       var _this = this;
 
       this.loading = true;
-      this.destroyMapAction($map).then(function () {
-        var index = _this.selected.findIndex(function (n) {
-          return n.id === $map.id;
-        });
-
-        if (index !== -1) {
-          _this.selected.splice(index, 1);
-        }
+      this.setSubjectForMapsAction({
+        maps: this.selectedMaps,
+        subject_id: this.selectedSubjectId
+      }).then(function (_) {
+        return _this.dialog = false;
       })["finally"](function () {
-        _this.loading = false;
-      });
-    },
-    destroyMaps: function destroyMaps($maps) {
-      var _this2 = this;
-
-      this.loading = true;
-      this.destroyMapsAction($maps)["finally"](function () {
-        _this2.loading = false;
-        _this2.selected = [];
+        return _this.loading = false;
       });
     }
   })
@@ -733,10 +1014,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _components_Library_CreateMapDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/Library/CreateMapDialog */ "./resources/js/components/Library/CreateMapDialog.vue");
-/* harmony import */ var _components_Library_CreateSubjectDialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/Library/CreateSubjectDialog */ "./resources/js/components/Library/CreateSubjectDialog.vue");
-/* harmony import */ var _components_Library_GridMaps__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/Library/GridMaps */ "./resources/js/components/Library/GridMaps.vue");
-/* harmony import */ var _components_Library_ListMaps__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/Library/ListMaps */ "./resources/js/components/Library/ListMaps.vue");
+/* harmony import */ var _components_Library_CreateMapDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Library/CreateMapDialog */ "./resources/js/components/Library/CreateMapDialog.vue");
+/* harmony import */ var _components_Library_CreateSubjectDialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Library/CreateSubjectDialog */ "./resources/js/components/Library/CreateSubjectDialog.vue");
+/* harmony import */ var _components_Library_EditSubjectDialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Library/EditSubjectDialog */ "./resources/js/components/Library/EditSubjectDialog.vue");
+/* harmony import */ var _components_Library_GridMaps__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Library/GridMaps */ "./resources/js/components/Library/GridMaps.vue");
+/* harmony import */ var _components_Library_ListMaps__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Library/ListMaps */ "./resources/js/components/Library/ListMaps.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -983,6 +1265,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -993,8 +1289,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     CreateMapDialog: _components_Library_CreateMapDialog__WEBPACK_IMPORTED_MODULE_2__["default"],
     CreateSubjectDialog: _components_Library_CreateSubjectDialog__WEBPACK_IMPORTED_MODULE_3__["default"],
-    GridMaps: _components_Library_GridMaps__WEBPACK_IMPORTED_MODULE_4__["default"],
-    ListMaps: _components_Library_ListMaps__WEBPACK_IMPORTED_MODULE_5__["default"]
+    EditSubjectDialog: _components_Library_EditSubjectDialog__WEBPACK_IMPORTED_MODULE_4__["default"],
+    GridMaps: _components_Library_GridMaps__WEBPACK_IMPORTED_MODULE_5__["default"],
+    ListMaps: _components_Library_ListMaps__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   data: function data() {
     return {
@@ -1016,7 +1313,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       selectedViewMode: localStorage.getItem("Library.selectedViewMode") !== null ? localStorage.getItem("Library.selectedViewMode") : "table",
       showScrollUpBtn: false,
       loadingMaps: false,
-      loadingSubjects: false
+      loadingSubjects: false,
+      // Subjects
+      showEditSubjectDialog: false,
+      editableSubject: null
     };
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
@@ -1069,11 +1369,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var top = window.pageYOffset || e.target.scrollTop || 0;
       this.showScrollUpBtn = top > 20;
     },
-    lDeleteSubject: function lDeleteSubject($index) {
+    openEditSubjectDialog: function openEditSubjectDialog(subject) {
+      this.editableSubject = subject;
+      this.showEditSubjectDialog = true;
+    },
+    lDeleteSubject: function lDeleteSubject($id) {
       var _this2 = this;
 
       this.loadingSubjects = true;
-      this.deleteSubject($index)["finally"](function () {
+      this.deleteSubject($id)["finally"](function () {
         _this2.loadingSubjects = false;
       });
     }
@@ -1371,7 +1675,9 @@ var render = function() {
                                 attrs: {
                                   height: "68",
                                   filled: "",
-                                  items: _vm.getSubjectNames,
+                                  items: _vm.subjects,
+                                  "item-text": "name",
+                                  "item-value": "id",
                                   label: "Категория",
                                   rules: [
                                     function(v) {
@@ -1381,11 +1687,11 @@ var render = function() {
                                   required: ""
                                 },
                                 model: {
-                                  value: _vm.subject,
+                                  value: _vm.subject_id,
                                   callback: function($$v) {
-                                    _vm.subject = $$v
+                                    _vm.subject_id = $$v
                                   },
-                                  expression: "subject"
+                                  expression: "subject_id"
                                 }
                               })
                             ],
@@ -1525,7 +1831,7 @@ var render = function() {
                 _vm._v("\n                subject\n            ")
               ]),
               _vm._v(" "),
-              _c("v-toolbar-title", [_vm._v(" Добавить категорию ")]),
+              _c("v-toolbar-title", [_vm._v(" Добавить категорию")]),
               _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
@@ -1552,27 +1858,52 @@ var render = function() {
             "v-card-text",
             { staticClass: "pb-0 pt-2" },
             [
-              _c("v-text-field", {
-                attrs: { label: "Название" },
-                model: {
-                  value: _vm.name,
-                  callback: function($$v) {
-                    _vm.name = $$v
-                  },
-                  expression: "name"
-                }
-              }),
-              _vm._v(" "),
-              _c("v-text-field", {
-                attrs: { label: "Ссылка на иконку" },
-                model: {
-                  value: _vm.icon,
-                  callback: function($$v) {
-                    _vm.icon = $$v
-                  },
-                  expression: "icon"
-                }
-              })
+              _c(
+                "v-form",
+                { ref: "createSubjectForm" },
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      rules: [
+                        function(v) {
+                          return (
+                            _vm.name === null ||
+                            _vm.subjects.find(function(subject) {
+                              return subject.name === v
+                            }) === undefined ||
+                            "Такая категория уже существует"
+                          )
+                        }
+                      ],
+                      label: "Название",
+                      required: ""
+                    },
+                    model: {
+                      value: _vm.name,
+                      callback: function($$v) {
+                        _vm.name = $$v
+                      },
+                      expression: "name"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-file-input", {
+                    attrs: {
+                      label: "Иконка",
+                      accept: "image/*",
+                      "prepend-icon": "attach_file"
+                    },
+                    model: {
+                      value: _vm.icon,
+                      callback: function($$v) {
+                        _vm.icon = $$v
+                      },
+                      expression: "icon"
+                    }
+                  })
+                ],
+                1
+              )
             ],
             1
           ),
@@ -1605,6 +1936,187 @@ var render = function() {
                     loading: _vm.processCreate
                   },
                   on: { click: _vm.create }
+                },
+                [_vm._v("\n                Подтвердить\n            ")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Library/EditSubjectDialog.vue?vue&type=template&id=87fa774a&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vuetify-loader/lib/loader.js??ref--10-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Library/EditSubjectDialog.vue?vue&type=template&id=87fa774a& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-dialog",
+    {
+      attrs: { "max-width": "340", value: _vm.showEditSubjectDialog },
+      on: {
+        input: function(v) {
+          return _vm.$emit("update:showEditSubjectDialog", v)
+        }
+      }
+    },
+    [
+      _c(
+        "v-card",
+        [
+          _c(
+            "v-toolbar",
+            { staticClass: "pr-1", attrs: { height: "68", flat: "" } },
+            [
+              _c("v-icon", { staticClass: "mr-2", attrs: { large: "" } }, [
+                _vm._v("\n                subject\n            ")
+              ]),
+              _vm._v(" "),
+              _c("v-toolbar-title", [_vm._v(" Изменить категорию")]),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { icon: "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("update:showEditSubjectDialog", false)
+                    }
+                  }
+                },
+                [_c("v-icon", [_vm._v("close")])],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-divider"),
+          _vm._v(" "),
+          _c(
+            "v-card-text",
+            { staticClass: "pb-0 pt-2" },
+            [
+              _c(
+                "v-form",
+                { ref: "editSubjectForm" },
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      label: "Старое название",
+                      disabled: "",
+                      required: ""
+                    },
+                    model: {
+                      value: _vm.old_name,
+                      callback: function($$v) {
+                        _vm.old_name = $$v
+                      },
+                      expression: "old_name"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    staticClass: "pt-0",
+                    attrs: {
+                      rules: [
+                        function(v) {
+                          return (
+                            _vm.new_name === null ||
+                            _vm.subjects.find(function(subject) {
+                              return subject.name === v
+                            }) === undefined ||
+                            "Такая категория уже существует"
+                          )
+                        }
+                      ],
+                      label: "Новое название",
+                      required: ""
+                    },
+                    model: {
+                      value: _vm.new_name,
+                      callback: function($$v) {
+                        _vm.new_name = $$v
+                      },
+                      expression: "new_name"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-file-input", {
+                    attrs: {
+                      label: "Иконка",
+                      accept: "image/*",
+                      "prepend-icon": "attach_file"
+                    },
+                    model: {
+                      value: _vm.icon,
+                      callback: function($$v) {
+                        _vm.icon = $$v
+                      },
+                      expression: "icon"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-card-actions",
+            { staticClass: "px-9 pb-4" },
+            [
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  staticClass: "px-7",
+                  attrs: { text: "", color: "primary" },
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("update:showEditSubjectDialog", false)
+                    }
+                  }
+                },
+                [_vm._v("\n                Отмена\n            ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  staticClass: "px-7",
+                  attrs: {
+                    color: "primary",
+                    text: "",
+                    loading: _vm.processUpdate,
+                    disabled: !_vm.new_name.trim().length && _vm.icon === null
+                  },
+                  on: { click: _vm.lUpdateSubject }
                 },
                 [_vm._v("\n                Подтвердить\n            ")]
               )
@@ -1670,15 +2182,15 @@ var render = function() {
                       _c(
                         "v-list-item",
                         [
-                          _vm.getSubjectIcon(map.subject) !== ""
+                          _vm.getSubjectIcon(map.subject_id) !== ""
                             ? _c(
                                 "v-list-item-avatar",
                                 { attrs: { tile: "" } },
                                 [
                                   _c("img", {
                                     attrs: {
-                                      src: _vm.getSubjectIcon(map.subject),
-                                      alt: map.subject
+                                      src: _vm.getSubjectIcon(map.subject_id),
+                                      alt: map.subject_id
                                     }
                                   })
                                 ]
@@ -1694,9 +2206,9 @@ var render = function() {
                                 [_vm._v(_vm._s(map.name))]
                               ),
                               _vm._v(" "),
-                              map.subject
+                              map.subject_id
                                 ? _c("v-list-item-subtitle", [
-                                    _vm._v(" " + _vm._s(map.subject))
+                                    _vm._v(" " + _vm._s(map.subject_id))
                                   ])
                                 : _vm._e()
                             ],
@@ -1928,24 +2440,6 @@ var render = function() {
                                   _vm._v(" "),
                                   _c(
                                     "v-list-item",
-                                    { on: { click: function($event) {} } },
-                                    [
-                                      _c(
-                                        "v-list-item-action",
-                                        { staticClass: "mr-5" },
-                                        [_c("v-icon", [_vm._v("folder")])],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("v-list-item-title", [
-                                        _vm._v("Добавить в папку")
-                                      ])
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-list-item",
                                     {
                                       on: {
                                         click: function($event) {
@@ -2106,11 +2600,27 @@ var render = function() {
     attrs: {
       loading: _vm.loading,
       headers: _vm.headers,
-      items: _vm.maps,
+      items: _vm.mapsWithSubjectNames,
+      "sort-by": _vm.sortBy,
+      "sort-desc": _vm.sortDesc,
       "single-expand": "",
       "show-expand": "",
       "item-key": "id",
       "show-select": ""
+    },
+    on: {
+      "update:sortBy": function($event) {
+        _vm.sortBy = $event
+      },
+      "update:sort-by": function($event) {
+        _vm.sortBy = $event
+      },
+      "update:sortDesc": function($event) {
+        _vm.sortDesc = $event
+      },
+      "update:sort-desc": function($event) {
+        _vm.sortDesc = $event
+      }
     },
     scopedSlots: _vm._u([
       {
@@ -2137,43 +2647,9 @@ var render = function() {
                           attrs: { vertical: "", inset: "" }
                         }),
                         _vm._v(" "),
-                        _c(
-                          "v-tooltip",
-                          {
-                            attrs: { bottom: "" },
-                            scopedSlots: _vm._u([
-                              {
-                                key: "activator",
-                                fn: function(ref) {
-                                  var on = ref.on
-                                  return [
-                                    _c(
-                                      "v-btn",
-                                      _vm._g(
-                                        {
-                                          staticClass: "mx-1",
-                                          attrs: {
-                                            icon: "",
-                                            disabled: _vm.selected.length === 0
-                                          }
-                                        },
-                                        on
-                                      ),
-                                      [
-                                        _c("v-icon", [_vm._v(" move_to_inbox")])
-                                      ],
-                                      1
-                                    )
-                                  ]
-                                }
-                              }
-                            ])
-                          },
-                          [
-                            _vm._v(" "),
-                            _c("span", [_vm._v("Переместить в папку")])
-                          ]
-                        ),
+                        _c("ListMapsSetSubjectForMaps", {
+                          attrs: { "selected-maps": _vm.selected }
+                        }),
                         _vm._v(" "),
                         _c(
                           "v-tooltip",
@@ -2267,16 +2743,6 @@ var render = function() {
                 attrs: { small: "" },
                 on: { click: function($event) {} }
               },
-              [_vm._v("\n            move_to_inbox\n        ")]
-            ),
-            _vm._v(" "),
-            _c(
-              "v-icon",
-              {
-                staticClass: "mr-2",
-                attrs: { small: "" },
-                on: { click: function($event) {} }
-              },
               [_vm._v("\n            reply\n        ")]
             ),
             _vm._v(" "),
@@ -2311,6 +2777,178 @@ var render = function() {
       expression: "selected"
     }
   })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue?vue&type=template&id=cdbd490c&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vuetify-loader/lib/loader.js??ref--10-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue?vue&type=template&id=cdbd490c& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-dialog",
+    {
+      attrs: { scrollable: "", "max-width": "380px" },
+      scopedSlots: _vm._u([
+        {
+          key: "activator",
+          fn: function(ref) {
+            var button = ref.on
+            return [
+              _c(
+                "v-tooltip",
+                {
+                  attrs: { bottom: "" },
+                  scopedSlots: _vm._u(
+                    [
+                      {
+                        key: "activator",
+                        fn: function(ref) {
+                          var tooltip = ref.on
+                          return [
+                            _c(
+                              "v-btn",
+                              _vm._g(
+                                {
+                                  staticClass: "mx-1",
+                                  attrs: {
+                                    icon: "",
+                                    disabled: _vm.selectedMaps.length === 0
+                                  }
+                                },
+                                Object.assign({}, tooltip, button)
+                              ),
+                              [_c("v-icon", [_vm._v(" move_to_inbox")])],
+                              1
+                            )
+                          ]
+                        }
+                      }
+                    ],
+                    null,
+                    true
+                  )
+                },
+                [_vm._v(" "), _c("span", [_vm._v("Переместить в категорию")])]
+              )
+            ]
+          }
+        }
+      ]),
+      model: {
+        value: _vm.dialog,
+        callback: function($$v) {
+          _vm.dialog = $$v
+        },
+        expression: "dialog"
+      }
+    },
+    [
+      _vm._v(" "),
+      _vm.selectedMaps.length
+        ? _c(
+            "v-card",
+            [
+              _c(
+                "v-toolbar",
+                { staticClass: "pr-1", attrs: { height: "68", flat: "" } },
+                [
+                  _c("v-icon", { staticClass: "mr-2", attrs: { large: "" } }, [
+                    _vm._v("\n                move_to_inbox\n            ")
+                  ]),
+                  _vm._v(" "),
+                  _c("v-card-title", [_vm._v("Переместить в категорию")])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-divider"),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                { staticStyle: { height: "300px" } },
+                [
+                  _c(
+                    "v-radio-group",
+                    {
+                      attrs: { column: "" },
+                      model: {
+                        value: _vm.selectedSubjectId,
+                        callback: function($$v) {
+                          _vm.selectedSubjectId = $$v
+                        },
+                        expression: "selectedSubjectId"
+                      }
+                    },
+                    _vm._l(_vm.subjects, function(subject) {
+                      return _c("v-radio", {
+                        key: subject.id,
+                        attrs: { label: subject.name, value: subject.id }
+                      })
+                    }),
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-divider"),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "blue darken-1", text: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialog = false
+                        }
+                      }
+                    },
+                    [_vm._v("\n                Закрыть\n            ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        color: "blue darken-1",
+                        text: "",
+                        loading: _vm.loading
+                      },
+                      on: { click: _vm.setSubjectForMaps }
+                    },
+                    [_vm._v("\n                Подтвердить\n            ")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -2667,8 +3305,48 @@ var render = function() {
                                                             click: function(
                                                               $event
                                                             ) {
+                                                              return _vm.openEditSubjectDialog(
+                                                                subject
+                                                              )
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _c("v-icon", [
+                                                            _vm._v("edit")
+                                                          ])
+                                                        ],
+                                                        1
+                                                      )
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "v-list-item-action",
+                                                    {
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          $event.stopPropagation()
+                                                        }
+                                                      }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "v-btn",
+                                                        {
+                                                          style: hover
+                                                            ? "opacity: 1"
+                                                            : "opacity: 0",
+                                                          attrs: { icon: "" },
+                                                          on: {
+                                                            click: function(
+                                                              $event
+                                                            ) {
                                                               return _vm.lDeleteSubject(
-                                                                index
+                                                                subject.id
                                                               )
                                                             }
                                                           }
@@ -2891,6 +3569,21 @@ var render = function() {
         ],
         1
       ),
+      _vm._v(" "),
+      _c("EditSubjectDialog", {
+        attrs: {
+          showEditSubjectDialog: _vm.showEditSubjectDialog,
+          editableSubject: _vm.editableSubject
+        },
+        on: {
+          "update:showEditSubjectDialog": function($event) {
+            _vm.showEditSubjectDialog = $event
+          },
+          "update:show-edit-subject-dialog": function($event) {
+            _vm.showEditSubjectDialog = $event
+          }
+        }
+      }),
       _vm._v(" "),
       _c(
         "v-fab-transition",
@@ -3140,10 +3833,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
 /* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
 /* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/index.js");
-/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
-/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
+/* harmony import */ var vuetify_lib_components_VFileInput__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VFileInput */ "./node_modules/vuetify/lib/components/VFileInput/index.js");
+/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
 
 
 
@@ -3175,7 +3870,9 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_6__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_7__["VDivider"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__["VTextField"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_11__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_11__["VToolbarTitle"]})
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_6__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_7__["VDivider"],VFileInput: vuetify_lib_components_VFileInput__WEBPACK_IMPORTED_MODULE_8__["VFileInput"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_9__["VForm"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_11__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__["VTextField"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__["VToolbarTitle"]})
 
 
 /* hot reload */
@@ -3212,6 +3909,105 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateSubjectDialog_vue_vue_type_template_id_34413169___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateSubjectDialog_vue_vue_type_template_id_34413169___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Library/EditSubjectDialog.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/Library/EditSubjectDialog.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditSubjectDialog_vue_vue_type_template_id_87fa774a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditSubjectDialog.vue?vue&type=template&id=87fa774a& */ "./resources/js/components/Library/EditSubjectDialog.vue?vue&type=template&id=87fa774a&");
+/* harmony import */ var _EditSubjectDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditSubjectDialog.vue?vue&type=script&lang=js& */ "./resources/js/components/Library/EditSubjectDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
+/* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/index.js");
+/* harmony import */ var vuetify_lib_components_VFileInput__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VFileInput */ "./node_modules/vuetify/lib/components/VFileInput/index.js");
+/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditSubjectDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditSubjectDialog_vue_vue_type_template_id_87fa774a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditSubjectDialog_vue_vue_type_template_id_87fa774a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* vuetify-loader */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_6__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_7__["VDivider"],VFileInput: vuetify_lib_components_VFileInput__WEBPACK_IMPORTED_MODULE_8__["VFileInput"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_9__["VForm"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_11__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__["VTextField"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__["VToolbarTitle"]})
+
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Library/EditSubjectDialog.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Library/EditSubjectDialog.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/Library/EditSubjectDialog.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditSubjectDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vuetify-loader/lib/loader.js??ref--10-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditSubjectDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Library/EditSubjectDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditSubjectDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Library/EditSubjectDialog.vue?vue&type=template&id=87fa774a&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/Library/EditSubjectDialog.vue?vue&type=template&id=87fa774a& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditSubjectDialog_vue_vue_type_template_id_87fa774a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vuetify-loader/lib/loader.js??ref--10-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditSubjectDialog.vue?vue&type=template&id=87fa774a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Library/EditSubjectDialog.vue?vue&type=template&id=87fa774a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditSubjectDialog_vue_vue_type_template_id_87fa774a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditSubjectDialog_vue_vue_type_template_id_87fa774a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -3410,6 +4206,104 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListMaps_vue_vue_type_template_id_44979598___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListMaps_vue_vue_type_template_id_44979598___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ListMapsSetSubjectForMapsDialog_vue_vue_type_template_id_cdbd490c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListMapsSetSubjectForMapsDialog.vue?vue&type=template&id=cdbd490c& */ "./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue?vue&type=template&id=cdbd490c&");
+/* harmony import */ var _ListMapsSetSubjectForMapsDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListMapsSetSubjectForMapsDialog.vue?vue&type=script&lang=js& */ "./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
+/* harmony import */ var vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VCard */ "./node_modules/vuetify/lib/components/VCard/index.js");
+/* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
+/* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VRadioGroup */ "./node_modules/vuetify/lib/components/VRadioGroup/index.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
+/* harmony import */ var vuetify_lib_components_VTooltip__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VTooltip */ "./node_modules/vuetify/lib/components/VTooltip/index.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ListMapsSetSubjectForMapsDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ListMapsSetSubjectForMapsDialog_vue_vue_type_template_id_cdbd490c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ListMapsSetSubjectForMapsDialog_vue_vue_type_template_id_cdbd490c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* vuetify-loader */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_6__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_7__["VDivider"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VRadio: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_9__["VRadio"],VRadioGroup: vuetify_lib_components_VRadioGroup__WEBPACK_IMPORTED_MODULE_9__["VRadioGroup"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_10__["VSpacer"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_11__["VToolbar"],VTooltip: vuetify_lib_components_VTooltip__WEBPACK_IMPORTED_MODULE_12__["VTooltip"]})
+
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListMapsSetSubjectForMapsDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vuetify-loader/lib/loader.js??ref--10-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListMapsSetSubjectForMapsDialog.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListMapsSetSubjectForMapsDialog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue?vue&type=template&id=cdbd490c&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue?vue&type=template&id=cdbd490c& ***!
+  \************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListMapsSetSubjectForMapsDialog_vue_vue_type_template_id_cdbd490c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vuetify-loader/lib/loader.js??ref--10-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListMapsSetSubjectForMapsDialog.vue?vue&type=template&id=cdbd490c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Library/ListMapsSetSubjectForMapsDialog.vue?vue&type=template&id=cdbd490c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListMapsSetSubjectForMapsDialog_vue_vue_type_template_id_cdbd490c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vuetify_loader_lib_loader_js_ref_10_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListMapsSetSubjectForMapsDialog_vue_vue_type_template_id_cdbd490c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

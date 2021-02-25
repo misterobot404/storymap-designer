@@ -26193,7 +26193,7 @@ var ContainerMixin = {
     var _loop = function _loop(key) {
       if (_this.events.hasOwnProperty(key)) {
         events[key].forEach(function (eventName) {
-          return _this.container.addEventListener(eventName, _this.events[key], false);
+          return _this.container.addEventListener(eventName, _this.events[key], { passive: true });
         });
       }
     };
@@ -26233,10 +26233,7 @@ var ContainerMixin = {
       }
 
       this._touched = true;
-      this._pos = {
-        x: e.pageX,
-        y: e.pageY
-      };
+      this._pos = this.getOffset(e);
 
       var node = closest(e.target, function (el) {
         return el.sortableInfo != null;
@@ -26285,9 +26282,10 @@ var ContainerMixin = {
 
 
       if (!this.sorting && this._touched) {
+        var offset = this.getOffset(e);
         this._delta = {
-          x: this._pos.x - e.pageX,
-          y: this._pos.y - e.pageY
+          x: this._pos.x - offset.x,
+          y: this._pos.y - offset.y
         };
         var delta = Math.abs(this._delta.x) + Math.abs(this._delta.y);
 
@@ -26318,6 +26316,7 @@ var ContainerMixin = {
     handlePress: function handlePress(e) {
       var _this4 = this;
 
+      e.stopPropagation();
       var active = this.manager.getActive();
 
       if (active) {
@@ -26504,7 +26503,7 @@ var ContainerMixin = {
     transitionHelperIntoPlace: function transitionHelperIntoPlace(nodes) {
       var _this6 = this;
 
-      if (this.$props.draggedSettlingDuration === 0) {
+      if (this.$props.draggedSettlingDuration === 0 || nodes.length === 0) {
         return Promise.resolve();
       }
 
@@ -26569,9 +26568,13 @@ var ContainerMixin = {
       }
     },
     getOffset: function getOffset(e) {
+      var _ref2 = e.touches ? e.touches[0] : e,
+          pageX = _ref2.pageX,
+          pageY = _ref2.pageY;
+
       return {
-        x: e.touches ? e.touches[0].pageX : e.pageX,
-        y: e.touches ? e.touches[0].pageY : e.pageY
+        x: pageX,
+        y: pageY
       };
     },
     getLockPixelOffsets: function getLockPixelOffsets() {
@@ -26860,21 +26863,24 @@ var HandleDirective = {
   }
 };
 
-var SlickList = {
-  name: 'slick-list',
-  mixins: [ContainerMixin],
-  render: function render(h) {
-    return h('div', this.$slots.default);
-  }
-};
+function create(name, mixin) {
+  return {
+    name: name,
+    mixins: [mixin],
+    props: {
+      tag: {
+        type: String,
+        default: 'div'
+      }
+    },
+    render: function render(h) {
+      return h(this.tag, this.$slots.default);
+    }
+  };
+}
 
-var SlickItem = {
-  name: 'slick-item',
-  mixins: [ElementMixin],
-  render: function render(h) {
-    return h('div', this.$slots.default);
-  }
-};
+var SlickList = create('slick-list', ContainerMixin);
+var SlickItem = create('slick-item', ElementMixin);
 
 exports.ElementMixin = ElementMixin;
 exports.ContainerMixin = ContainerMixin;

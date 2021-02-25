@@ -6,17 +6,20 @@ export default {
         subjects: []
     },
     actions: {
-        getSubjects({commit}) {
-            return axios.get('/api/users/subjects')
-                .then(response => { commit('SET_SUBJECTS', response.data.data.subjects) })
-        },
         createSubject({state, commit}, subject) {
-            commit('ADD_SUBJECT', subject);
-            return axios.post('/api/users/subjects', {subjects: state.subjects})
+            return axios.post('/api/subjects', subject, { headers: {'Content-Type': 'multipart/form-data'}})
                 .then(response => { commit('SET_SUBJECTS', response.data.data.subjects) })
         },
-        deleteSubject({commit}, index) {
-            return axios.delete('/api/users/subjects/' + index)
+        getSubjects({commit}) {
+            return axios.get('/api/subjects')
+                .then(response => { commit('SET_SUBJECTS', response.data.data.subjects) })
+        },
+        updateSubject({state, commit}, payload) {
+            return axios.post('/api/subjects/' + payload.id, payload.data, { headers: {'Content-Type': 'multipart/form-data'}})
+                .then(response => { commit('SET_SUBJECTS', response.data.data.subjects) })
+        },
+        deleteSubject({commit}, id) {
+            return axios.delete('/api/subjects/' + id)
                 .then(response => { commit('SET_SUBJECTS', response.data.data.subjects) })
         },
     },

@@ -30,7 +30,7 @@
                 >
                     subject
                 </v-icon>
-                <v-toolbar-title> Добавить категорию </v-toolbar-title>
+                <v-toolbar-title> Добавить категорию</v-toolbar-title>
                 <v-spacer/>
                 <v-btn
                     icon
@@ -42,14 +42,20 @@
             <v-divider/>
             <!-- Body -->
             <v-card-text class="pb-0 pt-2">
-                <v-text-field
-                    v-model="name"
-                    label="Название"
-                />
-                <v-text-field
-                    v-model="icon"
-                    label="Ссылка на иконку"
-                />
+                <v-form ref="createSubjectForm">
+                    <v-text-field
+                        v-model="name"
+                        :rules="[ v => name === null || subjects.find(subject => subject.name === v) === undefined || 'Такая категория уже существует' ]"
+                        label="Название"
+                        required
+                    />
+                    <v-file-input
+                        label="Иконка"
+                        v-model="icon"
+                        accept="image/*"
+                        prepend-icon="attach_file"
+                    />
+                </v-form>
             </v-card-text>
 
             <v-card-actions>
@@ -76,7 +82,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
 export default {
     name: "CreateMapDialog",
@@ -85,20 +91,27 @@ export default {
             createSubjectDialog: false,
             processCreate: false,
             name: "",
-            icon: "",
+            icon: null,
         }
     },
+    computed: {...mapState('subjects', ['subjects'])},
     methods: {
         ...mapActions('subjects', ['createSubject']),
         create() {
-            this.processCreate = true;
-            this.createSubject({name: this.name, icon: this.icon})
-                .then(_ => {
-                    this.createSubjectDialog = false;
-                    this.name = "";
-                    this.icon = "";
-                })
-                .finally(() => { this.processCreate = false })
+            if (this.$refs.createSubjectForm.validate()) {
+                let formData = new FormData();
+                formData.append('name', this.name);
+                if (this.icon) formData.append('icon', this.icon);
+
+                this.processCreate = true;
+                this.createSubject(formData)
+                    .then(_ => {
+                        this.createSubjectDialog = false;
+                        this.name = "";
+                        this.icon = null;
+                    })
+                    .finally(() => { this.processCreate = false })
+            }
         }
     }
 }

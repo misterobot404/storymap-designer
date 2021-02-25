@@ -84,10 +84,12 @@
                             </v-col>
                             <v-col cols="12" class="pb-0 pt-1">
                                 <v-select
-                                    v-model="subject"
+                                    v-model="subject_id"
                                     height="68"
                                     filled
-                                    :items="getSubjectNames"
+                                    :items="subjects"
+                                    item-text="name"
+                                    item-value="id"
                                     label="Категория"
                                     :rules="[v => !!v || 'Выберите категорию']"
                                     required
@@ -132,7 +134,7 @@
                 loading: false,
                 name: "",
                 description: "",
-                subject: "",
+                subject_id: "",
                 folders: [],
                 showFloatingBtnCreate: false,
             }
@@ -141,12 +143,7 @@
             ...mapState({
                 maps: state => state.maps.maps,
                 subjects: state => state.subjects.subjects,
-            }),
-            getSubjectNames() {
-                let subjectNames = [];
-                this.subjects.forEach(el => subjectNames.push(el.name));
-                return subjectNames;
-            }
+            })
         },
         methods: {
             createMap() {
@@ -155,7 +152,7 @@
 
                     this.$store.dispatch('maps/createMap', {
                         name: this.name,
-                        subject: this.subject,
+                        subject_id: this.subject_id,
                         description: this.description
                     })
                         .then(() => {
