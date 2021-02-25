@@ -236,26 +236,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Help",
+  name: "ControlPanelHelp",
   data: function data() {
     return {
-      dialog: false,
-      e6: 1
+      dialog: false
     };
-  },
-  methods: {
-    completed: function completed() {
-      this.dialog = false;
-      this.e6 = 1;
-    }
   }
 });
 
@@ -1740,7 +1726,7 @@ var render = function() {
   return _c(
     "v-dialog",
     {
-      attrs: { "max-width": "600", scrollable: "" },
+      attrs: { "max-width": "660", scrollable: "" },
       scopedSlots: _vm._u([
         {
           key: "activator",
@@ -1824,19 +1810,12 @@ var render = function() {
                         "v-stepper",
                         {
                           staticClass: "elevation-0",
-                          attrs: { vertical: "" },
-                          model: {
-                            value: _vm.e6,
-                            callback: function($$v) {
-                              _vm.e6 = $$v
-                            },
-                            expression: "e6"
-                          }
+                          attrs: { vertical: "", "non-linear": "" }
                         },
                         [
                           _c(
                             "v-stepper-step",
-                            { attrs: { complete: _vm.e6 > 1, step: "1" } },
+                            { attrs: { editable: "", step: "1" } },
                             [
                               _vm._v(
                                 "\n                            Установите подложку\n                            "
@@ -1852,33 +1831,20 @@ var render = function() {
                             { attrs: { step: "1" } },
                             [
                               _c("v-img", {
-                                staticClass: "mb-12",
+                                staticClass: "mb-8",
                                 attrs: {
                                   contain: "",
                                   "max-height": "100%",
                                   src: __webpack_require__(/*! @/assets/gif/help_part_1.gif */ "./resources/js/assets/gif/help_part_1.gif")
                                 }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { color: "primary" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.e6 = 2
-                                    }
-                                  }
-                                },
-                                [_vm._v("Продолжить")]
-                              )
+                              })
                             ],
                             1
                           ),
                           _vm._v(" "),
                           _c(
                             "v-stepper-step",
-                            { attrs: { complete: _vm.e6 > 2, step: "2" } },
+                            { attrs: { editable: "", step: "2" } },
                             [_vm._v("Добавьте событие")]
                           ),
                           _vm._v(" "),
@@ -1887,33 +1853,20 @@ var render = function() {
                             { attrs: { step: "2" } },
                             [
                               _c("v-img", {
-                                staticClass: "mb-12",
+                                staticClass: "mb-8",
                                 attrs: {
                                   contain: "",
                                   "max-height": "100%",
                                   src: __webpack_require__(/*! @/assets/gif/help_part_2.gif */ "./resources/js/assets/gif/help_part_2.gif")
                                 }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { color: "primary" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.e6 = 3
-                                    }
-                                  }
-                                },
-                                [_vm._v("Продолжить")]
-                              )
+                              })
                             ],
                             1
                           ),
                           _vm._v(" "),
                           _c(
                             "v-stepper-step",
-                            { attrs: { complete: _vm.e6 > 3, step: "3" } },
+                            { attrs: { editable: "", step: "3" } },
                             [_vm._v("Установите название и описание")]
                           ),
                           _vm._v(" "),
@@ -1922,33 +1875,20 @@ var render = function() {
                             { attrs: { step: "3" } },
                             [
                               _c("v-img", {
-                                staticClass: "mb-12",
+                                staticClass: "mb-8",
                                 attrs: {
                                   contain: "",
                                   "max-height": "100%",
                                   src: __webpack_require__(/*! @/assets/gif/help_part_3.gif */ "./resources/js/assets/gif/help_part_3.gif")
                                 }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { color: "primary" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.e6 = 4
-                                    }
-                                  }
-                                },
-                                [_vm._v("Продолжить")]
-                              )
+                              })
                             ],
                             1
                           ),
                           _vm._v(" "),
                           _c(
                             "v-stepper-step",
-                            { attrs: { complete: _vm.e6 > 4, step: "4" } },
+                            { attrs: { editable: "", step: "4" } },
                             [
                               _vm._v(
                                 "Установите нужные медиа-обьекты к описываемому событию"
@@ -1961,33 +1901,20 @@ var render = function() {
                             { attrs: { step: "4" } },
                             [
                               _c("v-img", {
-                                staticClass: "mb-12",
+                                staticClass: "mb-8",
                                 attrs: {
                                   "max-height": "100%",
                                   contain: "",
                                   src: __webpack_require__(/*! @/assets/gif/help_part_4.gif */ "./resources/js/assets/gif/help_part_4.gif")
                                 }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { color: "primary" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.e6 = 5
-                                    }
-                                  }
-                                },
-                                [_vm._v("Продолжить")]
-                              )
+                              })
                             ],
                             1
                           ),
                           _vm._v(" "),
                           _c(
                             "v-stepper-step",
-                            { attrs: { complete: _vm.e6 > 5, step: "5" } },
+                            { attrs: { editable: "", step: "5" } },
                             [
                               _vm._v(
                                 "\n                            Установите метку на информационной карте\n                            "
@@ -2003,78 +1930,42 @@ var render = function() {
                             { attrs: { step: "5" } },
                             [
                               _c("v-img", {
-                                staticClass: "mb-12",
+                                staticClass: "mb-8",
                                 attrs: {
                                   contain: "",
                                   "max-height": "100%",
                                   src: __webpack_require__(/*! @/assets/gif/help_part_5.gif */ "./resources/js/assets/gif/help_part_5.gif")
                                 }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { color: "primary" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.e6 = 2
-                                    }
-                                  }
-                                },
-                                [_vm._v("Продолжить")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  staticClass: "mx-2",
-                                  attrs: { text: "", color: "primary" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.e6 = 6
-                                    }
-                                  }
-                                },
-                                [_vm._v(" Завершить создание")]
-                              )
+                              })
                             ],
                             1
                           ),
                           _vm._v(" "),
-                          _c("v-stepper-step", { attrs: { step: "6" } }, [
-                            _vm._v(
-                              "\n                            Сохранить и поделиться атласом\n                            "
-                            ),
-                            _c("small", [
-                              _vm._v("Разместить атлас на нужном веб-ресурсе")
-                            ])
-                          ]),
+                          _c(
+                            "v-stepper-step",
+                            { attrs: { editable: "", step: "6" } },
+                            [
+                              _vm._v(
+                                "\n                            Сохранить и поделиться атласом\n                            "
+                              ),
+                              _c("small", [
+                                _vm._v("Разместить атлас на нужном веб-ресурсе")
+                              ])
+                            ]
+                          ),
                           _vm._v(" "),
                           _c(
                             "v-stepper-content",
                             { attrs: { step: "6" } },
                             [
                               _c("v-img", {
-                                staticClass: "mb-12",
+                                staticClass: "mb-8",
                                 attrs: {
                                   contain: "",
                                   "max-height": "100%",
                                   src: __webpack_require__(/*! @/assets/gif/help_part_6.gif */ "./resources/js/assets/gif/help_part_6.gif")
                                 }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { color: "primary" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.completed()
-                                    }
-                                  }
-                                },
-                                [_vm._v(" Закрыть обучение ")]
-                              )
+                              })
                             ],
                             1
                           )
