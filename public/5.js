@@ -644,12 +644,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('subjects', ['subjects'])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('maps', {
     destroyMapAction: 'destroyMap',
-    duplicateMapAction: 'duplicateMap'
+    duplicateMapAction: 'copyMap'
   })), {}, {
     getSubjectIcon: function getSubjectIcon($subject_id) {
       return this.subjects.find(function (el) {
         return el.id === $subject_id;
       }).icon;
+    },
+    getSubjectName: function getSubjectName($subject_id) {
+      return this.subjects.find(function (el) {
+        return el.id === $subject_id;
+      }).name;
     },
     destroyMap: function destroyMap($map) {
       var _this = this;
@@ -844,15 +849,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return temp_maps;
     }
   }),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('maps', {
-    destroyMapAction: 'destroyMap',
-    destroyMapsAction: 'destroyMaps'
-  })), {}, {
-    destroyMap: function destroyMap($map) {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('maps', ['destroyMap', 'destroyMaps'])), {}, {
+    lDestroyMap: function lDestroyMap($map) {
       var _this2 = this;
 
       this.loading = true;
-      this.destroyMapAction($map).then(function () {
+      this.destroyMap($map).then(function (_) {
         var index = _this2.selected.findIndex(function (n) {
           return n.id === $map.id;
         });
@@ -864,13 +866,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this2.loading = false;
       });
     },
-    destroyMaps: function destroyMaps($maps) {
+    lDestroyMaps: function lDestroyMaps($maps) {
       var _this3 = this;
 
       this.loading = true;
-      this.destroyMapsAction($maps)["finally"](function () {
-        _this3.loading = false;
-        _this3.selected = [];
+      this.destroyMaps($maps).then(function (_) {
+        return _this3.selected = [];
+      })["finally"](function () {
+        return _this3.loading = false;
       });
     }
   })
@@ -2190,7 +2193,7 @@ var render = function() {
                                   _c("img", {
                                     attrs: {
                                       src: _vm.getSubjectIcon(map.subject_id),
-                                      alt: map.subject_id
+                                      alt: _vm.getSubjectName(map.subject_id)
                                     }
                                   })
                                 ]
@@ -2208,7 +2211,12 @@ var render = function() {
                               _vm._v(" "),
                               map.subject_id
                                 ? _c("v-list-item-subtitle", [
-                                    _vm._v(" " + _vm._s(map.subject_id))
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(
+                                          _vm.getSubjectName(map.subject_id)
+                                        )
+                                    )
                                   ])
                                 : _vm._e()
                             ],
@@ -2672,7 +2680,7 @@ var render = function() {
                                           },
                                           on: {
                                             click: function($event) {
-                                              return _vm.destroyMaps(
+                                              return _vm.lDestroyMaps(
                                                 _vm.selected
                                               )
                                             }
@@ -2752,7 +2760,7 @@ var render = function() {
                 attrs: { small: "" },
                 on: {
                   click: function($event) {
-                    return _vm.destroyMap(item)
+                    return _vm.lDestroyMap(item)
                   }
                 }
               },

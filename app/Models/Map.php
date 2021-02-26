@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Map extends Model
 {
     protected $fillable = [
-        'user_id','name', 'description', 'tile', 'events'
+        'user_id', 'subject_id', 'name', 'description', 'tile', 'events'
     ];
 
     protected $attributes = [
@@ -17,11 +17,16 @@ class Map extends Model
         'events' => '[{"id":1,"marker":{"position":{"lat":67,"lng":-41.1},"url":"https://image.flaticon.com/icons/svg/148/148828.svg","size":[32,38]},"title":"Стартовое событие","description":"","mediaUrl":[]}]',
     ];
 
-    public function getCreatedAtAttribute($value){
+    // Customize default return value for $created_at
+    public function getCreatedAtAttribute($value)
+    {
         $date = Carbon::parse($value);
         return $date->setTimezone('Asia/Vladivostok')->format('Y-m-d H:i');
     }
-    public function getUpdatedAtAttribute($value){
+
+    // Customize default return value for $update_at
+    public function getUpdatedAtAttribute($value)
+    {
         $date = Carbon::parse($value);
         return $date->setTimezone('Asia/Vladivostok')->format('Y-m-d H:i');
     }

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Subject;
 use Illuminate\Support\Facades\File;
 
-// CRUD
 class SubjectController extends Controller
 {
     public function index()
@@ -43,13 +42,13 @@ class SubjectController extends Controller
 
         if (request('name')) $subject->name = request('name');
         if (request()->hasFile('icon')) {
-            // remove old icon
+            // Remove old icon
             if (File::exists(public_path($subject->icon))) {
                 $icon_basename = basename($subject->icon);
                 if ($icon_basename != 'biology.png' || $icon_basename != 'computer_science.png' || $icon_basename != 'custom.png' || $icon_basename != 'geography.png' || $icon_basename != 'history.png')
                     File::delete(public_path($subject->icon));
             }
-            // save new icon
+            // Save new icon
             $path = request()->file('icon')->store('subjects', 'public');
             $subject->icon = '/storage/' . $path;
         }

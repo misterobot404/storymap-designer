@@ -7,27 +7,23 @@ use App\Http\Controllers\API\MapController;
 use Illuminate\Support\Facades\Route;
 
 /**
- * API Authentication
+ * User
  */
+// API Authentication
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
-
-/**
- * Проверка доступности почты / логина для регистрации
- */
+// Check email / name available
 Route::get('/users/{email}/check-available', [AuthController::class, 'emailAvailableCheck'])->where('email', '^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
 Route::get('/users/{name}/check-available', [AuthController::class, 'nameAvailableCheck']);
-
-/**
- * Получить данные авторизированного пользователя
- */
+// Get auth user
 Route::get('/users/current', [AuthController::class, 'getCurrentUser']);
 
 /**
- * Subjects. CRD
+ * Subjects
  */
 Route::middleware('auth:api')->group(function () {
+    // CRUD
     Route::get('/subjects', [SubjectController::class, 'index']);
     Route::post('/subjects/{id}', [SubjectController::class, 'update']);
     Route::post('/subjects', [SubjectController::class, 'store']);
@@ -45,11 +41,12 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/maps/{id}', [MapController::class, 'update']);
     Route::delete('/maps/{id}', [MapController::class, 'destroy']);
     // Other
-    Route::post('/maps/duplicate', [MapController::class, 'duplicate']);
-    Route::post('/maps/toSubject', [MapController::class, 'toSubject']);
+    Route::post('/maps/copy', [MapController::class, 'copy']);
+    Route::post('/maps/setSubject', [MapController::class, 'setSubject']);
 });
 
 /**
- * Обратная связь
+ * Other
  */
+// Feedback
 Route::post('/feedback', FeedbackController::class);

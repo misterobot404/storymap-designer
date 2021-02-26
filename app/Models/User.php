@@ -26,7 +26,7 @@ class User extends Authenticatable
     {
         parent::boot();
         static::created(function ($user) {
-            // default map subject for new user
+            // Default subject for new user
             Subject::insert([
                 [
                     'user_id' => $user->id,

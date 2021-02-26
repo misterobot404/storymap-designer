@@ -268,6 +268,13 @@ export default {
             }
         ],
     },
+    getters: {
+        mapsWithSubjectNames: (state, rootState) => {
+            let temp_maps = [...state.maps];
+            temp_maps.forEach(map => map.subject_name = (rootState.subjects.subjects.find(el => el.id === map.subject_id)).name);
+            return temp_maps;
+        }
+    },
     actions: {
         getMaps({commit}) {
             return axios.get('/api/maps')
@@ -283,8 +290,8 @@ export default {
             })
                 .then(response => { commit('SET_MAPS', response.data.data.maps) })
         },
-        duplicateMap({commit}, data) {
-            return axios.post('/api/maps/duplicate', {id: data.id})
+        copyMap({commit}, data) {
+            return axios.post('/api/maps/copy', {id: data.id})
                 .then(response => { commit('SET_MAPS', response.data.data.maps) })
         },
         destroyMap({commit}, data) {
@@ -302,7 +309,7 @@ export default {
             let map_ids = [];
             payload.maps.forEach(el => map_ids.push(el.id));
 
-            return axios.post('/api/maps/toSubject', {
+            return axios.post('/api/maps/setSubject', {
                 map_ids: map_ids,
                 subject_id: payload.subject_id
             })

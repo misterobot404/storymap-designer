@@ -71045,9 +71045,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _modules_User_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/User/auth */ "./resources/js/store/modules/User/auth.js");
-/* harmony import */ var _modules_User_subjects__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/User/subjects */ "./resources/js/store/modules/User/subjects.js");
-/* harmony import */ var _modules_User_tiles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/User/tiles */ "./resources/js/store/modules/User/tiles.js");
+/* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/auth */ "./resources/js/store/modules/auth.js");
+/* harmony import */ var _modules_subjects__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/subjects */ "./resources/js/store/modules/subjects.js");
+/* harmony import */ var _modules_tiles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/tiles */ "./resources/js/store/modules/tiles.js");
 /* harmony import */ var _modules_layout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/layout */ "./resources/js/store/modules/layout.js");
 /* harmony import */ var _modules_map__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/map */ "./resources/js/store/modules/map.js");
 /* harmony import */ var _modules_maps__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/maps */ "./resources/js/store/modules/maps.js");
@@ -71063,9 +71063,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   strict: true,
   modules: {
-    auth: _modules_User_auth__WEBPACK_IMPORTED_MODULE_2__["default"],
-    subjects: _modules_User_subjects__WEBPACK_IMPORTED_MODULE_3__["default"],
-    tiles: _modules_User_tiles__WEBPACK_IMPORTED_MODULE_4__["default"],
+    auth: _modules_auth__WEBPACK_IMPORTED_MODULE_2__["default"],
+    subjects: _modules_subjects__WEBPACK_IMPORTED_MODULE_3__["default"],
+    tiles: _modules_tiles__WEBPACK_IMPORTED_MODULE_4__["default"],
     layout: _modules_layout__WEBPACK_IMPORTED_MODULE_5__["default"],
     map: _modules_map__WEBPACK_IMPORTED_MODULE_6__["default"],
     maps: _modules_maps__WEBPACK_IMPORTED_MODULE_7__["default"]
@@ -71074,10 +71074,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
 /***/ }),
 
-/***/ "./resources/js/store/modules/User/auth.js":
-/*!*************************************************!*\
-  !*** ./resources/js/store/modules/User/auth.js ***!
-  \*************************************************/
+/***/ "./resources/js/store/modules/auth.js":
+/*!********************************************!*\
+  !*** ./resources/js/store/modules/auth.js ***!
+  \********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -71180,119 +71180,6 @@ function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("
       delete axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization']; // if the user was on page with auth middleware
 
       if (_routes__WEBPACK_IMPORTED_MODULE_1__["default"].currentRoute.meta.middlewareAuth) _routes__WEBPACK_IMPORTED_MODULE_1__["default"].push('/');
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/store/modules/User/subjects.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/store/modules/User/subjects.js ***!
-  \*****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  namespaced: true,
-  state: {
-    subjects: []
-  },
-  actions: {
-    createSubject: function createSubject(_ref, subject) {
-      var state = _ref.state,
-          commit = _ref.commit;
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/subjects', subject, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then(function (response) {
-        commit('SET_SUBJECTS', response.data.data.subjects);
-      });
-    },
-    getSubjects: function getSubjects(_ref2) {
-      var commit = _ref2.commit;
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/subjects').then(function (response) {
-        commit('SET_SUBJECTS', response.data.data.subjects);
-      });
-    },
-    updateSubject: function updateSubject(_ref3, payload) {
-      var state = _ref3.state,
-          commit = _ref3.commit;
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/subjects/' + payload.id, payload.data, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then(function (response) {
-        commit('SET_SUBJECTS', response.data.data.subjects);
-      });
-    },
-    deleteSubject: function deleteSubject(_ref4, id) {
-      var commit = _ref4.commit;
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/subjects/' + id).then(function (response) {
-        commit('SET_SUBJECTS', response.data.data.subjects);
-      });
-    }
-  },
-  mutations: {
-    SET_SUBJECTS: function SET_SUBJECTS(state, subjects) {
-      subjects === null ? state.subjects = [] : state.subjects = subjects;
-    },
-    ADD_SUBJECT: function ADD_SUBJECT(state, subjects) {
-      state.subjects.push(subjects);
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/store/modules/User/tiles.js":
-/*!**************************************************!*\
-  !*** ./resources/js/store/modules/User/tiles.js ***!
-  \**************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  namespaced: true,
-  state: {
-    tiles: [{
-      name: "Стандартная",
-      url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
-    }, {
-      name: "Стандартная. Ночь",
-      url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
-    }, {
-      name: "Строение человека",
-      url: "/tile1/{z}-{x}-{y}.jpg"
-    }, {
-      name: "Карта фильма Властелин Колец",
-      url: "/tile2/{z}-{x}-{y}.jpg"
-    }, {
-      name: "Заповедники Дальнего востока",
-      url: "https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}"
-    }, {
-      name: "Солнечная система",
-      url: "/tile3/{z}-{x}-{y}.jpg"
-    }, {
-      name: "Астрономия",
-      url: "http://leafletjs.com/examples/crs-simple/uqm_map_full.png"
-    }]
-  },
-  actions: {},
-  mutations: {
-    ADD_TILE: function ADD_TILE(state, tile) {
-      state.tiles.push(tile);
     }
   }
 });
@@ -71692,6 +71579,18 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
@@ -72072,6 +71971,18 @@ __webpack_require__.r(__webpack_exports__);
       }])
     }]
   },
+  getters: {
+    mapsWithSubjectNames: function mapsWithSubjectNames(state, rootState) {
+      var temp_maps = _toConsumableArray(state.maps);
+
+      temp_maps.forEach(function (map) {
+        return map.subject_name = rootState.subjects.subjects.find(function (el) {
+          return el.id === map.subject_id;
+        }).name;
+      });
+      return temp_maps;
+    }
+  },
   actions: {
     getMaps: function getMaps(_ref) {
       var commit = _ref.commit;
@@ -72089,9 +72000,9 @@ __webpack_require__.r(__webpack_exports__);
         commit('SET_MAPS', response.data.data.maps);
       });
     },
-    duplicateMap: function duplicateMap(_ref3, data) {
+    copyMap: function copyMap(_ref3, data) {
       var commit = _ref3.commit;
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/maps/duplicate', {
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/maps/copy', {
         id: data.id
       }).then(function (response) {
         commit('SET_MAPS', response.data.data.maps);
@@ -72119,7 +72030,7 @@ __webpack_require__.r(__webpack_exports__);
       payload.maps.forEach(function (el) {
         return map_ids.push(el.id);
       });
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/maps/toSubject', {
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/maps/setSubject', {
         map_ids: map_ids,
         subject_id: payload.subject_id
       }).then(function (response) {
@@ -72138,6 +72049,119 @@ __webpack_require__.r(__webpack_exports__);
       state.editableExample.config = JSON.stringify(map.config);
       state.editableExample.tile = JSON.stringify(map.tile);
       state.editableExample.events = JSON.stringify(map.events);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/subjects.js":
+/*!************************************************!*\
+  !*** ./resources/js/store/modules/subjects.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    subjects: []
+  },
+  actions: {
+    createSubject: function createSubject(_ref, subject) {
+      var state = _ref.state,
+          commit = _ref.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/subjects', subject, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        commit('SET_SUBJECTS', response.data.data.subjects);
+      });
+    },
+    getSubjects: function getSubjects(_ref2) {
+      var commit = _ref2.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/subjects').then(function (response) {
+        commit('SET_SUBJECTS', response.data.data.subjects);
+      });
+    },
+    updateSubject: function updateSubject(_ref3, payload) {
+      var state = _ref3.state,
+          commit = _ref3.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/subjects/' + payload.id, payload.data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        commit('SET_SUBJECTS', response.data.data.subjects);
+      });
+    },
+    deleteSubject: function deleteSubject(_ref4, id) {
+      var commit = _ref4.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/subjects/' + id).then(function (response) {
+        commit('SET_SUBJECTS', response.data.data.subjects);
+      });
+    }
+  },
+  mutations: {
+    SET_SUBJECTS: function SET_SUBJECTS(state, subjects) {
+      subjects === null ? state.subjects = [] : state.subjects = subjects;
+    },
+    ADD_SUBJECT: function ADD_SUBJECT(state, subjects) {
+      state.subjects.push(subjects);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/tiles.js":
+/*!*********************************************!*\
+  !*** ./resources/js/store/modules/tiles.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: {
+    tiles: [{
+      name: "Стандартная",
+      url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+    }, {
+      name: "Стандартная. Ночь",
+      url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+    }, {
+      name: "Строение человека",
+      url: "/tile1/{z}-{x}-{y}.jpg"
+    }, {
+      name: "Карта фильма Властелин Колец",
+      url: "/tile2/{z}-{x}-{y}.jpg"
+    }, {
+      name: "Заповедники Дальнего востока",
+      url: "https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}"
+    }, {
+      name: "Солнечная система",
+      url: "/tile3/{z}-{x}-{y}.jpg"
+    }, {
+      name: "Астрономия",
+      url: "http://leafletjs.com/examples/crs-simple/uqm_map_full.png"
+    }]
+  },
+  actions: {},
+  mutations: {
+    ADD_TILE: function ADD_TILE(state, tile) {
+      state.tiles.push(tile);
     }
   }
 });

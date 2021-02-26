@@ -28,7 +28,7 @@
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on }">
                                 <v-btn
-                                    @click="destroyMaps(selected)"
+                                    @click="lDestroyMaps(selected)"
                                     icon
                                     :disabled="selected.length === 0"
                                     class="mx-1"
@@ -72,7 +72,7 @@
             <!-- Delete -->
             <v-icon
                 small
-                @click="destroyMap(item)"
+                @click="lDestroyMap(item)"
             >
                 delete
             </v-icon>
@@ -124,14 +124,11 @@ export default {
         }
     },
     methods: {
-        ...mapActions('maps', {
-            destroyMapAction: 'destroyMap',
-            destroyMapsAction: 'destroyMaps',
-        }),
-        destroyMap($map) {
+        ...mapActions('maps', ['destroyMap', 'destroyMaps']),
+        lDestroyMap($map) {
             this.loading = true;
-            this.destroyMapAction($map)
-                .then(() => {
+            this.destroyMap($map)
+                .then(_ => {
                     const index = this.selected.findIndex(n => n.id === $map.id);
                     if (index !== -1) {
                         this.selected.splice(index, 1);
@@ -141,13 +138,11 @@ export default {
                     this.loading = false;
                 })
         },
-        destroyMaps($maps) {
+        lDestroyMaps($maps) {
             this.loading = true;
-            this.destroyMapsAction($maps)
-                .finally(() => {
-                    this.loading = false;
-                    this.selected = [];
-                })
+            this.destroyMaps($maps)
+                .then(_ => this.selected = [])
+                .finally(() => this.loading = false)
         }
     }
 }

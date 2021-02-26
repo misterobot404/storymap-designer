@@ -6,7 +6,6 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Map;
 
-// CRUD
 class MapController extends Controller
 {
     public function index()
@@ -141,25 +140,9 @@ class MapController extends Controller
         ], 200);
     }
 
-    // Other
-    public function duplicate()
+    public function copy()
     {
         $baseMap = Map::find(request('id'));
-
-        if (!$baseMap) {
-            return response()->json([
-                "status" => "fail",
-                "data" => [
-                    "id" => "Map not found",
-                ]
-            ], 404);
-        }
-        if ($baseMap->user_id !== auth()->id()) {
-            return response()->json([
-                "status" => "fail",
-                "data" => ["id" => "Access denied"]
-            ], 403);
-        }
 
         $map = new Map;
         $map->user_id = auth()->id();
@@ -178,9 +161,12 @@ class MapController extends Controller
         ], 200);
     }
 
-    public function toSubject()
+    public function setSubject()
     {
-        Map::whereIn('id', request('map_ids'))->update(['subject_id' => request('subject_id')]);
+        // Single assignment
+        if (request('map_id')) Map::where('id', request('map_id'))->update(['subject_id' => request('subject_id')]);
+        // Multiple assignment
+        else Map::whereIn('id', request('map_ids'))->update(['subject_id' => request('subject_id')]);
 
         return response()->json([
             "status" => "success",

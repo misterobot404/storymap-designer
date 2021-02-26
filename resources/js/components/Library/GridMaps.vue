@@ -21,12 +21,12 @@
                     >
                         <img
                             :src="getSubjectIcon(map.subject_id)"
-                            :alt="map.subject_id"
+                            :alt="getSubjectName(map.subject_id)"
                         />
                     </v-list-item-avatar>
                     <v-list-item-content>
                         <v-list-item-title class="headline">{{ map.name }}</v-list-item-title>
-                        <v-list-item-subtitle v-if="map.subject_id"> {{ map.subject_id }}</v-list-item-subtitle>
+                        <v-list-item-subtitle v-if="map.subject_id"> {{ getSubjectName(map.subject_id) }}</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-img
@@ -156,10 +156,13 @@ export default {
     methods: {
         ...mapActions('maps', {
             destroyMapAction: 'destroyMap',
-            duplicateMapAction: 'duplicateMap',
+            duplicateMapAction: 'copyMap',
         }),
         getSubjectIcon($subject_id) {
             return (this.subjects.find(el => el.id === $subject_id)).icon;
+        },
+        getSubjectName($subject_id) {
+            return (this.subjects.find(el => el.id === $subject_id)).name;
         },
         destroyMap($map) {
             this.loadingIds.push($map.id);

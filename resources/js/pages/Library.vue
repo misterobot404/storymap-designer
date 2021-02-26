@@ -298,6 +298,7 @@ export default {
         // Filter
         filteredMaps() {
             let filteredMaps = this.maps;
+
             // search filter
             if (this.search) {
                 filteredMaps = this.maps.filter(el => {
