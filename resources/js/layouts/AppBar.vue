@@ -160,12 +160,13 @@ export default {
                 let top = window.scrollY + slide.getBoundingClientRect().y;
                 await this.$vuetify.goTo(top);
             } else {
-                await this.$router.push("/").then(() => {
-                    let slide = document.getElementById("futures");
-                    // Определение расстояния от начала страницы до нужного элемента
-                    let top = window.scrollY + slide.getBoundingClientRect().y;
-                    this.$vuetify.goTo(top);
-                });
+                await this.$router.push("/")
+                    .then(_ => {
+                        let slide = document.getElementById("futures");
+                        // Определение расстояния от начала страницы до нужного элемента
+                        let top = window.scrollY + slide.getBoundingClientRect().y;
+                        this.$vuetify.goTo(top);
+                    });
             }
         },
         async goToExamples() {
@@ -174,12 +175,13 @@ export default {
                 let top = window.scrollY + slide.getBoundingClientRect().y;
                 await this.$vuetify.goTo(top);
             } else {
-                await this.$router.push("/").then(() => {
-                    let slide = document.getElementById("examples");
-                    // Определение расстояния от начала страницы до нужного элемента
-                    let top = window.scrollY + slide.getBoundingClientRect().y;
-                    this.$vuetify.goTo(top);
-                });
+                await this.$router.push("/")
+                    .then(_ => {
+                        let slide = document.getElementById("examples");
+                        // Определение расстояния от начала страницы до нужного элемента
+                        let top = window.scrollY + slide.getBoundingClientRect().y;
+                        this.$vuetify.goTo(top);
+                    });
             }
         }
     }

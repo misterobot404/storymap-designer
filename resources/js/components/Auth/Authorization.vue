@@ -91,11 +91,11 @@ export default {
                 email: this.email,
                 password: this.password
             })
-                .then(() => {
+                .then(_ => {
                     this.$emit('done');
                     this.$router.push('/library');
                 })
-                .catch(() => this.showError = true)
+                .catch(_ => this.showError = true)
                 .finally(() => this.authProcess = false)
         }
     }

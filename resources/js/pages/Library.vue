@@ -24,9 +24,8 @@
                         :class="[$vuetify.breakpoint.xs ? 'justify-center' : 'justify-end']"
                         style="height: 100%"
                     >
-                        <CreateSubjectDialog/>
-                        <!-- ModalDialog. Create map -->
-                        <CreateMapDialog/>
+                        <SubjectCreateDialog/>
+                        <MapCreateDialog/>
                     </v-row>
                 </v-col>
             </v-row>
@@ -107,7 +106,7 @@
                                 <v-list-item style="height: 48px !important">
                                     <v-list-item-title>Все</v-list-item-title>
                                     <v-list-item-action @click.stop v-show="loadingSubjects">
-                                        <v-btn icon  small loading></v-btn>
+                                        <v-btn icon small loading></v-btn>
                                     </v-list-item-action>
                                 </v-list-item>
                                 <template v-for="(subject, index) in subjects">
@@ -140,7 +139,7 @@
                     </v-menu>
                     <!-- View mode -->
                     <v-btn-toggle
-                        v-model="selectedViewMode"
+                        v-model="viewMode"
                         color="primary"
                         class="my-1 mx-1"
                         :class="{ 'mx-auto' : $vuetify.breakpoint.mdAndDown}"
@@ -150,7 +149,7 @@
                         <v-tooltip top open-delay="200">
                             <template v-slot:activator="{ on }">
                                 <v-btn
-                                    value="table"
+                                    value="grid"
                                     v-on="on"
                                     text
                                 >
@@ -162,7 +161,7 @@
                         <v-tooltip top open-delay="200">
                             <template v-slot:activator="{ on }">
                                 <v-btn
-                                    value="list"
+                                    value="table"
                                     v-on="on"
                                     text
                                 >
@@ -200,7 +199,7 @@
                     </v-row>
                 </template>
                 <!-- Maps empty after filtering -->
-                <template v-else-if="!filteredMaps.length">
+                <template v-else-if="!filteredMapsBySubjectAndSearch.length && viewMode === 'grid'">
                     <v-row align="center" justify="center" class="flex-column my-6 mx-2">
                         <v-img
                             max-width="400"
@@ -215,13 +214,14 @@
                 <template v-else>
                     <!-- Table / List mode -->
                     <keep-alive>
-                        <component :is="selectedViewMode === 'table' ? 'GridMaps' : 'ListMaps'" :maps="filteredMaps"/>
+                        <MapsGrid v-if="viewMode === 'grid'" :maps="filteredMapsBySubjectAndSearch"/>
+                        <MapsTable v-else :maps="filteredMapsBySubject" :search="search"/>
                     </keep-alive>
                 </template>
             </v-container>
         </v-container>
 
-        <EditSubjectDialog
+        <SubjectEditDialog
             :showEditSubjectDialog.sync="showEditSubjectDialog"
             :editableSubject="editableSubject"
         />
@@ -247,25 +247,25 @@
 
 <script>
 import {mapState, mapActions} from "vuex"
-import CreateMapDialog from "../components/Library/CreateMapDialog"
-import CreateSubjectDialog from "../components/Library/CreateSubjectDialog"
-import EditSubjectDialog from "../components/Library/EditSubjectDialog";
-import GridMaps from "../components/Library/GridMaps"
-import ListMaps from "../components/Library/ListMaps"
+import MapCreateDialog from "../components/Library/MapCreateDialog"
+import SubjectCreateDialog from "../components/Library/SubjectCreateDialog"
+import SubjectEditDialog from "../components/Library/SubjectEditDialog";
+import MapsGrid from "../components/Library/MapsGrid"
+import MapsTable from "../components/Library/MapsTable"
 
 export default {
     name: "Library",
     components: {
-        CreateMapDialog,
-        CreateSubjectDialog,
-        EditSubjectDialog,
-        GridMaps,
-        ListMaps
+        MapCreateDialog,
+        SubjectCreateDialog,
+        SubjectEditDialog,
+        MapsGrid,
+        MapsTable
     },
     data() {
         return {
             // Roles
-            selectedRole: localStorage.getItem("Library.selectedRole") !== null ? localStorage.getItem("Library.selectedRole") : "Все атласы",
+            selectedRole: localStorage.getItem("librarySelectedRole") !== null ? localStorage.getItem("librarySelectedRole") : "Все атласы",
             roles: [
                 {name: "Все атласы"},
                 {name: "Автор"},
@@ -276,7 +276,7 @@ export default {
             search: "",
             selectedSubjectIndex: 0,
             // Other
-            selectedViewMode: localStorage.getItem("Library.selectedViewMode") !== null ? localStorage.getItem("Library.selectedViewMode") : "table",
+            viewMode: localStorage.getItem("libraryViewMode") !== null ? localStorage.getItem("libraryViewMode") : "grid",
             showScrollUpBtn: false,
             loadingMaps: false,
             loadingSubjects: false,
@@ -296,30 +296,35 @@ export default {
             return `calc(${height} - ${this.$vuetify.application.top}px - ${this.$vuetify.application.footer}px)`
         },
         // Filter
-        filteredMaps() {
+        filteredMapsBySubjectAndSearch() {
             let filteredMaps = this.maps;
 
             // search filter
-            if (this.search) {
-                filteredMaps = this.maps.filter(el => {
-                    return el.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
-                })
-            }
+            if (this.search)
+                filteredMaps = this.maps.filter(el => el.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1)
+
             // subject filter
-            if (this.selectedSubjectIndex) {
-                filteredMaps = filteredMaps.filter(el => {
-                    return el.subject === this.subjects[this.selectedSubjectIndex - 1].name;
-                })
-            }
+            if (this.selectedSubjectIndex)
+                filteredMaps = filteredMaps.filter(el => el.subject_id === this.subjects[this.selectedSubjectIndex - 1].id)
+
+            return filteredMaps;
+        },
+        filteredMapsBySubject() {
+            let filteredMaps = this.maps;
+
+            // subject filter
+            if (this.selectedSubjectIndex)
+                filteredMaps = filteredMaps.filter(el => el.subject_id === this.subjects[this.selectedSubjectIndex - 1].id)
+
             return filteredMaps;
         }
     },
     watch: {
-        selectedViewMode(val) {
-            localStorage.setItem("Library.selectedViewMode", val)
+        viewMode(val) {
+            localStorage.setItem("libraryViewMode", val)
         },
         selectedRole(val) {
-            localStorage.setItem("Library.selectedRole", val)
+            localStorage.setItem("librarySelectedRole", val)
         }
     },
     methods: {

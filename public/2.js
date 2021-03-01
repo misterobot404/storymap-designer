@@ -1054,7 +1054,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])('map', ['SET_EVENTS', 'SET_SELECTED_EVENT_ID', 'DELETE_EVENT_BY_INDEX'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('map', ['deleteEventByIndex', 'addEvent'])), {}, {
     addEventLocal: function addEventLocal() {
-      this.addEvent().then(function () {
+      this.addEvent().then(function (_) {
         var element = document.getElementById("eventList");
         element.scrollTop = element.scrollHeight;
       });
@@ -1244,10 +1244,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _components_Constructor_ControlPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/Constructor/ControlPanel */ "./resources/js/components/Constructor/ControlPanel.vue");
-/* harmony import */ var _components_Constructor_EventList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/Constructor/EventList */ "./resources/js/components/Constructor/EventList.vue");
-/* harmony import */ var _components_Constructor_EventForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/Constructor/EventForm */ "./resources/js/components/Constructor/EventForm.vue");
-/* harmony import */ var _components_Constructor_Map__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/Constructor/Map */ "./resources/js/components/Constructor/Map.vue");
+/* harmony import */ var _components_Constructor_ControlPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Constructor/ControlPanel */ "./resources/js/components/Constructor/ControlPanel.vue");
+/* harmony import */ var _components_Constructor_EventList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Constructor/EventList */ "./resources/js/components/Constructor/EventList.vue");
+/* harmony import */ var _components_Constructor_EventForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Constructor/EventForm */ "./resources/js/components/Constructor/EventForm.vue");
+/* harmony import */ var _components_Constructor_Map__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Constructor/Map */ "./resources/js/components/Constructor/Map.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -1320,7 +1320,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       loadingMap: false
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('map', ['wasChanges'])),
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('map', ['wasChanges'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])('map', ['name', 'description'])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('map', ['getMap', 'setEmptyExampleMap'])), {}, {
     // beforeunload
     preventNav: function preventNav(event) {
@@ -1343,7 +1343,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 break;
               }
 
-              _this.setEmptyExampleMap();
+              _this.setEmptyExampleMap(); // set real map
+
 
               _context.next = 8;
               break;
@@ -1353,11 +1354,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               window.addEventListener("beforeunload", _this.preventNav);
               _this.loadingMap = true;
               _context.next = 8;
-              return _this.getMap(_this.$route.params.id).then(function () {
-                _this.loadingMap = false;
+              return _this.getMap(_this.$route.params.id).then(function (_) {
+                return _this.loadingMap = false;
               });
 
             case 8:
+              // set seo header
+              document.title = _this.name + " - MapDesigner";
+              document.description = _this.description;
+
+            case 10:
             case "end":
               return _context.stop();
           }

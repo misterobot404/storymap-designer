@@ -34,7 +34,7 @@
                 </v-icon>
                 <v-card-title>Переместить в категорию</v-card-title>
             </v-toolbar>
-            <v-divider></v-divider>
+            <v-divider/>
             <v-card-text style="height: 300px;">
                 <v-radio-group
                     v-model="selectedSubjectId"

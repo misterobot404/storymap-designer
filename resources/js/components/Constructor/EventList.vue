@@ -58,71 +58,72 @@
 </template>
 
 <script>
-    import {SlickItem, SlickList} from 'vue-slicksort'
-    import {mapState, mapMutations, mapActions} from 'vuex'
+import {SlickItem, SlickList} from 'vue-slicksort'
+import {mapState, mapMutations, mapActions} from 'vuex'
 
-    export default {
-        name: "ConstructorEventList",
-        components: {
-            EventList: SlickList,
-            EventItem: SlickItem
-        },
-        data() {
-            return {
-                showButtonDeleteEvent: null
+export default {
+    name: "ConstructorEventList",
+    components: {
+        EventList: SlickList,
+        EventItem: SlickItem
+    },
+    data() {
+        return {
+            showButtonDeleteEvent: null
+        }
+    },
+    computed: {
+        ...mapState('map', [
+            'config',
+            'events'
+        ]),
+        model_events: {
+            get() {
+                return this.events
+            },
+            set(value) {
+                this.SET_EVENTS(value)
             }
-        },
-        computed: {
-            ...mapState('map', [
-                'config',
-                'events'
-            ]),
-            model_events: {
-                get() {
-                    return this.events
-                },
-                set(value) {
-                    this.SET_EVENTS(value)
-                }
-            }
-        },
-        methods: {
-            ...mapMutations('map', [
-                'SET_EVENTS',
-                'SET_SELECTED_EVENT_ID',
-                'DELETE_EVENT_BY_INDEX'
-            ]),
-            ...mapActions('map', [
-                'deleteEventByIndex',
-                'addEvent'
-            ]),
-            addEventLocal() {
-                this.addEvent().then(() => {
+        }
+    },
+    methods: {
+        ...mapMutations('map', [
+            'SET_EVENTS',
+            'SET_SELECTED_EVENT_ID',
+            'DELETE_EVENT_BY_INDEX'
+        ]),
+        ...mapActions('map', [
+            'deleteEventByIndex',
+            'addEvent'
+        ]),
+        addEventLocal() {
+            this.addEvent()
+                .then(_ => {
                     let element = document.getElementById("eventList");
                     element.scrollTop = element.scrollHeight;
                 });
-            }
         }
     }
+}
 </script>
 
 <style lang="sass" scoped>
-    ::v-deep .v-btn__content
-        display: inline-block
-        max-width: 100%
-        max-height: 60px
-        text-align: center
-        overflow: hidden
-        text-overflow: ellipsis
+::v-deep .v-btn__content
+    display: inline-block
+    max-width: 100%
+    max-height: 60px
+    text-align: center
+    overflow: hidden
+    text-overflow: ellipsis
 
-    #eventList
-        max-width: 50%
-        min-width: 160px
-        overflow-y: scroll
-        overflow-x: hidden
-        resize: horizontal
+#eventList
+    max-width: 50%
+    min-width: 160px
+    overflow-y: scroll
+    overflow-x: hidden
+    resize: horizontal
 
-    .eventDraggable
-        pointer-events: auto !important
-        cursor: grab !important
+.eventDraggable
+    pointer-events: auto !important
+    cursor: grab !important
 </style>

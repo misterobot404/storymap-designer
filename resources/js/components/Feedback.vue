@@ -131,6 +131,7 @@ import Vue from "vue"
 import {mapMutations} from "vuex"
 import axios from "axios"
 import vClickOutside from "v-click-outside"
+
 Vue.use(vClickOutside)
 
 export default {
@@ -161,12 +162,8 @@ export default {
                     message: this.message
                 };
                 axios.post('/api/feedback', payload)
-                    .then(() => {
-                        this.showSuccess = true;
-                    })
-                    .catch(() => {
-                        this.showError = true;
-                    })
+                    .then(_ => this.showSuccess = true)
+                    .catch(_ => this.showError = true)
                     .finally(() => {
                         this.loading = false;
                     })

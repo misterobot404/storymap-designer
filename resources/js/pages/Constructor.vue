@@ -41,63 +41,67 @@
     </v-container>
 </template>
 <script>
-    import {mapGetters, mapActions} from "vuex"
-    import ControlPanel from "@/components/Constructor/ControlPanel"
-    import EventList from "@/components/Constructor/EventList"
-    import EventForm from "@/components/Constructor/EventForm"
-    import Map from "@/components/Constructor/Map"
-    export default {
-        name: "Constructor",
-        components: {
-            ControlPanel,
-            EventList,
-            EventForm,
-            Map
-        },
-        data() {
-            return {
-                loadingMap: false,
-            }
-        },
-        computed: {
-            ...mapGetters('map', [
-                'wasChanges'
-            ])
-        },
-        methods: {
-            ...mapActions('map', [
-                'getMap',
-                'setEmptyExampleMap'
-            ]),
-            // beforeunload
-            preventNav(event) {
-                if (!this.wasChanges) return;
-                event.preventDefault();
-                // Chrome requires returnValue to be set.
-                event.returnValue = "";
-            }
-        },
-        async beforeMount() {
-            // set example map
-            if (this.$route.name === "constructor-example") {
-                this.setEmptyExampleMap();
-            }
-            // set real map
-            else {
-                // method called before closing. Check changes map
-                window.addEventListener("beforeunload", this.preventNav);
+import {mapState, mapGetters, mapActions} from "vuex"
+import ControlPanel from "../components/Constructor/ControlPanel"
+import EventList from "../components/Constructor/EventList"
+import EventForm from "../components/Constructor/EventForm"
+import Map from "../components/Constructor/Map"
 
-                this.loadingMap = true;
-                await this.getMap(this.$route.params.id)
-                    .then(() => {
-                        this.loadingMap = false;
-                    })
-            }
-        },
-        beforeDestroy() {
-            // remove events from window
-            window.removeEventListener("beforeunload", this.preventNav);
-        },
-    }
+export default {
+    name: "Constructor",
+    components: {
+        ControlPanel,
+        EventList,
+        EventForm,
+        Map
+    },
+    data() {
+        return {
+            loadingMap: false,
+        }
+    },
+    computed: {
+        ...mapGetters('map', ['wasChanges']),
+        ...mapState('map',[
+            'name',
+            'description'
+        ])
+    },
+    methods: {
+        ...mapActions('map', [
+            'getMap',
+            'setEmptyExampleMap'
+        ]),
+        // beforeunload
+        preventNav(event) {
+            if (!this.wasChanges) return;
+            event.preventDefault();
+            // Chrome requires returnValue to be set.
+            event.returnValue = "";
+        }
+    },
+    async beforeMount() {
+        // set example map
+        if (this.$route.name === "constructor-example")
+            this.setEmptyExampleMap();
+        // set real map
+        else {
+            // method called before closing. Check changes map
+            window.addEventListener("beforeunload", this.preventNav);
+
+            this.loadingMap = true;
+            await this.getMap(this.$route.params.id)
+                .then(_ => this.loadingMap = false)
+        }
+
+        // set seo header
+        document.title = this.name + " - MapDesigner";
+        document.description = this.description;
+    },
+    beforeDestroy() {
+        // remove events from window
+        window.removeEventListener("beforeunload", this.preventNav);
+    },
+}
 </script>
 

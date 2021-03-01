@@ -46,7 +46,7 @@
                 >
                     map
                 </v-icon>
-                <v-toolbar-title> Создание атласа </v-toolbar-title>
+                <v-toolbar-title> Создание атласа</v-toolbar-title>
                 <v-spacer/>
                 <v-btn
                     icon
@@ -108,13 +108,13 @@
                 >
                     Очистить
                 </v-btn>
-                <v-spacer></v-spacer>
+                <v-spacer/>
                 <v-btn
                     class="px-7"
                     color="primary"
                     outlined
                     :loading="loading"
-                    @click="createMap()"
+                    @click="lCreateMap()"
                 >
                     Создать
                 </v-btn>
@@ -124,56 +124,57 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
-    export default {
-        name: "CreateMapDialog",
-        data() {
-            return {
-                dialog: false,
-                loading: false,
-                name: "",
-                description: "",
-                subject_id: "",
-                folders: [],
-                showFloatingBtnCreate: false,
+export default {
+    name: "CreateMapDialog",
+    data() {
+        return {
+            dialog: false,
+            loading: false,
+            name: "",
+            description: "",
+            subject_id: "",
+            folders: [],
+            showFloatingBtnCreate: false,
+        }
+    },
+    computed: {
+        ...mapState({
+            maps: state => state.maps.maps,
+            subjects: state => state.subjects.subjects,
+        })
+    },
+    methods: {
+        ...mapActions('maps', ['createMap']),
+        lCreateMap() {
+            if (this.$refs.form.validate()) {
+                this.loading = true;
+
+                this.createMap({
+                    name: this.name,
+                    subject_id: this.subject_id,
+                    description: this.description
+                })
+                    .then(_ => {
+                        this.dialog = false;
+                        this.clearField();
+                    })
+                    .finally(() => {
+                        this.loading = false;
+                    })
             }
         },
-        computed: {
-            ...mapState({
-                maps: state => state.maps.maps,
-                subjects: state => state.subjects.subjects,
-            })
+        clearField() {
+            this.$refs.form.reset()
         },
-        methods: {
-            createMap() {
-                if (this.$refs.form.validate()) {
-                    this.loading = true;
-
-                    this.$store.dispatch('maps/createMap', {
-                        name: this.name,
-                        subject_id: this.subject_id,
-                        description: this.description
-                    })
-                        .then(() => {
-                            this.dialog = false;
-                            this.clearField();
-                        })
-                        .finally(() => {
-                            this.loading = false;
-                        })
-                }
-            },
-            clearField() {
-                this.$refs.form.reset()
-            },
-            // showScrollUpBtn
-            onScroll(e) {
-                if (typeof window === 'undefined') return
-                const top = window.pageYOffset || e.target.scrollTop || 0
-                this.showFloatingBtnCreate = top > 20
-            },
-        }
+        // showScrollUpBtn
+        onScroll(e) {
+            if (typeof window === 'undefined') return
+            const top = window.pageYOffset || e.target.scrollTop || 0
+            this.showFloatingBtnCreate = top > 20
+        },
     }
+}
 </script>
 

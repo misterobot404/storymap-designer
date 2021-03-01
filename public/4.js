@@ -271,7 +271,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       loadingMap: false
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])('map', ['events'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('map', ['selectedEvent'])),
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])('map', ['name', 'description', 'events'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('map', ['selectedEvent'])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('map', ['getMap', 'setExampleMap'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])('map', ['SET_SELECTED_EVENT_ID', 'SET_TILE_CENTER'])),
   beforeMount: function beforeMount() {
     var _this = this;
@@ -301,7 +301,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 break;
               }
 
-              _this.setExampleMap(_this.$route.params.id);
+              _this.setExampleMap(_this.$route.params.id); // set real map
+
 
               _context.next = 12;
               break;
@@ -310,16 +311,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               // get map
               _this.loadingMap = true;
               _context.next = 12;
-              return _this.getMap(_this.$route.params.id).then(function () {
+              return _this.getMap(_this.$route.params.id).then(function (_) {
                 _this.SET_SELECTED_EVENT_ID(_this.events[0].id); // set tile center on first event
 
 
                 _this.SET_TILE_CENTER(_this.selectedEvent.marker.position);
+
+                document.title = _this.name + " - MapDesigner";
+                document.description = _this.description;
               })["finally"](function () {
-                _this.loadingMap = false;
+                return _this.loadingMap = false;
               });
 
             case 12:
+              // set seo header
+              document.title = _this.name + " - MapDesigner";
+              document.description = _this.description;
+
+            case 14:
             case "end":
               return _context.stop();
           }

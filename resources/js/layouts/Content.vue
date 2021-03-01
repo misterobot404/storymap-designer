@@ -1,7 +1,7 @@
 <template>
     <v-main id="main" style="min-width: 320px !important;">
-        <!-- Max: maximum number of component instances to cache -->
         <!-- Exclude: remove component from cached -->
+        <!-- $store.state.auth.token ? null : 'Library' - сбрасывать кеш компонента Library, если пользователь разлогинился -->
         <keep-alive :exclude="['Constructor', 'Viewer', $store.state.auth.token ? null : 'Library']">
             <!-- cached by key -->
             <router-view/>

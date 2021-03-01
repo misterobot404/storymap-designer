@@ -268,13 +268,6 @@ export default {
             }
         ],
     },
-    getters: {
-        mapsWithSubjectNames: (state, rootState) => {
-            let temp_maps = [...state.maps];
-            temp_maps.forEach(map => map.subject_name = (rootState.subjects.subjects.find(el => el.id === map.subject_id)).name);
-            return temp_maps;
-        }
-    },
     actions: {
         getMaps({commit}) {
             return axios.get('/api/maps')

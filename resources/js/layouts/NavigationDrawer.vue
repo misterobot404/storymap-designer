@@ -20,7 +20,7 @@
             <!-- Name -->
             <v-list-item-content>
                 <router-link to="/" class="link-text-simple">
-                    <v-list-item-title class="title">{{appName}}</v-list-item-title>
+                    <v-list-item-title class="title">{{ appName }}</v-list-item-title>
                 </router-link>
             </v-list-item-content>
         </v-list-item>
@@ -105,61 +105,63 @@
 </template>
 
 <script>
-    import {mapMutations, mapState} from 'vuex'
+import {mapMutations, mapState} from 'vuex'
 
-    export default {
-        name: "NavigationDrawer",
-        computed: {
-            ...mapState('layout', {
-                appName: state => state.appName,
-                appLogo: state => state.appLogo,
-                drawer: state => state.drawer
-            }),
-            drawerModel: {
-                get() {
-                    return this.drawer
-                },
-                set(val) {
-                    this.SET_DRAWER(val)
-                }
-            }
-        },
-        methods: {
-            ...mapMutations('layout', ['SET_DRAWER','SHOW_FEEDBACK_DIALOG']),
-            setTheme() {
-                this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-                // Save theme
-                window.localStorage.setItem('darkTheme', this.$vuetify.theme.dark);
+export default {
+    name: "NavigationDrawer",
+    computed: {
+        ...mapState('layout', {
+            appName: state => state.appName,
+            appLogo: state => state.appLogo,
+            drawer: state => state.drawer
+        }),
+        drawerModel: {
+            get() {
+                return this.drawer
             },
-            async goToFutures() {
-                if (this.$route.path === "/") {
-                    let slide = document.getElementById("futures");
-                    let top = window.scrollY + slide.getBoundingClientRect().y;
-                    await this.$vuetify.goTo(top);
-                } else {
-                    await this.$router.push("/").then(() => {
+            set(val) {
+                this.SET_DRAWER(val)
+            }
+        }
+    },
+    methods: {
+        ...mapMutations('layout', ['SET_DRAWER', 'SHOW_FEEDBACK_DIALOG']),
+        setTheme() {
+            this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+            // Save theme
+            window.localStorage.setItem('darkTheme', this.$vuetify.theme.dark);
+        },
+        async goToFutures() {
+            if (this.$route.path === "/") {
+                let slide = document.getElementById("futures");
+                let top = window.scrollY + slide.getBoundingClientRect().y;
+                await this.$vuetify.goTo(top);
+            } else {
+                await this.$router.push("/")
+                    .then(_ => {
                         let slide = document.getElementById("futures");
                         // Определение расстояния от начала страницы до нужного элемента
                         let top = window.scrollY + slide.getBoundingClientRect().y;
                         this.$vuetify.goTo(top);
                     });
-                }
-            },
-            async goToExamples() {
-                if (this.$route.path === "/") {
-                    let slide = document.getElementById("examples");
-                    let top = window.scrollY + slide.getBoundingClientRect().y;
-                    await this.$vuetify.goTo(top);
-                } else {
-                    await this.$router.push("/").then(() => {
+            }
+        },
+        async goToExamples() {
+            if (this.$route.path === "/") {
+                let slide = document.getElementById("examples");
+                let top = window.scrollY + slide.getBoundingClientRect().y;
+                await this.$vuetify.goTo(top);
+            } else {
+                await this.$router.push("/")
+                    .then(_ => {
                         let slide = document.getElementById("examples");
                         // Определение расстояния от начала страницы до нужного элемента
                         let top = window.scrollY + slide.getBoundingClientRect().y;
                         this.$vuetify.goTo(top);
                     });
-                }
             }
         }
     }
+}
 </script>
 

@@ -2172,11 +2172,11 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch('auth/login', {
         email: this.email,
         password: this.password
-      }).then(function () {
+      }).then(function (_) {
         _this.$emit('done');
 
         _this.$router.push('/library');
-      })["catch"](function () {
+      })["catch"](function (_) {
         return _this.showError = true;
       })["finally"](function () {
         return _this.authProcess = false;
@@ -2431,11 +2431,11 @@ __webpack_require__.r(__webpack_exports__);
         name: payload.name,
         email: payload.email,
         password: payload.password
-      }).then(function () {
+      }).then(function (_) {
         _this2.$store.dispatch('auth/login', {
           email: payload.email,
           password: payload.password
-        }).then(function () {
+        }).then(function (_) {
           // Close dialog
           _this2.$emit('done');
 
@@ -2666,10 +2666,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_click_outside__WEBPACK_IMPORTED
           subject: this.subject,
           message: this.message
         };
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/feedback', payload).then(function () {
-          _this.showSuccess = true;
-        })["catch"](function () {
-          _this.showError = true;
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/feedback', payload).then(function (_) {
+          return _this.showSuccess = true;
+        })["catch"](function (_) {
+          return _this.showError = true;
         })["finally"](function () {
           _this.loading = false;
         });
@@ -3005,7 +3005,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 7:
                 _context.next = 9;
-                return _this.$router.push("/").then(function () {
+                return _this.$router.push("/").then(function (_) {
                   var slide = document.getElementById("futures"); // Определение расстояния от начала страницы до нужного элемента
 
                   var top = window.scrollY + slide.getBoundingClientRect().y;
@@ -3046,7 +3046,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 7:
                 _context2.next = 9;
-                return _this2.$router.push("/").then(function () {
+                return _this2.$router.push("/").then(function (_) {
                   var slide = document.getElementById("examples"); // Определение расстояния от начала страницы до нужного элемента
 
                   var top = window.scrollY + slide.getBoundingClientRect().y;
@@ -3320,7 +3320,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 7:
                 _context.next = 9;
-                return _this.$router.push("/").then(function () {
+                return _this.$router.push("/").then(function (_) {
                   var slide = document.getElementById("futures"); // Определение расстояния от начала страницы до нужного элемента
 
                   var top = window.scrollY + slide.getBoundingClientRect().y;
@@ -3361,7 +3361,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 7:
                 _context2.next = 9;
-                return _this2.$router.push("/").then(function () {
+                return _this2.$router.push("/").then(function (_) {
                   var slide = document.getElementById("examples"); // Определение расстояния от начала страницы до нужного элемента
 
                   var top = window.scrollY + slide.getBoundingClientRect().y;
@@ -70907,7 +70907,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./routes */ "./resources/js/routes/routes.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/store */ "./resources/js/store/index.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
 
 
 
@@ -70994,8 +70994,8 @@ var routes = [{
   props: true,
   meta: {
     middlewareAuth: true,
-    title: "",
-    description: ""
+    title: "MapDesigner - бесплатный онлайн конструктор карт и атласов",
+    description: "Расскажите истории в Интернете, освещающие места, события или предметы. MapDesigner позволит быстро создавать гибкие карты и атласы для использования их в сфере обучения и туризма."
   }
 }, {
   name: 'viewer',
@@ -71006,8 +71006,8 @@ var routes = [{
   props: true,
   meta: {
     middlewareAuth: true,
-    title: "",
-    description: ""
+    title: "MapDesigner - бесплатный онлайн конструктор карт и атласов",
+    description: "Расскажите истории в Интернете, освещающие места, события или предметы. MapDesigner позволит быстро создавать гибкие карты и атласы для использования их в сфере обучения и туризма."
   }
 }, {
   name: 'viewer-example',
@@ -71017,9 +71017,8 @@ var routes = [{
   },
   props: true,
   meta: {
-    middlewareAuth: true,
-    title: "",
-    description: ""
+    title: "MapDesigner - бесплатный онлайн конструктор карт и атласов",
+    description: "Расскажите истории в Интернете, освещающие места, события или предметы. MapDesigner позволит быстро создавать гибкие карты и атласы для использования их в сфере обучения и туризма."
   }
 }, {
   path: '*',
@@ -71579,18 +71578,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
@@ -71970,18 +71957,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       }])
     }]
-  },
-  getters: {
-    mapsWithSubjectNames: function mapsWithSubjectNames(state, rootState) {
-      var temp_maps = _toConsumableArray(state.maps);
-
-      temp_maps.forEach(function (map) {
-        return map.subject_name = rootState.subjects.subjects.find(function (el) {
-          return el.id === map.subject_id;
-        }).name;
-      });
-      return temp_maps;
-    }
   },
   actions: {
     getMaps: function getMaps(_ref) {

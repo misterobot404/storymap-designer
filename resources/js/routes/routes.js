@@ -35,8 +35,8 @@ export const routes = [
         props: true,
         meta: {
             middlewareAuth: true,
-            title: "",
-            description: ""
+            title: "MapDesigner - бесплатный онлайн конструктор карт и атласов",
+            description: "Расскажите истории в Интернете, освещающие места, события или предметы. MapDesigner позволит быстро создавать гибкие карты и атласы для использования их в сфере обучения и туризма."
         }
     },
     {
@@ -46,8 +46,8 @@ export const routes = [
         props: true,
         meta: {
             middlewareAuth: true,
-            title: "",
-            description: ""
+            title: "MapDesigner - бесплатный онлайн конструктор карт и атласов",
+            description: "Расскажите истории в Интернете, освещающие места, события или предметы. MapDesigner позволит быстро создавать гибкие карты и атласы для использования их в сфере обучения и туризма."
         }
     },
     {
@@ -56,9 +56,8 @@ export const routes = [
         component: () => import('@/pages/Viewer'),
         props: true,
         meta: {
-            middlewareAuth: true,
-            title: "",
-            description: ""
+            title: "MapDesigner - бесплатный онлайн конструктор карт и атласов",
+            description: "Расскажите истории в Интернете, освещающие места, события или предметы. MapDesigner позволит быстро создавать гибкие карты и атласы для использования их в сфере обучения и туризма."
         }
     },
     {

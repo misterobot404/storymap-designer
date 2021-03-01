@@ -134,12 +134,12 @@ export default {
                 email: payload.email,
                 password: payload.password
             })
-                .then(() => {
+                .then(_ => {
                     this.$store.dispatch('auth/login', {
                         email: payload.email,
                         password: payload.password
                     })
-                        .then(() => {
+                        .then(_ => {
                             // Close dialog
                             this.$emit('done');
                             this.$router.push('/library');

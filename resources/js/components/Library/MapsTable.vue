@@ -7,6 +7,7 @@
         :items="mapsWithSubjectNames"
         :sort-by.sync="sortBy"
         :sort-desc.sync="sortDesc"
+        :search="search"
         single-expand
         show-expand
         item-key="id"
@@ -86,7 +87,7 @@
 
 <script>
 import {mapActions, mapState} from "vuex"
-import ListMapsSetSubjectForMaps from "./ListMapsSetSubjectForMapsDialog";
+import ListMapsSetSubjectForMaps from "./MapsTableSetSubjectForMapsDialog"
 
 export default {
     name: "ListMaps",
@@ -94,7 +95,8 @@ export default {
         ListMapsSetSubjectForMaps
     },
     props: {
-        maps: Array
+        maps: Array,
+        search: String
     },
     data() {
         return {
