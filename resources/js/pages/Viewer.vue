@@ -3,38 +3,27 @@
         style="height: 100vh"
         class="d-flex flex-row"
     >
-        <!-- Loading -->
-        <v-overlay :value="loadingMap">
-            <div class="d-flex flex-column align-center text-center">
-                <v-progress-circular
-                    indeterminate
-                    :size="128"
-                />
-                <span class="headline mt-4">Loading map</span>
-            </div>
-        </v-overlay>
-        <template v-if="!loadingMap">
-            <!-- Map -->
-            <Map/>
-            <!-- Content -->
-            <div
-                class="text-center"
-                style="width: 34vw;"
-            >
-                <MediaContent height="34vh"/>
-                <v-container class="px-6" style="height: 66vh; overflow-y: scroll">
-                    <div class="headline mt-6 mb-4">{{ selectedEvent.title }}</div>
-                    <div v-html="selectedEvent.description"/>
-                </v-container>
-            </div>
-        </template>
+        <!-- Map -->
+        <Map/>
+        <!-- Content -->
+        <div
+            class="text-center"
+            style="width: 34vw;"
+        >
+            <MediaContent height="34vh"/>
+            <v-container class="px-6" style="height: 66vh; overflow-y: scroll">
+                <div class="headline mt-6 mb-4">{{ selectedEvent.title }}</div>
+                <div v-html="selectedEvent.description"/>
+            </v-container>
+        </div>
     </div>
 </template>
 
 <script>
-import {mapGetters, mapActions, mapMutations, mapState} from "vuex"
-import Map from "@/components/Viewer/Map"
-import MediaContent from "@/components/MediaContentForEvent"
+import store from "../store"
+import {mapGetters, mapMutations} from "vuex"
+import Map from "../components/Viewer/Map"
+import MediaContent from "../components/MediaContentForEvent"
 
 export default {
     name: "Viewer",
@@ -42,63 +31,62 @@ export default {
         Map,
         MediaContent
     },
-    data() {
-        return {
-            loadingMap: false
-        }
-    },
     computed: {
-        ...mapState('map', [
-            'name',
-            'description',
-            'events'
-        ]),
-        ...mapGetters('map', ['selectedEvent'])
+        ...mapGetters('map', ['selectedEvent', 'wasChanges'])
     },
     methods: {
-        ...mapActions('map', [
-            'getMap',
-            'setExampleMap',
-        ]),
         ...mapMutations('map', [
             'SET_SELECTED_EVENT_ID',
             'SET_TILE_CENTER'
-        ])
-    },
-    async beforeMount() {
-        // set editable example map. Id 0 means editable.
-        if (this.$route.name === "viewer-example" && this.$route.params.id === "0") {
-            // Do nothing. Map is already set.
-            this.SET_SELECTED_EVENT_ID(this.events[0].id);
-            // set tile center on first event
-            this.SET_TILE_CENTER(this.selectedEvent.marker.position);
+        ]),
+        // Вызов подтверждения при закрытии конструктора с несохраненными изменениями
+        preventNav(event) {
+            if (!this.wasChanges) return;
+            event.preventDefault();
+            // Chrome requires returnValue to be set.
+            event.returnValue = "";
         }
-        // set example map
-        else if (this.$route.name === "viewer-example")
-            this.setExampleMap(this.$route.params.id);
-        // set real map
+    },
+    async beforeRouteEnter(to, from, next) {
+        // example
+        if (to.name === "example") {
+            await store.dispatch('map/setExampleMap', to.params.id, {root: true})
+        }
+        // real map
+        else if (to.params.id) {
+            // map is not loaded yet
+            if (from.name !== "constructor" && to.params.id !== from.params.id) {
+                await store.dispatch('map/getMap', to.params.id, {root: true})
+            }
+            // set seo header
+            document.title = store.state.map.name + " - MapDesigner";
+            document.description = store.state.map.description;
+        }
+        // test map
         else {
-            // get map
-            this.loadingMap = true;
-            await this.getMap(this.$route.params.id)
-                .then(_ => {
-                    this.SET_SELECTED_EVENT_ID(this.events[0].id);
-                    // set tile center on first event
-                    this.SET_TILE_CENTER(this.selectedEvent.marker.position);
-
-                    document.title = this.name + " - MapDesigner";
-                    document.description = this.description;
-                })
-                .finally(() => this.loadingMap = false)
+            // test map not loaded yet
+            if (store.state.map.id !== 'test') {
+                await store.dispatch("map/setEmptyExampleMap", null, {root: true});
+            }
+            // set seo header
+            document.title = "Пробное использование конструктора карт и атласов - MapDesigner";
+            document.description = "Попробуйте возможности для онлайн создания карт и электронных атласов в конструкторе MapDesigner бесплатно.";
         }
 
-        // set seo header
-        document.title = this.name + " - MapDesigner";
-        document.description = this.description;
+        next(vm => {
+            // add method called before the tab is closed
+            if (to.name !== "example" && to.params.id) window.addEventListener("beforeunload", vm.preventNav);
+        });
     },
-    beforeDestroy() {
-        // remove keydown event
-        window.removeEventListener("keydown", e => this.keyDownEvent(e));
+    beforeRouteLeave(to, from, next) {
+        // если были сделаны изменения в реальной карте и если мы не переходим между конструктором и вьюером
+        if (from.name !== "example" && this.wasChanges && from.params.id && to.name !== "viewer" && !window.confirm("Изменения атласа не будут сохранены. Продолжить?")) {
+            next(false);
+        } else {
+            // remove method called before the tab is closed
+            window.removeEventListener("beforeunload", this.preventNav);
+            next();
+        }
     }
 }
 </script>

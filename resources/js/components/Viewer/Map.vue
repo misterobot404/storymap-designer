@@ -78,7 +78,7 @@
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
                 <v-btn
-                    @click.stop="back"
+                    @click.stop="$router.back()"
                     absolute
                     text
                     rounded
@@ -158,14 +158,6 @@
                 "SET_MIN_TILE_ZOOM",
                 "SET_MAX_TILE_ZOOM"
             ]),
-            back() {
-                // set editable example map. Id 0 means editable.
-                if (this.$route.name === "viewer-example" && this.$route.params.id === "0") {
-                    // Do nothing. Map is already set.
-                    this.saveEmptyExampleMap();
-                }
-                this.$router.go(-1);
-            },
             prevEvent() {
                 if (this.indexSelectedEvent === 0)
                     this.SET_SELECTED_EVENT_ID(this.events[this.events.length - 1].id);

@@ -15,8 +15,8 @@
             height="40"
             class="mr-2 primary--text"
         >
-            <v-icon class="mr-1"> arrow_back_ios</v-icon>
-            Назад
+            <v-icon class="mr-1"> home </v-icon>
+            Главная
         </v-btn>
         <v-btn
             v-if="!mapIsExample"
@@ -79,7 +79,7 @@
         <v-btn
             height="40"
             class="ml-2"
-            @click="mapIsExample ? $router.push({ path: `/viewer/example/${id}` }) : $router.push({ path: `/viewer/${id}` })"
+            @click="mapIsExample ? $router.push(`/viewer`) : $router.push({ path: `/viewer/${id}` })"
         >
             <v-icon color="primary" class="mr-1">pageview</v-icon>
             Предпросмотр
@@ -89,8 +89,8 @@
 
 <script>
     import {mapGetters, mapActions, mapState} from 'vuex'
-    import Settings from "@/components/Constructor/ControlPanelSettings"
-    import Help from "@/components/Constructor/ControlPanelHelp"
+    import Settings from "../Constructor/ControlPanelSettings"
+    import Help from "../Constructor/ControlPanelHelp"
 
     export default {
         name: "ControlPanel",
@@ -109,7 +109,7 @@
             ]),
             ...mapState('map', ['id']),
             mapIsExample() {
-                return this.$route.name === "constructor-example"
+                return !this.$route.params.id
             }
         },
         methods: {

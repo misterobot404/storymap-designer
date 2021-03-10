@@ -155,15 +155,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('map', ['saveEmptyExampleMap'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ["SET_TILE_CENTER", "SET_SELECTED_EVENT_ID", "SET_EVENT_MARKER_POSITION", "SET_TILE_BOUNDS", "SET_MIN_TILE_ZOOM", "SET_MAX_TILE_ZOOM"])), {}, {
-    back: function back() {
-      // set editable example map. Id 0 means editable.
-      if (this.$route.name === "viewer-example" && this.$route.params.id === "0") {
-        // Do nothing. Map is already set.
-        this.saveEmptyExampleMap();
-      }
-
-      this.$router.go(-1);
-    },
     prevEvent: function prevEvent() {
       if (this.indexSelectedEvent === 0) this.SET_SELECTED_EVENT_ID(this.events[this.events.length - 1].id);else if (this.indexSelectedEvent !== 0) this.SET_SELECTED_EVENT_ID(this.events[this.indexSelectedEvent - 1].id);
     },
@@ -209,9 +200,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _components_Viewer_Map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/Viewer/Map */ "./resources/js/components/Viewer/Map.vue");
-/* harmony import */ var _components_MediaContentForEvent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/MediaContentForEvent */ "./resources/js/components/MediaContentForEvent.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _components_Viewer_Map__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Viewer/Map */ "./resources/js/components/Viewer/Map.vue");
+/* harmony import */ var _components_MediaContentForEvent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/MediaContentForEvent */ "./resources/js/components/MediaContentForEvent.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -245,90 +237,92 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Viewer",
   components: {
-    Map: _components_Viewer_Map__WEBPACK_IMPORTED_MODULE_2__["default"],
-    MediaContent: _components_MediaContentForEvent__WEBPACK_IMPORTED_MODULE_3__["default"]
+    Map: _components_Viewer_Map__WEBPACK_IMPORTED_MODULE_3__["default"],
+    MediaContent: _components_MediaContentForEvent__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
-  data: function data() {
-    return {
-      loadingMap: false
-    };
-  },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])('map', ['name', 'description', 'events'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('map', ['selectedEvent'])),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('map', ['getMap', 'setExampleMap'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])('map', ['SET_SELECTED_EVENT_ID', 'SET_TILE_CENTER'])),
-  beforeMount: function beforeMount() {
-    var _this = this;
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('map', ['selectedEvent', 'wasChanges'])),
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapMutations"])('map', ['SET_SELECTED_EVENT_ID', 'SET_TILE_CENTER'])), {}, {
+    // Вызов подтверждения при закрытии конструктора с несохраненными изменениями
+    preventNav: function preventNav(event) {
+      if (!this.wasChanges) return;
+      event.preventDefault(); // Chrome requires returnValue to be set.
 
+      event.returnValue = "";
+    }
+  }),
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (!(_this.$route.name === "viewer-example" && _this.$route.params.id === "0")) {
+              if (!(to.name === "example")) {
                 _context.next = 5;
                 break;
               }
 
-              // Do nothing. Map is already set.
-              _this.SET_SELECTED_EVENT_ID(_this.events[0].id); // set tile center on first event
+              _context.next = 3;
+              return _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('map/setExampleMap', to.params.id, {
+                root: true
+              });
 
-
-              _this.SET_TILE_CENTER(_this.selectedEvent.marker.position);
-
-              _context.next = 12;
+            case 3:
+              _context.next = 18;
               break;
 
             case 5:
-              if (!(_this.$route.name === "viewer-example")) {
+              if (!to.params.id) {
+                _context.next = 13;
+                break;
+              }
+
+              if (!(from.name !== "constructor" && to.params.id !== from.params.id)) {
                 _context.next = 9;
                 break;
               }
 
-              _this.setExampleMap(_this.$route.params.id); // set real map
-
-
-              _context.next = 12;
-              break;
-
-            case 9:
-              // get map
-              _this.loadingMap = true;
-              _context.next = 12;
-              return _this.getMap(_this.$route.params.id).then(function (_) {
-                _this.SET_SELECTED_EVENT_ID(_this.events[0].id); // set tile center on first event
-
-
-                _this.SET_TILE_CENTER(_this.selectedEvent.marker.position);
-
-                document.title = _this.name + " - MapDesigner";
-                document.description = _this.description;
-              })["finally"](function () {
-                return _this.loadingMap = false;
+              _context.next = 9;
+              return _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('map/getMap', to.params.id, {
+                root: true
               });
 
-            case 12:
+            case 9:
               // set seo header
-              document.title = _this.name + " - MapDesigner";
-              document.description = _this.description;
+              document.title = _store__WEBPACK_IMPORTED_MODULE_1__["default"].state.map.name + " - MapDesigner";
+              document.description = _store__WEBPACK_IMPORTED_MODULE_1__["default"].state.map.description;
+              _context.next = 18;
+              break;
 
-            case 14:
+            case 13:
+              if (!(_store__WEBPACK_IMPORTED_MODULE_1__["default"].state.map.id !== 'test')) {
+                _context.next = 16;
+                break;
+              }
+
+              _context.next = 16;
+              return _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("map/setEmptyExampleMap", null, {
+                root: true
+              });
+
+            case 16:
+              // set seo header
+              document.title = "Пробное использование конструктора карт и атласов - MapDesigner";
+              document.description = "Попробуйте возможности для онлайн создания карт и электронных атласов в конструкторе MapDesigner бесплатно.";
+
+            case 18:
+              next(function (vm) {
+                // add method called before the tab is closed
+                if (to.name !== "example" && to.params.id) window.addEventListener("beforeunload", vm.preventNav);
+              });
+
+            case 19:
             case "end":
               return _context.stop();
           }
@@ -336,13 +330,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, _callee);
     }))();
   },
-  beforeDestroy: function beforeDestroy() {
-    var _this2 = this;
-
-    // remove keydown event
-    window.removeEventListener("keydown", function (e) {
-      return _this2.keyDownEvent(e);
-    });
+  beforeRouteLeave: function beforeRouteLeave(to, from, next) {
+    // если были сделаны изменения в реальной карте и если мы не переходим между конструктором и вьюером
+    if (from.name !== "example" && this.wasChanges && from.params.id && to.name !== "viewer" && !window.confirm("Изменения атласа не будут сохранены. Продолжить?")) {
+      next(false);
+    } else {
+      // remove method called before the tab is closed
+      window.removeEventListener("beforeunload", this.preventNav);
+      next();
+    }
   }
 });
 
@@ -583,7 +579,7 @@ var render = function() {
                         on: {
                           click: function($event) {
                             $event.stopPropagation()
-                            return _vm.back($event)
+                            return _vm.$router.back()
                           }
                         }
                       },
@@ -633,58 +629,35 @@ var render = function() {
     "div",
     { staticClass: "d-flex flex-row", staticStyle: { height: "100vh" } },
     [
-      _c("v-overlay", { attrs: { value: _vm.loadingMap } }, [
-        _c(
-          "div",
-          { staticClass: "d-flex flex-column align-center text-center" },
-          [
-            _c("v-progress-circular", {
-              attrs: { indeterminate: "", size: 128 }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "headline mt-4" }, [
-              _vm._v("Loading map")
-            ])
-          ],
-          1
-        )
-      ]),
+      _c("Map"),
       _vm._v(" "),
-      !_vm.loadingMap
-        ? [
-            _c("Map"),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "text-center", staticStyle: { width: "34vw" } },
-              [
-                _c("MediaContent", { attrs: { height: "34vh" } }),
-                _vm._v(" "),
-                _c(
-                  "v-container",
-                  {
-                    staticClass: "px-6",
-                    staticStyle: { height: "66vh", "overflow-y": "scroll" }
-                  },
-                  [
-                    _c("div", { staticClass: "headline mt-6 mb-4" }, [
-                      _vm._v(_vm._s(_vm.selectedEvent.title))
-                    ]),
-                    _vm._v(" "),
-                    _c("div", {
-                      domProps: {
-                        innerHTML: _vm._s(_vm.selectedEvent.description)
-                      }
-                    })
-                  ]
-                )
-              ],
-              1
-            )
-          ]
-        : _vm._e()
+      _c(
+        "div",
+        { staticClass: "text-center", staticStyle: { width: "34vw" } },
+        [
+          _c("MediaContent", { attrs: { height: "34vh" } }),
+          _vm._v(" "),
+          _c(
+            "v-container",
+            {
+              staticClass: "px-6",
+              staticStyle: { height: "66vh", "overflow-y": "scroll" }
+            },
+            [
+              _c("div", { staticClass: "headline mt-6 mb-4" }, [
+                _vm._v(_vm._s(_vm.selectedEvent.title))
+              ]),
+              _vm._v(" "),
+              _c("div", {
+                domProps: { innerHTML: _vm._s(_vm.selectedEvent.description) }
+              })
+            ]
+          )
+        ],
+        1
+      )
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -809,8 +782,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
-/* harmony import */ var vuetify_lib_components_VOverlay__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VOverlay */ "./node_modules/vuetify/lib/components/VOverlay/index.js");
-/* harmony import */ var vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VProgressCircular */ "./node_modules/vuetify/lib/components/VProgressCircular/index.js");
 
 
 
@@ -832,9 +803,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 /* vuetify-loader */
 
 
-
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__["VContainer"],VOverlay: vuetify_lib_components_VOverlay__WEBPACK_IMPORTED_MODULE_5__["VOverlay"],VProgressCircular: vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_6__["VProgressCircular"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__["VContainer"]})
 
 
 /* hot reload */

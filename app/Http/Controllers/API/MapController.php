@@ -12,6 +12,7 @@ class MapController extends Controller
     {
         // Get all maps of the current user.
         $maps = Map::where('user_id', auth()->id())->get();
+
         // Remove unused keys
         foreach ($maps as $value) {
             unset($value->events);
@@ -60,9 +61,6 @@ class MapController extends Controller
             ], 403);
         }
 
-        unset($map->user_id);
-        unset($map->created_at);
-        unset($map->updated_at);
         return response()->json([
             "status" => "success",
             "data" => ["map" => $map]
@@ -89,7 +87,7 @@ class MapController extends Controller
         }
 
         $map->name = request('name');
-        $map->subject = request('subject');
+        $map->subject_id = request('subject_id');
         $map->description = request('description');
         $map->config = request('config');
         $map->tile = request('tile');

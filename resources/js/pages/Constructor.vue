@@ -4,44 +4,33 @@
         style="height: 100vh"
         class="d-flex flex-column"
     >
-        <!-- Loading -->
-        <v-overlay :value="loadingMap">
-            <div class="d-flex flex-column align-center text-center">
-                <v-progress-circular
-                    indeterminate
-                    :size="128"
-                />
-                <span class="headline mt-4">Loading map</span>
+        <!-- Control panel -->
+        <ControlPanel/>
+        <!-- Horizontal line -->
+        <v-divider
+            class="my-3"
+            style="border-style: dashed;"
+        />
+        <!-- Constructor -->
+        <div class="d-flex flex overflow-hidden">
+            <!-- Event list -->
+            <EventList/>
+            <!-- Map + Event form -->
+            <div
+                class="d-flex flex-column"
+                style="flex:1; min-width: 200px; padding-left: 12px;"
+            >
+                <!-- Map -->
+                <Map/>
+                <!-- Event form -->
+                <EventForm/>
             </div>
-        </v-overlay>
-        <template v-if="!loadingMap">
-            <!-- Control panel -->
-            <ControlPanel/>
-            <!-- Horizontal line -->
-            <v-divider
-                class="my-3"
-                style="border-style: dashed;"
-            />
-            <!-- Constructor -->
-            <div class="d-flex flex overflow-hidden">
-                <!-- Event list -->
-                <EventList/>
-                <!-- Map + Event form -->
-                <div
-                    class="d-flex flex-column"
-                    style="flex:1; min-width: 200px; padding-left: 12px;"
-                >
-                    <!-- Map -->
-                    <Map/>
-                    <!-- Event form -->
-                    <EventForm/>
-                </div>
-            </div>
-        </template>
+        </div>
     </v-container>
 </template>
 <script>
-import {mapState, mapGetters, mapActions} from "vuex"
+import store from "../store"
+import {mapGetters} from "vuex"
 import ControlPanel from "../components/Constructor/ControlPanel"
 import EventList from "../components/Constructor/EventList"
 import EventForm from "../components/Constructor/EventForm"
@@ -55,24 +44,11 @@ export default {
         EventForm,
         Map
     },
-    data() {
-        return {
-            loadingMap: false,
-        }
-    },
     computed: {
         ...mapGetters('map', ['wasChanges']),
-        ...mapState('map',[
-            'name',
-            'description'
-        ])
     },
     methods: {
-        ...mapActions('map', [
-            'getMap',
-            'setEmptyExampleMap'
-        ]),
-        // beforeunload
+        // Вызов подтверждения при закрытии конструктора с несохраненными изменениями
         preventNav(event) {
             if (!this.wasChanges) return;
             event.preventDefault();
@@ -80,28 +56,43 @@ export default {
             event.returnValue = "";
         }
     },
-    async beforeMount() {
-        // set example map
-        if (this.$route.name === "constructor-example")
-            this.setEmptyExampleMap();
-        // set real map
+    async beforeRouteEnter(to, from, next) {
+        // real map
+        if (to.params.id) {
+            // map is not loaded yet
+            if (from.name !== "viewer" && to.params.id !== from.params.id) {
+                await store.dispatch('map/getMap', to.params.id, {root: true})
+            }
+            // set seo header
+            document.title = store.state.map.name + " - MapDesigner";
+            document.description = store.state.map.description;
+        }
+        // test map
         else {
-            // method called before closing. Check changes map
-            window.addEventListener("beforeunload", this.preventNav);
-
-            this.loadingMap = true;
-            await this.getMap(this.$route.params.id)
-                .then(_ => this.loadingMap = false)
+            // test map not loaded yet
+            if (store.state.map.id !== 'test') {
+                await store.dispatch("map/setEmptyExampleMap", null, {root: true});
+            }
+            // set seo header
+            document.title = "Пробное использование конструктора карт и атласов - MapDesigner";
+            document.description = "Попробуйте возможности для онлайн создания карт и электронных атласов в конструкторе MapDesigner бесплатно.";
         }
 
-        // set seo header
-        document.title = this.name + " - MapDesigner";
-        document.description = this.description;
+        next(vm => {
+            // add method called before the tab is closed
+            if (to.params.id) window.addEventListener("beforeunload", vm.preventNav);
+        });
     },
-    beforeDestroy() {
-        // remove events from window
-        window.removeEventListener("beforeunload", this.preventNav);
-    },
+    beforeRouteLeave(to, from, next) {
+        // если были сделаны изменения в реальной карте и если мы не переходим между конструктором и вьюером
+        if (this.wasChanges && from.params.id && to.name !== "viewer" && !window.confirm("Изменения атласа не будут сохранены. Продолжить?")) {
+            next(false);
+        } else {
+            // remove method called before the tab is closed
+            window.removeEventListener("beforeunload", this.preventNav);
+            next();
+        }
+    }
 }
 </script>
 

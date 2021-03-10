@@ -5,9 +5,9 @@ export default {
     state: {
         maps: [],
         editableExample: {
-            id: 0,
+            id: "test",
             name: "Глобус",
-            subject: "География",
+            subject: "",
             description: "Описание",
             config: JSON.stringify({"eventListWidth": 227, "selectedEventId": 1}),
             tile: JSON.stringify({

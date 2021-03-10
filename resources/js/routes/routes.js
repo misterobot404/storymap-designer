@@ -18,19 +18,9 @@ export const routes = [
             description: "Создавайте, редактуруйте и делитесь созданными картами в библиотеке карт и атласов- MapDesigner."
         }
     },
-    // constructor-example route is always over constructor route
-    {
-        name: 'constructor-example',
-        path: '/constructor/example',
-        component: () => import('@/pages/Constructor'),
-        meta: {
-            title: "Пробное использование конструктора карт и атласов - MapDesigner",
-            description: "Попробуйте возможности для онлайн создания карт и электронных атласов в конструкторе MapDesigner бесплатно."
-        }
-    },
     {
         name: 'constructor',
-        path: '/constructor/:id',
+        path: '/constructor/:id?',
         component: () => import('@/pages/Constructor'),
         props: true,
         meta: {
@@ -41,7 +31,7 @@ export const routes = [
     },
     {
         name: 'viewer',
-        path: '/viewer/:id',
+        path: '/viewer/:id?',
         component: () => import('@/pages/Viewer'),
         props: true,
         meta: {
@@ -51,8 +41,8 @@ export const routes = [
         }
     },
     {
-        name: 'viewer-example',
-        path: '/viewer/example/:id',
+        name: 'example',
+        path: '/example/:id',
         component: () => import('@/pages/Viewer'),
         props: true,
         meta: {

@@ -33,7 +33,7 @@ export default {
     computed: {
         ...mapState('layout', ["feedbackDialog"]),
         // hide appbar and footer
-        hide() { return this.$route.name !== 'constructor' && this.$route.name !== 'constructor-example' && this.$route.name !== 'viewer' && this.$route.name !== 'viewer-example' }
+        hide() { return this.$route.name !== 'constructor' && this.$route.name !== 'viewer' && this.$route.name !== 'example' }
     },
 }
 </script>

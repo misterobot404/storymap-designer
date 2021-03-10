@@ -10,8 +10,8 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _components_Constructor_ControlPanelSettings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/Constructor/ControlPanelSettings */ "./resources/js/components/Constructor/ControlPanelSettings.vue");
-/* harmony import */ var _components_Constructor_ControlPanelHelp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/Constructor/ControlPanelHelp */ "./resources/js/components/Constructor/ControlPanelHelp.vue");
+/* harmony import */ var _Constructor_ControlPanelSettings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Constructor/ControlPanelSettings */ "./resources/js/components/Constructor/ControlPanelSettings.vue");
+/* harmony import */ var _Constructor_ControlPanelHelp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Constructor/ControlPanelHelp */ "./resources/js/components/Constructor/ControlPanelHelp.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -113,8 +113,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ControlPanel",
   components: {
-    Settings: _components_Constructor_ControlPanelSettings__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Help: _components_Constructor_ControlPanelHelp__WEBPACK_IMPORTED_MODULE_2__["default"]
+    Settings: _Constructor_ControlPanelSettings__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Help: _Constructor_ControlPanelHelp__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -123,7 +123,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('map', ['wasChanges'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['id'])), {}, {
     mapIsExample: function mapIsExample() {
-      return this.$route.name === "constructor-example";
+      return !this.$route.params.id;
     }
   }),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('map', ['saveMap', 'recoveryMap'])), {}, {
@@ -567,6 +567,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -579,7 +581,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dialog: false
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['name', 'description', 'subject', 'tile'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['name', 'description', 'subject_id', 'tile'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     maps: function maps(state) {
       return state.maps.maps;
     },
@@ -590,13 +592,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return state.subjects.subjects;
     }
   })), {}, {
-    getSubjectNames: function getSubjectNames() {
-      var subjectNames = [];
-      this.subjects.forEach(function (el) {
-        return subjectNames.push(el.name);
-      });
-      return subjectNames;
-    },
     getTileNames: function getTileNames() {
       var tileNames = [];
       this.tiles.forEach(function (el) {
@@ -622,7 +617,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     model_mapSubject: {
       get: function get() {
-        return this.subject;
+        return this.subject_id;
       },
       set: function set(value) {
         this.SET_MAP_SUBJECT(value);
@@ -1243,11 +1238,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _components_Constructor_ControlPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Constructor/ControlPanel */ "./resources/js/components/Constructor/ControlPanel.vue");
-/* harmony import */ var _components_Constructor_EventList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Constructor/EventList */ "./resources/js/components/Constructor/EventList.vue");
-/* harmony import */ var _components_Constructor_EventForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Constructor/EventForm */ "./resources/js/components/Constructor/EventForm.vue");
-/* harmony import */ var _components_Constructor_Map__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Constructor/Map */ "./resources/js/components/Constructor/Map.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _components_Constructor_ControlPanel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Constructor/ControlPanel */ "./resources/js/components/Constructor/ControlPanel.vue");
+/* harmony import */ var _components_Constructor_EventList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Constructor/EventList */ "./resources/js/components/Constructor/EventList.vue");
+/* harmony import */ var _components_Constructor_EventForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Constructor/EventForm */ "./resources/js/components/Constructor/EventForm.vue");
+/* harmony import */ var _components_Constructor_Map__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Constructor/Map */ "./resources/js/components/Constructor/Map.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -1290,18 +1286,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
@@ -1310,60 +1295,72 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Constructor",
   components: {
-    ControlPanel: _components_Constructor_ControlPanel__WEBPACK_IMPORTED_MODULE_2__["default"],
-    EventList: _components_Constructor_EventList__WEBPACK_IMPORTED_MODULE_3__["default"],
-    EventForm: _components_Constructor_EventForm__WEBPACK_IMPORTED_MODULE_4__["default"],
-    Map: _components_Constructor_Map__WEBPACK_IMPORTED_MODULE_5__["default"]
+    ControlPanel: _components_Constructor_ControlPanel__WEBPACK_IMPORTED_MODULE_3__["default"],
+    EventList: _components_Constructor_EventList__WEBPACK_IMPORTED_MODULE_4__["default"],
+    EventForm: _components_Constructor_EventForm__WEBPACK_IMPORTED_MODULE_5__["default"],
+    Map: _components_Constructor_Map__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
-  data: function data() {
-    return {
-      loadingMap: false
-    };
-  },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('map', ['wasChanges'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])('map', ['name', 'description'])),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('map', ['getMap', 'setEmptyExampleMap'])), {}, {
-    // beforeunload
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('map', ['wasChanges'])),
+  methods: {
+    // Вызов подтверждения при закрытии конструктора с несохраненными изменениями
     preventNav: function preventNav(event) {
       if (!this.wasChanges) return;
       event.preventDefault(); // Chrome requires returnValue to be set.
 
       event.returnValue = "";
     }
-  }),
-  beforeMount: function beforeMount() {
-    var _this = this;
-
+  },
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (!(_this.$route.name === "constructor-example")) {
+              if (!to.params.id) {
+                _context.next = 8;
+                break;
+              }
+
+              if (!(from.name !== "viewer" && to.params.id !== from.params.id)) {
                 _context.next = 4;
                 break;
               }
 
-              _this.setEmptyExampleMap(); // set real map
-
-
-              _context.next = 8;
-              break;
-
-            case 4:
-              // method called before closing. Check changes map
-              window.addEventListener("beforeunload", _this.preventNav);
-              _this.loadingMap = true;
-              _context.next = 8;
-              return _this.getMap(_this.$route.params.id).then(function (_) {
-                return _this.loadingMap = false;
+              _context.next = 4;
+              return _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('map/getMap', to.params.id, {
+                root: true
               });
 
-            case 8:
+            case 4:
               // set seo header
-              document.title = _this.name + " - MapDesigner";
-              document.description = _this.description;
+              document.title = _store__WEBPACK_IMPORTED_MODULE_1__["default"].state.map.name + " - MapDesigner";
+              document.description = _store__WEBPACK_IMPORTED_MODULE_1__["default"].state.map.description;
+              _context.next = 13;
+              break;
 
-            case 10:
+            case 8:
+              if (!(_store__WEBPACK_IMPORTED_MODULE_1__["default"].state.map.id !== 'test')) {
+                _context.next = 11;
+                break;
+              }
+
+              _context.next = 11;
+              return _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("map/setEmptyExampleMap", null, {
+                root: true
+              });
+
+            case 11:
+              // set seo header
+              document.title = "Пробное использование конструктора карт и атласов - MapDesigner";
+              document.description = "Попробуйте возможности для онлайн создания карт и электронных атласов в конструкторе MapDesigner бесплатно.";
+
+            case 13:
+              next(function (vm) {
+                // add method called before the tab is closed
+                if (to.params.id) window.addEventListener("beforeunload", vm.preventNav);
+              });
+
+            case 14:
             case "end":
               return _context.stop();
           }
@@ -1371,9 +1368,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, _callee);
     }))();
   },
-  beforeDestroy: function beforeDestroy() {
-    // remove events from window
-    window.removeEventListener("beforeunload", this.preventNav);
+  beforeRouteLeave: function beforeRouteLeave(to, from, next) {
+    // если были сделаны изменения в реальной карте и если мы не переходим между конструктором и вьюером
+    if (this.wasChanges && from.params.id && to.name !== "viewer" && !window.confirm("Изменения атласа не будут сохранены. Продолжить?")) {
+      next(false);
+    } else {
+      // remove method called before the tab is closed
+      window.removeEventListener("beforeunload", this.preventNav);
+      next();
+    }
   }
 });
 
@@ -1569,10 +1572,8 @@ var render = function() {
               attrs: { to: "/", height: "40" }
             },
             [
-              _c("v-icon", { staticClass: "mr-1" }, [
-                _vm._v(" arrow_back_ios")
-              ]),
-              _vm._v("\n        Назад\n    ")
+              _c("v-icon", { staticClass: "mr-1" }, [_vm._v(" home ")]),
+              _vm._v("\n        Главная\n    ")
             ],
             1
           )
@@ -1690,7 +1691,7 @@ var render = function() {
           on: {
             click: function($event) {
               _vm.mapIsExample
-                ? _vm.$router.push({ path: "/viewer/example/" + _vm.id })
+                ? _vm.$router.push("/viewer")
                 : _vm.$router.push({ path: "/viewer/" + _vm.id })
             }
           }
@@ -2481,9 +2482,11 @@ var render = function() {
                                             [
                                               _c("v-select", {
                                                 attrs: {
+                                                  items: _vm.subjects,
+                                                  "item-text": "name",
+                                                  "item-value": "id",
                                                   height: "68",
                                                   filled: "",
-                                                  items: _vm.getSubjectNames,
                                                   label: "Категория",
                                                   rules: [
                                                     function(v) {
@@ -3456,58 +3459,37 @@ var render = function() {
       attrs: { fluid: "" }
     },
     [
-      _c("v-overlay", { attrs: { value: _vm.loadingMap } }, [
-        _c(
-          "div",
-          { staticClass: "d-flex flex-column align-center text-center" },
-          [
-            _c("v-progress-circular", {
-              attrs: { indeterminate: "", size: 128 }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "headline mt-4" }, [
-              _vm._v("Loading map")
-            ])
-          ],
-          1
-        )
-      ]),
+      _c("ControlPanel"),
       _vm._v(" "),
-      !_vm.loadingMap
-        ? [
-            _c("ControlPanel"),
-            _vm._v(" "),
-            _c("v-divider", {
-              staticClass: "my-3",
-              staticStyle: { "border-style": "dashed" }
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "d-flex flex overflow-hidden" },
-              [
-                _c("EventList"),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "d-flex flex-column",
-                    staticStyle: {
-                      flex: "1",
-                      "min-width": "200px",
-                      "padding-left": "12px"
-                    }
-                  },
-                  [_c("Map"), _vm._v(" "), _c("EventForm")],
-                  1
-                )
-              ],
-              1
-            )
-          ]
-        : _vm._e()
+      _c("v-divider", {
+        staticClass: "my-3",
+        staticStyle: { "border-style": "dashed" }
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "d-flex flex overflow-hidden" },
+        [
+          _c("EventList"),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "d-flex flex-column",
+              staticStyle: {
+                flex: "1",
+                "min-width": "200px",
+                "padding-left": "12px"
+              }
+            },
+            [_c("Map"), _vm._v(" "), _c("EventForm")],
+            1
+          )
+        ],
+        1
+      )
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -4300,8 +4282,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
 /* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/index.js");
-/* harmony import */ var vuetify_lib_components_VOverlay__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VOverlay */ "./node_modules/vuetify/lib/components/VOverlay/index.js");
-/* harmony import */ var vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VProgressCircular */ "./node_modules/vuetify/lib/components/VProgressCircular/index.js");
 
 
 
@@ -4324,9 +4304,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__["VContainer"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_5__["VDivider"],VOverlay: vuetify_lib_components_VOverlay__WEBPACK_IMPORTED_MODULE_6__["VOverlay"],VProgressCircular: vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_7__["VProgressCircular"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__["VContainer"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_5__["VDivider"]})
 
 
 /* hot reload */

@@ -46,7 +46,7 @@
                             Узнать больше
                         </v-btn>
                         <span class="font-weight-bold ml-6 mr-2 my-4"> или </span>
-                        <v-btn color="blue" large text to="/constructor/example">
+                        <v-btn color="blue" large text to="/constructor">
                             Попробовать сейчас
                         </v-btn>
                     </div>
@@ -135,7 +135,7 @@
                                 height="100%"
                                 class="mx-auto"
                                 style="cursor: pointer"
-                                @click="$router.push({ path: `/viewer/example/${card.id}` })"
+                                @click="$router.push({ path: `/example/${card.id}` })"
                             >
                                 <v-img :src="card.img">
                                     <v-expand-transition>

@@ -3436,7 +3436,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapState"])('layout', ["feedbackDialog"])), {}, {
     // hide appbar and footer
     hide: function hide() {
-      return this.$route.name !== 'constructor' && this.$route.name !== 'constructor-example' && this.$route.name !== 'viewer' && this.$route.name !== 'viewer-example';
+      return this.$route.name !== 'constructor' && this.$route.name !== 'viewer' && this.$route.name !== 'example';
     }
   })
 });
@@ -9206,13 +9206,7 @@ var render = function() {
       _c(
         "keep-alive",
         {
-          attrs: {
-            exclude: [
-              "Constructor",
-              "Viewer",
-              _vm.$store.state.auth.token ? null : "Library"
-            ]
-          }
+          attrs: { exclude: [_vm.$store.state.auth.token ? null : "Library"] }
         },
         [_c("router-view")],
         1
@@ -70841,14 +70835,14 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/store */ "./resources/js/store/index.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
 
  // 401 errors logout user
 
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
-  if (error.response.status === 401) {
+  if (error.response.status === 401 || error.response.status === 403) {
     _store__WEBPACK_IMPORTED_MODULE_1__["default"].commit("auth/LOGOUT", null, {
       root: true
     });
@@ -70863,7 +70857,7 @@ if (authToken) {
 
   _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('subjects/getSubjects', null, {
     root: true
-  });
+  }).then();
 }
 
 /***/ }),
@@ -70918,11 +70912,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: _routes__WEBPACK_IMPORTED_MODULE_2__["routes"]
 });
 router.beforeEach(function (to, from, next) {
-  // method called before closing. Check changes map.
-  if (from.name === "constructor" && _store__WEBPACK_IMPORTED_MODULE_3__["default"].getters['map/wasChanges']) {
-    if (!window.confirm("Изменения атласа не будут сохранены. Продолжить?")) return;
-  }
-
+  // enable page loading effect
   _store__WEBPACK_IMPORTED_MODULE_3__["default"].commit("layout/ENABLE_PAGE_LOADING", null, {
     root: true
   }); // checking access to the router
@@ -70936,6 +70926,7 @@ router.beforeEach(function (to, from, next) {
   }
 });
 router.afterEach(function (to, from) {
+  // disable page loading effect
   _store__WEBPACK_IMPORTED_MODULE_3__["default"].commit("layout/DISABLE_PAGE_LOADING", null, {
     root: true
   });
@@ -70974,22 +70965,11 @@ var routes = [{
     title: "Библиотека карт и атласов - MapDesigner",
     description: "Создавайте, редактуруйте и делитесь созданными картами в библиотеке карт и атласов- MapDesigner."
   }
-}, // constructor-example route is always over constructor route
-{
-  name: 'constructor-example',
-  path: '/constructor/example',
-  component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! @/pages/Constructor */ "./resources/js/pages/Constructor.vue"));
-  },
-  meta: {
-    title: "Пробное использование конструктора карт и атласов - MapDesigner",
-    description: "Попробуйте возможности для онлайн создания карт и электронных атласов в конструкторе MapDesigner бесплатно."
-  }
 }, {
   name: 'constructor',
-  path: '/constructor/:id',
+  path: '/constructor/:id?',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! @/pages/Constructor */ "./resources/js/pages/Constructor.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! @/pages/Constructor */ "./resources/js/pages/Constructor.vue"));
   },
   props: true,
   meta: {
@@ -70999,9 +70979,9 @@ var routes = [{
   }
 }, {
   name: 'viewer',
-  path: '/viewer/:id',
+  path: '/viewer/:id?',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
   },
   props: true,
   meta: {
@@ -71010,10 +70990,10 @@ var routes = [{
     description: "Расскажите истории в Интернете, освещающие места, события или предметы. MapDesigner позволит быстро создавать гибкие карты и атласы для использования их в сфере обучения и туризма."
   }
 }, {
-  name: 'viewer-example',
-  path: '/viewer/example/:id',
+  name: 'example',
+  path: '/example/:id',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
   },
   props: true,
   meta: {
@@ -71254,7 +71234,7 @@ __webpack_require__.r(__webpack_exports__);
     //// MAP. Data from db.
     id: "",
     name: "",
-    subject: "",
+    subject_id: "",
     description: "",
     config: {
       eventListWidth: 227
@@ -71302,9 +71282,8 @@ __webpack_require__.r(__webpack_exports__);
       var currentMap = {
         id: state.id,
         name: state.name,
-        subject: state.subject,
+        subject_id: state.subject_id,
         description: state.description,
-        config: state.config,
         tile: state.tile,
         events: state.events
       };
@@ -71348,7 +71327,7 @@ __webpack_require__.r(__webpack_exports__);
           commit = _ref3.commit;
       var editableMap = {
         name: state.name,
-        subject: state.subject,
+        subject_id: state.subject_id,
         description: state.description,
         config: state.config,
         tile: state.tile,
@@ -71381,7 +71360,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var map = {
         name: state.name,
-        subject: state.subject,
+        subject_id: state.subject_id,
         description: state.description,
         config: JSON.stringify(state.config),
         tile: JSON.stringify(state.tile),
@@ -71428,7 +71407,7 @@ __webpack_require__.r(__webpack_exports__);
     SET_MAP: function SET_MAP(state, map) {
       state.id = map.id;
       state.name = map.name;
-      state.subject = map.subject;
+      state.subject_id = map.subject_id;
       state.description = map.description;
       state.config = JSON.parse(map.config);
       state.tile = JSON.parse(map.tile);
@@ -71439,9 +71418,8 @@ __webpack_require__.r(__webpack_exports__);
       state.oldMap = {
         id: map.id,
         name: map.name,
-        subject: map.subject,
+        subject_id: map.subject_id,
         description: map.description,
-        config: JSON.parse(map.config),
         tile: JSON.parse(map.tile),
         events: JSON.parse(map.events)
       };
@@ -71450,7 +71428,7 @@ __webpack_require__.r(__webpack_exports__);
     CLEAR_STATE: function CLEAR_STATE(state) {
       state.id = "";
       state.name = "";
-      state.subject = "";
+      state.subject_id = "";
       state.description = "";
       state.config = {
         eventListWidth: 227
@@ -71462,11 +71440,10 @@ __webpack_require__.r(__webpack_exports__);
     RECOVERY_MAP: function RECOVERY_MAP(state) {
       // Recovery state
       state.name = state.oldMap.name;
-      state.subject = state.oldMap.subject;
+      state.subject_id = state.oldMap.subject_id;
       state.description = state.oldMap.description; // Copy object. Not reference
 
-      Object.assign(state.tile, state.oldMap.tile);
-      Object.assign(state.config, state.oldMap.config); // Copy array of object. Not references.
+      Object.assign(state.tile, state.oldMap.tile); // Copy array of object. Not references.
 
       state.events = state.oldMap.events.map(function (a) {
         return Object.assign({}, a);
@@ -71485,8 +71462,8 @@ __webpack_require__.r(__webpack_exports__);
     SET_MAP_DESCRIPTION: function SET_MAP_DESCRIPTION(state, description) {
       state.description = description;
     },
-    SET_MAP_SUBJECT: function SET_MAP_SUBJECT(state, subject) {
-      state.subject = subject;
+    SET_MAP_SUBJECT: function SET_MAP_SUBJECT(state, subject_id) {
+      state.subject_id = subject_id;
     },
     //// Events
     SET_EVENTS: function SET_EVENTS(state, events) {
@@ -71584,9 +71561,9 @@ __webpack_require__.r(__webpack_exports__);
   state: {
     maps: [],
     editableExample: {
-      id: 0,
+      id: "test",
       name: "Глобус",
-      subject: "География",
+      subject: "",
       description: "Описание",
       config: JSON.stringify({
         "eventListWidth": 227,

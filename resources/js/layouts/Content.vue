@@ -2,7 +2,7 @@
     <v-main id="main" style="min-width: 320px !important;">
         <!-- Exclude: remove component from cached -->
         <!-- $store.state.auth.token ? null : 'Library' - сбрасывать кеш компонента Library, если пользователь разлогинился -->
-        <keep-alive :exclude="['Constructor', 'Viewer', $store.state.auth.token ? null : 'Library']">
+        <keep-alive :exclude="[$store.state.auth.token ? null : 'Library']">
             <!-- cached by key -->
             <router-view/>
         </keep-alive>

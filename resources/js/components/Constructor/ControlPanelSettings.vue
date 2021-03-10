@@ -65,9 +65,11 @@
                                             <v-col cols="12">
                                                 <v-select
                                                     v-model="model_mapSubject"
+                                                    :items="subjects"
+                                                    item-text="name"
+                                                    item-value="id"
                                                     height="68"
                                                     filled
-                                                    :items="getSubjectNames"
                                                     label="Категория"
                                                     :rules="[v => !!v || 'Выберите категорию']"
                                                     required
@@ -170,7 +172,7 @@
             ...mapState('map', [
                 'name',
                 'description',
-                'subject',
+                'subject_id',
                 'tile'
             ]),
             ...mapState({
@@ -178,11 +180,6 @@
                 tiles: state => state.tiles.tiles,
                 subjects: state => state.subjects.subjects
             }),
-            getSubjectNames() {
-                let subjectNames = [];
-                this.subjects.forEach(el => subjectNames.push(el.name));
-                return subjectNames;
-            },
             getTileNames() {
                 let tileNames = [];
                 this.tiles.forEach(el => tileNames.push(el.name));
@@ -206,7 +203,7 @@
             },
             model_mapSubject: {
                 get() {
-                    return this.subject
+                    return this.subject_id
                 },
                 set(value) {
                     this.SET_MAP_SUBJECT(value)

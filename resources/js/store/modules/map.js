@@ -6,7 +6,7 @@ export default {
         //// MAP. Data from db.
         id: "",
         name: "",
-        subject: "",
+        subject_id: "",
         description: "",
         config: {eventListWidth: 227}, // {selectedEventId, eventListWidth}
         tile: {}, // {attribution, bounds, maxZoom, minZoom, url, showPolyline, polylineWeight}
@@ -17,7 +17,7 @@ export default {
         // Current coordinate of the view center
         tileCenter: {},
         // Next event will be created with this id
-        nextEventId: 0,
+        nextEventId: 0
     },
     getters: {
         indexSelectedEvent(state) {
@@ -39,9 +39,8 @@ export default {
             let currentMap = {
                 id: state.id,
                 name: state.name,
-                subject: state.subject,
+                subject_id: state.subject_id,
                 description: state.description,
-                config: state.config,
                 tile: state.tile,
                 events: state.events
             };
@@ -77,7 +76,7 @@ export default {
         saveEmptyExampleMap({state, commit}) {
            let editableMap = {
                name: state.name,
-               subject: state.subject,
+               subject_id: state.subject_id,
                description: state.description,
                config: state.config,
                tile: state.tile,
@@ -102,7 +101,7 @@ export default {
             // Send request
             let map = {
                 name: state.name,
-                subject: state.subject,
+                subject_id: state.subject_id,
                 description: state.description,
                 config: JSON.stringify(state.config),
                 tile: JSON.stringify(state.tile),
@@ -143,7 +142,7 @@ export default {
         SET_MAP: (state, map) => {
             state.id = map.id;
             state.name = map.name;
-            state.subject = map.subject;
+            state.subject_id = map.subject_id;
             state.description = map.description;
             state.config = JSON.parse(map.config);
             state.tile = JSON.parse(map.tile);
@@ -154,9 +153,8 @@ export default {
             state.oldMap = {
                 id: map.id,
                 name: map.name,
-                subject: map.subject,
+                subject_id: map.subject_id,
                 description: map.description,
-                config: JSON.parse(map.config),
                 tile: JSON.parse(map.tile),
                 events: JSON.parse(map.events)
             };
@@ -165,7 +163,7 @@ export default {
         CLEAR_STATE: (state) => {
             state.id = "";
             state.name = "";
-            state.subject = "";
+            state.subject_id = "";
             state.description = "";
             state.config = {eventListWidth: 227};
             state.tile = {};
@@ -175,11 +173,10 @@ export default {
         RECOVERY_MAP: (state) => {
             // Recovery state
             state.name = state.oldMap.name;
-            state.subject = state.oldMap.subject;
+            state.subject_id = state.oldMap.subject_id;
             state.description = state.oldMap.description;
             // Copy object. Not reference
             Object.assign(state.tile, state.oldMap.tile);
-            Object.assign(state.config, state.oldMap.config);
             // Copy array of object. Not references.
             state.events = state.oldMap.events.map(a => Object.assign({}, a));
         },
@@ -196,8 +193,8 @@ export default {
         SET_MAP_DESCRIPTION: (state, description) => {
             state.description = description;
         },
-        SET_MAP_SUBJECT: (state, subject) => {
-            state.subject = subject;
+        SET_MAP_SUBJECT: (state, subject_id) => {
+            state.subject_id = subject_id;
         },
         //// Events
         SET_EVENTS: (state, events) => {

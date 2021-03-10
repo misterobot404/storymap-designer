@@ -362,7 +362,7 @@ var render = function() {
                             color: "blue",
                             large: "",
                             text: "",
-                            to: "/constructor/example"
+                            to: "/constructor"
                           }
                         },
                         [
@@ -589,7 +589,7 @@ var render = function() {
                                       on: {
                                         click: function($event) {
                                           return _vm.$router.push({
-                                            path: "/viewer/example/" + card.id
+                                            path: "/example/" + card.id
                                           })
                                         }
                                       }

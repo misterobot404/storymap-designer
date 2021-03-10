@@ -11,12 +11,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    // method called before closing. Check changes map.
-    if (from.name === "constructor" && store.getters['map/wasChanges']) {
-        if (!window.confirm("Изменения атласа не будут сохранены. Продолжить?"))
-            return;
-    }
-
+    // enable page loading effect
     store.commit("layout/ENABLE_PAGE_LOADING", null, {root: true});
     // checking access to the router
     if (to.matched.some(record => record.meta.middlewareAuth) && !store.getters['auth/isAuth'])
@@ -28,6 +23,7 @@ router.beforeEach((to, from, next) => {
     }
 });
 router.afterEach((to, from) => {
+    // disable page loading effect
     store.commit("layout/DISABLE_PAGE_LOADING", null, {root: true});
 });
 
