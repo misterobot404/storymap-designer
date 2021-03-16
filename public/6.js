@@ -289,7 +289,7 @@ var render = function() {
                     "h1",
                     {
                       staticClass:
-                        "display-2 font-weight-black mb-4 text-left white--text",
+                        "display-2 font-weight-black mt-4 mb-8 mt-md-0 mb-md-4 text-left white--text",
                       style: ["padding-top: 48px"]
                     },
                     [
@@ -338,13 +338,13 @@ var render = function() {
                             "x-large": "",
                             dark: "",
                             tile: "",
-                            depressed: ""
-                          },
-                          on: { click: _vm.goToFutures }
+                            depressed: "",
+                            to: "/constructor"
+                          }
                         },
                         [
                           _vm._v(
-                            "\n                        Узнать больше\n                    "
+                            "\n                        Попробовать сейчас\n                    "
                           )
                         ]
                       ),
@@ -358,16 +358,12 @@ var render = function() {
                       _c(
                         "v-btn",
                         {
-                          attrs: {
-                            color: "blue",
-                            large: "",
-                            text: "",
-                            to: "/constructor"
-                          }
+                          attrs: { color: "blue", large: "", text: "" },
+                          on: { click: _vm.goToFutures }
                         },
                         [
                           _vm._v(
-                            "\n                        Попробовать сейчас\n                    "
+                            "\n                        Узнать больше\n                    "
                           )
                         ]
                       )

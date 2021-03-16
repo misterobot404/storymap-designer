@@ -332,7 +332,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   beforeRouteLeave: function beforeRouteLeave(to, from, next) {
     // если были сделаны изменения в реальной карте и если мы не переходим между конструктором и вьюером
-    if (from.name !== "example" && this.wasChanges && from.params.id && to.name !== "viewer" && !window.confirm("Изменения атласа не будут сохранены. Продолжить?")) {
+    if (from.name !== "example" && this.wasChanges && from.params.id && to.name !== "constructor" && !window.confirm("Изменения атласа не будут сохранены. Продолжить?")) {
       next(false);
     } else {
       // remove method called before the tab is closed

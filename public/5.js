@@ -565,7 +565,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var temp_maps = _toConsumableArray(this.maps);
 
       temp_maps.forEach(function (map) {
-        return map.subject_name = _this.subjects.find(function (el) {
+        map.subject_name = _this.subjects.find(function (el) {
           return el.id === map.subject_id;
         }).name;
       });

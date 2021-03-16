@@ -121,7 +121,9 @@ export default {
         ...mapState('subjects', ['subjects']),
         mapsWithSubjectNames() {
             let temp_maps = [...this.maps];
-            temp_maps.forEach(map => map.subject_name = (this.subjects.find(el => el.id === map.subject_id)).name);
+            temp_maps.forEach(map => {
+                map.subject_name = (this.subjects.find(el => el.id === map.subject_id)).name;
+            });
             return temp_maps;
         }
     },

@@ -17,7 +17,7 @@
                     max-width="680"
                     width="100%"
                 >
-                    <h1 class="display-2 font-weight-black mb-4 text-left white--text"
+                    <h1 class="display-2 font-weight-black mt-4 mb-8 mt-md-0 mb-md-4 text-left white--text"
                         :style="['padding-top: 48px']">
                         Есть вещи, которые нельзя изобразить<br>
                         Для всего остального есть MapDesigner
@@ -39,15 +39,15 @@
                             dark
                             tile
                             depressed
-                            @click="goToFutures"
+                            to="/constructor"
                             class="font-weight-bold"
                             style="min-width: 164px;"
                         >
-                            Узнать больше
+                            Попробовать сейчас
                         </v-btn>
                         <span class="font-weight-bold ml-6 mr-2 my-4"> или </span>
-                        <v-btn color="blue" large text to="/constructor">
-                            Попробовать сейчас
+                        <v-btn color="blue" large text @click="goToFutures">
+                            Узнать больше
                         </v-btn>
                     </div>
                 </v-responsive>

@@ -7,6 +7,8 @@
         <Content/>
         <Footer v-if="hide"/>
 
+        <AuthDialog v-if="authDialog"/>
+
         <v-fade-transition>
             <Feedback v-if="feedbackDialog"/>
         </v-fade-transition>
@@ -18,12 +20,16 @@ import AppBar from "./AppBar"
 import Content from "./Content"
 import NavigationDrawer from "./NavigationDrawer"
 import Footer from "./Footer"
+
 import {mapState} from "vuex"
+
 import Feedback from "../components/Feedback"
+import AuthDialog from "../components/Auth"
 
 export default {
     name: 'AppLayout',
     components: {
+        AuthDialog,
         Feedback,
         AppBar,
         Content,
@@ -31,7 +37,10 @@ export default {
         Footer
     },
     computed: {
-        ...mapState('layout', ["feedbackDialog"]),
+        ...mapState('layout', [
+            "feedbackDialog",
+            'authDialog'
+        ]),
         // hide appbar and footer
         hide() { return this.$route.name !== 'constructor' && this.$route.name !== 'viewer' && this.$route.name !== 'example' }
     },

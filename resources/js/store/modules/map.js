@@ -1,4 +1,5 @@
 import axios from "axios"
+import router from "../../routes"
 
 export default {
     namespaced: true,
@@ -74,16 +75,16 @@ export default {
             commit('SET_TILE_CENTER', getters.selectedEvent.marker.position);
         },
         saveEmptyExampleMap({state, commit}) {
-           let editableMap = {
-               name: state.name,
-               subject_id: state.subject_id,
-               description: state.description,
-               config: state.config,
-               tile: state.tile,
-               events: state.events
-           }
+            let editableMap = {
+                name: state.name,
+                subject_id: state.subject_id,
+                description: state.description,
+                config: state.config,
+                tile: state.tile,
+                events: state.events
+            }
             // set tile center on first event
-            commit('maps/SAVE_EDITABLE_EXAMPLE', editableMap, { root: true });
+            commit('maps/SAVE_EDITABLE_EXAMPLE', editableMap, {root: true});
         },
         setExampleMap({state, commit, rootState, getters}, mapId) {
             // Clear previous map
@@ -95,9 +96,10 @@ export default {
             // set tile center on first event
             commit('SET_TILE_CENTER', getters.selectedEvent.marker.position);
         },
-        saveMap({state, commit}) {
+        saveMap({state, commit, dispatch}) {
             // Save current width event list
             commit('SET_EVENT_LIST_WIDTH');
+
             // Send request
             let map = {
                 name: state.name,
@@ -107,7 +109,14 @@ export default {
                 tile: JSON.stringify(state.tile),
                 events: JSON.stringify(state.events)
             };
-            return axios.put('/api/maps/' + state.id, map)
+
+            // Save new map
+            if (state.id === "test") {
+                return dispatch('maps/createMap', map, {root:true})
+                    .then(_ => router.push("/library"))
+            }
+            // Save existing map
+            else return axios.put('/api/maps/' + state.id, map)
                 .then(response => {
                     commit('SET_OLD_MAP', response.data.data.map);
                 })
@@ -122,7 +131,7 @@ export default {
         addEvent({state, commit}) {
             commit('PUSH_EMPTY_EVENT');
             commit('ITERATION_ID');
-            commit('SET_SELECTED_EVENT_ID',state.events[state.events.length-1].id)
+            commit('SET_SELECTED_EVENT_ID', state.events[state.events.length - 1].id)
         },
         deleteEventByIndex({state, getters, commit}, index) {
             // Удалаяем событие

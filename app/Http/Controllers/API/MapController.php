@@ -32,6 +32,11 @@ class MapController extends Controller
         $map->name = request('name');
         $map->subject_id = request('subject_id');
         $map->description = request('description');
+        // save map from example map
+        if (request('config')) $map->config = request('config');
+        if (request('tile')) $map->tile = request('tile');
+        if (request('events')) $map->events = request('events');
+
         $map->save();
 
         $maps = Map::where('user_id', auth()->id())->get();

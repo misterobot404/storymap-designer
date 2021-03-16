@@ -1,28 +1,27 @@
 <template>
     <div class="d-flex">
         <v-btn
-                v-if="!mapIsExample"
-                to="/library"
-                height="40"
-                class="mr-2"
-            >
-                <v-icon class="mr-1" color="primary"> arrow_back_ios</v-icon>
-                Моя библиотека
-            </v-btn>
+            v-if="!mapIsExample"
+            to="/library"
+            height="40"
+            class="mr-2"
+        >
+            <v-icon class="mr-1" color="primary"> arrow_back_ios</v-icon>
+            Моя библиотека
+        </v-btn>
         <v-btn
-            v-if="mapIsExample"
+            v-else
             to="/"
             height="40"
             class="mr-2 primary--text"
         >
-            <v-icon class="mr-1"> home </v-icon>
+            <v-icon class="mr-1"> home</v-icon>
             Главная
         </v-btn>
         <v-btn
-            v-if="!mapIsExample"
             height="40"
             class="mx-2"
-            @click="save()"
+            @click="isAuth ? save() : SHOW_AUTH_DIALOG()"
         >
             <v-icon
                 :style="wasChanges ? '' : 'opacity: 0.76'"
@@ -88,41 +87,45 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions, mapState} from 'vuex'
-    import Settings from "../Constructor/ControlPanelSettings"
-    import Help from "../Constructor/ControlPanelHelp"
+import {mapGetters, mapActions, mapState, mapMutations} from 'vuex'
+import Settings from "../Constructor/ControlPanelSettings"
+import Help from "../Constructor/ControlPanelHelp"
 
-    export default {
-        name: "ControlPanel",
-        components: {
-            Settings,
-            Help
-        },
-        data() {
-            return {
-                procSave: false,
-            }
-        },
-        computed: {
-            ...mapGetters('map', [
-                'wasChanges'
-            ]),
-            ...mapState('map', ['id']),
-            mapIsExample() {
-                return !this.$route.params.id
-            }
-        },
-        methods: {
-            ...mapActions('map', [
-                'saveMap',
-                'recoveryMap'
-            ]),
-            save() {
-                this.procSave = true;
-                this.saveMap().finally(() => {
-                    this.procSave = false;
-                })
-            }
+export default {
+    name: "ControlPanel",
+    components: {
+        Settings,
+        Help
+    },
+    data() {
+        return {
+            procSave: false,
+        }
+    },
+    computed: {
+        ...mapGetters('map', [
+            'wasChanges'
+        ]),
+        ...mapGetters('auth', [
+            'isAuth'
+        ]),
+        ...mapState('map', ['id']),
+        mapIsExample() {
+            return !this.$route.params.id
+        }
+    },
+    methods: {
+        ...mapActions('map', [
+            'saveMap',
+            'recoveryMap'
+        ]),
+        ...mapMutations('layout',['SHOW_AUTH_DIALOG']),
+        save() {
+            this.procSave = true;
+            this.saveMap().finally(() => {
+                this.procSave = false;
+            })
         }
     }
+}
 </script>

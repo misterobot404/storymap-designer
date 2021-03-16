@@ -123,9 +123,15 @@
                     <UserPanel/>
                 </template>
                 <!-- Login btn -->
-                <template v-else>
-                    <AuthDialog/>
-                </template>
+                <v-btn v-else
+                       class="ml-4 px-5"
+                       color="primary"
+                       outlined
+                       @click="SHOW_AUTH_DIALOG()"
+                >
+                    <v-icon class="mr-1">exit_to_app</v-icon>
+                    Войти
+                </v-btn>
             </v-row>
         </v-container>
     </v-app-bar>
@@ -134,7 +140,7 @@
 <script>
 import {mapState, mapGetters, mapMutations} from "vuex"
 import UserPanel from "../components/UserPanel"
-import AuthDialog from "../components/Auth/Index"
+import AuthDialog from "../components/Auth"
 
 export default {
     name: "AppBar",
@@ -153,7 +159,10 @@ export default {
         })
     },
     methods: {
-        ...mapMutations('layout', ['SET_DRAWER']),
+        ...mapMutations('layout', [
+            'SET_DRAWER',
+            'SHOW_AUTH_DIALOG'
+        ]),
         async goToFutures() {
             if (this.$route.path === "/") {
                 let slide = document.getElementById("futures");

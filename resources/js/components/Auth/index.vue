@@ -1,19 +1,9 @@
-<template xmlns:v-slot="http://www.w3.org/1999/xlink">
+<template>
     <v-dialog
-        v-model="dialog"
+        :value="authDialog"
         max-width="420px"
+        @input="v => v || HIDE_AUTH_DIALOG()"
     >
-        <template v-slot:activator="{ on }">
-            <v-btn
-                class="ml-4 px-5"
-                color="primary"
-                outlined
-                v-on="on"
-            >
-                <v-icon class="mr-1">exit_to_app</v-icon>
-                Войти
-            </v-btn>
-        </template>
         <v-card>
             <v-toolbar height="88"
                        extended
@@ -44,16 +34,16 @@
             </v-toolbar>
             <v-divider/>
             <v-expand-transition>
-                <component v-bind:is="currentTabName" @done="dialog = false"/>
+                <component v-bind:is="currentTabName" @done="HIDE_AUTH_DIALOG()"/>
             </v-expand-transition>
         </v-card>
     </v-dialog>
 </template>
 
 <script>
-import Authorization from "@/components/Auth/Authorization"
-import Registration from "@/components/Auth/Registration"
-import {mapState} from 'vuex'
+import Authorization from "./Authorization"
+import Registration from "./Registration"
+import {mapMutations, mapState} from 'vuex'
 
 export default {
     name: "IndexAuth",
@@ -68,11 +58,18 @@ export default {
         }
     },
     computed: {
-        ...mapState('layout', ['appName', 'appLogo']),
+        ...mapState('layout', [
+            'appName',
+            'appLogo',
+            'authDialog'
+        ]),
         currentTabName() {
             if (this.currentTabIndex === 0) return "Authorization"
             else return "Registration"
         }
+    },
+    methods: {
+        ...mapMutations('layout', ["HIDE_AUTH_DIALOG"]),
     }
 }
 </script>

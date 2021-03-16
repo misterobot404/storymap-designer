@@ -6,10 +6,10 @@ export default {
         maps: [],
         editableExample: {
             id: "test",
-            name: "Глобус",
-            subject: "",
+            name: "Тестовый Атлас",
+            subject_id: "",
             description: "Описание",
-            config: JSON.stringify({"eventListWidth": 227, "selectedEventId": 1}),
+            config: JSON.stringify({"eventListWidth": 227}),
             tile: JSON.stringify({
                 "url": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
                 "bounds": {"_northEast": {"lat": 85, "lng": 45}, "_southWest": {"lat": 47, "lng": -180}},
@@ -279,7 +279,10 @@ export default {
             return axios.post('/api/maps', {
                 name: data.name,
                 subject_id: data.subject_id,
-                description: data.description
+                description: data.description,
+                config: JSON.stringify(data.config),
+                tile: JSON.stringify(data.tile),
+                events: JSON.stringify(data.events)
             })
                 .then(response => { commit('SET_MAPS', response.data.data.maps) })
         },

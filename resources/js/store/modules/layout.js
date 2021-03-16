@@ -13,7 +13,9 @@ export default {
         // show / hide progress line
         pageLoading: false,
         // show feedback dialog
-        feedbackDialog: false
+        feedbackDialog: false,
+        // show auth dialog
+        authDialog: false
     },
     mutations: {
         ENABLE_PAGE_LOADING(state) {
@@ -38,6 +40,13 @@ export default {
         HIDE_FEEDBACK_DIALOG(state) {
             state.feedbackDialog = false;
         },
+
+        SHOW_AUTH_DIALOG(state) {
+            state.authDialog = true;
+        },
+        HIDE_AUTH_DIALOG(state) {
+            state.authDialog = false;
+        }
     }
 }
 

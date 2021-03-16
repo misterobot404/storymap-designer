@@ -106,7 +106,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -121,12 +120,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       procSave: false
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('map', ['wasChanges'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['id'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('map', ['wasChanges'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('auth', ['isAuth'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['id'])), {}, {
     mapIsExample: function mapIsExample() {
       return !this.$route.params.id;
     }
   }),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('map', ['saveMap', 'recoveryMap'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('map', ['saveMap', 'recoveryMap'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('layout', ['SHOW_AUTH_DIALOG'])), {}, {
     save: function save() {
       var _this = this;
 
@@ -1558,54 +1557,48 @@ var render = function() {
                 { staticClass: "mr-1", attrs: { color: "primary" } },
                 [_vm._v(" arrow_back_ios")]
               ),
-              _vm._v("\n            Моя библиотека\n        ")
+              _vm._v("\n        Моя библиотека\n    ")
             ],
             1
           )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.mapIsExample
-        ? _c(
+        : _c(
             "v-btn",
             {
               staticClass: "mr-2 primary--text",
               attrs: { to: "/", height: "40" }
             },
             [
-              _c("v-icon", { staticClass: "mr-1" }, [_vm._v(" home ")]),
+              _c("v-icon", { staticClass: "mr-1" }, [_vm._v(" home")]),
               _vm._v("\n        Главная\n    ")
             ],
             1
-          )
-        : _vm._e(),
+          ),
       _vm._v(" "),
-      !_vm.mapIsExample
-        ? _c(
-            "v-btn",
+      _c(
+        "v-btn",
+        {
+          staticClass: "mx-2",
+          attrs: { height: "40" },
+          on: {
+            click: function($event) {
+              _vm.isAuth ? _vm.save() : _vm.SHOW_AUTH_DIALOG()
+            }
+          }
+        },
+        [
+          _c(
+            "v-icon",
             {
-              staticClass: "mx-2",
-              attrs: { height: "40" },
-              on: {
-                click: function($event) {
-                  return _vm.save()
-                }
-              }
+              staticClass: "mr-1",
+              class: { "primary--text": _vm.wasChanges },
+              style: _vm.wasChanges ? "" : "opacity: 0.76"
             },
-            [
-              _c(
-                "v-icon",
-                {
-                  staticClass: "mr-1",
-                  class: { "primary--text": _vm.wasChanges },
-                  style: _vm.wasChanges ? "" : "opacity: 0.76"
-                },
-                [_vm._v("\n            save\n        ")]
-              ),
-              _vm._v("\n        Сохранить\n    ")
-            ],
-            1
-          )
-        : _vm._e(),
+            [_vm._v("\n            save\n        ")]
+          ),
+          _vm._v("\n        Сохранить\n    ")
+        ],
+        1
+      ),
       _vm._v(" "),
       _c(
         "v-dialog",
