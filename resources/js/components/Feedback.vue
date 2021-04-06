@@ -10,7 +10,7 @@
             >
                 <v-icon
                     large
-                    class="mr-2"
+                    class="mr-2 pt-1"
                     color="primary"
                 >
                     feedback

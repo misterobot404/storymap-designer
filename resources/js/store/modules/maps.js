@@ -9,7 +9,7 @@ export default {
             name: "Тестовый Атлас",
             subject_id: "",
             description: "Описание",
-            config: JSON.stringify({"eventListWidth": 227}),
+            config: JSON.stringify({"eventListWidth": 227, "selectedEventId": 1}),
             tile: JSON.stringify({
                 "url": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
                 "bounds": {"_northEast": {"lat": 85, "lng": 45}, "_southWest": {"lat": 47, "lng": -180}},
@@ -267,6 +267,9 @@ export default {
                 }])
             }
         ],
+        // share map dialog
+        showShareMapDialog: false,
+        shareMapId: null
     },
     actions: {
         getMaps({commit}) {
@@ -311,9 +314,12 @@ export default {
             })
                 .then(response => { commit('SET_MAPS', response.data.data.maps) })
         },
+        setPrivacyForMap({commit}, data) {
+            return axios.get('/api/maps/' + data.map_id + '/setPrivacy', data)
+        }
     },
     mutations: {
-        SET_MAPS: (state, maps) => { state.maps = maps },
+        SET_MAPS(state, maps) { state.maps = maps },
         SAVE_EDITABLE_EXAMPLE(state, map) {
             state.editableExample.name = map.name;
             state.editableExample.subject = map.subject;
@@ -321,6 +327,26 @@ export default {
             state.editableExample.config = JSON.stringify(map.config);
             state.editableExample.tile = JSON.stringify(map.tile);
             state.editableExample.events = JSON.stringify(map.events);
+        },
+        REPLACE_MAP (state, new_map) {
+            // если библиотека уже загружена
+            if (state.maps.length) {
+                // результирующй массив
+                state.maps = state.maps.map(map => {
+                    if (map.id === new_map.id) {
+                        return new_map;
+                    }
+                    return map;
+                });
+            }
+        },
+
+        SET_PRIVACY_FOR_MAP (state, data) {
+            (state.maps.find(map=> map.id === data.map_id)).public = data.public;
+        },
+        SET_SHARE_MAP_DIALOG (state, data) {
+            state.showShareMapDialog = data.showShareMapDialog;
+            if (data.shareMapId) state.shareMapId = data.shareMapId;
         }
     }
 }

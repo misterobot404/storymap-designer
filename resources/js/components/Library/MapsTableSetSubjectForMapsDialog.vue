@@ -2,7 +2,7 @@
     <v-dialog
         v-model="dialog"
         scrollable
-        max-width="380px"
+        width="340px"
     >
         <template v-slot:activator="{ on: button }">
             <v-tooltip bottom>
@@ -13,7 +13,7 @@
                         class="mx-1"
                         v-on="{ ...tooltip, ...button }"
                     >
-                        <v-icon> move_to_inbox</v-icon>
+                        <v-icon>move_to_inbox</v-icon>
                     </v-btn>
                 </template>
                 <span>Переместить в категорию</span>
@@ -26,13 +26,10 @@
                 flat
                 class="pr-1"
             >
-                <v-icon
-                    large
-                    class="mr-2"
-                >
+                <v-icon class="mr-2">
                     move_to_inbox
                 </v-icon>
-                <v-card-title>Переместить в категорию</v-card-title>
+                <v-toolbar-title>Переместить в категорию</v-toolbar-title>
             </v-toolbar>
             <v-divider/>
             <v-card-text style="height: 300px;">
@@ -51,13 +48,6 @@
             <v-divider></v-divider>
             <v-card-actions>
                 <v-spacer/>
-                <v-btn
-                    color="blue darken-1"
-                    text
-                    @click="dialog = false"
-                >
-                    Закрыть
-                </v-btn>
                 <v-btn
                     color="blue darken-1"
                     text

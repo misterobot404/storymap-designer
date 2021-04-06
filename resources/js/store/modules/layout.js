@@ -46,7 +46,7 @@ export default {
         },
         HIDE_AUTH_DIALOG(state) {
             state.authDialog = false;
-        }
+        },
     }
 }
 

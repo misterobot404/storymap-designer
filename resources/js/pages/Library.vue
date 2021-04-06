@@ -221,9 +221,10 @@
             </v-container>
         </v-container>
 
+        <ShareMapDialog/>
         <SubjectEditDialog
-            :showEditSubjectDialog.sync="showEditSubjectDialog"
-            :editableSubject="editableSubject"
+            :show-edit-subject-dialog.sync="showEditSubjectDialog"
+            :editable-subject="editableSubject"
         />
         <!-- Floating button. Scroll up -->
         <v-fab-transition>
@@ -249,15 +250,17 @@
 import {mapState, mapActions} from "vuex"
 import MapCreateDialog from "../components/Library/MapCreateDialog"
 import SubjectCreateDialog from "../components/Library/SubjectCreateDialog"
-import SubjectEditDialog from "../components/Library/SubjectEditDialog";
+import SubjectEditDialog from "../components/Library/SubjectEditDialog"
 import MapsGrid from "../components/Library/MapsGrid"
 import MapsTable from "../components/Library/MapsTable"
+import ShareMapDialog from "../components/Library/ShareMapDialog"
 
 export default {
     name: "Library",
     components: {
         MapCreateDialog,
         SubjectCreateDialog,
+        ShareMapDialog,
         SubjectEditDialog,
         MapsGrid,
         MapsTable
@@ -282,7 +285,8 @@ export default {
             loadingSubjects: false,
             // Subjects
             showEditSubjectDialog: false,
-            editableSubject: null
+            editableSubject: null,
+
         }
     },
     computed: {

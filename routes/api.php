@@ -37,13 +37,15 @@ Route::middleware('auth:api')->group(function () {
     // CRUD
     Route::get('/maps', [MapController::class, 'index']);
     Route::post('/maps', [MapController::class, 'store']);
-    Route::get('/maps/{id}', [MapController::class, 'show']);
     Route::put('/maps/{id}', [MapController::class, 'update']);
     Route::delete('/maps/{id}', [MapController::class, 'destroy']);
     // Other
+    Route::post('/maps/{id}/setPrivacy', [MapController::class, 'setPrivacy']);
     Route::post('/maps/copy', [MapController::class, 'copy']);
     Route::post('/maps/setSubject', [MapController::class, 'setSubject']);
 });
+// Атлас могут просматривать без прав, если он публичный
+Route::get('/maps/{id}', [MapController::class, 'show']);
 
 /**
  * Other

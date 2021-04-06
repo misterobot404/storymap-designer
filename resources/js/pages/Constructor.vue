@@ -70,7 +70,7 @@ export default {
         // test map
         else {
             // test map not loaded yet
-            if (store.state.map.id !== 'test') {
+            if (from.name !== "viewer") {
                 await store.dispatch("map/setEmptyExampleMap", null, {root: true});
             }
             // set seo header

@@ -66,7 +66,7 @@
             <v-icon
                 small
                 class="mr-2"
-                @click=""
+                @click="SET_SHARE_MAP_DIALOG({shareMapId: item.id, showShareMapDialog: true })"
             >
                 reply
             </v-icon>
@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import {mapActions, mapState} from "vuex"
+import {mapActions, mapMutations, mapState} from "vuex"
 import ListMapsSetSubjectForMaps from "./MapsTableSetSubjectForMapsDialog"
 
 export default {
@@ -122,13 +122,14 @@ export default {
         mapsWithSubjectNames() {
             let temp_maps = [...this.maps];
             temp_maps.forEach(map => {
-                map.subject_name = (this.subjects.find(el => el.id === map.subject_id)).name;
+                map.subject_name = map.subject_id ? (this.subjects.find(el => el.id === map.subject_id)).name : "Не установлена";
             });
             return temp_maps;
         }
     },
     methods: {
         ...mapActions('maps', ['destroyMap', 'destroyMaps']),
+        ...mapMutations('maps', ['SET_SHARE_MAP_DIALOG']),
         lDestroyMap($map) {
             this.loading = true;
             this.destroyMap($map)

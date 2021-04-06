@@ -26,7 +26,7 @@
                     </v-list-item-avatar>
                     <v-list-item-content>
                         <v-list-item-title class="headline">{{ map.name }}</v-list-item-title>
-                        <v-list-item-subtitle v-if="map.subject_id"> {{ getSubjectName(map.subject_id) }}</v-list-item-subtitle>
+                        <v-list-item-subtitle> {{ getSubjectName(map.subject_id) }}</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-img
@@ -85,7 +85,7 @@
                             </v-tooltip>
                         </template>
                         <v-list>
-                            <v-list-item @click="">
+                            <v-list-item @click="SET_SHARE_MAP_DIALOG({shareMapId: map.id, showShareMapDialog: true })">
                                 <v-list-item-action class="mr-5">
                                     <v-icon>reply</v-icon>
                                 </v-list-item-action>
@@ -137,17 +137,17 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex'
+import {mapActions, mapState, mapMutations} from 'vuex'
 
 export default {
-    name: "GridMaps",
+    name: "MapsGrid",
     props: {
         maps: Array
     },
     data() {
         return {
             showDescriptionId: null,
-            loadingIds: [],
+            loadingIds: []
         }
     },
     computed: {
@@ -158,11 +158,12 @@ export default {
             destroyMapAction: 'destroyMap',
             duplicateMapAction: 'copyMap',
         }),
+        ...mapMutations('maps', ['SET_SHARE_MAP_DIALOG']),
         getSubjectIcon($subject_id) {
-            return (this.subjects.find(el => el.id === $subject_id)).icon;
+            return $subject_id ? (this.subjects.find(el => el.id === $subject_id)).icon : "/storage/subjects/custom.png";
         },
         getSubjectName($subject_id) {
-            return (this.subjects.find(el => el.id === $subject_id)).name;
+            return $subject_id ? (this.subjects.find(el => el.id === $subject_id)).name : "Другое";
         },
         destroyMap($map) {
             this.loadingIds.push($map.id);

@@ -59,7 +59,7 @@ class MapController extends Controller
                 ]
             ], 404);
         }
-        if ($map->user_id !== auth()->id()) {
+        if ($map->user_id !== auth()->id() || !$map->public) {
             return response()->json([
                 "status" => "fail",
                 "data" => ["id" => "Access denied"]
@@ -140,6 +140,29 @@ class MapController extends Controller
         return response()->json([
             "status" => "success",
             "data" => ["maps" => $maps]
+        ], 200);
+    }
+
+
+    public function setPrivacy($id)
+    {
+        $map = Map::find($id);
+
+        if ($map->user_id !== auth()->id()) {
+            return response()->json([
+                "status" => "fail",
+                "data" => ["id" => "Access denied"]
+            ], 403);
+        }
+
+        $map->public = request('public');
+        $map->save();
+
+        return response()->json([
+            "status" => "success",
+            "data" => [
+                "map" => $map
+            ]
         ], 200);
     }
 

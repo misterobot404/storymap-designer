@@ -21,7 +21,7 @@
         <v-btn
             height="40"
             class="mx-2"
-            @click="isAuth ? save() : SHOW_AUTH_DIALOG()"
+            @click="save()"
         >
             <v-icon
                 :style="wasChanges ? '' : 'opacity: 0.76'"
@@ -100,6 +100,7 @@ export default {
     data() {
         return {
             procSave: false,
+            waitUserAuth: false
         }
     },
     computed: {
@@ -110,6 +111,7 @@ export default {
             'isAuth'
         ]),
         ...mapState('map', ['id']),
+        ...mapState('layout', ["authDialog"]),
         mapIsExample() {
             return !this.$route.params.id
         }
@@ -119,12 +121,27 @@ export default {
             'saveMap',
             'recoveryMap'
         ]),
-        ...mapMutations('layout',['SHOW_AUTH_DIALOG']),
+        ...mapMutations('layout', ['SHOW_AUTH_DIALOG']),
         save() {
-            this.procSave = true;
-            this.saveMap().finally(() => {
-                this.procSave = false;
-            })
+            if (this.isAuth) {
+                this.procSave = true;
+                this.saveMap().finally(() => this.procSave = false)
+            }
+            else {
+                this.SHOW_AUTH_DIALOG();
+                this.waitUserAuth = true;
+            }
+        }
+    },
+    watch: {
+        authDialog(newValue, oldValue) {
+            if (oldValue && !newValue && this.waitUserAuth && this.isAuth) {
+                this.procSave = true;
+                this.saveMap().finally(() => {
+                    this.procSave = false;
+                    this.waitUserAuth = false;
+                })
+            }
         }
     }
 }

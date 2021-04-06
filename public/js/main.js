@@ -8399,7 +8399,10 @@ var render = function() {
             [
               _c(
                 "v-icon",
-                { staticClass: "mr-2", attrs: { large: "", color: "primary" } },
+                {
+                  staticClass: "mr-2 pt-1",
+                  attrs: { large: "", color: "primary" }
+                },
                 [_vm._v("\n                feedback\n            ")]
               ),
               _vm._v(" "),
@@ -70946,7 +70949,7 @@ var routes = [{
   name: 'library',
   path: '/library',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! @/pages/Library */ "./resources/js/pages/Library.vue"));
+    return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! @/pages/Library */ "./resources/js/pages/Library.vue"));
   },
   meta: {
     middlewareAuth: true,
@@ -70957,7 +70960,7 @@ var routes = [{
   name: 'constructor',
   path: '/constructor/:id?',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! @/pages/Constructor */ "./resources/js/pages/Constructor.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(5), __webpack_require__.e(1), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! @/pages/Constructor */ "./resources/js/pages/Constructor.vue"));
   },
   props: true,
   meta: {
@@ -70969,7 +70972,7 @@ var routes = [{
   name: 'viewer',
   path: '/viewer/:id?',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
   },
   props: true,
   meta: {
@@ -70981,7 +70984,7 @@ var routes = [{
   name: 'example',
   path: '/example/:id',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
   },
   props: true,
   meta: {
@@ -71355,27 +71358,42 @@ __webpack_require__.r(__webpack_exports__);
           commit = _ref5.commit,
           dispatch = _ref5.dispatch;
       // Save current width event list
-      commit('SET_EVENT_LIST_WIDTH'); // Send request
-
-      var map = {
-        name: state.name,
-        subject_id: state.subject_id,
-        description: state.description,
-        config: JSON.stringify(state.config),
-        tile: JSON.stringify(state.tile),
-        events: JSON.stringify(state.events)
-      }; // Save new map
+      commit('SET_EVENT_LIST_WIDTH'); // Save new map
 
       if (state.id === "test") {
+        var map = {
+          name: state.name,
+          subject_id: state.subject_id,
+          description: state.description,
+          config: state.config,
+          tile: state.tile,
+          events: state.events
+        };
         return dispatch('maps/createMap', map, {
           root: true
         }).then(function (_) {
           return _routes__WEBPACK_IMPORTED_MODULE_1__["default"].push("/library");
         });
       } // Save existing map
-      else return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/maps/' + state.id, map).then(function (response) {
-          commit('SET_OLD_MAP', response.data.data.map);
-        });
+      else {
+          var _map = {
+            name: state.name,
+            subject_id: state.subject_id,
+            description: state.description,
+            config: JSON.stringify(state.config),
+            tile: JSON.stringify(state.tile),
+            events: JSON.stringify(state.events)
+          };
+          return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/maps/' + state.id, _map).then(function (response) {
+            commit('SET_OLD_MAP', response.data.data.map); // в массиве атласов обновить измененные данные (там отображается старая версия атласа)
+
+            commit('maps/REPLACE_MAP', {
+              map: _map
+            }, {
+              root: true
+            });
+          });
+        }
     },
     recoveryMap: function recoveryMap(_ref6) {
       var state = _ref6.state,
@@ -71573,7 +71591,8 @@ __webpack_require__.r(__webpack_exports__);
       subject_id: "",
       description: "Описание",
       config: JSON.stringify({
-        "eventListWidth": 227
+        "eventListWidth": 227,
+        "selectedEventId": 1
       }),
       tile: JSON.stringify({
         "url": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
@@ -71939,7 +71958,10 @@ __webpack_require__.r(__webpack_exports__);
           "size": ["40", "40"]
         }
       }])
-    }]
+    }],
+    // share map dialog
+    showShareMapDialog: false,
+    shareMapId: null
   },
   actions: {
     getMaps: function getMaps(_ref) {
@@ -71997,6 +72019,10 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         commit('SET_MAPS', response.data.data.maps);
       });
+    },
+    setPrivacyForMap: function setPrivacyForMap(_ref7, data) {
+      var commit = _ref7.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/maps/' + data.map_id + '/setPrivacy', data);
     }
   },
   mutations: {
@@ -72010,6 +72036,28 @@ __webpack_require__.r(__webpack_exports__);
       state.editableExample.config = JSON.stringify(map.config);
       state.editableExample.tile = JSON.stringify(map.tile);
       state.editableExample.events = JSON.stringify(map.events);
+    },
+    REPLACE_MAP: function REPLACE_MAP(state, new_map) {
+      // если библиотека уже загружена
+      if (state.maps.length) {
+        // результирующй массив
+        state.maps = state.maps.map(function (map) {
+          if (map.id === new_map.id) {
+            return new_map;
+          }
+
+          return map;
+        });
+      }
+    },
+    SET_PRIVACY_FOR_MAP: function SET_PRIVACY_FOR_MAP(state, data) {
+      state.maps.find(function (map) {
+        return map.id === data.map_id;
+      })["public"] = data["public"];
+    },
+    SET_SHARE_MAP_DIALOG: function SET_SHARE_MAP_DIALOG(state, data) {
+      state.showShareMapDialog = data.showShareMapDialog;
+      if (data.shareMapId) state.shareMapId = data.shareMapId;
     }
   }
 });

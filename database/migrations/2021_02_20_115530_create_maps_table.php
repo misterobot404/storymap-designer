@@ -32,6 +32,8 @@ class CreateMapsTable extends Migration
             $table->jsonb('config');
             $table->jsonb('tile');
             $table->json('events');
+
+            $table->boolean('public')->default(false);
             $table->timestamps();
         });
     }
