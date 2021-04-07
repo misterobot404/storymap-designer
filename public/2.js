@@ -116,6 +116,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -152,6 +154,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       set: function set(value) {
         this.SET_TILE_CENTER(value);
       }
+    },
+    noIframe: function noIframe() {
+      return window === window.parent;
     }
   }),
   methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('map', ['saveEmptyExampleMap'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ["SET_TILE_CENTER", "SET_SELECTED_EVENT_ID", "SET_EVENT_MARKER_POSITION", "SET_TILE_BOUNDS", "SET_MIN_TILE_ZOOM", "SET_MAX_TILE_ZOOM"])), {}, {
@@ -560,38 +565,40 @@ var render = function() {
               fn: function(ref) {
                 var on = ref.on
                 return [
-                  _c(
-                    "v-btn",
-                    _vm._g(
-                      {
-                        staticClass: "v-btn--active",
-                        staticStyle: {
-                          top: "16px",
-                          left: "16px",
-                          "z-index": "401"
-                        },
-                        attrs: {
-                          absolute: "",
-                          text: "",
-                          rounded: "",
-                          "x-large": ""
-                        },
-                        on: {
-                          click: function($event) {
-                            $event.stopPropagation()
-                            return _vm.$router.back()
-                          }
-                        }
-                      },
-                      on
-                    ),
-                    [
-                      _c("v-icon", { attrs: { large: "" } }, [
-                        _vm._v("first_page")
-                      ])
-                    ],
-                    1
-                  )
+                  _vm.noIframe
+                    ? _c(
+                        "v-btn",
+                        _vm._g(
+                          {
+                            staticClass: "v-btn--active",
+                            staticStyle: {
+                              top: "16px",
+                              left: "16px",
+                              "z-index": "401"
+                            },
+                            attrs: {
+                              absolute: "",
+                              text: "",
+                              rounded: "",
+                              "x-large": ""
+                            },
+                            on: {
+                              click: function($event) {
+                                $event.stopPropagation()
+                                return _vm.$router.back()
+                              }
+                            }
+                          },
+                          on
+                        ),
+                        [
+                          _c("v-icon", { attrs: { large: "" } }, [
+                            _vm._v("first_page")
+                          ])
+                        ],
+                        1
+                      )
+                    : _vm._e()
                 ]
               }
             }

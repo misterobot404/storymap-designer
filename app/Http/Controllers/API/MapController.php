@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Map;
+use Illuminate\Support\Facades\Auth;
 
 class MapController extends Controller
 {
@@ -51,6 +52,7 @@ class MapController extends Controller
     {
         $map = Map::find($id);
 
+        // Атлас не найден
         if (!$map) {
             return response()->json([
                 "status" => "fail",
@@ -59,17 +61,24 @@ class MapController extends Controller
                 ]
             ], 404);
         }
-        if ($map->user_id !== auth()->id() || !$map->public) {
+
+        // (Пользователь авторизирован И является владельцем атласа) ИЛИ атлас публичный
+        if ((Auth::guard('api')->check() && $map->user_id === Auth::guard('api')->id()) || $map->public === 1) {
+            return response()->json([
+                "status" => "success",
+                "data" => ["map" => $map]
+            ], 200);
+        }
+        else if ($map->public === 0) {
             return response()->json([
                 "status" => "fail",
                 "data" => ["id" => "Access denied"]
-            ], 403);
+            ], 410);
         }
-
-        return response()->json([
-            "status" => "success",
-            "data" => ["map" => $map]
-        ], 200);
+        else return response()->json([
+            "status" => "fail",
+            "data" => ["id" => "Access denied"]
+        ], 403);
     }
 
     public function update($id)

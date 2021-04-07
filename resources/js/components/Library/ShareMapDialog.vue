@@ -88,7 +88,7 @@
                     :disabled="shareMap && !shareMap.public"
                     filled
                     no-resize
-                    :value="map_url"
+                    :value="iframe_url"
                     hint="Для изменения размера фрейма измените атрибуты width и height"
                 />
             </v-card-text>
@@ -104,7 +104,7 @@ export default {
     data() {
         return {
             load: false,
-            map_url: ""
+            iframe_url: ""
         }
     },
     computed: {
@@ -120,7 +120,8 @@ export default {
     watch: {
         shareMapId: {
             handler(shareMapId) {
-                this.map_url = '<iframe width="800" height="600" src="https://' + window.location.host + '/viewer/' + shareMapId + '"></iframe>';
+                let map_url = document.location.protocol + '//' + window.location.host + '/viewer/' + shareMapId;
+                this.iframe_url = '<iframe width="1000" height="600" style="border-style: none;" src="' + map_url + '"></iframe>';
             }
         }
     },

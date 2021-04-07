@@ -838,7 +838,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       load: false,
-      map_url: ""
+      iframe_url: ""
     };
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('maps', ['showShareMapDialog', 'shareMapId', 'maps'])), {}, {
@@ -853,7 +853,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   watch: {
     shareMapId: {
       handler: function handler(shareMapId) {
-        this.map_url = '<iframe width="800" height="600" src="https://' + window.location.host + '/viewer/' + shareMapId + '"></iframe>';
+        var map_url = document.location.protocol + '//' + window.location.host + '/viewer/' + shareMapId;
+        this.iframe_url = '<iframe width="1000" height="600" style="border-style: none;" src="' + map_url + '"></iframe>';
       }
     }
   },
@@ -2933,7 +2934,7 @@ var render = function() {
                   disabled: _vm.shareMap && !_vm.shareMap.public,
                   filled: "",
                   "no-resize": "",
-                  value: _vm.map_url,
+                  value: _vm.iframe_url,
                   hint:
                     "Для изменения размера фрейма измените атрибуты width и height"
                 }

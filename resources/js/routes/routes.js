@@ -35,7 +35,6 @@ export const routes = [
         component: () => import('@/pages/Viewer'),
         props: true,
         meta: {
-            middlewareAuth: true,
             title: "MapDesigner - бесплатный онлайн конструктор карт и атласов",
             description: "Расскажите истории в Интернете, освещающие места, события или предметы. MapDesigner позволит быстро создавать гибкие карты и атласы для использования их в сфере обучения и туризма."
         }
@@ -51,8 +50,15 @@ export const routes = [
         }
     },
     {
+        name: "page410",
+        path: '/410',
+        component: () => import('@/pages/Page410'),
+        meta: { title: "404 Not Found" }
+    },
+    {
+        name: "page404",
         path: '*',
-        component: () => import('@/pages/page404'),
+        component: () => import('@/pages/Page404'),
         meta: { title: "404 Not Found" }
     }
 ];

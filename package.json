@@ -10,7 +10,7 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "@types/leaflet": "^1.5.23",
+        "@types/leaflet": "^1.7.0",
         "axios": "^0.21.1",
         "cross-env": "^7.0.3",
         "deepmerge": "^4.2.2",
@@ -27,8 +27,8 @@
         "vue-slicksort": "^1.2.0",
         "vue-template-compiler": "^2.6.12",
         "vue-youtube-embed": "^2.2.2",
-        "vue2-leaflet": "^2.5.2",
-        "vuetify": "^2.4.5",
+        "vue2-leaflet": "^2.7.0",
+        "vuetify": "^2.4.9",
         "vuetify-loader": "1.4.3",
         "vuex": "^3.6.2"
     }

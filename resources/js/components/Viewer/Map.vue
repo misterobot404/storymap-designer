@@ -77,7 +77,9 @@
         <!-- Back -->
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
+                <!-- v-if проверяет, не находится ли страница внеутри фрейма-->
                 <v-btn
+                    v-if="noIframe"
                     @click.stop="$router.back()"
                     absolute
                     text
@@ -145,6 +147,9 @@
                     this.SET_TILE_CENTER(value);
                 }
             },
+            noIframe() {
+                return window === window.parent
+            }
         },
         methods: {
             ...mapActions('map', [

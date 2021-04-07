@@ -40,10 +40,11 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/maps/{id}', [MapController::class, 'update']);
     Route::delete('/maps/{id}', [MapController::class, 'destroy']);
     // Other
-    Route::post('/maps/{id}/setPrivacy', [MapController::class, 'setPrivacy']);
+    Route::put('/maps/{id}/setPrivacy', [MapController::class, 'setPrivacy']);
     Route::post('/maps/copy', [MapController::class, 'copy']);
     Route::post('/maps/setSubject', [MapController::class, 'setSubject']);
 });
+
 // Атлас могут просматривать без прав, если он публичный
 Route::get('/maps/{id}', [MapController::class, 'show']);
 

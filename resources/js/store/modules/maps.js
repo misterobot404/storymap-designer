@@ -315,7 +315,7 @@ export default {
                 .then(response => { commit('SET_MAPS', response.data.data.maps) })
         },
         setPrivacyForMap({commit}, data) {
-            return axios.get('/api/maps/' + data.map_id + '/setPrivacy', data)
+            return axios.put('/api/maps/' + data.map_id + '/setPrivacy', data)
         }
     },
     mutations: {

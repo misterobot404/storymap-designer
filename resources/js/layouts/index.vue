@@ -42,7 +42,7 @@ export default {
             'authDialog'
         ]),
         // hide appbar and footer
-        hide() { return this.$route.name !== 'constructor' && this.$route.name !== 'viewer' && this.$route.name !== 'example' }
+        hide() { return this.$route.name !== 'constructor' && this.$route.name !== 'viewer' && this.$route.name !== 'example' && this.$route.name !== 'page410'}
     },
 }
 </script>

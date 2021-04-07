@@ -18598,8 +18598,10 @@ var script = {
     var this$1 = this;
 
     this.parentContainer = findRealParent(this.$parent);
-
-    propsBinder(this, this.$parent.mapObject, this.$options.props);
+    if (!this.parentContainer) {
+      throw new Error('No parent container with mapObject found for LIcon');
+    }
+    propsBinder(this, this.parentContainer.mapObject, this.$options.props);
 
     this.observer = new MutationObserver(function () {
       this$1.scheduleHtmlSwap();
@@ -20212,7 +20214,7 @@ var script = {
     );
     this.mapObject = Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["map"])(this.$el, options);
     if (this.bounds) {
-      this.mapObject.fitBounds(this.bounds);
+      this.fitBounds(this.bounds);
     }
     this.debouncedMoveEndHandler = debounce(this.moveEndHandler, 100);
     this.mapObject.on('moveend', this.debouncedMoveEndHandler);
@@ -20316,7 +20318,7 @@ var script = {
       var oldBounds = this.lastSetBounds || this.mapObject.getBounds();
       var boundsChanged = !oldBounds.equals(newBounds, 0); // set maxMargin to 0 - check exact equals
       if (boundsChanged) {
-        this.mapObject.fitBounds(newBounds, this.fitBoundsOptions);
+        this.fitBounds(newBounds);
         this.cacheMapView(newBounds);
       }
     },
@@ -20333,12 +20335,10 @@ var script = {
       var mapObject = this.mapObject,
         prevBounds = mapObject.getBounds();
       mapObject.options.crs = newVal;
-      mapObject.fitBounds(prevBounds, { animate: false, padding: [0, 0] });
+      this.fitBounds(prevBounds, { animate: false });
     },
-    fitBounds: function fitBounds(bounds) {
-      this.mapObject.fitBounds(bounds, {
-        animate: this.noBlockingAnimations ? false : null,
-      });
+    fitBounds: function fitBounds(bounds, overrideOptions) {
+      this.mapObject.fitBounds(bounds, Object.assign({}, this.fitBoundsOptions, overrideOptions));
     },
     moveEndHandler: function moveEndHandler() {
       /**
@@ -20517,7 +20517,7 @@ var __vue_staticRenderFns__ = [];
   /* style */
   var __vue_inject_styles__ = function (inject) {
     if (!inject) { return }
-    inject("data-v-64f90fd7_0", { source: ".vue2leaflet-map{height:100%;width:100%}", map: undefined, media: undefined });
+    inject("data-v-09f270aa_0", { source: ".vue2leaflet-map{height:100%;width:100%}", map: undefined, media: undefined });
 
   };
   /* scoped */
@@ -20825,6 +20825,11 @@ var script = {
       custom: false,
       default: function () { return new leaflet__WEBPACK_IMPORTED_MODULE_0__["Icon"].Default(); },
     },
+    opacity: {
+      type: Number,
+      custom: false,
+      default: 1.0,
+    },
     zIndexOffset: {
       type: Number,
       custom: false,
@@ -20848,7 +20853,8 @@ var script = {
       Object.assign({}, this.layerOptions,
         {icon: this.icon,
         zIndexOffset: this.zIndexOffset,
-        draggable: this.draggable}),
+        draggable: this.draggable,
+        opacity: this.opacity}),
       this
     );
     this.mapObject = Object(leaflet__WEBPACK_IMPORTED_MODULE_0__["marker"])(this.latLng, options);
