@@ -116,6 +116,7 @@ export default {
             // Save existing map
             else {
                 let map = {
+                    id: state.id,
                     name: state.name,
                     subject_id: state.subject_id,
                     description: state.description,
@@ -127,7 +128,7 @@ export default {
                     .then(response => {
                         commit('SET_OLD_MAP', response.data.data.map);
                         // в массиве атласов обновить измененные данные (там отображается старая версия атласа)
-                        commit('maps/REPLACE_MAP', {map: map}, {root: true});
+                        commit('maps/REPLACE_MAP', map, {root: true});
                     })
             }
         },

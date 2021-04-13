@@ -2,16 +2,35 @@
     <v-app>
         <NavigationDrawer/>
         <v-expand-transition>
-            <AppBar v-if="hide"/>
+            <AppBar v-if="!hideHeaderAndFooter"/>
         </v-expand-transition>
         <Content/>
-        <Footer v-if="hide"/>
+        <Footer v-if="!hideHeaderAndFooter"/>
 
         <AuthDialog v-if="authDialog"/>
 
         <v-fade-transition>
             <Feedback v-if="feedbackDialog"/>
         </v-fade-transition>
+
+        <v-overlay
+            :value="urlContainsIframeQuery && pageLoading"
+            light
+            opacity="0.8"
+        >
+            <v-progress-circular
+                indeterminate
+                size="144"
+            >
+                <v-img
+                    :src=appLogo
+                    :alt=appName
+                    contain
+                    height="48"
+                    width="48"/>
+            </v-progress-circular>
+
+        </v-overlay>
     </v-app>
 </template>
 
@@ -39,10 +58,18 @@ export default {
     computed: {
         ...mapState('layout', [
             "feedbackDialog",
-            'authDialog'
+            'authDialog',
+            'pageLoading',
+            'appName',
+            'appLogo'
         ]),
-        // hide appbar and footer
-        hide() { return this.$route.name !== 'constructor' && this.$route.name !== 'viewer' && this.$route.name !== 'example' && this.$route.name !== 'page410'}
+        hideHeaderAndFooter() {
+            return this.$route.name === 'constructor' || this.$route.name === 'viewer' || this.$route.name === 'example' || this.$route.name === 'page410' || this.urlContainsIframeQuery
+        },
+        urlContainsIframeQuery() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('iframe') === 'true';
+        }
     },
 }
 </script>

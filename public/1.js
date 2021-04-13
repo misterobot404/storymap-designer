@@ -81,6 +81,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -186,8 +188,7 @@ var render = function() {
               "v-carousel-item",
               { key: index },
               [
-                _vm.$route.name !== "viewer" &&
-                _vm.$route.name !== "viewer-example"
+                _vm.$route.name === "constructor"
                   ? _c(
                       "v-btn",
                       {

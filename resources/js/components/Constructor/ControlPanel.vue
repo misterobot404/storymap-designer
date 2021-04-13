@@ -125,7 +125,7 @@ export default {
         save() {
             if (this.isAuth) {
                 this.procSave = true;
-                this.saveMap().finally(() => this.procSave = false)
+                this.saveMap().finally(() => this.procSave = false);
             }
             else {
                 this.SHOW_AUTH_DIALOG();
@@ -141,6 +141,9 @@ export default {
                     this.procSave = false;
                     this.waitUserAuth = false;
                 })
+            }
+            else if (oldValue && !newValue && this.waitUserAuth) {
+                this.waitUserAuth = false;
             }
         }
     }

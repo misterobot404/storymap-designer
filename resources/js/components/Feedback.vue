@@ -84,12 +84,11 @@
                                     :items="['Ошибки и баги', 'Предложения по улучшению']"
                                     :rules="[v => !!v || 'Обязательное поле']"
                                     label="Тема обращения"
-                                    style="left: 12px !important"
                                     filled
                                     required
                                 />
                             </v-col>
-                            <v-col cols="12" class="pb-0 pt-1">
+                            <v-col cols="12" class="pb-2 pt-1">
                                 <v-textarea
                                     filled
                                     label="Описание обращения"

@@ -2,7 +2,6 @@
     <!--    :maxZoom="config.maxTileZoom"-->
     <!--    :maxBounds="config.tileBounds"-->
     <l-map class="map"
-           style="width: 66vw; z-index: 0"
            ref="map"
            :minZoom="tile.minZoom"
            :maxZoom="tile.maxZoom"

@@ -1,19 +1,19 @@
 <template>
-    <div
-        style="height: 100vh"
-        class="d-flex flex-row"
-    >
+    <div style="position: relative;">
         <!-- Map -->
-        <Map/>
+        <Map style="position: absolute; width: 100%; height: 100vh; z-index: 0"/>
         <!-- Content -->
         <div
-            class="text-center"
-            style="width: 34vw;"
+            style="position: absolute; right: 100px; height: 100vh; width: 34vw; z-index: 1; background-color:rgba(255,255,255, 0.4);"
+            class="d-flex flex-column justify-center px-6"
         >
             <MediaContent height="34vh"/>
-            <v-container class="px-6" style="height: 66vh; overflow-y: scroll">
-                <div class="headline mt-6 mb-4">{{ selectedEvent.title }}</div>
-                <div v-html="selectedEvent.description"/>
+            <v-container class="px-6 text-center">
+                <div class="display-1 mt-6 mb-4">{{ selectedEvent.title }}</div>
+                <div
+                    style="max-width: 600px"
+                    v-html="selectedEvent.description"
+                />
             </v-container>
         </div>
     </div>

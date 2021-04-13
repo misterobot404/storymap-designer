@@ -10,20 +10,21 @@
                 v-for="(url, index) in selectedEvent.mediaUrl"
                 :key="index"
             >
-                <!-- Delete event. Btn. -->
+                <!-- Delete event. Btn -->
                 <v-btn
                     fab
                     x-small
                     depressed
                     absolute
                     color="grey"
-                    v-if="$route.name !== 'viewer' && $route.name !== 'viewer-example'"
+                    v-if="$route.name === 'constructor'"
                     class="v-btn--active"
                     style="right: 18px; top: 16px"
                     @click="REMOVE_EVENT_MEDIA_URL({indexEvent: indexSelectedEvent, indexMediaUrl: index})"
                 >
                     <v-icon dark>clear</v-icon>
                 </v-btn>
+                <!-- Img -->
                 <template v-if="!imgNotExist.includes(url)">
                     <v-img
                         height="100%"
@@ -32,6 +33,7 @@
                         @error="imgNotExist.push(url)"
                     />
                 </template>
+                <!-- Youtube -->
                 <template v-else>
                     <youtube
                         class="youtube"

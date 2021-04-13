@@ -169,7 +169,7 @@
         iconsGroup: 'md'
     })
     import {mapGetters, mapMutations} from 'vuex'
-    import MediaContent from "@/components/MediaContentForEvent"
+    import MediaContent from "./../MediaContentForEvent"
     import {
         TiptapVuetify,
         Heading,

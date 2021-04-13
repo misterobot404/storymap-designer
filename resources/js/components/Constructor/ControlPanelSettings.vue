@@ -48,7 +48,7 @@
                                                     v-model.trim="model_mapName"
                                                     :rules="[
                                         v => !!v || 'Введите название',
-                                        v => maps.find(map => map.name === v) === undefined || 'Атлас с таким именем уже существует'
+                                       /* v => maps.find(map => map.name === v && map.id !== ) === undefined || 'Атлас с таким именем уже существует'*/
                                     ]"
                                                     required
                                                 />

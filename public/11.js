@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[4],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[11],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Library/MapCreateDialog.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************************************************************!*\
@@ -854,7 +854,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     shareMapId: {
       handler: function handler(shareMapId) {
         var map_url = document.location.protocol + '//' + window.location.host + '/viewer/' + shareMapId;
-        this.iframe_url = '<iframe width="100%" height="600" style="border-style: none;" src="' + map_url + '?iframe=true"></iframe>';
+        this.iframe_url = '<iframe width="1000" height="600" style="border-style: none;" src="' + map_url + '"></iframe>';
       }
     }
   },

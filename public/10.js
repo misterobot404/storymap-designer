@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vuetify-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Constructor/ControlPanel.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************************************************************************!*\
@@ -712,7 +712,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tiptap_vuetify_dist_main_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tiptap-vuetify/dist/main.css */ "./node_modules/tiptap-vuetify/dist/main.css");
 /* harmony import */ var tiptap_vuetify_dist_main_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(tiptap_vuetify_dist_main_css__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _MediaContentForEvent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../MediaContentForEvent */ "./resources/js/components/MediaContentForEvent.vue");
+/* harmony import */ var _components_MediaContentForEvent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/MediaContentForEvent */ "./resources/js/components/MediaContentForEvent.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -894,7 +894,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(tiptap_vuetify__WEBPACK_IMPORTED_
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ConstructorForm",
   components: {
-    MediaContent: _MediaContentForEvent__WEBPACK_IMPORTED_MODULE_5__["default"],
+    MediaContent: _components_MediaContentForEvent__WEBPACK_IMPORTED_MODULE_5__["default"],
     TiptapVuetify: tiptap_vuetify__WEBPACK_IMPORTED_MODULE_2__["TiptapVuetify"]
   },
   data: function data() {

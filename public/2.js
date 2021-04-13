@@ -117,7 +117,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -418,7 +417,6 @@ var render = function() {
     {
       ref: "map",
       staticClass: "map",
-      staticStyle: { width: "66vw", "z-index": "0" },
       attrs: {
         minZoom: _vm.tile.minZoom,
         maxZoom: _vm.tile.maxZoom,
@@ -634,32 +632,43 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "d-flex flex-row", staticStyle: { height: "100vh" } },
+    { staticStyle: { position: "relative" } },
     [
-      _c("Map"),
+      _c("Map", {
+        staticStyle: {
+          position: "absolute",
+          width: "100%",
+          height: "100vh",
+          "z-index": "0"
+        }
+      }),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "text-center", staticStyle: { width: "34vw" } },
+        {
+          staticClass: "d-flex flex-column justify-center px-6",
+          staticStyle: {
+            position: "absolute",
+            right: "100px",
+            height: "100vh",
+            width: "34vw",
+            "z-index": "1",
+            "background-color": "rgba(255,255,255, 0.4)"
+          }
+        },
         [
           _c("MediaContent", { attrs: { height: "34vh" } }),
           _vm._v(" "),
-          _c(
-            "v-container",
-            {
-              staticClass: "px-6",
-              staticStyle: { height: "66vh", "overflow-y": "scroll" }
-            },
-            [
-              _c("div", { staticClass: "headline mt-6 mb-4" }, [
-                _vm._v(_vm._s(_vm.selectedEvent.title))
-              ]),
-              _vm._v(" "),
-              _c("div", {
-                domProps: { innerHTML: _vm._s(_vm.selectedEvent.description) }
-              })
-            ]
-          )
+          _c("v-container", { staticClass: "px-6 text-center" }, [
+            _c("div", { staticClass: "display-1 mt-6 mb-4" }, [
+              _vm._v(_vm._s(_vm.selectedEvent.title))
+            ]),
+            _vm._v(" "),
+            _c("div", {
+              staticStyle: { "max-width": "600px" },
+              domProps: { innerHTML: _vm._s(_vm.selectedEvent.description) }
+            })
+          ])
         ],
         1
       )

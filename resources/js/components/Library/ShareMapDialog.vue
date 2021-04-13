@@ -121,7 +121,7 @@ export default {
         shareMapId: {
             handler(shareMapId) {
                 let map_url = document.location.protocol + '//' + window.location.host + '/viewer/' + shareMapId;
-                this.iframe_url = '<iframe width="1000" height="600" style="border-style: none;" src="' + map_url + '"></iframe>';
+                this.iframe_url = '<iframe width="100%" height="600" style="border-style: none;" src="' + map_url + '?iframe=true"></iframe>';
             }
         }
     },

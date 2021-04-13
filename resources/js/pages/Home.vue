@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- hero -->
+        <!-- Hero -->
         <v-img
             :src="require('@/assets/images/home_art.jpg')"
             class="white--text"
@@ -53,7 +53,7 @@
                 </v-responsive>
             </v-container>
         </v-img>
-        <!-- features -->
+        <!-- Features -->
         <div
             id="futures"
             class="text-center"
@@ -101,15 +101,16 @@
                 </v-row>
             </v-container>
         </div>
-        <!-- examples -->
+        <!-- Examples -->
         <div
             id="examples"
             class="text-center"
-            style="padding-top: 48px"
+            style="padding-top: 52px"
         >
             <h1 class="text-uppercase headline font-weight-bold mb-2 text-center">
                 Примеры
             </h1>
+
             <v-responsive
                 class="grey lighten-2 mx-auto mb-11"
                 max-width="28"
@@ -117,16 +118,26 @@
                 <v-divider style="border-width: 2px 0 0 0!important;"/>
             </v-responsive>
 
+            <!-- iframe map -->
+            <iframe
+                width="100%"
+                height="720"
+                style="border-style: none;"
+                :src="selectedMapUrl"
+            />
+
+            <!-- Maps to choose -->
             <v-container>
                 <v-row
                     dense
+                    class="mt-12"
                     justify="center"
                 >
                     <v-col
-                        :cols="$vuetify.breakpoint.mdAndUp ? '3' : '12'"
-                        v-for="card in examples"
-                        :key="card.title"
-                        class="mx-2 mb-4"
+                        :cols="$vuetify.breakpoint.lgAndUp ? '3' : $vuetify.breakpoint.xs ? '11' : '5'"
+                        v-for="(card, index) in examples"
+                        :key="index"
+                        class="mx-4 mb-6"
                     >
                         <v-hover v-slot:default="{ hover }">
                             <v-card
@@ -135,7 +146,7 @@
                                 height="100%"
                                 class="mx-auto"
                                 style="cursor: pointer"
-                                @click="$router.push({ path: `/example/${card.id}` })"
+                                @click="goToIframeMap(card.url)"
                             >
                                 <v-img :src="card.img">
                                     <v-expand-transition>
@@ -159,7 +170,7 @@
                 </v-row>
             </v-container>
         </div>
-        <!-- feedback -->
+        <!-- Feedback -->
         <v-fab-transition>
             <v-btn
                 @click="SHOW_FEEDBACK_DIALOG(true)"
@@ -207,6 +218,7 @@
                         callout: '03',
                     }
                 ],
+                selectedMapUrl: 'http://192.168.77.23/viewer/1?iframe=true'
             }
         },
         computed: {
@@ -223,6 +235,16 @@
             ...mapMutations('layout',["SHOW_FEEDBACK_DIALOG"]),
             goToFutures() {
                 let slide = document.getElementById("futures");
+                // Определение расстояния от начала страницы до нужного элемента
+                let top = window.scrollY + slide.getBoundingClientRect().y;
+                this.$vuetify.goTo(top);
+            },
+            goToIframeMap(selectedMapUrl) {
+                // Устанавливаем новую ссылку для Iframe с картой
+                this.selectedMapUrl = selectedMapUrl;
+
+                // Перемещаемся к Iframe
+                let slide = document.getElementById("examples");
                 // Определение расстояния от начала страницы до нужного элемента
                 let top = window.scrollY + slide.getBoundingClientRect().y;
                 this.$vuetify.goTo(top);

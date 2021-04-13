@@ -197,6 +197,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -221,7 +232,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         subtitle: 'Удобное использование',
         text: 'Эл. атлас можно встраивать на любые веб-ресурсы, информационные стенды и т.д. Созданным эл. атласом можно поделиться с любым пользователем сервиса.',
         callout: '03'
-      }]
+      }],
+      selectedMapUrl: 'http://192.168.77.23/viewer/1?iframe=true'
     };
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('maps', ['examples'])), {}, {
@@ -233,6 +245,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('layout', ["SHOW_FEEDBACK_DIALOG"])), {}, {
     goToFutures: function goToFutures() {
       var slide = document.getElementById("futures"); // Определение расстояния от начала страницы до нужного элемента
+
+      var top = window.scrollY + slide.getBoundingClientRect().y;
+      this.$vuetify.goTo(top);
+    },
+    goToIframeMap: function goToIframeMap(selectedMapUrl) {
+      // Устанавливаем новую ссылку для Iframe с картой
+      this.selectedMapUrl = selectedMapUrl; // Перемещаемся к Iframe
+
+      var slide = document.getElementById("examples"); // Определение расстояния от начала страницы до нужного элемента
 
       var top = window.scrollY + slide.getBoundingClientRect().y;
       this.$vuetify.goTo(top);
@@ -517,7 +538,7 @@ var render = function() {
         "div",
         {
           staticClass: "text-center",
-          staticStyle: { "padding-top": "48px" },
+          staticStyle: { "padding-top": "52px" },
           attrs: { id: "examples" }
         },
         [
@@ -544,20 +565,32 @@ var render = function() {
             1
           ),
           _vm._v(" "),
+          _c("iframe", {
+            staticStyle: { "border-style": "none" },
+            attrs: { width: "100%", height: "720", src: _vm.selectedMapUrl }
+          }),
+          _vm._v(" "),
           _c(
             "v-container",
             [
               _c(
                 "v-row",
-                { attrs: { dense: "", justify: "center" } },
-                _vm._l(_vm.examples, function(card) {
+                {
+                  staticClass: "mt-12",
+                  attrs: { dense: "", justify: "center" }
+                },
+                _vm._l(_vm.examples, function(card, index) {
                   return _c(
                     "v-col",
                     {
-                      key: card.title,
-                      staticClass: "mx-2 mb-4",
+                      key: index,
+                      staticClass: "mx-4 mb-6",
                       attrs: {
-                        cols: _vm.$vuetify.breakpoint.mdAndUp ? "3" : "12"
+                        cols: _vm.$vuetify.breakpoint.lgAndUp
+                          ? "3"
+                          : _vm.$vuetify.breakpoint.xs
+                          ? "11"
+                          : "5"
                       }
                     },
                     [
@@ -584,9 +617,7 @@ var render = function() {
                                       },
                                       on: {
                                         click: function($event) {
-                                          return _vm.$router.push({
-                                            path: "/example/" + card.id
-                                          })
+                                          return _vm.goToIframeMap(card.url)
                                         }
                                       }
                                     },
