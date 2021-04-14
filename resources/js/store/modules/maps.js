@@ -38,35 +38,35 @@ export default {
                 name: 'Парки и заповедники Дальнего Востока',
                 subtitle: 'Туризм',
                 description: 'Карта путешественника. Описание коллекций и особенностей парков для животных.',
-                url: 'https://mapdesigner.do-edu.pro/1?iframe=true'
+                url: 'https://mapdesigner.do-edu.pro/viewer/1?iframe=true'
             },
             {
                 img: require('@/assets/images/examples/solar-system.png'),
                 name: 'Солнечная система',
                 subtitle: 'Астрономия',
                 description: 'Планетная система, включает в себя центральную звезду и все планеты, вращающиеся вокруг.',
-                url: 'https://mapdesigner.do-edu.pro/5?iframe=true'
+                url: 'https://mapdesigner.do-edu.pro/viewer/5?iframe=true'
             },
             {
                 img: require('@/assets/images/examples/dv.png'),
                 name: 'Парки и заповедники Дальнего Востока',
                 subtitle: 'Туризм',
                 description: 'Карта путешественника. Описание коллекций и особенностей парков для животных.',
-                url: 'https://mapdesigner.do-edu.pro/1?iframe=true'
+                url: 'https://mapdesigner.do-edu.pro/viewer/1?iframe=true'
             },
             {
                 img: require('@/assets/images/examples/solar-system.png'),
                 name: 'Солнечная система',
                 subtitle: 'Астрономия',
                 description: 'Планетная система, включает в себя центральную звезду и все планеты, вращающиеся вокруг.',
-                url: 'https://mapdesigner.do-edu.pro/5?iframe=true'
+                url: 'https://mapdesigner.do-edu.pro/viewer/5?iframe=true'
             },
             {
                 img: require('@/assets/images/examples/human.png'),
                 name: 'Тело человека',
                 description: 'Внутреннее строение тела человека с моделями всех основных органов. За объект был взят макет, никто из людей не пострадал.',
                 subtitle: "Биология",
-                url: 'https://mapdesigner.do-edu.pro/4?iframe=true'
+                url: 'https://mapdesigner.do-edu.pro/viewer/4?iframe=true'
             }
         ],
         // share map dialog
