@@ -1,20 +1,21 @@
 <template>
-    <div style="position: relative;">
+    <div style="position: relative; overflow: hidden; width: 100%; height: 100vh;">
         <!-- Map -->
-        <Map style="position: absolute; width: 100%; height: 100vh; z-index: 0"/>
+        <Map style="position: absolute; z-index: 0"/>
         <!-- Content -->
         <div
-            style="position: absolute; right: 100px; height: 100vh; width: 34vw; z-index: 1; background-color:rgba(255,255,255, 0.4);"
-            class="d-flex flex-column justify-center px-6"
+            style="position: absolute; right: 100px; height: 100vh; width: 34vw; z-index: 1; pointer-events: none"
+            class="d-flex flex-column justify-center"
         >
-            <MediaContent height="34vh"/>
-            <v-container class="px-6 text-center">
-                <div class="display-1 mt-6 mb-4">{{ selectedEvent.title }}</div>
+            <div class="pa-4 d-flex flex-column text-center" style="max-height: 90vh; background-color:rgba(225, 225, 225, 0.7); pointer-events: all; overflow: hidden">
+                <MediaContent height="38vh" style="flex-shrink: 0"/>
+                <div class="display-1 mx-6 mt-6">{{ selectedEvent.title }}</div>
                 <div
-                    style="max-width: 600px"
+                    style="overflow-y: auto;"
+                    class="mx-6 mt-4"
                     v-html="selectedEvent.description"
                 />
-            </v-container>
+            </div>
         </div>
     </div>
 </template>
@@ -90,3 +91,7 @@ export default {
     }
 }
 </script>
+
+<style>
+
+</style>

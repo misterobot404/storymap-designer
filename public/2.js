@@ -241,6 +241,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -632,45 +633,61 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticStyle: { position: "relative" } },
+    {
+      staticStyle: {
+        position: "relative",
+        overflow: "hidden",
+        width: "100%",
+        height: "100vh"
+      }
+    },
     [
-      _c("Map", {
-        staticStyle: {
-          position: "absolute",
-          width: "100%",
-          height: "100vh",
-          "z-index": "0"
-        }
-      }),
+      _c("Map", { staticStyle: { position: "absolute", "z-index": "0" } }),
       _vm._v(" "),
       _c(
         "div",
         {
-          staticClass: "d-flex flex-column justify-center px-6",
+          staticClass: "d-flex flex-column justify-center",
           staticStyle: {
             position: "absolute",
             right: "100px",
             height: "100vh",
             width: "34vw",
             "z-index": "1",
-            "background-color": "rgba(255,255,255, 0.4)"
+            "pointer-events": "none"
           }
         },
         [
-          _c("MediaContent", { attrs: { height: "34vh" } }),
-          _vm._v(" "),
-          _c("v-container", { staticClass: "px-6 text-center" }, [
-            _c("div", { staticClass: "display-1 mt-6 mb-4" }, [
-              _vm._v(_vm._s(_vm.selectedEvent.title))
-            ]),
-            _vm._v(" "),
-            _c("div", {
-              staticStyle: { "max-width": "600px" },
-              domProps: { innerHTML: _vm._s(_vm.selectedEvent.description) }
-            })
-          ])
-        ],
-        1
+          _c(
+            "div",
+            {
+              staticClass: "pa-4 d-flex flex-column text-center",
+              staticStyle: {
+                "max-height": "90vh",
+                "background-color": "rgba(225, 225, 225, 0.7)",
+                "pointer-events": "all",
+                overflow: "hidden"
+              }
+            },
+            [
+              _c("MediaContent", {
+                staticStyle: { "flex-shrink": "0" },
+                attrs: { height: "38vh" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "display-1 mx-6 mt-6" }, [
+                _vm._v(_vm._s(_vm.selectedEvent.title))
+              ]),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "mx-6 mt-4",
+                staticStyle: { "overflow-y": "auto" },
+                domProps: { innerHTML: _vm._s(_vm.selectedEvent.description) }
+              })
+            ],
+            1
+          )
+        ]
       )
     ],
     1
@@ -795,9 +812,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Viewer_vue_vue_type_template_id_4c4b2bdb___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Viewer.vue?vue&type=template&id=4c4b2bdb& */ "./resources/js/pages/Viewer.vue?vue&type=template&id=4c4b2bdb&");
 /* harmony import */ var _Viewer_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Viewer.vue?vue&type=script&lang=js& */ "./resources/js/pages/Viewer.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
-/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
 
 
 
@@ -815,12 +829,6 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null
   
 )
-
-/* vuetify-loader */
-
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_4__["VContainer"]})
-
 
 /* hot reload */
 if (false) { var api; }
