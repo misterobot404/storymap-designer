@@ -45,7 +45,7 @@
                 <v-form ref="createSubjectForm">
                     <v-text-field
                         v-model="name"
-                        :rules="[ v => name === null || subjects.find(subject => subject.name === v) === undefined || 'Такая категория уже существует' ]"
+                        :rules="[ v => name === null || this.subjects.find(subject => subject.name === v) === undefined || 'Такая категория уже существует' ]"
                         label="Название"
                         required
                     />

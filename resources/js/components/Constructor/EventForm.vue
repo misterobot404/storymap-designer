@@ -48,48 +48,7 @@
                 >
                     <v-col cols="6" class="d-flex flex-column justify-center">
                         <!-- Add media -->
-                        <v-btn
-                            block
-                            large
-                            class="mb-4 primary--text"
-                            style="flex-grow: 0"
-                            @click="addMediaDialog=true"
-                        >
-                            <v-icon class="mr-2">insert_photo</v-icon>
-                            Добавить медиа
-                        </v-btn>
-                        <v-dialog
-                            v-model="addMediaDialog"
-                            max-width="290"
-                        >
-                            <v-card>
-                                <v-card-title class="headline">Добавление медиа</v-card-title>
-                                <v-card-text>
-                                    <v-text-field
-                                        v-model="mediaUrl"
-                                        label="Внешняя ссылка"
-                                    />
-                                </v-card-text>
-                                <v-card-actions>
-                                    <v-spacer/>
-                                    <v-btn
-                                        color="primary"
-                                        text
-                                        @click="addMediaDialog = false"
-                                    >
-                                        Закрыть
-                                    </v-btn>
-                                    <v-btn
-                                        color="primary"
-                                        text
-                                        :disabled="mediaUrl === ''"
-                                        @click="addMediaDialog = false; ADD_EVENT_MEDIA_URL({index:indexSelectedEvent, mediaUrl: mediaUrl})"
-                                    >
-                                        Добавить
-                                    </v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </v-dialog>
+                        <EventFormAddMediaDialog/>
                         <!-- Change icon -->
                         <v-btn
                             block
@@ -189,10 +148,12 @@
         HorizontalRule,
         History
     } from 'tiptap-vuetify'
+    import EventFormAddMediaDialog from "./EventFormAddMediaDialog";
 
     export default {
         name: "ConstructorForm",
         components: {
+            EventFormAddMediaDialog,
             MediaContent,
             TiptapVuetify
         },
@@ -203,9 +164,6 @@
                 iconUrl: "",
                 iconWidth: null,
                 iconHeight: null,
-                // Dialog. Add media.
-                addMediaDialog: false,
-                mediaUrl: "",
                 // declare extensions you want to use  in html editor
                 extensions: [
                     History,
@@ -277,7 +235,6 @@
             ...mapMutations('map', [
                 "SET_EVENT_TITLE",
                 "SET_EVENT_DESCRIPTION",
-                "ADD_EVENT_MEDIA_URL",
                 'SET_EVENT_ICON_URL'
             ]),
         }
