@@ -65,6 +65,8 @@
         <Settings/>
         <Help/>
         <v-text-field
+            @keydown.enter="findAndSelectEventByTitle"
+            v-model="searchEventTitle"
             dense
             single-line
             rounded
@@ -100,7 +102,8 @@ export default {
     data() {
         return {
             procSave: false,
-            waitUserAuth: false
+            waitUserAuth: false,
+            searchEventTitle: ""
         }
     },
     computed: {
@@ -112,6 +115,7 @@ export default {
         ]),
         ...mapState('map', ['id']),
         ...mapState('layout', ["authDialog"]),
+        ...mapState('map', ["events"]),
         mapIsExample() {
             return !this.$route.params.id
         }
@@ -122,6 +126,7 @@ export default {
             'recoveryMap'
         ]),
         ...mapMutations('layout', ['SHOW_AUTH_DIALOG']),
+        ...mapMutations('map', ['SET_SELECTED_EVENT_ID']),
         save() {
             if (this.isAuth) {
                 this.procSave = true;
@@ -131,6 +136,16 @@ export default {
                 this.SHOW_AUTH_DIALOG();
                 this.waitUserAuth = true;
             }
+        },
+        findAndSelectEventByTitle() {
+            // Найти полностью
+            let event = this.events.find(el=>el.title.toUpperCase() === this.searchEventTitle.toUpperCase());
+            // Если не найден заголовок события, найти его часть
+            if (!event)
+                event = this.events.find(el=>el.title.toUpperCase().includes(this.searchEventTitle.toUpperCase()));
+
+            if (event)
+                this.SET_SELECTED_EVENT_ID(event.id)
         }
     },
     watch: {

@@ -218,7 +218,7 @@
                         callout: '03',
                     }
                 ],
-                selectedMapUrl: 'https://mapdesigner.do-edu.pro/viewer/1?iframe=true'
+                selectedMapUrl: 'http://192.168.77.23/viewer/1?iframe=true'
             }
         },
         computed: {

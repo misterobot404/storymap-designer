@@ -40,16 +40,6 @@ export const routes = [
         }
     },
     {
-        name: 'example',
-        path: '/example/:id',
-        component: () => import('@/pages/Viewer'),
-        props: true,
-        meta: {
-            title: "MapDesigner - бесплатный онлайн конструктор карт и атласов",
-            description: "Расскажите истории в Интернете, освещающие места, события или предметы. MapDesigner позволит быстро создавать гибкие карты и атласы для использования их в сфере обучения и туризма."
-        }
-    },
-    {
         name: "page410",
         path: '/410',
         component: () => import('@/pages/Page410'),

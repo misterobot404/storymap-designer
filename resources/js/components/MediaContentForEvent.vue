@@ -2,6 +2,7 @@
     <v-carousel
         :cycle="!videoPlaying"
         :height="height"
+        :show-arrows="selectedEvent.mediaUrl.length > 1"
         hide-delimiter-background
         hide-delimiters
     >

@@ -3,16 +3,46 @@
         <!-- Map -->
         <Map style="position: absolute; z-index: 0"/>
         <!-- Content -->
+        <!-- Desktop -->
         <div
+            v-if="$vuetify.breakpoint.mdAndUp"
             style="position: absolute; right: 100px; height: 100vh; width: 34vw; z-index: 1; pointer-events: none"
             class="d-flex flex-column justify-center"
         >
-            <div class="pa-4 d-flex flex-column text-center" style="max-height: 90vh; background-color:rgba(225, 225, 225, 0.7); pointer-events: all; overflow: hidden">
-                <MediaContent height="38vh" style="flex-shrink: 0"/>
+            <div class="pa-4 d-flex flex-column text-center rounded"
+                 style="max-height: 90vh; background-color:rgba(225, 225, 225, 0.7); pointer-events: all; overflow: hidden">
+                <MediaContent
+                    v-if="selectedEvent.mediaUrl.length > 0"
+                    height="38vh"
+                    style="flex-shrink: 0"
+                />
                 <div class="display-1 mx-6 mt-6">{{ selectedEvent.title }}</div>
                 <div
                     style="overflow-y: auto;"
                     class="mx-6 mt-4"
+                    v-html="selectedEvent.description"
+                />
+            </div>
+        </div>
+        <!-- Mobile -->
+        <div
+            v-else
+            style="position: absolute; bottom: 20px; max-height: 40vh; width: 100vw; z-index: 1; pointer-events: none"
+            class="d-flex flex-row justify-center"
+        >
+            <div
+                class="pa-4 d-flex flex-column align-center text-center rounded"
+                style="max-width: 94vw; background-color:rgba(225, 225, 225, 0.7); pointer-events: all; overflow-y: auto;"
+            >
+                <div class="headline mt-2">{{ selectedEvent.title }}</div>
+                <MediaContent
+                    v-if="selectedEvent.mediaUrl.length > 0"
+                    height="22vh"
+                    class="mx-4 mt-3"
+                    style="flex-shrink: 0; max-width: 38vh"
+                />
+                <div
+                    class="mx-2 mt-3"
                     v-html="selectedEvent.description"
                 />
             </div>
@@ -49,12 +79,8 @@ export default {
         }
     },
     async beforeRouteEnter(to, from, next) {
-        // example
-        if (to.name === "example") {
-            await store.dispatch('map/setExampleMap', to.params.id, {root: true})
-        }
         // real map
-        else if (to.params.id) {
+        if (to.params.id) {
             // map is not loaded yet
             if (from.name !== "constructor" && to.params.id !== from.params.id) {
                 await store.dispatch('map/getMap', to.params.id, {root: true})

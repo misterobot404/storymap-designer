@@ -34,7 +34,7 @@
             </v-toolbar>
             <v-divider/>
             <v-expand-transition>
-                <component v-bind:is="currentTabName" @done="HIDE_AUTH_DIALOG()"/>
+                <component v-bind:is="currentTabName" @done="done()"/>
             </v-expand-transition>
         </v-card>
     </v-dialog>
@@ -63,6 +63,7 @@ export default {
             'appLogo',
             'authDialog'
         ]),
+        ...mapState('map', {map_id : 'id'}),
         currentTabName() {
             if (this.currentTabIndex === 0) return "Authorization"
             else return "Registration"
@@ -70,6 +71,11 @@ export default {
     },
     methods: {
         ...mapMutations('layout', ["HIDE_AUTH_DIALOG"]),
+        done() {
+            if (this.map_id !== "test")
+                this.$router.push('/library');
+            this.HIDE_AUTH_DIALOG();
+        }
     }
 }
 </script>

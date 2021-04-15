@@ -91,10 +91,7 @@ export default {
                 email: this.email,
                 password: this.password
             })
-                .then(_ => {
-                    this.$emit('done');
-                    this.$router.push('/library');
-                })
+                .then(_ => this.$emit('done'))
                 .catch(_ => this.showError = true)
                 .finally(() => this.authProcess = false)
         }

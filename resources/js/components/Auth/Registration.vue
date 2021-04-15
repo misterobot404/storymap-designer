@@ -139,11 +139,7 @@ export default {
                         email: payload.email,
                         password: payload.password
                     })
-                        .then(_ => {
-                            // Close dialog
-                            this.$emit('done');
-                            this.$router.push('/library');
-                        })
+                        .then(_ => this.$emit('done'))
                         .finally(() => this.registrationProcess = false)
                 })
                 .catch(() => this.registrationProcess = false)
