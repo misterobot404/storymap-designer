@@ -233,7 +233,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         text: 'Эл. атлас можно встраивать на любые веб-ресурсы, информационные стенды и т.д. Созданным эл. атласом можно поделиться с любым пользователем сервиса.',
         callout: '03'
       }],
-      selectedMapUrl: 'http://192.168.77.23/viewer/1?iframe=true'
+      selectedMapUrl: 'https://mapdesigner.do-edu.pro/viewer/1?iframe=true'
     };
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('maps', ['examples'])), {}, {

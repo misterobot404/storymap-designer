@@ -71026,7 +71026,7 @@ var routes = [{
   name: 'library',
   path: '/library',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! @/pages/Library */ "./resources/js/pages/Library.vue"));
+    return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! @/pages/Library */ "./resources/js/pages/Library.vue"));
   },
   meta: {
     middlewareAuth: true,
@@ -71037,7 +71037,7 @@ var routes = [{
   name: 'constructor',
   path: '/constructor/:id?',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(5), __webpack_require__.e(1), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! @/pages/Constructor */ "./resources/js/pages/Constructor.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! @/pages/Constructor */ "./resources/js/pages/Constructor.vue"));
   },
   props: true,
   meta: {
@@ -71049,7 +71049,7 @@ var routes = [{
   name: 'viewer',
   path: '/viewer/:id?',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
   },
   props: true,
   meta: {
@@ -71704,37 +71704,37 @@ __webpack_require__.r(__webpack_exports__);
       name: 'Тело человека',
       description: 'Внутреннее строение тела человека с моделями всех основных органов. За объект был взят макет, никто из людей не пострадал.',
       subtitle: "Биология",
-      url: 'http://192.168.77.23/viewer/4?iframe=true'
+      url: 'https://mapdesigner.do-edu.pro/viewer/4?iframe=true'
     }, {
       img: __webpack_require__(/*! @/assets/images/examples/dv.png */ "./resources/js/assets/images/examples/dv.png"),
       name: 'Парки и заповедники Дальнего Востока',
       subtitle: 'Туризм',
       description: 'Карта путешественника. Описание коллекций и особенностей парков для животных.',
-      url: 'http://192.168.77.23/viewer/1?iframe=true'
+      url: 'https://mapdesigner.do-edu.pro/1?iframe=true'
     }, {
       img: __webpack_require__(/*! @/assets/images/examples/solar-system.png */ "./resources/js/assets/images/examples/solar-system.png"),
       name: 'Солнечная система',
       subtitle: 'Астрономия',
       description: 'Планетная система, включает в себя центральную звезду и все планеты, вращающиеся вокруг.',
-      url: 'http://192.168.77.23/viewer/5?iframe=true'
+      url: 'https://mapdesigner.do-edu.pro/5?iframe=true'
     }, {
       img: __webpack_require__(/*! @/assets/images/examples/dv.png */ "./resources/js/assets/images/examples/dv.png"),
       name: 'Парки и заповедники Дальнего Востока',
       subtitle: 'Туризм',
       description: 'Карта путешественника. Описание коллекций и особенностей парков для животных.',
-      url: 'http://192.168.77.23/viewer/1?iframe=true'
+      url: 'https://mapdesigner.do-edu.pro/1?iframe=true'
     }, {
       img: __webpack_require__(/*! @/assets/images/examples/solar-system.png */ "./resources/js/assets/images/examples/solar-system.png"),
       name: 'Солнечная система',
       subtitle: 'Астрономия',
       description: 'Планетная система, включает в себя центральную звезду и все планеты, вращающиеся вокруг.',
-      url: 'http://192.168.77.23/viewer/5?iframe=true'
+      url: 'https://mapdesigner.do-edu.pro/5?iframe=true'
     }, {
       img: __webpack_require__(/*! @/assets/images/examples/human.png */ "./resources/js/assets/images/examples/human.png"),
       name: 'Тело человека',
       description: 'Внутреннее строение тела человека с моделями всех основных органов. За объект был взят макет, никто из людей не пострадал.',
       subtitle: "Биология",
-      url: 'http://192.168.77.23/viewer/4?iframe=true'
+      url: 'https://mapdesigner.do-edu.pro/4?iframe=true'
     }],
     // share map dialog
     showShareMapDialog: false,
