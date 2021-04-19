@@ -67,11 +67,11 @@
                         </v-btn>
                         <v-dialog
                             v-model="changeIconDialog"
-                            max-width="290"
+                            max-width="320"
                         >
                             <v-card>
                                 <v-card-title class="headline">Изменение иконки</v-card-title>
-                                <v-card-text>
+                                <v-card-text class="pb-0">
                                     <v-text-field
                                         v-model="iconUrl"
                                         label="Ссылка на иконку"
@@ -86,14 +86,7 @@
                                     />
                                 </v-card-text>
                                 <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                        color="primary"
-                                        text
-                                        @click="changeIconDialog = false"
-                                    >
-                                        Закрыть
-                                    </v-btn>
+                                    <v-spacer/>
                                     <v-btn
                                         color="primary"
                                         text

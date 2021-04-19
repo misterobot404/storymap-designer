@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 
 class Map extends Model
 {
@@ -29,5 +30,19 @@ class Map extends Model
     {
         $date = Carbon::parse($value);
         return $date->setTimezone('Asia/Vladivostok')->format('Y-m-d H:i');
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($map) {
+            // При удалении карты удалять все загруженные медиа ресурсы
+            foreach (json_decode($map->events) as $event) {
+                foreach ($event->mediaUrl as $mediaUrl) {
+                    if (File::exists(public_path($mediaUrl)))
+                        File::delete(public_path($mediaUrl));
+                }
+            }
+        });
     }
 }

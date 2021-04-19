@@ -84,6 +84,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -103,7 +115,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORT
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('map', ['selectedEvent', 'indexSelectedEvent'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapMutations"])('map', ['REMOVE_EVENT_MEDIA_URL']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('map', {
+    deleteMedia: "deleteMedia"
+  }))
 });
 
 /***/ }),
@@ -205,7 +219,7 @@ var render = function() {
                         },
                         on: {
                           click: function($event) {
-                            return _vm.REMOVE_EVENT_MEDIA_URL({
+                            return _vm.deleteMedia({
                               indexEvent: _vm.indexSelectedEvent,
                               indexMediaUrl: index
                             })
@@ -230,7 +244,8 @@ var render = function() {
                         }
                       })
                     ]
-                  : [
+                  : url.indexOf("www.youtube.com") > -1
+                  ? [
                       _c("youtube", {
                         staticClass: "youtube",
                         attrs: { "video-id": _vm.$youtube.getIdFromURL(url) },
@@ -246,6 +261,33 @@ var render = function() {
                           }
                         }
                       })
+                    ]
+                  : [
+                      _c(
+                        "div",
+                        { staticClass: "d-flex align-center fill-height" },
+                        [
+                          _c(
+                            "video",
+                            {
+                              attrs: { controls: "", width: "100%" },
+                              on: {
+                                play: function($event) {
+                                  _vm.videoPlaying = true
+                                },
+                                pause: function($event) {
+                                  _vm.videoPlaying = false
+                                }
+                              }
+                            },
+                            [
+                              _c("source", {
+                                attrs: { src: url, type: "video/mp4" }
+                              })
+                            ]
+                          )
+                        ]
+                      )
                     ]
               ],
               2

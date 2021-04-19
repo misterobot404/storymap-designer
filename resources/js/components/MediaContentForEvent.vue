@@ -21,7 +21,7 @@
                     v-if="$route.name === 'constructor'"
                     class="v-btn--active"
                     style="right: 18px; top: 16px"
-                    @click="REMOVE_EVENT_MEDIA_URL({indexEvent: indexSelectedEvent, indexMediaUrl: index})"
+                    @click="deleteMedia({indexEvent: indexSelectedEvent, indexMediaUrl: index})"
                 >
                     <v-icon dark>clear</v-icon>
                 </v-btn>
@@ -35,7 +35,7 @@
                     />
                 </template>
                 <!-- Youtube -->
-                <template v-else>
+                <template v-else-if="url.indexOf('www.youtube.com') > -1">
                     <youtube
                         class="youtube"
                         @playing="videoPlaying = true"
@@ -43,6 +43,18 @@
                         @ended="videoPlaying = false"
                         :video-id="$youtube.getIdFromURL(url)"
                     />
+                </template>
+                <template v-else>
+                    <div class="d-flex align-center fill-height">
+                        <video
+                            @play="videoPlaying = true"
+                            @pause="videoPlaying = false"
+                            controls
+                            width="100%"
+                        >
+                            <source :src="url" type="video/mp4"/>
+                        </video>
+                    </div>
                 </template>
             </v-carousel-item>
         </template>
@@ -64,43 +76,44 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-    import VueYouTubeEmbed from 'vue-youtube-embed'
-    import {mapGetters, mapMutations} from "vuex";
-    Vue.use(VueYouTubeEmbed)
+import Vue from 'vue'
+import VueYouTubeEmbed from 'vue-youtube-embed'
+import {mapGetters, mapActions} from "vuex";
 
-    export default {
-        name: "MediaContent",
-        props: {
-            height: {
-                type: String,
-                required: true
-            }
-        },
-        data() {
-            return {
-                imgNotExist: [],
-                videoPlaying: false,
-            }
-        },
-        computed: {
-            ...mapGetters('map', [
-                'selectedEvent',
-                'indexSelectedEvent'
-            ]),
-        },
-        methods: {
-            ...mapMutations('map',[
-                'REMOVE_EVENT_MEDIA_URL'
-            ])
+Vue.use(VueYouTubeEmbed)
+
+export default {
+    name: "MediaContent",
+    props: {
+        height: {
+            type: String,
+            required: true
         }
+    },
+    data() {
+        return {
+            imgNotExist: [],
+            videoPlaying: false,
+        }
+    },
+    computed: {
+        ...mapGetters('map', [
+            'selectedEvent',
+            'indexSelectedEvent'
+        ]),
+    },
+    methods: {
+        ...mapActions('map', {
+            deleteMedia: "deleteMedia"
+        })
     }
+}
 </script>
 <style lang="sass" scoped>
-    ::v-deep .youtube iframe
-        position: absolute
-        width: 100%
-        height: 100%
-        left: 0
-        top: 0
+::v-deep .youtube iframe
+    position: absolute
+    width: 100%
+    height: 100%
+    left: 0
+    top: 0
 </style>

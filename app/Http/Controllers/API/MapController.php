@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Map;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class MapController extends Controller
 {
@@ -68,14 +68,12 @@ class MapController extends Controller
                 "status" => "success",
                 "data" => ["map" => $map]
             ], 200);
-        }
-        else if ($map->public === 0) {
+        } else if ($map->public === 0) {
             return response()->json([
                 "status" => "fail",
                 "data" => ["id" => "Access denied"]
             ], 410);
-        }
-        else return response()->json([
+        } else return response()->json([
             "status" => "fail",
             "data" => ["id" => "Access denied"]
         ], 403);
@@ -150,6 +148,80 @@ class MapController extends Controller
             "status" => "success",
             "data" => ["maps" => $maps]
         ], 200);
+    }
+
+
+    public function addMedia($map_id, $event_id)
+    {
+        $map = Map::find($map_id);
+
+        if ($map->user_id !== auth()->id()) {
+            return response()->json([
+                "status" => "fail",
+                "data" => ["id" => "Access denied"]
+            ], 403);
+        }
+
+        // save media file
+        $path = '/storage/' . request()->file('media_file')->store('event_media', 'public');
+
+        // add media_url to event
+        $events = json_decode($map->events);
+
+        foreach ($events as &$event) {
+            if ($event->id == $event_id) {
+                array_push($event->mediaUrl, $path);
+                break;
+            }
+        }
+
+        $map->events = json_encode($events);
+        $map->save();
+
+        return response()->json([
+            "status" => "success",
+            "data" => [
+                "addedMediaUrl" => $path
+            ]
+        ]);
+    }
+
+    public function deleteMedia($map_id, $event_id)
+    {
+        $map = Map::find($map_id);
+
+        if ($map->user_id !== auth()->id()) {
+            return response()->json([
+                "status" => "fail",
+                "data" => ["id" => "Access denied"]
+            ], 403);
+        }
+
+        // Удаление файла
+        if (File::exists(public_path(request('mediaUrl')))) {
+            File::delete(public_path(request('mediaUrl')));
+
+            // add media_url to event
+            $events = json_decode($map->events);
+
+            foreach ($events as &$event) {
+                if ($event->id == $event_id) {
+                    // Получение индекса элемента массива со значением искомой строки
+                    $index = array_search(request('mediaUrl'), $event->mediaUrl);
+                    // Удаление
+                    $event->mediaUrl = array_slice($event->mediaUrl, $index);
+                    break;
+                }
+            }
+
+            $map->events = json_encode($events);
+            $map->save();
+        }
+
+        return response()->json([
+            "status" => "success",
+            "data" => []
+        ]);
     }
 
 

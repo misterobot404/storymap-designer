@@ -849,13 +849,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -1014,18 +1007,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "EventFormAddMediaDialog",
   data: function data() {
     return {
+      processing: false,
       addMediaDialog: false,
       mediaUrl: "",
-      media: media
+      mediaFile: null
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('map', ['indexSelectedEvent'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ["ADD_EVENT_MEDIA_URL"]))
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ["ADD_EVENT_MEDIA_URL"])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('map', ['addMedia'])), {}, {
+    addMediaResource: function addMediaResource() {
+      var _this = this;
+
+      // Если был выбран локальный файл, загружаем файл на сервер
+      if (this.mediaFile) {
+        this.processing = true;
+        this.addMedia(this.mediaFile).then(function (_) {
+          // Закрываем диалог и очищаем поля
+          _this.addMediaDialog = false;
+          _this.mediaFile = null;
+        })["finally"](function () {
+          _this.processing = false;
+        });
+      } // Если была использована внешняя ссылка
+      else if (this.mediaUrl) {
+          // Добавляем ссылку на файл к медиа контенту события
+          this.ADD_EVENT_MEDIA_URL({
+            index: this.indexSelectedEvent,
+            mediaUrl: this.mediaUrl
+          }); // Закрываем диалог и очищаем поля
+
+          this.addMediaDialog = false;
+          this.mediaUrl = "";
+        }
+    }
+  })
 });
 
 /***/ }),
@@ -2987,7 +3015,7 @@ var render = function() {
                       _c(
                         "v-dialog",
                         {
-                          attrs: { "max-width": "290" },
+                          attrs: { "max-width": "320" },
                           model: {
                             value: _vm.changeIconDialog,
                             callback: function($$v) {
@@ -3006,6 +3034,7 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "v-card-text",
+                                { staticClass: "pb-0" },
                                 [
                                   _c("v-text-field", {
                                     attrs: { label: "Ссылка на иконку" },
@@ -3047,23 +3076,6 @@ var render = function() {
                                 "v-card-actions",
                                 [
                                   _c("v-spacer"),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-btn",
-                                    {
-                                      attrs: { color: "primary", text: "" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.changeIconDialog = false
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                    Закрыть\n                                "
-                                      )
-                                    ]
-                                  ),
                                   _vm._v(" "),
                                   _c(
                                     "v-btn",
@@ -3150,7 +3162,7 @@ var render = function() {
   return _c(
     "v-dialog",
     {
-      attrs: { "max-width": "340" },
+      attrs: { persistent: _vm.processing, "max-width": "380" },
       scopedSlots: _vm._u([
         {
           key: "activator",
@@ -3192,19 +3204,40 @@ var render = function() {
       _c(
         "v-card",
         [
-          _c("v-card-title", { staticClass: "headline" }, [
-            _vm._v("Добавление медиа")
-          ]),
+          _c(
+            "v-toolbar",
+            { staticClass: "pr-1", attrs: { height: "68", flat: "" } },
+            [
+              _c(
+                "v-toolbar-title",
+                [
+                  _c(
+                    "v-icon",
+                    { staticClass: "mr-1 pb-1", attrs: { large: "" } },
+                    [_vm._v("insert_photo")]
+                  ),
+                  _vm._v("\n                Добавление медиа\n            ")
+                ],
+                1
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "v-card-text",
+            { staticClass: "pb-0" },
             [
               _c("v-text-field", {
-                attrs: { label: "Ссылка на картинку или YouTube видео" },
+                attrs: {
+                  disabled: _vm.mediaFile !== null,
+                  clearable: "",
+                  label: "Ссылка на картинку или YouTube"
+                },
                 model: {
                   value: _vm.mediaUrl,
                   callback: function($$v) {
-                    _vm.mediaUrl = $$v
+                    _vm.mediaUrl = typeof $$v === "string" ? $$v.trim() : $$v
                   },
                   expression: "mediaUrl"
                 }
@@ -3212,16 +3245,17 @@ var render = function() {
               _vm._v("\n            или\n            "),
               _c("v-file-input", {
                 attrs: {
-                  label: "Загрузка с компьютера",
+                  disabled: _vm.mediaUrl !== "",
+                  label: "Загрузка файла с компьютера",
                   accept: "image/*, video/*",
                   "prepend-icon": "attach_file"
                 },
                 model: {
-                  value: _vm.media,
+                  value: _vm.mediaFile,
                   callback: function($$v) {
-                    _vm.media = $$v
+                    _vm.mediaFile = $$v
                   },
-                  expression: "media"
+                  expression: "mediaFile"
                 }
               })
             ],
@@ -3236,31 +3270,15 @@ var render = function() {
               _c(
                 "v-btn",
                 {
-                  attrs: { color: "primary", text: "" },
-                  on: {
-                    click: function($event) {
-                      _vm.addMediaDialog = false
-                    }
-                  }
-                },
-                [_vm._v("\n                Закрыть\n            ")]
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
                   attrs: {
+                    loading: _vm.processing,
                     color: "primary",
                     text: "",
-                    disabled: _vm.mediaUrl === ""
+                    disabled: _vm.mediaUrl === "" && _vm.mediaFile === null
                   },
                   on: {
                     click: function($event) {
-                      _vm.addMediaDialog = false
-                      _vm.ADD_EVENT_MEDIA_URL({
-                        index: _vm.indexSelectedEvent,
-                        mediaUrl: _vm.mediaUrl
-                      })
+                      return _vm.addMediaResource()
                     }
                   }
                 },
@@ -4224,6 +4242,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
 /* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
 
 
 
@@ -4254,7 +4273,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardTitle"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_6__["VDialog"],VFileInput: vuetify_lib_components_VFileInput__WEBPACK_IMPORTED_MODULE_7__["VFileInput"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__["VTextField"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_6__["VDialog"],VFileInput: vuetify_lib_components_VFileInput__WEBPACK_IMPORTED_MODULE_7__["VFileInput"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["VIcon"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_9__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_10__["VTextField"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_11__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_11__["VToolbarTitle"]})
 
 
 /* hot reload */

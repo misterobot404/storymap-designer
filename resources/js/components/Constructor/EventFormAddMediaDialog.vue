@@ -1,7 +1,8 @@
 <template>
     <v-dialog
         v-model="addMediaDialog"
-        max-width="340"
+        :persistent="processing"
+        max-width="380"
     >
         <template v-slot:activator="{ on }">
             <v-btn
@@ -18,16 +19,29 @@
 
         <!-- Dialog -->
         <v-card>
-            <v-card-title class="headline">Добавление медиа</v-card-title>
-            <v-card-text>
+            <v-toolbar
+                height="68"
+                flat
+                class="pr-1"
+            >
+                <v-toolbar-title>
+                    <v-icon large class="mr-1 pb-1">insert_photo</v-icon>
+                    Добавление медиа
+                </v-toolbar-title>
+            </v-toolbar>
+
+            <v-card-text class="pb-0">
                 <v-text-field
-                    v-model="mediaUrl"
-                    label="Ссылка на картинку или YouTube видео"
+                    :disabled="mediaFile !== null"
+                    v-model.trim="mediaUrl"
+                    clearable
+                    label="Ссылка на картинку или YouTube"
                 />
                 или
                 <v-file-input
-                    label="Загрузка с компьютера"
-                    v-model="media"
+                    :disabled="mediaUrl !== ''"
+                    label="Загрузка файла с компьютера"
+                    v-model="mediaFile"
                     accept="image/*, video/*"
                     prepend-icon="attach_file"
                 />
@@ -35,17 +49,11 @@
             <v-card-actions>
                 <v-spacer/>
                 <v-btn
+                    :loading="processing"
                     color="primary"
                     text
-                    @click="addMediaDialog = false"
-                >
-                    Закрыть
-                </v-btn>
-                <v-btn
-                    color="primary"
-                    text
-                    :disabled="mediaUrl === ''"
-                    @click="addMediaDialog = false; ADD_EVENT_MEDIA_URL({index:indexSelectedEvent, mediaUrl: mediaUrl})"
+                    :disabled="mediaUrl === '' && mediaFile === null"
+                    @click="addMediaResource()"
                 >
                     Добавить
                 </v-btn>
@@ -55,45 +63,54 @@
 </template>
 
 <script>
-import {mapState, mapActions, mapMutations, mapGetters} from 'vuex'
+import {mapActions, mapMutations, mapGetters} from 'vuex'
 
 export default {
     name: "EventFormAddMediaDialog",
     data() {
         return {
+            processing: false,
             addMediaDialog: false,
             mediaUrl: "",
-            media
+            mediaFile: null
         }
     },
     computed: {
         ...mapGetters('map', [
             'indexSelectedEvent'
         ])
-       /* ...mapState('subjects', ['subjects'])*/
     },
     methods: {
         ...mapMutations('map', [
             "ADD_EVENT_MEDIA_URL"
         ]),
-        /*...mapActions('subjects', ['createSubject']),*/
+        ...mapActions('map', ['addMedia']),
 
-        /*create() {
-            if (this.$refs.createSubjectForm.validate()) {
-                let formData = new FormData();
-                formData.append('name', this.name);
-                if (this.icon) formData.append('icon', this.icon);
-
-                this.processCreate = true;
-                this.createSubject(formData)
+        addMediaResource() {
+            // Если был выбран локальный файл, загружаем файл на сервер
+            if (this.mediaFile) {
+                this.processing = true;
+                this.addMedia(this.mediaFile)
                     .then(_ => {
+                        // Закрываем диалог и очищаем поля
                         this.addMediaDialog = false;
-                        this.name = "";
-                        this.icon = null;
+                        this.mediaFile = null;
                     })
-                    .finally(() => { this.processCreate = false })
+                    .finally(() => { this.processing = false })
             }
-        }*/
+            // Если была использована внешняя ссылка
+            else if (this.mediaUrl) {
+                // Добавляем ссылку на файл к медиа контенту события
+                this.ADD_EVENT_MEDIA_URL({
+                        index: this.indexSelectedEvent,
+                        mediaUrl: this.mediaUrl
+                    }
+                )
+                // Закрываем диалог и очищаем поля
+                this.addMediaDialog = false;
+                this.mediaUrl = "";
+            }
+        }
     }
 }
 </script>

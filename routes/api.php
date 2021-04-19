@@ -39,6 +39,9 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/maps', [MapController::class, 'store']);
     Route::put('/maps/{id}', [MapController::class, 'update']);
     Route::delete('/maps/{id}', [MapController::class, 'destroy']);
+    // Media
+    Route::post('/maps/{map_id}/events/{event_id}/addMedia', [MapController::class, 'addMedia']);
+    Route::put('/maps/{map_id}/events/{event_id}/deleteMedia', [MapController::class, 'deleteMedia']);
     // Other
     Route::put('/maps/{id}/setPrivacy', [MapController::class, 'setPrivacy']);
     Route::post('/maps/copy', [MapController::class, 'copy']);

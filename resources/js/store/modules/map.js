@@ -138,7 +138,7 @@ export default {
             // Computed some state
             commit('SET_NEXT_EVENT_ID');
         },
-        //// Events
+        // Events
         addEvent({state, commit}) {
             commit('PUSH_EMPTY_EVENT');
             commit('ITERATION_ID');
@@ -156,7 +156,35 @@ export default {
             }
             // Установка нового активного элемента
             commit('SET_SELECTED_EVENT_ID', getters.getEventIdByIndex(deletedEventIndex));
-        }
+        },
+        // Event
+        addMedia({state, getters, commit}, mediaFile) {
+            // Формируем тело запроса
+            let formData = new FormData();
+            formData.append('media_file', mediaFile);
+
+            // Сохранение медиа на сервере и получение ссылки
+            return axios.post('/api/maps/' + state.id + '/events/' + getters.selectedEvent.id + '/addMedia', formData, { headers: {'Content-Type': 'multipart/form-data'}})
+                .then(response => {
+                    // Добавляем ссылку на файл к медиа контенту события
+                    commit('ADD_EVENT_MEDIA_URL', {
+                            index: getters.indexSelectedEvent,
+                            mediaUrl: response.data.data.addedMediaUrl
+                        }
+                    )
+                });
+        },
+        deleteMedia({state, getters, commit}, payload) {
+            // Если медиа файл получен с сервера, удалить его физически. КОСТЫЛЬ
+            if (state.events[payload.indexEvent].mediaUrl[payload.indexMediaUrl].includes("storage/event_media/")) {
+                return axios.put('/api/maps/' + state.id + '/events/' + getters.selectedEvent.id + '/deleteMedia', {
+                    mediaUrl: state.events[payload.indexEvent].mediaUrl[payload.indexMediaUrl]
+                })
+                    .then( _ => commit('REMOVE_EVENT_MEDIA_URL', payload));
+            }
+            // Сохранение медиа на сервере и получение ссылки
+            else commit('REMOVE_EVENT_MEDIA_URL', payload);
+        },
     },
     mutations: {
         SET_MAP: (state, map) => {
