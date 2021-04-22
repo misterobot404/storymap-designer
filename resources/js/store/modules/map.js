@@ -4,21 +4,22 @@ import router from "../../routes"
 export default {
     namespaced: true,
     state: {
-        //// MAP. Data from db.
+        //// Data from db
         id: "",
         name: "",
-        subject_id: "",
         description: "",
+        subject_id: "",
+        tile_id: "",
         config: {eventListWidth: 227}, // {selectedEventId, eventListWidth}
-        tile: {}, // {attribution, bounds, maxZoom, minZoom, url, showPolyline, polylineWeight}
         events: [], // [{title, description, id, marker {position, url, height }, mediaUrl:[]}]
-        //// OTHER. Computed data.
-        // To detect changes to the current map.
+
+        //// Computed data
+        // Initial state of the card, to which you can roll back
         oldMap: null,
-        // Current coordinate of the view center
-        tileCenter: {},
         // Next event will be created with this id
-        nextEventId: 0
+        nextEventId: 0,
+        // Current coordinate of the view center
+        tileCenter: {}
     },
     getters: {
         indexSelectedEvent(state) {
@@ -42,7 +43,7 @@ export default {
                 name: state.name,
                 subject_id: state.subject_id,
                 description: state.description,
-                tile: state.tile,
+                tile_id: state.tile_id,
                 events: state.events
             };
             let currentMapJSON = JSON.stringify(currentMap).split(' ').join('');
@@ -51,7 +52,7 @@ export default {
         }
     },
     actions: {
-        getMap({state, getters, commit}, mapId) {
+        getMap({state, getters, commit, rootState, rootGetters}, mapId) {
             // Clear previous map
             commit('CLEAR_STATE');
             // Send request
@@ -62,6 +63,10 @@ export default {
                     commit('SET_NEXT_EVENT_ID');
                     // set tile center on first event
                     commit('SET_TILE_CENTER', getters.selectedEvent.marker.position);
+                    // Если атлас загружен не авторизированным пользователем, то атлас публичный, поэтому тайл для атласа идёт с респонсом
+                    if (!rootGetters["auth/isAuth"]) {
+                        commit('tiles/SET_TILES', [response.data.data.tile], {root: true})
+                    }
                 })
         },
         setEmptyExampleMap({state, commit, rootState, getters}) {
@@ -80,7 +85,7 @@ export default {
                 subject_id: state.subject_id,
                 description: state.description,
                 config: state.config,
-                tile: state.tile,
+                tile_id: state.tile_id,
                 events: state.events
             }
             // set tile center on first event
@@ -106,8 +111,8 @@ export default {
                     name: state.name,
                     subject_id: state.subject_id,
                     description: state.description,
-                    config:state.config,
-                    tile: state.tile,
+                    config: state.config,
+                    tile_id: state.tile_id,
                     events: state.events
                 };
                 return dispatch('maps/createMap', map, {root: true})
@@ -121,7 +126,7 @@ export default {
                     subject_id: state.subject_id,
                     description: state.description,
                     config: JSON.stringify(state.config),
-                    tile: JSON.stringify(state.tile),
+                    tile_id: state.tile_id,
                     events: JSON.stringify(state.events)
                 };
                 return axios.put('/api/maps/' + state.id, map)
@@ -138,7 +143,8 @@ export default {
             // Computed some state
             commit('SET_NEXT_EVENT_ID');
         },
-        // Events
+
+        //// Events
         addEvent({state, commit}) {
             commit('PUSH_EMPTY_EVENT');
             commit('ITERATION_ID');
@@ -157,14 +163,15 @@ export default {
             // Установка нового активного элемента
             commit('SET_SELECTED_EVENT_ID', getters.getEventIdByIndex(deletedEventIndex));
         },
-        // Event
+
+        //// Event
         addMedia({state, getters, commit}, mediaFile) {
             // Формируем тело запроса
             let formData = new FormData();
             formData.append('media_file', mediaFile);
 
             // Сохранение медиа на сервере и получение ссылки
-            return axios.post('/api/maps/' + state.id + '/events/' + getters.selectedEvent.id + '/addMedia', formData, { headers: {'Content-Type': 'multipart/form-data'}})
+            return axios.post('/api/maps/' + state.id + '/events/' + getters.selectedEvent.id + '/addMedia', formData, {headers: {'Content-Type': 'multipart/form-data'}})
                 .then(response => {
                     // Добавляем ссылку на файл к медиа контенту события
                     commit('ADD_EVENT_MEDIA_URL', {
@@ -175,12 +182,12 @@ export default {
                 });
         },
         deleteMedia({state, getters, commit}, payload) {
-            // Если медиа файл получен с сервера, удалить его физически. КОСТЫЛЬ
+            // Если медиа файл получен с сервера, удалить его физически
             if (state.events[payload.indexEvent].mediaUrl[payload.indexMediaUrl].includes("storage/event_media/")) {
                 return axios.put('/api/maps/' + state.id + '/events/' + getters.selectedEvent.id + '/deleteMedia', {
                     mediaUrl: state.events[payload.indexEvent].mediaUrl[payload.indexMediaUrl]
                 })
-                    .then( _ => commit('REMOVE_EVENT_MEDIA_URL', payload));
+                    .then(_ => commit('REMOVE_EVENT_MEDIA_URL', payload));
             }
             // Сохранение медиа на сервере и получение ссылки
             else commit('REMOVE_EVENT_MEDIA_URL', payload);
@@ -193,7 +200,7 @@ export default {
             state.subject_id = map.subject_id;
             state.description = map.description;
             state.config = JSON.parse(map.config);
-            state.tile = JSON.parse(map.tile);
+            state.tile_id = map.tile_id;
             state.events = JSON.parse(map.events);
         },
         SET_OLD_MAP: (state, map) => {
@@ -203,18 +210,17 @@ export default {
                 name: map.name,
                 subject_id: map.subject_id,
                 description: map.description,
-                tile: JSON.parse(map.tile),
+                tile_id: map.tile_id,
                 events: JSON.parse(map.events)
             };
         },
-        // Очистка предыдущего состояния перед загрузкой новой карты
         CLEAR_STATE: (state) => {
             state.id = "";
             state.name = "";
             state.subject_id = "";
             state.description = "";
             state.config = {eventListWidth: 227};
-            state.tile = {};
+            state.tile_id = "";
             state.events = [];
             state.oldMap = null;
         },
@@ -224,7 +230,7 @@ export default {
             state.subject_id = state.oldMap.subject_id;
             state.description = state.oldMap.description;
             // Copy object. Not reference
-            Object.assign(state.tile, state.oldMap.tile);
+            state.tile_id = state.oldMap.tile_id;
             // Copy array of object. Not references.
             state.events = state.oldMap.events.map(a => Object.assign({}, a));
         },
@@ -235,19 +241,14 @@ export default {
             });
             state.nextEventId = maxId + 1;
         },
-        SET_MAP_NAME: (state, name) => {
-            state.name = name;
-        },
-        SET_MAP_DESCRIPTION: (state, description) => {
-            state.description = description;
-        },
-        SET_MAP_SUBJECT: (state, subject_id) => {
-            state.subject_id = subject_id;
-        },
+        SET_MAP_NAME: (state, name) => state.name = name,
+        SET_MAP_DESCRIPTION: (state, description) => state.description = description,
+        SET_MAP_SUBJECT_ID: (state, subject_id) => state.subject_id = subject_id,
+        SET_TILE_ID: (state, tile_id) => state.tile_id = tile_id,
+        SET_TILE_CENTER: (state, center) => state.tileCenter = center,
+
         //// Events
-        SET_EVENTS: (state, events) => {
-            state.events = events
-        },
+        SET_EVENTS: (state, events) => state.events = events,
         PUSH_EMPTY_EVENT: (state) => {
             state.events.push({
                 id: state.nextEventId,
@@ -261,62 +262,24 @@ export default {
                 },
             });
         },
-        DELETE_EVENT_BY_INDEX: (state, index) => {
-            state.events.splice(index, 1);
-        },
-        SET_EVENT_MARKER_POSITION: (state, payload) => {
-            state.events[payload.index].marker.position = payload.position
-        },
-        SET_EVENT_TITLE: (state, payload) => {
-            state.events[payload.index].title = payload.title
-        },
-        SET_EVENT_DESCRIPTION: (state, payload) => {
-            state.events[payload.index].description = payload.description
-        },
-        ADD_EVENT_MEDIA_URL: (state, payload) => {
-            state.events[payload.index].mediaUrl.push(payload.mediaUrl)
-        },
-        REMOVE_EVENT_MEDIA_URL: (state, payload) => {
-            state.events[payload.indexEvent].mediaUrl.splice(payload.indexMediaUrl, 1);
-        },
+        DELETE_EVENT_BY_INDEX: (state, index) => state.events.splice(index, 1),
+        SET_EVENT_MARKER_POSITION: (state, payload) => state.events[payload.index].marker.position = payload.position,
+        SET_EVENT_TITLE: (state, payload) => state.events[payload.index].title = payload.title,
+        SET_EVENT_DESCRIPTION: (state, payload) => state.events[payload.index].description = payload.description,
+        ADD_EVENT_MEDIA_URL: (state, payload) => state.events[payload.index].mediaUrl.push(payload.mediaUrl),
+        REMOVE_EVENT_MEDIA_URL: (state, payload) => state.events[payload.indexEvent].mediaUrl.splice(payload.indexMediaUrl, 1),
         SET_EVENT_ICON_URL: (state, payload) => {
             state.events[payload.index].marker.url = payload.iconUrl;
             state.events[payload.index].marker.size = payload.size;
         },
+
         //// Config
-        ITERATION_ID: (state) => {
-            state.nextEventId++;
-        },
-        SET_SELECTED_EVENT_ID: (state, id) => {
-            state.config.selectedEventId = id;
-        },
-        SET_EVENT_LIST_WIDTH: state => {
-            state.config.eventListWidth = document.getElementById('eventList').offsetWidth;
-        },
-        //// Tile
-        SET_TILE_CENTER: (state, center) => {
-            state.tileCenter = center
-        },
-        SET_TILE_URL: (state, url) => {
-            state.tile.url = url
-        },
-        SET_TILE_ATTRIBUTION: (state, attribution) => {
-            state.tile.attribution = attribution
-        },
-        SET_TILE_BOUNDS: (state, bounds) => {
-            state.tile.bounds = bounds
-        },
-        SET_MIN_TILE_ZOOM: (state, zoom) => {
-            state.tile.minZoom = zoom
-        },
-        SET_MAX_TILE_ZOOM: (state, zoom) => {
-            state.tile.maxZoom = zoom
-        },
-        SET_SHOW_POLYLINE: (state, value) => {
-            state.tile.showPolyline = value
-        },
-        SET_POLYLINE_WEIGHT: (state, value) => {
-            state.tile.polylineWeight = value
-        }
+        ITERATION_ID: (state) => state.nextEventId++,
+        SET_SELECTED_EVENT_ID: (state, id) => state.config.selectedEventId = id,
+        SET_EVENT_LIST_WIDTH: state => state.config.eventListWidth = document.getElementById('eventList').offsetWidth,
+        SET_MIN_TILE_ZOOM: (state, zoom) => state.config.minZoom = zoom,
+        SET_MAX_TILE_ZOOM: (state, zoom) => state.config.maxZoom = zoom,
+        SET_SHOW_POLYLINE: (state, value) => state.config.showPolyline = value,
+        SET_POLYLINE_WEIGHT: (state, value) => state.config.polylineWeight = value
     }
 }

@@ -70926,6 +70926,9 @@ if (authToken) {
   _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('subjects/getSubjects', null, {
     root: true
   }).then();
+  _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('tiles/getTiles', null, {
+    root: true
+  }).then();
 }
 
 /***/ }),
@@ -71307,26 +71310,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: {
-    //// MAP. Data from db.
+    //// Data from db
     id: "",
     name: "",
-    subject_id: "",
     description: "",
+    subject_id: "",
+    tile_id: "",
     config: {
       eventListWidth: 227
     },
     // {selectedEventId, eventListWidth}
-    tile: {},
-    // {attribution, bounds, maxZoom, minZoom, url, showPolyline, polylineWeight}
     events: [],
     // [{title, description, id, marker {position, url, height }, mediaUrl:[]}]
-    //// OTHER. Computed data.
-    // To detect changes to the current map.
+    //// Computed data
+    // Initial state of the card, to which you can roll back
     oldMap: null,
-    // Current coordinate of the view center
-    tileCenter: {},
     // Next event will be created with this id
-    nextEventId: 0
+    nextEventId: 0,
+    // Current coordinate of the view center
+    tileCenter: {}
   },
   getters: {
     indexSelectedEvent: function indexSelectedEvent(state) {
@@ -71360,7 +71362,7 @@ __webpack_require__.r(__webpack_exports__);
         name: state.name,
         subject_id: state.subject_id,
         description: state.description,
-        tile: state.tile,
+        tile_id: state.tile_id,
         events: state.events
       };
       var currentMapJSON = JSON.stringify(currentMap).split(' ').join('');
@@ -71372,7 +71374,9 @@ __webpack_require__.r(__webpack_exports__);
     getMap: function getMap(_ref, mapId) {
       var state = _ref.state,
           getters = _ref.getters,
-          commit = _ref.commit;
+          commit = _ref.commit,
+          rootState = _ref.rootState,
+          rootGetters = _ref.rootGetters;
       // Clear previous map
       commit('CLEAR_STATE'); // Send request
 
@@ -71381,7 +71385,13 @@ __webpack_require__.r(__webpack_exports__);
         commit('SET_OLD_MAP', response.data.data.map);
         commit('SET_NEXT_EVENT_ID'); // set tile center on first event
 
-        commit('SET_TILE_CENTER', getters.selectedEvent.marker.position);
+        commit('SET_TILE_CENTER', getters.selectedEvent.marker.position); // Если атлас загружен не авторизированным пользователем, то атлас публичный, поэтому тайл для атласа идёт с респонсом
+
+        if (!rootGetters["auth/isAuth"]) {
+          commit('tiles/SET_TILES', [response.data.data.tile], {
+            root: true
+          });
+        }
       });
     },
     setEmptyExampleMap: function setEmptyExampleMap(_ref2) {
@@ -71406,7 +71416,7 @@ __webpack_require__.r(__webpack_exports__);
         subject_id: state.subject_id,
         description: state.description,
         config: state.config,
-        tile: state.tile,
+        tile_id: state.tile_id,
         events: state.events
       }; // set tile center on first event
 
@@ -71441,7 +71451,7 @@ __webpack_require__.r(__webpack_exports__);
           subject_id: state.subject_id,
           description: state.description,
           config: state.config,
-          tile: state.tile,
+          tile_id: state.tile_id,
           events: state.events
         };
         return dispatch('maps/createMap', map, {
@@ -71457,7 +71467,7 @@ __webpack_require__.r(__webpack_exports__);
             subject_id: state.subject_id,
             description: state.description,
             config: JSON.stringify(state.config),
-            tile: JSON.stringify(state.tile),
+            tile_id: state.tile_id,
             events: JSON.stringify(state.events)
           };
           return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/maps/' + state.id, _map).then(function (response) {
@@ -71477,7 +71487,7 @@ __webpack_require__.r(__webpack_exports__);
 
       commit('SET_NEXT_EVENT_ID');
     },
-    // Events
+    //// Events
     addEvent: function addEvent(_ref7) {
       var state = _ref7.state,
           commit = _ref7.commit;
@@ -71501,7 +71511,7 @@ __webpack_require__.r(__webpack_exports__);
 
       commit('SET_SELECTED_EVENT_ID', getters.getEventIdByIndex(deletedEventIndex));
     },
-    // Event
+    //// Event
     addMedia: function addMedia(_ref9, mediaFile) {
       var state = _ref9.state,
           getters = _ref9.getters,
@@ -71527,7 +71537,7 @@ __webpack_require__.r(__webpack_exports__);
           getters = _ref10.getters,
           commit = _ref10.commit;
 
-      // Если медиа файл получен с сервера, удалить его физически. КОСТЫЛЬ
+      // Если медиа файл получен с сервера, удалить его физически
       if (state.events[payload.indexEvent].mediaUrl[payload.indexMediaUrl].includes("storage/event_media/")) {
         return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/maps/' + state.id + '/events/' + getters.selectedEvent.id + '/deleteMedia', {
           mediaUrl: state.events[payload.indexEvent].mediaUrl[payload.indexMediaUrl]
@@ -71545,7 +71555,7 @@ __webpack_require__.r(__webpack_exports__);
       state.subject_id = map.subject_id;
       state.description = map.description;
       state.config = JSON.parse(map.config);
-      state.tile = JSON.parse(map.tile);
+      state.tile_id = map.tile_id;
       state.events = JSON.parse(map.events);
     },
     SET_OLD_MAP: function SET_OLD_MAP(state, map) {
@@ -71555,11 +71565,10 @@ __webpack_require__.r(__webpack_exports__);
         name: map.name,
         subject_id: map.subject_id,
         description: map.description,
-        tile: JSON.parse(map.tile),
+        tile_id: map.tile_id,
         events: JSON.parse(map.events)
       };
     },
-    // Очистка предыдущего состояния перед загрузкой новой карты
     CLEAR_STATE: function CLEAR_STATE(state) {
       state.id = "";
       state.name = "";
@@ -71568,7 +71577,7 @@ __webpack_require__.r(__webpack_exports__);
       state.config = {
         eventListWidth: 227
       };
-      state.tile = {};
+      state.tile_id = "";
       state.events = [];
       state.oldMap = null;
     },
@@ -71578,7 +71587,7 @@ __webpack_require__.r(__webpack_exports__);
       state.subject_id = state.oldMap.subject_id;
       state.description = state.oldMap.description; // Copy object. Not reference
 
-      Object.assign(state.tile, state.oldMap.tile); // Copy array of object. Not references.
+      state.tile_id = state.oldMap.tile_id; // Copy array of object. Not references.
 
       state.events = state.oldMap.events.map(function (a) {
         return Object.assign({}, a);
@@ -71592,17 +71601,23 @@ __webpack_require__.r(__webpack_exports__);
       state.nextEventId = maxId + 1;
     },
     SET_MAP_NAME: function SET_MAP_NAME(state, name) {
-      state.name = name;
+      return state.name = name;
     },
     SET_MAP_DESCRIPTION: function SET_MAP_DESCRIPTION(state, description) {
-      state.description = description;
+      return state.description = description;
     },
-    SET_MAP_SUBJECT: function SET_MAP_SUBJECT(state, subject_id) {
-      state.subject_id = subject_id;
+    SET_MAP_SUBJECT_ID: function SET_MAP_SUBJECT_ID(state, subject_id) {
+      return state.subject_id = subject_id;
+    },
+    SET_TILE_ID: function SET_TILE_ID(state, tile_id) {
+      return state.tile_id = tile_id;
+    },
+    SET_TILE_CENTER: function SET_TILE_CENTER(state, center) {
+      return state.tileCenter = center;
     },
     //// Events
     SET_EVENTS: function SET_EVENTS(state, events) {
-      state.events = events;
+      return state.events = events;
     },
     PUSH_EMPTY_EVENT: function PUSH_EMPTY_EVENT(state) {
       state.events.push({
@@ -71618,22 +71633,22 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     DELETE_EVENT_BY_INDEX: function DELETE_EVENT_BY_INDEX(state, index) {
-      state.events.splice(index, 1);
+      return state.events.splice(index, 1);
     },
     SET_EVENT_MARKER_POSITION: function SET_EVENT_MARKER_POSITION(state, payload) {
-      state.events[payload.index].marker.position = payload.position;
+      return state.events[payload.index].marker.position = payload.position;
     },
     SET_EVENT_TITLE: function SET_EVENT_TITLE(state, payload) {
-      state.events[payload.index].title = payload.title;
+      return state.events[payload.index].title = payload.title;
     },
     SET_EVENT_DESCRIPTION: function SET_EVENT_DESCRIPTION(state, payload) {
-      state.events[payload.index].description = payload.description;
+      return state.events[payload.index].description = payload.description;
     },
     ADD_EVENT_MEDIA_URL: function ADD_EVENT_MEDIA_URL(state, payload) {
-      state.events[payload.index].mediaUrl.push(payload.mediaUrl);
+      return state.events[payload.index].mediaUrl.push(payload.mediaUrl);
     },
     REMOVE_EVENT_MEDIA_URL: function REMOVE_EVENT_MEDIA_URL(state, payload) {
-      state.events[payload.indexEvent].mediaUrl.splice(payload.indexMediaUrl, 1);
+      return state.events[payload.indexEvent].mediaUrl.splice(payload.indexMediaUrl, 1);
     },
     SET_EVENT_ICON_URL: function SET_EVENT_ICON_URL(state, payload) {
       state.events[payload.index].marker.url = payload.iconUrl;
@@ -71641,38 +71656,25 @@ __webpack_require__.r(__webpack_exports__);
     },
     //// Config
     ITERATION_ID: function ITERATION_ID(state) {
-      state.nextEventId++;
+      return state.nextEventId++;
     },
     SET_SELECTED_EVENT_ID: function SET_SELECTED_EVENT_ID(state, id) {
-      state.config.selectedEventId = id;
+      return state.config.selectedEventId = id;
     },
     SET_EVENT_LIST_WIDTH: function SET_EVENT_LIST_WIDTH(state) {
-      state.config.eventListWidth = document.getElementById('eventList').offsetWidth;
-    },
-    //// Tile
-    SET_TILE_CENTER: function SET_TILE_CENTER(state, center) {
-      state.tileCenter = center;
-    },
-    SET_TILE_URL: function SET_TILE_URL(state, url) {
-      state.tile.url = url;
-    },
-    SET_TILE_ATTRIBUTION: function SET_TILE_ATTRIBUTION(state, attribution) {
-      state.tile.attribution = attribution;
-    },
-    SET_TILE_BOUNDS: function SET_TILE_BOUNDS(state, bounds) {
-      state.tile.bounds = bounds;
+      return state.config.eventListWidth = document.getElementById('eventList').offsetWidth;
     },
     SET_MIN_TILE_ZOOM: function SET_MIN_TILE_ZOOM(state, zoom) {
-      state.tile.minZoom = zoom;
+      return state.config.minZoom = zoom;
     },
     SET_MAX_TILE_ZOOM: function SET_MAX_TILE_ZOOM(state, zoom) {
-      state.tile.maxZoom = zoom;
+      return state.config.maxZoom = zoom;
     },
     SET_SHOW_POLYLINE: function SET_SHOW_POLYLINE(state, value) {
-      state.tile.showPolyline = value;
+      return state.config.showPolyline = value;
     },
     SET_POLYLINE_WEIGHT: function SET_POLYLINE_WEIGHT(state, value) {
-      state.tile.polylineWeight = value;
+      return state.config.polylineWeight = value;
     }
   }
 });
@@ -71957,7 +71959,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: {
-    tiles: [{
+    tiles: [],
+    sharedTiles: [{
       name: "Стандартная",
       url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
     }, {
@@ -71980,10 +71983,50 @@ __webpack_require__.r(__webpack_exports__);
       url: "http://leafletjs.com/examples/crs-simple/uqm_map_full.png"
     }]
   },
-  actions: {},
+  getters: {
+    selectedTile: function selectedTile(state, getters, rootState) {
+      return state.tiles.find(function (tile) {
+        return tile.id === rootState.map.tile_id;
+      });
+    }
+  },
+  actions: {
+    createTile: function createTile(_ref, tile) {
+      var state = _ref.state,
+          commit = _ref.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/tiles', tile, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        commit('SET_TILES', response.data.data.tiles);
+      });
+    },
+    getTiles: function getTiles(_ref2) {
+      var commit = _ref2.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/tiles').then(function (response) {
+        commit('SET_TILES', response.data.data.tiles);
+      });
+    },
+    deleteTile: function deleteTile(_ref3, id) {
+      var commit = _ref3.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('/api/tiles/' + id).then(function (response) {
+        commit('SET_TILES', response.data.data.tiles);
+      });
+    }
+  },
   mutations: {
-    ADD_TILE: function ADD_TILE(state, tile) {
-      state.tiles.push(tile);
+    SET_TILES: function SET_TILES(state, tiles) {
+      tiles === null ? state.tiles = [] : state.tiles = tiles;
+    },
+    ADD_TILE: function ADD_TILE(state, tiles) {
+      state.tiles.push(tiles);
+    },
+    SET_TILE_ATTRIBUTION: function SET_TILE_ATTRIBUTION(state, attribution) {
+      state.tile.attribution = attribution;
+    },
+    SET_TILE_BOUNDS: function SET_TILE_BOUNDS(state, bounds) {
+      state.tile.bounds = bounds;
     }
   }
 });

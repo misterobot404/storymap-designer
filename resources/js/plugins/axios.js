@@ -24,4 +24,5 @@ if (authToken) {
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + authToken;
     // get user data
     store.dispatch('subjects/getSubjects', null, {root: true}).then();
+    store.dispatch('tiles/getTiles', null, {root: true}).then();
 }

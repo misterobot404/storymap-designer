@@ -45,7 +45,7 @@
                                                 <v-text-field
                                                     label="Название"
                                                     filled
-                                                    v-model.trim="model_mapName"
+                                                    v-model.trim="m_name"
                                                     :rules="[
                                         v => !!v || 'Введите название',
                                        /* v => maps.find(map => map.name === v && map.id !== ) === undefined || 'Атлас с таким именем уже существует'*/
@@ -57,14 +57,14 @@
                                                 <v-textarea
                                                     filled
                                                     label="Описание"
-                                                    v-model.trim="model_mapDescription"
+                                                    v-model.trim="m_description"
                                                     :rules="[v => !!v || 'Введите описание']"
                                                     required
                                                 />
                                             </v-col>
                                             <v-col cols="12">
                                                 <v-select
-                                                    v-model="model_mapSubject"
+                                                    v-model="m_subjectId"
                                                     :items="subjects"
                                                     item-text="name"
                                                     item-value="id"
@@ -83,31 +83,32 @@
                             <v-col>
                                 <v-container class="py-0">
                                     <v-row>
-                                        <v-subheader>Изменение подложки</v-subheader>
+                                        <v-subheader>Настройки отображения</v-subheader>
                                         <v-col cols="12">
                                             <v-select
-                                                v-model="model_tileUrl"
+                                                v-model="m_tileId"
                                                 height="68"
                                                 filled
                                                 hide-details
-                                                :items="getTileNames"
+                                                :items="tiles"
+                                                item-text="name"
+                                                item-value="id"
                                                 label="Выберите"
-                                                :rules="[v => !!v || 'Выберите категорию']"
+                                                :rules="[v => !!v || 'Выберите подложку']"
                                                 required
                                             />
                                             <AddTileDialog/>
                                         </v-col>
                                         <v-col cols="12" class="pt-0">
                                             <v-switch
-                                                v-model="model_tileShowPolyline"
-                                                :items="getTileNames"
+                                                v-model="m_showPolyline"
                                                 label="Отображение связывающих линий"
                                                 hide-details
                                             />
                                         </v-col>
                                         <v-col cols="12">
                                             <v-slider
-                                                v-model="model_tilePolylineWeight"
+                                                v-model="m_polylineWeight"
                                                 min="1"
                                                 max="10"
                                                 label="Толщина связывающих линий"
@@ -121,11 +122,11 @@
                                                 dense
                                                 type="number"
                                                 step="1"
-                                                v-model.trim="model_tileMinZoom"
+                                                v-model.trim="m_minZoom"
                                                 :rules="[
                                                         v => !!v || 'Введите значение',
                                                         v => v >= 0 || 'Значение меньше ноля',
-                                                        v => v <= tile.maxZoom || 'Минимальный зум должен быть меньше максимального'
+                                                        v => v <= config.maxZoom || 'Минимальный зум должен быть меньше максимального'
                                                         ]"
                                             />
                                         </v-col>
@@ -135,11 +136,11 @@
                                                 filled
                                                 dense
                                                 type="number"
-                                                v-model.trim="model_tileMaxZoom"
+                                                v-model.trim="m_maxZoom"
                                                 :rules="[
                                                         v => !!v || 'Введите значение',
                                                         v => v >= 0 || 'Значение меньше ноля',
-                                                        v => v >= tile.minZoom || 'Максимальный зум должен быть больше минимального'
+                                                        v => v >= config.minZoom || 'Максимальный зум должен быть больше минимального'
                                                         ]"
                                             />
                                         </v-col>
@@ -173,19 +174,15 @@
                 'name',
                 'description',
                 'subject_id',
-                'tile'
+                'tile_id',
+                'config'
             ]),
             ...mapState({
                 maps: state => state.maps.maps,
                 tiles: state => state.tiles.tiles,
                 subjects: state => state.subjects.subjects
             }),
-            getTileNames() {
-                let tileNames = [];
-                this.tiles.forEach(el => tileNames.push(el.name));
-                return tileNames;
-            },
-            model_mapName: {
+            m_name: {
                 get() {
                     return this.name
                 },
@@ -193,7 +190,7 @@
                     this.SET_MAP_NAME(value)
                 }
             },
-            model_mapDescription: {
+            m_description: {
                 get() {
                     return this.description
                 },
@@ -201,53 +198,52 @@
                     this.SET_MAP_DESCRIPTION(value)
                 }
             },
-            model_mapSubject: {
+            m_subjectId: {
                 get() {
                     return this.subject_id
                 },
                 set(value) {
-                    this.SET_MAP_SUBJECT(value)
+                    this.SET_MAP_SUBJECT_ID(value)
                 }
             },
-            model_tileUrl: {
+            m_tileId: {
                 get() {
-                    let tile = this.tiles.find(obj => obj.url === this.tile.url);
-                    if (tile !== undefined) return tile.name;
+                    return this.tile_id
                 },
                 set(value) {
-                    this.SET_TILE_URL(this.tiles.find(obj => obj.name === value).url)
+                    this.SET_TILE_ID(value)
                 }
             },
-            model_tileMinZoom: {
+            m_minZoom: {
                 get() {
-                    return this.tile.minZoom;
+                    return this.config.minZoom;
                 },
                 set(v) {
-                    if (!!v && v >= 0 && v <= this.tile.maxZoom)
+                    if (!!v && v >= 0 && v <= this.config.maxZoom)
                         this.SET_MIN_TILE_ZOOM(parseInt(v));
                 }
             },
-            model_tileMaxZoom: {
+            m_maxZoom: {
                 get() {
-                    return this.tile.maxZoom;
+                    return this.config.maxZoom;
                 },
                 set(v) {
-                    if (!!v && v >= 0 && v >= this.tile.minZoom)
+                    if (!!v && v >= 0 && v >= this.config.minZoom)
                         this.SET_MAX_TILE_ZOOM(parseInt(v));
                 }
             },
-            model_tilePolylineWeight: {
+            m_polylineWeight: {
                 get() {
-                    if (this.tile.polylineWeight === undefined) return 2;
-                    else return this.tile.polylineWeight;
+                    if (this.config.polylineWeight === undefined) return 2;
+                    else return this.config.polylineWeight;
                 },
                 set(value) {
                     this.SET_POLYLINE_WEIGHT(value);
                 }
             },
-            model_tileShowPolyline: {
+            m_showPolyline: {
                 get() {
-                    return this.tile.showPolyline
+                    return this.config.showPolyline
                 },
                 set(value) {
                     this.SET_SHOW_POLYLINE(value);
@@ -259,14 +255,14 @@
                 'CHANGE_THEME',
             ]),
             ...mapMutations('map', [
-                'SET_MAP_NAME',
-                'SET_MAP_DESCRIPTION',
-                'SET_MAP_SUBJECT',
-                'SET_TILE_URL',
                 'SET_SHOW_POLYLINE',
                 'SET_POLYLINE_WEIGHT',
                 'SET_MIN_TILE_ZOOM',
-                'SET_MAX_TILE_ZOOM'
+                'SET_MAX_TILE_ZOOM',
+                'SET_MAP_NAME',
+                'SET_MAP_DESCRIPTION',
+                'SET_MAP_SUBJECT_ID',
+                'SET_TILE_ID'
             ])
         }
     }

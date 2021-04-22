@@ -1,11 +1,10 @@
 <template>
-    <!--    :maxZoom="config.maxTileZoom"-->
     <!--    :maxBounds="config.tileBounds"-->
     <l-map class="map"
            style="z-index: 0;"
            ref="map"
-           :minZoom="tile.minZoom"
-           :maxZoom="tile.maxZoom"
+           :minZoom="config.minZoom"
+           :maxZoom="config.maxZoom"
            :center.sync="sync_center"
            :maxBoundsViscosity="maxBoundsViscosity"
            @click="latLngClickUpdatePosition"
@@ -39,11 +38,11 @@
                     :icon-url="events[index].marker.url">
             </l-icon>
         </l-marker>
-        <template v-if="tile.showPolyline">
+        <template v-if="config.showPolyline">
             <l-polyline :lat-lngs="arrayMarker"
                         :opacity="polylineOpacity"
                         :dashArray="polylineDashArray"
-                        :weight="tile.polylineWeight !== undefined ? tile.polylineWeight : 2"/>
+                        :weight="config.polylineWeight !== undefined ? config.polylineWeight : 2"/>
         </template>
         <!-- Zoom control -->
         <l-control-zoom position="topright"/>
@@ -116,7 +115,6 @@
         },
         computed: {
             ...mapState('map', [
-                'tile',
                 'config',
                 'events',
                 'tileCenter'
@@ -126,6 +124,9 @@
                 'indexSelectedEvent',
                 'arrayMarker'
             ]),
+            ...mapGetters('tiles', {
+                tile: 'selectedTile'
+            }),
             sync_center: {
                 get() {
                     return this.tileCenter
@@ -140,9 +141,11 @@
                 "SET_TILE_CENTER",
                 "SET_SELECTED_EVENT_ID",
                 "SET_EVENT_MARKER_POSITION",
-                "SET_TILE_BOUNDS",
                 "SET_MIN_TILE_ZOOM",
                 "SET_MAX_TILE_ZOOM"
+            ]),
+            ...mapMutations('tiles', [
+                "SET_TILE_BOUNDS"
             ]),
             latLngDragUpdatePosition: function (latLng) {
                 // animation

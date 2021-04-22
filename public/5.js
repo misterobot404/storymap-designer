@@ -116,7 +116,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -145,7 +144,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$refs.map.mapObject.flyTo(this.selectedEvent.marker.position);
     }
   },
-  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['tile', 'config', 'events', 'tileCenter'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('map', ['selectedEvent', 'indexSelectedEvent', 'arrayMarker'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['config', 'events', 'tileCenter'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('map', ['selectedEvent', 'indexSelectedEvent', 'arrayMarker'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('tiles', {
+    tile: 'selectedTile'
+  })), {}, {
     sync_center: {
       get: function get() {
         return this.tileCenter;
@@ -434,8 +435,8 @@ var render = function() {
       ref: "map",
       staticClass: "map",
       attrs: {
-        minZoom: _vm.tile.minZoom,
-        maxZoom: _vm.tile.maxZoom,
+        minZoom: _vm.config.minZoom,
+        maxZoom: _vm.config.maxZoom,
         center: _vm.sync_center,
         maxBoundsViscosity: _vm.maxBoundsViscosity,
         options: { zoomControl: false }
@@ -497,7 +498,7 @@ var render = function() {
         )
       }),
       _vm._v(" "),
-      _vm.tile.showPolyline
+      _vm.config.showPolyline
         ? [
             _c("l-polyline", {
               attrs: {
@@ -505,8 +506,8 @@ var render = function() {
                 opacity: _vm.polylineOpacity,
                 dashArray: _vm.polylineDashArray,
                 weight:
-                  _vm.tile.polylineWeight !== undefined
-                    ? _vm.tile.polylineWeight
+                  _vm.config.polylineWeight !== undefined
+                    ? _vm.config.polylineWeight
                     : 2
               }
             })

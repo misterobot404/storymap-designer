@@ -4,6 +4,7 @@ use App\Http\Controllers\API\SubjectController;
 use App\Http\Controllers\API\FeedbackController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\MapController;
+use App\Http\Controllers\API\TileController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -28,6 +29,17 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/subjects/{id}', [SubjectController::class, 'update']);
     Route::post('/subjects', [SubjectController::class, 'store']);
     Route::delete('/subjects/{id}', [SubjectController::class, 'destroy']);
+});
+
+/**
+ * Tiles
+ */
+Route::middleware('auth:api')->group(function () {
+    // CRUD
+    Route::get('/tiles', [TileController::class, 'index']);
+    Route::post('/tiles/{id}', [TileController::class, 'update']);
+    Route::post('/tiles', [TileController::class, 'store']);
+    Route::delete('/tiles/{id}', [TileController::class, 'destroy']);
 });
 
 /**

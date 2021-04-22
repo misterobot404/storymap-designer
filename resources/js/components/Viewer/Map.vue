@@ -1,10 +1,9 @@
 <template>
-    <!--    :maxZoom="config.maxTileZoom"-->
     <!--    :maxBounds="config.tileBounds"-->
     <l-map class="map"
            ref="map"
-           :minZoom="tile.minZoom"
-           :maxZoom="tile.maxZoom"
+           :minZoom="config.minZoom"
+           :maxZoom="config.maxZoom"
            :center.sync="sync_center"
            :maxBoundsViscosity="maxBoundsViscosity"
            :options="{zoomControl: false}"
@@ -35,11 +34,11 @@
                     :icon-url="events[index].marker.url"
             />
         </l-marker>
-        <template v-if="tile.showPolyline">
+        <template v-if="config.showPolyline">
             <l-polyline :lat-lngs="arrayMarker"
                         :opacity="polylineOpacity"
                         :dashArray="polylineDashArray"
-                        :weight="tile.polylineWeight !== undefined ? tile.polylineWeight : 2"
+                        :weight="config.polylineWeight !== undefined ? config.polylineWeight : 2"
             />
         </template>
 
@@ -128,7 +127,6 @@
         },
         computed: {
             ...mapState('map', [
-                'tile',
                 'config',
                 'events',
                 'tileCenter'
@@ -138,6 +136,9 @@
                 'indexSelectedEvent',
                 'arrayMarker'
             ]),
+            ...mapGetters('tiles', {
+                tile: 'selectedTile'
+            }),
             sync_center: {
                 get() {
                     return this.tileCenter

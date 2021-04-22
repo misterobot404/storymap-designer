@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Map;
+use App\Models\Tile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
@@ -17,7 +18,6 @@ class MapController extends Controller
         // Remove unused keys
         foreach ($maps as $value) {
             unset($value->events);
-            unset($value->tile);
         }
 
         return response()->json([
@@ -32,10 +32,11 @@ class MapController extends Controller
         $map->user_id = auth()->id();
         $map->name = request('name');
         $map->subject_id = request('subject_id');
+        // При создании установить
+        if (request('tile_id')) $map->tile_id = request('tile_id');
         $map->description = request('description');
         // save map from example map
         if (request('config')) $map->config = request('config');
-        if (request('tile')) $map->tile = request('tile');
         if (request('events')) $map->events = request('events');
 
         $map->save();
@@ -66,8 +67,11 @@ class MapController extends Controller
         if ((Auth::guard('api')->check() && $map->user_id === Auth::guard('api')->id()) || $map->public === 1) {
             return response()->json([
                 "status" => "success",
-                "data" => ["map" => $map]
-            ], 200);
+                "data" => [
+                    "map" => $map,
+                    "tile" => Tile::find($map->tile_id)
+                ]
+            ]);
         } else if ($map->public === 0) {
             return response()->json([
                 "status" => "fail",
@@ -100,10 +104,30 @@ class MapController extends Controller
 
         $map->name = request('name');
         $map->subject_id = request('subject_id');
+        $map->tile_id = request('tile_id');
         $map->description = request('description');
         $map->config = request('config');
-        $map->tile = request('tile');
+
+        // Находим события, которые были удалены
+        $removed_events = array();
+        foreach (json_decode($map->events) as $event_old) {
+            $el_find = false;
+            foreach (json_decode(request('events')) as $event_new) {
+                if ($event_old->id === $event_new->id) {
+                    $el_find = true;
+                }
+            }
+            if (!$el_find) array_push($removed_events, $event_old);
+        }
+        // Если какое-то событие было удалено, удалить его медиа контент
+        foreach ($removed_events as $removed_event) {
+            foreach ($removed_event->mediaUrl as $mediaUrl) {
+                if (File::exists(public_path($mediaUrl)))
+                    File::delete(public_path($mediaUrl));
+            }
+        }
         $map->events = request('events');
+
         $map->save();
 
         unset($map->user_id);
@@ -114,7 +138,7 @@ class MapController extends Controller
             "data" => [
                 "map" => $map
             ]
-        ], 200);
+        ]);
     }
 
     public function destroy($id)
@@ -256,7 +280,7 @@ class MapController extends Controller
         $map->name = $baseMap->name . " - Copy";
         $map->subject_id = $baseMap->subject_id;
         $map->description = $baseMap->description;
-        $map->tile = $baseMap->tile;
+        $map->tile_id = $baseMap->tile_id;
         $map->events = $baseMap->events;
         $map->save();
 

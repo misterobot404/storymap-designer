@@ -605,6 +605,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -617,7 +618,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       dialog: false
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['name', 'description', 'subject_id', 'tile'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['name', 'description', 'subject_id', 'tile_id', 'config'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     maps: function maps(state) {
       return state.maps.maps;
     },
@@ -628,14 +629,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return state.subjects.subjects;
     }
   })), {}, {
-    getTileNames: function getTileNames() {
-      var tileNames = [];
-      this.tiles.forEach(function (el) {
-        return tileNames.push(el.name);
-      });
-      return tileNames;
-    },
-    model_mapName: {
+    m_name: {
       get: function get() {
         return this.name;
       },
@@ -643,7 +637,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.SET_MAP_NAME(value);
       }
     },
-    model_mapDescription: {
+    m_description: {
       get: function get() {
         return this.description;
       },
@@ -651,63 +645,56 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.SET_MAP_DESCRIPTION(value);
       }
     },
-    model_mapSubject: {
+    m_subjectId: {
       get: function get() {
         return this.subject_id;
       },
       set: function set(value) {
-        this.SET_MAP_SUBJECT(value);
+        this.SET_MAP_SUBJECT_ID(value);
       }
     },
-    model_tileUrl: {
+    m_tileId: {
       get: function get() {
-        var _this = this;
-
-        var tile = this.tiles.find(function (obj) {
-          return obj.url === _this.tile.url;
-        });
-        if (tile !== undefined) return tile.name;
+        return this.tile_id;
       },
       set: function set(value) {
-        this.SET_TILE_URL(this.tiles.find(function (obj) {
-          return obj.name === value;
-        }).url);
+        this.SET_TILE_ID(value);
       }
     },
-    model_tileMinZoom: {
+    m_minZoom: {
       get: function get() {
-        return this.tile.minZoom;
+        return this.config.minZoom;
       },
       set: function set(v) {
-        if (!!v && v >= 0 && v <= this.tile.maxZoom) this.SET_MIN_TILE_ZOOM(parseInt(v));
+        if (!!v && v >= 0 && v <= this.config.maxZoom) this.SET_MIN_TILE_ZOOM(parseInt(v));
       }
     },
-    model_tileMaxZoom: {
+    m_maxZoom: {
       get: function get() {
-        return this.tile.maxZoom;
+        return this.config.maxZoom;
       },
       set: function set(v) {
-        if (!!v && v >= 0 && v >= this.tile.minZoom) this.SET_MAX_TILE_ZOOM(parseInt(v));
+        if (!!v && v >= 0 && v >= this.config.minZoom) this.SET_MAX_TILE_ZOOM(parseInt(v));
       }
     },
-    model_tilePolylineWeight: {
+    m_polylineWeight: {
       get: function get() {
-        if (this.tile.polylineWeight === undefined) return 2;else return this.tile.polylineWeight;
+        if (this.config.polylineWeight === undefined) return 2;else return this.config.polylineWeight;
       },
       set: function set(value) {
         this.SET_POLYLINE_WEIGHT(value);
       }
     },
-    model_tileShowPolyline: {
+    m_showPolyline: {
       get: function get() {
-        return this.tile.showPolyline;
+        return this.config.showPolyline;
       },
       set: function set(value) {
         this.SET_SHOW_POLYLINE(value);
       }
     }
   }),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('layout', ['CHANGE_THEME'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ['SET_MAP_NAME', 'SET_MAP_DESCRIPTION', 'SET_MAP_SUBJECT', 'SET_TILE_URL', 'SET_SHOW_POLYLINE', 'SET_POLYLINE_WEIGHT', 'SET_MIN_TILE_ZOOM', 'SET_MAX_TILE_ZOOM']))
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('layout', ['CHANGE_THEME'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ['SET_SHOW_POLYLINE', 'SET_POLYLINE_WEIGHT', 'SET_MIN_TILE_ZOOM', 'SET_MAX_TILE_ZOOM', 'SET_MAP_NAME', 'SET_MAP_DESCRIPTION', 'SET_MAP_SUBJECT_ID', 'SET_TILE_ID']))
 });
 
 /***/ }),
@@ -1240,7 +1227,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -1300,7 +1286,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     //
     // this.centerUpdated(new L.latLng(centerLat, centerLon));
   },
-  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['tile', 'config', 'events', 'tileCenter'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('map', ['selectedEvent', 'indexSelectedEvent', 'arrayMarker'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['config', 'events', 'tileCenter'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('map', ['selectedEvent', 'indexSelectedEvent', 'arrayMarker'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('tiles', {
+    tile: 'selectedTile'
+  })), {}, {
     sync_center: {
       get: function get() {
         return this.tileCenter;
@@ -1310,7 +1298,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ["SET_TILE_CENTER", "SET_SELECTED_EVENT_ID", "SET_EVENT_MARKER_POSITION", "SET_TILE_BOUNDS", "SET_MIN_TILE_ZOOM", "SET_MAX_TILE_ZOOM"])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ["SET_TILE_CENTER", "SET_SELECTED_EVENT_ID", "SET_EVENT_MARKER_POSITION", "SET_MIN_TILE_ZOOM", "SET_MAX_TILE_ZOOM"])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('tiles', ["SET_TILE_BOUNDS"])), {}, {
     latLngDragUpdatePosition: function latLngDragUpdatePosition(latLng) {
       // animation
       // this.$refs.map.mapObject.setView(this.selectedEvent.marker.position);
@@ -2540,14 +2528,14 @@ var render = function() {
                                                   required: ""
                                                 },
                                                 model: {
-                                                  value: _vm.model_mapName,
+                                                  value: _vm.m_name,
                                                   callback: function($$v) {
-                                                    _vm.model_mapName =
+                                                    _vm.m_name =
                                                       typeof $$v === "string"
                                                         ? $$v.trim()
                                                         : $$v
                                                   },
-                                                  expression: "model_mapName"
+                                                  expression: "m_name"
                                                 }
                                               })
                                             ],
@@ -2573,16 +2561,14 @@ var render = function() {
                                                   required: ""
                                                 },
                                                 model: {
-                                                  value:
-                                                    _vm.model_mapDescription,
+                                                  value: _vm.m_description,
                                                   callback: function($$v) {
-                                                    _vm.model_mapDescription =
+                                                    _vm.m_description =
                                                       typeof $$v === "string"
                                                         ? $$v.trim()
                                                         : $$v
                                                   },
-                                                  expression:
-                                                    "model_mapDescription"
+                                                  expression: "m_description"
                                                 }
                                               })
                                             ],
@@ -2612,11 +2598,11 @@ var render = function() {
                                                   required: ""
                                                 },
                                                 model: {
-                                                  value: _vm.model_mapSubject,
+                                                  value: _vm.m_subjectId,
                                                   callback: function($$v) {
-                                                    _vm.model_mapSubject = $$v
+                                                    _vm.m_subjectId = $$v
                                                   },
-                                                  expression: "model_mapSubject"
+                                                  expression: "m_subjectId"
                                                 }
                                               })
                                             ],
@@ -2651,7 +2637,7 @@ var render = function() {
                                     "v-row",
                                     [
                                       _c("v-subheader", [
-                                        _vm._v("Изменение подложки")
+                                        _vm._v("Настройки отображения")
                                       ]),
                                       _vm._v(" "),
                                       _c(
@@ -2663,23 +2649,25 @@ var render = function() {
                                               height: "68",
                                               filled: "",
                                               "hide-details": "",
-                                              items: _vm.getTileNames,
+                                              items: _vm.tiles,
+                                              "item-text": "name",
+                                              "item-value": "id",
                                               label: "Выберите",
                                               rules: [
                                                 function(v) {
                                                   return (
-                                                    !!v || "Выберите категорию"
+                                                    !!v || "Выберите подложку"
                                                   )
                                                 }
                                               ],
                                               required: ""
                                             },
                                             model: {
-                                              value: _vm.model_tileUrl,
+                                              value: _vm.m_tileId,
                                               callback: function($$v) {
-                                                _vm.model_tileUrl = $$v
+                                                _vm.m_tileId = $$v
                                               },
-                                              expression: "model_tileUrl"
+                                              expression: "m_tileId"
                                             }
                                           }),
                                           _vm._v(" "),
@@ -2697,18 +2685,16 @@ var render = function() {
                                         [
                                           _c("v-switch", {
                                             attrs: {
-                                              items: _vm.getTileNames,
                                               label:
                                                 "Отображение связывающих линий",
                                               "hide-details": ""
                                             },
                                             model: {
-                                              value: _vm.model_tileShowPolyline,
+                                              value: _vm.m_showPolyline,
                                               callback: function($$v) {
-                                                _vm.model_tileShowPolyline = $$v
+                                                _vm.m_showPolyline = $$v
                                               },
-                                              expression:
-                                                "model_tileShowPolyline"
+                                              expression: "m_showPolyline"
                                             }
                                           })
                                         ],
@@ -2728,13 +2714,11 @@ var render = function() {
                                               "hide-details": ""
                                             },
                                             model: {
-                                              value:
-                                                _vm.model_tilePolylineWeight,
+                                              value: _vm.m_polylineWeight,
                                               callback: function($$v) {
-                                                _vm.model_tilePolylineWeight = $$v
+                                                _vm.m_polylineWeight = $$v
                                               },
-                                              expression:
-                                                "model_tilePolylineWeight"
+                                              expression: "m_polylineWeight"
                                             }
                                           })
                                         ],
@@ -2769,21 +2753,21 @@ var render = function() {
                                                 },
                                                 function(v) {
                                                   return (
-                                                    v <= _vm.tile.maxZoom ||
+                                                    v <= _vm.config.maxZoom ||
                                                     "Минимальный зум должен быть меньше максимального"
                                                   )
                                                 }
                                               ]
                                             },
                                             model: {
-                                              value: _vm.model_tileMinZoom,
+                                              value: _vm.m_minZoom,
                                               callback: function($$v) {
-                                                _vm.model_tileMinZoom =
+                                                _vm.m_minZoom =
                                                   typeof $$v === "string"
                                                     ? $$v.trim()
                                                     : $$v
                                               },
-                                              expression: "model_tileMinZoom"
+                                              expression: "m_minZoom"
                                             }
                                           })
                                         ],
@@ -2817,21 +2801,21 @@ var render = function() {
                                                 },
                                                 function(v) {
                                                   return (
-                                                    v >= _vm.tile.minZoom ||
+                                                    v >= _vm.config.minZoom ||
                                                     "Максимальный зум должен быть больше минимального"
                                                   )
                                                 }
                                               ]
                                             },
                                             model: {
-                                              value: _vm.model_tileMaxZoom,
+                                              value: _vm.m_maxZoom,
                                               callback: function($$v) {
-                                                _vm.model_tileMaxZoom =
+                                                _vm.m_maxZoom =
                                                   typeof $$v === "string"
                                                     ? $$v.trim()
                                                     : $$v
                                               },
-                                              expression: "model_tileMaxZoom"
+                                              expression: "m_maxZoom"
                                             }
                                           })
                                         ],
@@ -3480,8 +3464,8 @@ var render = function() {
       staticClass: "map",
       staticStyle: { "z-index": "0" },
       attrs: {
-        minZoom: _vm.tile.minZoom,
-        maxZoom: _vm.tile.maxZoom,
+        minZoom: _vm.config.minZoom,
+        maxZoom: _vm.config.maxZoom,
         center: _vm.sync_center,
         maxBoundsViscosity: _vm.maxBoundsViscosity,
         options: { zoomControl: false }
@@ -3548,7 +3532,7 @@ var render = function() {
         )
       }),
       _vm._v(" "),
-      _vm.tile.showPolyline
+      _vm.config.showPolyline
         ? [
             _c("l-polyline", {
               attrs: {
@@ -3556,8 +3540,8 @@ var render = function() {
                 opacity: _vm.polylineOpacity,
                 dashArray: _vm.polylineDashArray,
                 weight:
-                  _vm.tile.polylineWeight !== undefined
-                    ? _vm.tile.polylineWeight
+                  _vm.config.polylineWeight !== undefined
+                    ? _vm.config.polylineWeight
                     : 2
               }
             })
