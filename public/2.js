@@ -982,6 +982,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1063,7 +1090,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(tiptap_vuetify__WEBPACK_IMPORTED_
       }
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapMutations"])('map', ["SET_EVENT_TITLE", "SET_EVENT_DESCRIPTION", 'SET_EVENT_ICON_URL']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapMutations"])('map', ["SET_EVENT_TITLE", "SET_EVENT_DESCRIPTION", 'SET_ICON_FOR_EVENT', 'SET_ICON_FOR_ALL_EVENTS']))
 });
 
 /***/ }),
@@ -3488,9 +3515,33 @@ var render = function() {
                           _c(
                             "v-card",
                             [
-                              _c("v-card-title", { staticClass: "headline" }, [
-                                _vm._v("Изменение иконки")
-                              ]),
+                              _c(
+                                "v-toolbar",
+                                {
+                                  staticClass: "pr-1",
+                                  attrs: { height: "68", flat: "" }
+                                },
+                                [
+                                  _c(
+                                    "v-toolbar-title",
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        {
+                                          staticClass: "mr-1 pb-1",
+                                          attrs: { large: "" }
+                                        },
+                                        [_vm._v("location_on")]
+                                      ),
+                                      _vm._v(
+                                        "\n                                    Изменение иконки\n                                "
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
                               _vm._v(" "),
                               _c(
                                 "v-card-text",
@@ -3507,27 +3558,47 @@ var render = function() {
                                     }
                                   }),
                                   _vm._v(" "),
-                                  _c("v-text-field", {
-                                    attrs: { label: "Ширина" },
-                                    model: {
-                                      value: _vm.iconWidth,
-                                      callback: function($$v) {
-                                        _vm.iconWidth = $$v
-                                      },
-                                      expression: "iconWidth"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("v-text-field", {
-                                    attrs: { label: "Высота" },
-                                    model: {
-                                      value: _vm.iconHeight,
-                                      callback: function($$v) {
-                                        _vm.iconHeight = $$v
-                                      },
-                                      expression: "iconHeight"
-                                    }
-                                  })
+                                  _c(
+                                    "v-row",
+                                    [
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "6" } },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: { label: "Ширина" },
+                                            model: {
+                                              value: _vm.iconWidth,
+                                              callback: function($$v) {
+                                                _vm.iconWidth = $$v
+                                              },
+                                              expression: "iconWidth"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "6" } },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: { label: "Высота" },
+                                            model: {
+                                              value: _vm.iconHeight,
+                                              callback: function($$v) {
+                                                _vm.iconHeight = $$v
+                                              },
+                                              expression: "iconHeight"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
                                 ],
                                 1
                               ),
@@ -3538,28 +3609,65 @@ var render = function() {
                                   _c("v-spacer"),
                                   _vm._v(" "),
                                   _c(
-                                    "v-btn",
+                                    "div",
                                     {
-                                      attrs: { color: "primary", text: "" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.changeIconDialog = false
-                                          _vm.SET_EVENT_ICON_URL({
-                                            index: _vm.indexSelectedEvent,
-                                            iconUrl: _vm.iconUrl,
-                                            size: [
-                                              _vm.iconWidth,
-                                              _vm.iconHeight
-                                            ]
-                                          })
-                                        }
-                                      }
+                                      staticClass:
+                                        "d-flex flex-column align-end"
                                     },
                                     [
-                                      _vm._v(
-                                        "\n                                    Применить\n                                "
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "my-1",
+                                          attrs: { text: "" },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.changeIconDialog = false
+                                              _vm.SET_ICON_FOR_ALL_EVENTS({
+                                                index: _vm.indexSelectedEvent,
+                                                iconUrl: _vm.iconUrl,
+                                                size: [
+                                                  _vm.iconWidth,
+                                                  _vm.iconHeight
+                                                ]
+                                              })
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        Применить ко всем\n                                    "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "flex-grow-0 my-1",
+                                          attrs: { color: "primary", text: "" },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.changeIconDialog = false
+                                              _vm.SET_ICON_FOR_EVENT({
+                                                index: _vm.indexSelectedEvent,
+                                                iconUrl: _vm.iconUrl,
+                                                size: [
+                                                  _vm.iconWidth,
+                                                  _vm.iconHeight
+                                                ]
+                                              })
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        Применить\n                                    "
+                                          )
+                                        ]
                                       )
-                                    ]
+                                    ],
+                                    1
                                   )
                                 ],
                                 1
@@ -4617,6 +4725,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 /* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/index.js");
 /* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
 
 
 
@@ -4651,7 +4760,9 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardTitle"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_8__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_9__["VDivider"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_11__["VImg"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__["VTextField"]})
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardText"],VCardTitle: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_6__["VCardTitle"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VCol"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_8__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_9__["VDivider"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_11__["VImg"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VRow"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__["VTextField"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__["VToolbarTitle"]})
 
 
 /* hot reload */

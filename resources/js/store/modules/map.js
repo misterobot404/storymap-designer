@@ -268,7 +268,13 @@ export default {
         SET_EVENT_DESCRIPTION: (state, payload) => state.events[payload.index].description = payload.description,
         ADD_EVENT_MEDIA_URL: (state, payload) => state.events[payload.index].mediaUrl.push(payload.mediaUrl),
         REMOVE_EVENT_MEDIA_URL: (state, payload) => state.events[payload.indexEvent].mediaUrl.splice(payload.indexMediaUrl, 1),
-        SET_EVENT_ICON_URL: (state, payload) => {
+        SET_ICON_FOR_ALL_EVENTS: (state, payload) => {
+            state.events.forEach(event => {
+                event.marker.url = payload.iconUrl;
+                event.marker.size = payload.size;
+            })
+        },
+        SET_ICON_FOR_EVENT: (state, payload) => {
             state.events[payload.index].marker.url = payload.iconUrl;
             state.events[payload.index].marker.size = payload.size;
         },

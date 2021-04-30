@@ -69896,6 +69896,17 @@ module.exports = "/images/dv.png?77eedcc99a599550577ad2c7bb45fa56";
 
 /***/ }),
 
+/***/ "./resources/js/assets/images/examples/empare.jpg":
+/*!********************************************************!*\
+  !*** ./resources/js/assets/images/examples/empare.jpg ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/empare.jpg?3aa8b281c235a0982ac761a54343b34a";
+
+/***/ }),
+
 /***/ "./resources/js/assets/images/examples/human.png":
 /*!*******************************************************!*\
   !*** ./resources/js/assets/images/examples/human.png ***!
@@ -69915,6 +69926,17 @@ module.exports = "/images/human.png?a741aaf4ac5fa2b3ec223328182eafc1";
 /***/ (function(module, exports) {
 
 module.exports = "/images/solar-system.png?67a6a9760f14f4b15d50c13a4a15649b";
+
+/***/ }),
+
+/***/ "./resources/js/assets/images/examples/witcher.jpg":
+/*!*********************************************************!*\
+  !*** ./resources/js/assets/images/examples/witcher.jpg ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/witcher.jpg?1c94aafc821bb44bfd422e2978070fe4";
 
 /***/ }),
 
@@ -71705,7 +71727,13 @@ __webpack_require__.r(__webpack_exports__);
     REMOVE_EVENT_MEDIA_URL: function REMOVE_EVENT_MEDIA_URL(state, payload) {
       return state.events[payload.indexEvent].mediaUrl.splice(payload.indexMediaUrl, 1);
     },
-    SET_EVENT_ICON_URL: function SET_EVENT_ICON_URL(state, payload) {
+    SET_ICON_FOR_ALL_EVENTS: function SET_ICON_FOR_ALL_EVENTS(state, payload) {
+      state.events.forEach(function (event) {
+        event.marker.url = payload.iconUrl;
+        event.marker.size = payload.size;
+      });
+    },
+    SET_ICON_FOR_EVENT: function SET_ICON_FOR_EVENT(state, payload) {
       state.events[payload.index].marker.url = payload.iconUrl;
       state.events[payload.index].marker.size = payload.size;
     },
@@ -71795,41 +71823,35 @@ __webpack_require__.r(__webpack_exports__);
       }])
     },
     examples: [{
+      img: __webpack_require__(/*! @/assets/images/examples/empare.jpg */ "./resources/js/assets/images/examples/empare.jpg"),
+      name: 'Династия Романовых',
+      subtitle: 'История',
+      description: 'Древо династии Романовых.',
+      url: 'https://mapdesigner.do-edu.pro/viewer/22?iframe=true'
+    }, {
+      img: __webpack_require__(/*! @/assets/images/examples/dv.png */ "./resources/js/assets/images/examples/dv.png"),
+      name: 'Парки и заповедники Дальнего Востока',
+      subtitle: 'Туризм',
+      description: 'Карта путешественника. Описание коллекций и особенностей парков для животных.',
+      url: 'https://mapdesigner.do-edu.pro/viewer/1?iframe=true'
+    }, {
+      img: __webpack_require__(/*! @/assets/images/examples/witcher.jpg */ "./resources/js/assets/images/examples/witcher.jpg"),
+      name: 'Ведьмак',
+      subtitle: 'Другое',
+      description: 'Игровая карта по вселенной Ведьмак',
+      url: 'https://mapdesigner.do-edu.pro/viewer/20?iframe=true'
+    }, {
+      img: __webpack_require__(/*! @/assets/images/examples/solar-system.png */ "./resources/js/assets/images/examples/solar-system.png"),
+      name: 'Солнечная система',
+      subtitle: 'Астрономия',
+      description: 'Планетная система, включает в себя центральную звезду и все планеты, вращающиеся вокруг.',
+      url: 'https://mapdesigner.do-edu.pro/viewer/5?iframe=true'
+    }, {
       img: __webpack_require__(/*! @/assets/images/examples/human.png */ "./resources/js/assets/images/examples/human.png"),
       name: 'Тело человека',
       description: 'Внутреннее строение тела человека с моделями всех основных органов. За объект был взят макет, никто из людей не пострадал.',
       subtitle: "Биология",
       url: 'https://mapdesigner.do-edu.pro/viewer/4?iframe=true'
-    }, {
-      img: __webpack_require__(/*! @/assets/images/examples/dv.png */ "./resources/js/assets/images/examples/dv.png"),
-      name: 'Парки и заповедники Дальнего Востока',
-      subtitle: 'Туризм',
-      description: 'Карта путешественника. Описание коллекций и особенностей парков для животных.',
-      url: 'https://mapdesigner.do-edu.pro/1?iframe=true'
-    }, {
-      img: __webpack_require__(/*! @/assets/images/examples/solar-system.png */ "./resources/js/assets/images/examples/solar-system.png"),
-      name: 'Солнечная система',
-      subtitle: 'Астрономия',
-      description: 'Планетная система, включает в себя центральную звезду и все планеты, вращающиеся вокруг.',
-      url: 'https://mapdesigner.do-edu.pro/5?iframe=true'
-    }, {
-      img: __webpack_require__(/*! @/assets/images/examples/dv.png */ "./resources/js/assets/images/examples/dv.png"),
-      name: 'Парки и заповедники Дальнего Востока',
-      subtitle: 'Туризм',
-      description: 'Карта путешественника. Описание коллекций и особенностей парков для животных.',
-      url: 'https://mapdesigner.do-edu.pro/1?iframe=true'
-    }, {
-      img: __webpack_require__(/*! @/assets/images/examples/solar-system.png */ "./resources/js/assets/images/examples/solar-system.png"),
-      name: 'Солнечная система',
-      subtitle: 'Астрономия',
-      description: 'Планетная система, включает в себя центральную звезду и все планеты, вращающиеся вокруг.',
-      url: 'https://mapdesigner.do-edu.pro/5?iframe=true'
-    }, {
-      img: __webpack_require__(/*! @/assets/images/examples/human.png */ "./resources/js/assets/images/examples/human.png"),
-      name: 'Тело человека',
-      description: 'Внутреннее строение тела человека с моделями всех основных органов. За объект был взят макет, никто из людей не пострадал.',
-      subtitle: "Биология",
-      url: 'https://mapdesigner.do-edu.pro/4?iframe=true'
     }],
     // share map dialog
     showShareMapDialog: false,

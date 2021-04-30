@@ -44,6 +44,7 @@
                         :video-id="$youtube.getIdFromURL(url)"
                     />
                 </template>
+                <!-- HTML5 Video -->
                 <template v-else>
                     <div class="d-flex align-center fill-height">
                         <video
