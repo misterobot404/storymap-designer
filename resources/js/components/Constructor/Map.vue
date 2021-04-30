@@ -1,17 +1,19 @@
 <template>
     <!--    :maxBounds="config.tileBounds"-->
+    <!--    :maxBoundsViscosity="maxBoundsViscosity"-->
     <l-map class="map"
            style="z-index: 0;"
+           :crs="crs"
            ref="map"
-           :minZoom="config.minZoom"
+           :minZoom="notGeomap ?  config.minZoom - 1 : config.minZoom"
            :maxZoom="config.maxZoom"
            :center.sync="sync_center"
-           :maxBoundsViscosity="maxBoundsViscosity"
            @click="latLngClickUpdatePosition"
            :options="{zoomControl: false}"
     >
         <l-image-overlay
-            v-if="tile.url.indexOf('{z}') === -1 || tile.url.indexOf('{x}') === -1 || tile.url.indexOf('{y}') === -1"
+            v-if="notGeomap"
+            :bounds="tile.bounds"
             :url="tile.url"
         />
         <l-tile-layer
@@ -27,14 +29,14 @@
                   @click="SET_SELECTED_EVENT_ID(event.id)"
                   @update:latLng="latLngDragUpdatePosition">
             <l-tooltip>
-                {{event.title}}
+                {{ event.title }}
             </l-tooltip>
             <l-icon v-if="indexSelectedEvent !== index"
                     :icon-size="event.marker.size"
                     :icon-url="events[index].marker.url">
             </l-icon>
             <l-icon v-else
-                    :icon-size="[event.marker.size[0]*2, event.marker.size[1]*2]"
+                    :icon-size="[event.marker.size[0]*1.4, event.marker.size[1]*1.4]"
                     :icon-url="events[index].marker.url">
             </l-icon>
         </l-marker>
@@ -50,126 +52,101 @@
 </template>
 
 <script>
-    import {mapState, mapGetters, mapMutations} from 'vuex'
-    import {LMap, LTileLayer, LMarker, LTooltip, LIcon, LPolyline, LControlZoom, LImageOverlay} from 'vue2-leaflet'
-    import 'leaflet/dist/leaflet.css'
+import {mapState, mapGetters, mapMutations} from 'vuex'
+import {LMap, LTileLayer, LMarker, LTooltip, LIcon, LPolyline, LControlZoom, LImageOverlay} from 'vue2-leaflet'
+import 'leaflet/dist/leaflet.css'
+import * as L from "leaflet";
 
-    export default {
-        name: "Map",
-        components: {
-            LMap,
-            LTileLayer,
-            LMarker,
-            LTooltip,
-            LIcon,
-            LPolyline,
-            LControlZoom,
-            LImageOverlay
-        },
-        data() {
-            return {
-                //// l-map config
-                maxBoundsViscosity: 0.9,
-                //// l-polyline config
-                polylineOpacity: 0.6,
-                polylineDashArray: "6",
-            }
-        },
-        watch: {
-            'config.selectedEventId'() {
-                this.SET_TILE_CENTER(this.selectedEvent.marker.position);
-                //this.$refs.map.mapObject.flyTo(this.selectedEvent.marker.position);
-            }
-        },
-        mounted() {
-            // const image = 'tile';
-            // const width = 3320;
-            // const height = 2197;
-            const maxLevel = 10;
-
-            // const minLevel = 0;
-            // const orgLevel = 3;
-            //
-            // // Some weird calculations to fit the image to the initial position
-            // // Leaflet has some bugs there. The fitBounds method is not correct for large scale bounds
-            // const tileWidth = 256 * Math.pow(2, orgLevel);
-            // const radius = tileWidth / 2 / Math.PI;
-            // const rx = width - tileWidth / 2;
-            // const ry = -height + tileWidth / 2;
-            //
-            // const west = -180;
-            // const east = (180 / Math.PI) * (rx / radius);
-            // const north = 85.05;
-            // const south = (360 / Math.PI) * (Math.atan(Math.exp(ry / radius)) - (Math.PI / 4));
-            // const rc = (tileWidth / 2 + ry) / 2;
-            // const centerLat = (360 / Math.PI) * (Math.atan(Math.exp(rc / radius)) - (Math.PI / 4));
-            // const centerLon = (west + east) / 2;
-            //
-            // const bounds = [[south, west], [north, east]];
-            // this.SET_TILE_BOUNDS(bounds);
-            //
-            // this.SET_MIN_TILE_ZOOM(minLevel);
-            // this.SET_MAX_TILE_ZOOM(maxLevel);
-            //
-            // this.centerUpdated(new L.latLng(centerLat, centerLon));
-        },
-        computed: {
-            ...mapState('map', [
-                'config',
-                'events',
-                'tileCenter'
-            ]),
-            ...mapGetters('map', [
-                'selectedEvent',
-                'indexSelectedEvent',
-                'arrayMarker'
-            ]),
-            ...mapGetters('tiles', {
-                tile: 'selectedTile'
-            }),
-            sync_center: {
-                get() {
-                    return this.tileCenter
-                },
-                set(value) {
-                    this.SET_TILE_CENTER(value);
-                }
+export default {
+    name: "Map",
+    components: {
+        LMap,
+        LTileLayer,
+        LMarker,
+        LTooltip,
+        LIcon,
+        LPolyline,
+        LControlZoom,
+        LImageOverlay
+    },
+    data() {
+        return {
+            //// l-map config
+            maxBoundsViscosity: 0.9,
+            //// l-polyline config
+            polylineOpacity: 0.6,
+            polylineDashArray: "6"
+        }
+    },
+    watch: {
+        'config.selectedEventId'() {
+            this.SET_TILE_CENTER(this.selectedEvent.marker.position);
+            //this.$refs.map.mapObject.flyTo(this.selectedEvent.marker.position);
+        }
+    },
+    computed: {
+        ...mapState('map', [
+            'config',
+            'events',
+            'tileCenter'
+        ]),
+        ...mapGetters('map', [
+            'selectedEvent',
+            'indexSelectedEvent',
+            'arrayMarker'
+        ]),
+        ...mapGetters('tiles', {
+            tile: 'selectedTile'
+        }),
+        sync_center: {
+            get() {
+                return this.tileCenter
             },
-        },
-        methods: {
-            ...mapMutations('map', [
-                "SET_TILE_CENTER",
-                "SET_SELECTED_EVENT_ID",
-                "SET_EVENT_MARKER_POSITION",
-                "SET_MIN_TILE_ZOOM",
-                "SET_MAX_TILE_ZOOM"
-            ]),
-            ...mapMutations('tiles', [
-                "SET_TILE_BOUNDS"
-            ]),
-            latLngDragUpdatePosition: function (latLng) {
-                // animation
-                // this.$refs.map.mapObject.setView(this.selectedEvent.marker.position);
-                // set marker to position
-                const payload = {'index': this.indexSelectedEvent, 'position': latLng};
-                this.SET_EVENT_MARKER_POSITION(payload);
-                this.SET_TILE_CENTER(this.selectedEvent.marker.position);
-            },
-            // Здесь в отличии от изменений координат "перетаскиванием" мы получим обьект с событием, откуда извелём позицию клика
-            latLngClickUpdatePosition: function (latLng) {
-                // animation
-                this.$refs.map.mapObject.setView(this.selectedEvent.marker.position);
-                // set marker to position
-                const payload = {'index': this.indexSelectedEvent, 'position': latLng.latlng};
-                this.SET_EVENT_MARKER_POSITION(payload);
+            set(value) {
+                this.SET_TILE_CENTER(value);
             }
+        },
+        notGeomap() {
+            return this.tile.url.indexOf('{z}') === -1 && this.tile.url.indexOf('{x}') === -1 || this.tile.url.indexOf('{y}') === -1;
+        },
+        crs() {
+            return this.notGeomap ? L.CRS.Simple : L.CRS.EPSG3857
+        }
+    },
+    methods: {
+        ...mapMutations('map', [
+            "SET_TILE_CENTER",
+            "SET_SELECTED_EVENT_ID",
+            "SET_EVENT_MARKER_POSITION",
+            "SET_MIN_TILE_ZOOM",
+            "SET_MAX_TILE_ZOOM"
+        ]),
+        ...mapMutations('tiles', [
+            "SET_TILE_BOUNDS"
+        ]),
+        latLngDragUpdatePosition(latLng) {
+            // animation
+            // this.$refs.map.mapObject.setView(this.selectedEvent.marker.position);
+            // set marker to position
+            const payload = {'index': this.indexSelectedEvent, 'position': latLng};
+            this.SET_EVENT_MARKER_POSITION(payload);
+            this.SET_TILE_CENTER(this.selectedEvent.marker.position);
+        },
+        // Здесь в отличии от изменений координат "перетаскиванием" мы получим обьект с событием, откуда извелём позицию клика
+        latLngClickUpdatePosition(latLng) {
+            // animation
+            this.$refs.map.mapObject.setView(this.selectedEvent.marker.position);
+            // set marker to position
+            const payload = {'index': this.indexSelectedEvent, 'position': latLng.latlng};
+            this.SET_EVENT_MARKER_POSITION(payload);
         }
     }
+}
 </script>
 
 <style lang="sass" scoped>
-    .map
-        width: 100%
-        margin: auto
-        border: 1px solid #4d565661
+.map
+    width: 100%
+    margin: auto
+    border: 1px solid #4d565661
 </style>

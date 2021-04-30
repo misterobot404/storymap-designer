@@ -1,15 +1,15 @@
 <template>
-    <!--    :maxBounds="config.tileBounds"-->
     <l-map class="map"
            ref="map"
-           :minZoom="config.minZoom"
+           :crs="crs"
+           :minZoom="notGeomap ?  config.minZoom - 1 : config.minZoom"
            :maxZoom="config.maxZoom"
            :center.sync="sync_center"
-           :maxBoundsViscosity="maxBoundsViscosity"
            :options="{zoomControl: false}"
     >
         <l-image-overlay
-            v-if="tile.url.indexOf('{z}') === -1 || tile.url.indexOf('{x}') === -1 || tile.url.indexOf('{y}') === -1"
+            v-if="notGeomap"
+            :bounds="tile.bounds"
             :url="tile.url"
         />
         <l-tile-layer
@@ -30,7 +30,7 @@
                     :icon-url="events[index].marker.url"
             />
             <l-icon v-else
-                    :icon-size="[event.marker.size[0]*2, event.marker.size[1]*2]"
+                    :icon-size="[event.marker.size[0]*1.4, event.marker.size[1]*1.4]"
                     :icon-url="events[index].marker.url"
             />
         </l-marker>
@@ -99,6 +99,7 @@
     import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
     import {LMap, LTileLayer, LMarker, LTooltip, LIcon, LPolyline, LImageOverlay} from 'vue2-leaflet'
     import 'leaflet/dist/leaflet.css'
+    import * as L from "leaflet";
 
     export default {
         name: "Map",
@@ -149,6 +150,12 @@
             },
             noIframe() {
                 return window === window.parent
+            },
+            notGeomap() {
+                return this.tile.url.indexOf('{z}') === -1 && this.tile.url.indexOf('{x}') === -1 || this.tile.url.indexOf('{y}') === -1;
+            },
+            crs() {
+                return this.notGeomap ? L.CRS.Simple : L.CRS.EPSG3857
             }
         },
         methods: {

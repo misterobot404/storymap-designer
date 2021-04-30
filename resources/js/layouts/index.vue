@@ -13,6 +13,17 @@
             <Feedback v-if="feedbackDialog"/>
         </v-fade-transition>
 
+
+        <v-snackbar
+            v-model="m_showMsg"
+            color="primary"
+            text
+            rounded
+            timeout="2000"
+        >
+            {{textMsg}}
+        </v-snackbar>
+        <!-- Отображение загрузочного экрана при загрузке из фрейма   -->
         <v-overlay
             :value="urlContainsIframeQuery && pageLoading"
             light
@@ -40,7 +51,7 @@ import Content from "./Content"
 import NavigationDrawer from "./NavigationDrawer"
 import Footer from "./Footer"
 
-import {mapState} from "vuex"
+import {mapState, mapMutations} from "vuex"
 
 import Feedback from "../components/Feedback"
 import AuthDialog from "../components/Auth"
@@ -61,8 +72,18 @@ export default {
             'authDialog',
             'pageLoading',
             'appName',
-            'appLogo'
+            'appLogo',
+            'showMsg',
+            'textMsg'
         ]),
+        m_showMsg: {
+            get() {
+                return this.showMsg
+            },
+            set(value) {
+                this.SHOW_MSG_DIALOG({show: value})
+            }
+        },
         hideHeaderAndFooter() {
             return this.$route.name === 'constructor' || this.$route.name === 'viewer' || this.$route.name === 'example' || this.$route.name === 'page410' || this.urlContainsIframeQuery
         },
@@ -71,6 +92,9 @@ export default {
             return urlParams.get('iframe') === 'true';
         }
     },
+    methods: {
+        ...mapMutations('layout',['SHOW_MSG_DIALOG'])
+    }
 }
 </script>
 

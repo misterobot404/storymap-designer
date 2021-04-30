@@ -13,7 +13,7 @@ class Map extends Model
     ];
 
     protected $attributes = [
-        'config' => '{"selectedEventId":1,"eventListWidth":"227","showPolyline":true,"maxZoom": 10, "minZoom":3, "polylineWeight":1}',
+        'config' => '{"selectedEventId":1,"eventListWidth":"227","showPolyline":true,"maxZoom": 10, "minZoom":1, "polylineWeight":1}',
         'events' => '[{"id":1,"marker":{"position":{"lat":67,"lng":-41.1},"url":"https://image.flaticon.com/icons/svg/148/148828.svg","size":[32,38]},"title":"Стартовое событие","description":"","mediaUrl":[]}]'
     ];
 

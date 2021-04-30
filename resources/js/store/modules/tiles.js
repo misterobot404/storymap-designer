@@ -42,7 +42,12 @@ export default {
     },
     actions: {
         createTile({state, commit}, tile) {
-            return axios.post('/api/tiles', tile, {headers: {'Content-Type': 'multipart/form-data'}})
+            let formData = new FormData();
+            formData.append('name', tile.name);
+            if (tile.image) formData.append('image', tile.image);
+            else formData.append('url', tile.url);
+
+            return axios.post('/api/tiles', formData, {headers: {'Content-Type': 'multipart/form-data'}})
                 .then(response => { commit('SET_TILES', response.data.data.tiles) })
         },
         getTiles({commit}) {
@@ -55,13 +60,10 @@ export default {
         }
     },
     mutations: {
-        SET_TILES: (state, tiles) => { tiles === null ? state.tiles = [] : state.tiles = tiles },
+        SET_TILES: (state, tiles) => { tiles === null ? state.tiles = [] : state.tiles = tiles.reverse() },
         ADD_TILE: (state, tiles) => { state.tiles.push(tiles) },
         SET_TILE_ATTRIBUTION: (state, attribution) => {
             state.tile.attribution = attribution
-        },
-        SET_TILE_BOUNDS: (state, bounds) => {
-            state.tile.bounds = bounds
-        },
+        }
     }
 }

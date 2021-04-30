@@ -32,10 +32,9 @@ class MapController extends Controller
         $map->user_id = auth()->id();
         $map->name = request('name');
         $map->subject_id = request('subject_id');
-        // При создании установить
-        if (request('tile_id')) $map->tile_id = request('tile_id');
         $map->description = request('description');
         // save map from example map
+        if (request('tile_id')) $map->tile_id = request('tile_id');
         if (request('config')) $map->config = request('config');
         if (request('events')) $map->events = request('events');
 

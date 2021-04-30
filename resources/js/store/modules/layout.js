@@ -15,7 +15,10 @@ export default {
         // show feedback dialog
         feedbackDialog: false,
         // show auth dialog
-        authDialog: false
+        authDialog: false,
+        // show msg
+        showMsg: false,
+        textMsg: ""
     },
     mutations: {
         ENABLE_PAGE_LOADING(state) {
@@ -47,6 +50,11 @@ export default {
         HIDE_AUTH_DIALOG(state) {
             state.authDialog = false;
         },
+
+        SHOW_MSG_DIALOG(state, payload) {
+            state.textMsg = payload.text ? payload.text : "";
+            state.showMsg = payload.show;
+        }
     }
 }
 

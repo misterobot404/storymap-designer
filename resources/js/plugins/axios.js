@@ -25,4 +25,5 @@ if (authToken) {
     // get user data
     store.dispatch('subjects/getSubjects', null, {root: true}).then();
     store.dispatch('tiles/getTiles', null, {root: true}).then();
+    store.dispatch('maps/getMaps', null, {root: true}).then();
 }

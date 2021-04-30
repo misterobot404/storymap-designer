@@ -3438,6 +3438,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3455,7 +3466,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     NavigationDrawer: _NavigationDrawer__WEBPACK_IMPORTED_MODULE_2__["default"],
     Footer: _Footer__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapState"])('layout', ["feedbackDialog", 'authDialog', 'pageLoading', 'appName', 'appLogo'])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapState"])('layout', ["feedbackDialog", 'authDialog', 'pageLoading', 'appName', 'appLogo', 'showMsg', 'textMsg'])), {}, {
+    m_showMsg: {
+      get: function get() {
+        return this.showMsg;
+      },
+      set: function set(value) {
+        this.SHOW_MSG_DIALOG({
+          show: value
+        });
+      }
+    },
     hideHeaderAndFooter: function hideHeaderAndFooter() {
       return this.$route.name === 'constructor' || this.$route.name === 'viewer' || this.$route.name === 'example' || this.$route.name === 'page410' || this.urlContainsIframeQuery;
     },
@@ -3463,7 +3484,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var urlParams = new URLSearchParams(window.location.search);
       return urlParams.get('iframe') === 'true';
     }
-  })
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapMutations"])('layout', ['SHOW_MSG_DIALOG']))
 });
 
 /***/ }),
@@ -9221,7 +9243,13 @@ var render = function() {
       _c(
         "keep-alive",
         {
-          attrs: { exclude: [_vm.$store.state.auth.token ? null : "Library"] }
+          attrs: {
+            exclude: [
+              _vm.$store.state.auth.token ? null : "Library",
+              "Viewer",
+              "Constructor"
+            ]
+          }
         },
         [_c("router-view")],
         1
@@ -9554,6 +9582,21 @@ var render = function() {
         "v-fade-transition",
         [_vm.feedbackDialog ? _c("Feedback") : _vm._e()],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-snackbar",
+        {
+          attrs: { color: "primary", text: "", rounded: "", timeout: "2000" },
+          model: {
+            value: _vm.m_showMsg,
+            callback: function($$v) {
+              _vm.m_showMsg = $$v
+            },
+            expression: "m_showMsg"
+          }
+        },
+        [_vm._v("\n        " + _vm._s(_vm.textMsg) + "\n    ")]
       ),
       _vm._v(" "),
       _c(
@@ -70762,6 +70805,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/index.js");
 /* harmony import */ var vuetify_lib_components_VOverlay__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VOverlay */ "./node_modules/vuetify/lib/components/VOverlay/index.js");
 /* harmony import */ var vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VProgressCircular */ "./node_modules/vuetify/lib/components/VProgressCircular/index.js");
+/* harmony import */ var vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VSnackbar */ "./node_modules/vuetify/lib/components/VSnackbar/index.js");
 
 
 
@@ -70789,7 +70833,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VExpandTransition: vuetify_lib_components_transitions__WEBPACK_IMPORTED_MODULE_6__["VExpandTransition"],VFadeTransition: vuetify_lib_components_transitions__WEBPACK_IMPORTED_MODULE_6__["VFadeTransition"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_7__["VImg"],VOverlay: vuetify_lib_components_VOverlay__WEBPACK_IMPORTED_MODULE_8__["VOverlay"],VProgressCircular: vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_9__["VProgressCircular"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_5__["VApp"],VExpandTransition: vuetify_lib_components_transitions__WEBPACK_IMPORTED_MODULE_6__["VExpandTransition"],VFadeTransition: vuetify_lib_components_transitions__WEBPACK_IMPORTED_MODULE_6__["VFadeTransition"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_7__["VImg"],VOverlay: vuetify_lib_components_VOverlay__WEBPACK_IMPORTED_MODULE_8__["VOverlay"],VProgressCircular: vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_9__["VProgressCircular"],VSnackbar: vuetify_lib_components_VSnackbar__WEBPACK_IMPORTED_MODULE_10__["VSnackbar"]})
 
 
 /* hot reload */
@@ -70929,6 +70974,9 @@ if (authToken) {
   _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('tiles/getTiles', null, {
     root: true
   }).then();
+  _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('maps/getMaps', null, {
+    root: true
+  }).then();
 }
 
 /***/ }),
@@ -71040,7 +71088,7 @@ var routes = [{
   name: 'constructor',
   path: '/constructor/:id?',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! @/pages/Constructor */ "./resources/js/pages/Constructor.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(9), __webpack_require__.e(4), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! @/pages/Constructor */ "./resources/js/pages/Constructor.vue"));
   },
   props: true,
   meta: {
@@ -71052,7 +71100,7 @@ var routes = [{
   name: 'viewer',
   path: '/viewer/:id?',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(9), __webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
   },
   props: true,
   meta: {
@@ -71259,7 +71307,10 @@ __webpack_require__.r(__webpack_exports__);
     // show feedback dialog
     feedbackDialog: false,
     // show auth dialog
-    authDialog: false
+    authDialog: false,
+    // show msg
+    showMsg: false,
+    textMsg: ""
   },
   mutations: {
     ENABLE_PAGE_LOADING: function ENABLE_PAGE_LOADING(state) {
@@ -71287,6 +71338,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     HIDE_AUTH_DIALOG: function HIDE_AUTH_DIALOG(state) {
       state.authDialog = false;
+    },
+    SHOW_MSG_DIALOG: function SHOW_MSG_DIALOG(state, payload) {
+      state.textMsg = payload.text ? payload.text : "";
+      state.showMsg = payload.show;
     }
   }
 });
@@ -71704,7 +71759,11 @@ __webpack_require__.r(__webpack_exports__);
       description: "Описание",
       config: JSON.stringify({
         "eventListWidth": 227,
-        "selectedEventId": 1
+        "selectedEventId": 1,
+        "maxZoom": 10,
+        "minZoom": 3,
+        "showPolyline": true,
+        "polylineWeight": 1
       }),
       tile: JSON.stringify({
         "url": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
@@ -71718,8 +71777,6 @@ __webpack_require__.r(__webpack_exports__);
             "lng": -180
           }
         },
-        "maxZoom": 4,
-        "minZoom": 3,
         "attribution": "&copy; <a href=\"https://knastu.ru/\">knastu</a>"
       }),
       events: JSON.stringify([{
@@ -71788,11 +71845,11 @@ __webpack_require__.r(__webpack_exports__);
     createMap: function createMap(_ref2, data) {
       var commit = _ref2.commit;
       return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/maps', {
-        name: data.name,
         subject_id: data.subject_id,
+        tile_id: data.tile_id,
+        name: data.name,
         description: data.description,
         config: JSON.stringify(data.config),
-        tile: JSON.stringify(data.tile),
         events: JSON.stringify(data.events)
       }).then(function (response) {
         commit('SET_MAPS', response.data.data.maps);
@@ -71994,7 +72051,10 @@ __webpack_require__.r(__webpack_exports__);
     createTile: function createTile(_ref, tile) {
       var state = _ref.state,
           commit = _ref.commit;
-      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/tiles', tile, {
+      var formData = new FormData();
+      formData.append('name', tile.name);
+      if (tile.image) formData.append('image', tile.image);else formData.append('url', tile.url);
+      return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/tiles', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -72017,16 +72077,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   mutations: {
     SET_TILES: function SET_TILES(state, tiles) {
-      tiles === null ? state.tiles = [] : state.tiles = tiles;
+      tiles === null ? state.tiles = [] : state.tiles = tiles.reverse();
     },
     ADD_TILE: function ADD_TILE(state, tiles) {
       state.tiles.push(tiles);
     },
     SET_TILE_ATTRIBUTION: function SET_TILE_ATTRIBUTION(state, attribution) {
       state.tile.attribution = attribution;
-    },
-    SET_TILE_BOUNDS: function SET_TILE_BOUNDS(state, bounds) {
-      state.tile.bounds = bounds;
     }
   }
 });

@@ -9,12 +9,10 @@ export default {
             name: "Тестовый Атлас",
             subject_id: "",
             description: "Описание",
-            config: JSON.stringify({"eventListWidth": 227, "selectedEventId": 1}),
+            config: JSON.stringify({"eventListWidth": 227, "selectedEventId": 1, "maxZoom": 10, "minZoom": 3, "showPolyline" : true, "polylineWeight": 1}),
             tile: JSON.stringify({
                 "url": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
                 "bounds": {"_northEast": {"lat": 85, "lng": 45}, "_southWest": {"lat": 47, "lng": -180}},
-                "maxZoom": 4,
-                "minZoom": 3,
                 "attribution": "&copy; <a href=\"https://knastu.ru/\">knastu</a>"
             }),
             events: JSON.stringify([{
@@ -82,11 +80,11 @@ export default {
         },
         createMap({commit}, data) {
             return axios.post('/api/maps', {
-                name: data.name,
                 subject_id: data.subject_id,
+                tile_id: data.tile_id,
+                name: data.name,
                 description: data.description,
                 config: JSON.stringify(data.config),
-                tile: JSON.stringify(data.tile),
                 events: JSON.stringify(data.events)
             })
                 .then(response => { commit('SET_MAPS', response.data.data.maps) })

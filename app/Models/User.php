@@ -26,6 +26,16 @@ class User extends Authenticatable
     {
         parent::boot();
         static::created(function ($user) {
+            // Default tile for new user
+            Tile::insert([
+                [
+                    'user_id' => $user->id,
+                    'name' => 'Стандартная карта',
+                    'url' => 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
+                    'bounds' => '{"_northEast": {"lat": 85, "lng": 45}, "_southWest": {"lat": 47, "lng": -180}}',
+                    'attribution' => '© <a href=\"https://knastu.ru/\">knastu</a>'
+                ]
+            ]);
             // Default subject for new user
             Subject::insert([
                 [

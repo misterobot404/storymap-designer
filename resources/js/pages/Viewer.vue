@@ -10,7 +10,7 @@
             class="d-flex flex-column justify-center"
         >
             <div class="pa-4 d-flex flex-column text-center rounded"
-                 style="max-height: 90vh; background-color:rgba(225, 225, 225, 0.7); pointer-events: all; overflow: hidden">
+                 style="max-height: 90vh; background-color:rgba(225, 225, 225, 0.8); pointer-events: all; overflow: hidden">
                 <MediaContent
                     v-if="selectedEvent.mediaUrl.length > 0"
                     height="38vh"
@@ -32,7 +32,7 @@
         >
             <div
                 class="pa-4 d-flex flex-column align-center text-center rounded"
-                style="max-width: 94vw; background-color:rgba(225, 225, 225, 0.7); pointer-events: all; overflow-y: auto;"
+                style="max-width: 94vw; background-color:rgba(225, 225, 225, 0.8); pointer-events: all; overflow-y: auto;"
             >
                 <div class="headline mt-2">{{ selectedEvent.title }}</div>
                 <MediaContent

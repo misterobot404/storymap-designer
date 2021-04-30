@@ -13,6 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue2_leaflet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-leaflet */ "./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js");
 /* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
 /* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_3__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -119,6 +121,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Map",
   components: {
@@ -157,6 +160,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     noIframe: function noIframe() {
       return window === window.parent;
+    },
+    notGeomap: function notGeomap() {
+      return this.tile.url.indexOf('{z}') === -1 && this.tile.url.indexOf('{x}') === -1 || this.tile.url.indexOf('{y}') === -1;
+    },
+    crs: function crs() {
+      return this.notGeomap ? leaflet__WEBPACK_IMPORTED_MODULE_3__["CRS"].Simple : leaflet__WEBPACK_IMPORTED_MODULE_3__["CRS"].EPSG3857;
     }
   }),
   methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('map', ['saveEmptyExampleMap'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ["SET_TILE_CENTER", "SET_SELECTED_EVENT_ID", "SET_EVENT_MARKER_POSITION", "SET_TILE_BOUNDS", "SET_MIN_TILE_ZOOM", "SET_MAX_TILE_ZOOM"])), {}, {
@@ -435,10 +444,10 @@ var render = function() {
       ref: "map",
       staticClass: "map",
       attrs: {
-        minZoom: _vm.config.minZoom,
+        crs: _vm.crs,
+        minZoom: _vm.notGeomap ? _vm.config.minZoom - 1 : _vm.config.minZoom,
         maxZoom: _vm.config.maxZoom,
         center: _vm.sync_center,
-        maxBoundsViscosity: _vm.maxBoundsViscosity,
         options: { zoomControl: false }
       },
       on: {
@@ -448,10 +457,10 @@ var render = function() {
       }
     },
     [
-      _vm.tile.url.indexOf("{z}") === -1 ||
-      _vm.tile.url.indexOf("{x}") === -1 ||
-      _vm.tile.url.indexOf("{y}") === -1
-        ? _c("l-image-overlay", { attrs: { url: _vm.tile.url } })
+      _vm.notGeomap
+        ? _c("l-image-overlay", {
+            attrs: { bounds: _vm.tile.bounds, url: _vm.tile.url }
+          })
         : _c("l-tile-layer", {
             attrs: {
               url: _vm.tile.url,
@@ -487,8 +496,8 @@ var render = function() {
               : _c("l-icon", {
                   attrs: {
                     "icon-size": [
-                      event.marker.size[0] * 2,
-                      event.marker.size[1] * 2
+                      event.marker.size[0] * 1.4,
+                      event.marker.size[1] * 1.4
                     ],
                     "icon-url": _vm.events[index].marker.url
                   }
@@ -681,7 +690,7 @@ var render = function() {
                   staticClass: "pa-4 d-flex flex-column text-center rounded",
                   staticStyle: {
                     "max-height": "90vh",
-                    "background-color": "rgba(225, 225, 225, 0.7)",
+                    "background-color": "rgba(225, 225, 225, 0.8)",
                     "pointer-events": "all",
                     overflow: "hidden"
                   }
@@ -731,7 +740,7 @@ var render = function() {
                     "pa-4 d-flex flex-column align-center text-center rounded",
                   staticStyle: {
                     "max-width": "94vw",
-                    "background-color": "rgba(225, 225, 225, 0.7)",
+                    "background-color": "rgba(225, 225, 225, 0.8)",
                     "pointer-events": "all",
                     "overflow-y": "auto"
                   }

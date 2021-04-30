@@ -407,6 +407,74 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CreateMapDialog",
@@ -414,18 +482,51 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       dialog: false,
       loading: false,
+      loadingSharedTile: false,
+      sharedTileIndex: null,
       name: "",
-      tileUrl: ""
+      tileUrl: "",
+      tileImage: null
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('tiles', ['tiles'])),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('maps', ['ADD_TILE'])), {}, {
-    addTile: function addTile() {
-      this.ADD_TILE({
-        name: this.name,
-        url: this.tileUrl
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('tiles', ['tiles', 'sharedTiles'])),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('layout', ['SHOW_MSG_DIALOG'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tiles', ['createTile'])), {}, {
+    l_createSharedTile: function l_createSharedTile(tile, index) {
+      var _this = this;
+
+      this.loadingSharedTile = true;
+      this.sharedTileIndex = index;
+      this.createTile(tile).then(function (_) {
+        return _this.SHOW_MSG_DIALOG({
+          show: true,
+          text: "Подложка добавлена!"
+        });
+      })["finally"](function () {
+        _this.loadingSharedTile = false;
+        _this.sharedTileIndex = null;
       });
-      this.dialog = false;
+    },
+    l_createTile: function l_createTile() {
+      var _this2 = this;
+
+      this.loading = true;
+      var tile = {
+        name: this.name,
+        url: this.tileUrl,
+        image: this.tileImage
+      };
+      this.createTile(tile).then(function (_) {
+        _this2.SHOW_MSG_DIALOG({
+          show: true,
+          text: "Подложка добавлена!"
+        });
+
+        _this2.name = "";
+        _this2.tileUrl = "";
+        _this2.tileImage = null;
+      })["finally"](function () {
+        return _this2.loading = false;
+      });
     }
   })
 });
@@ -606,6 +707,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -615,7 +736,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      dialog: false
+      dialog: false,
+      deletedTileId: []
     };
   },
   computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['name', 'description', 'subject_id', 'tile_id', 'config'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
@@ -694,7 +816,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('layout', ['CHANGE_THEME'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ['SET_SHOW_POLYLINE', 'SET_POLYLINE_WEIGHT', 'SET_MIN_TILE_ZOOM', 'SET_MAX_TILE_ZOOM', 'SET_MAP_NAME', 'SET_MAP_DESCRIPTION', 'SET_MAP_SUBJECT_ID', 'SET_TILE_ID']))
+  methods: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('layout', ['CHANGE_THEME', 'SHOW_MSG_DIALOG'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ['SET_SHOW_POLYLINE', 'SET_POLYLINE_WEIGHT', 'SET_MIN_TILE_ZOOM', 'SET_MAX_TILE_ZOOM', 'SET_MAP_NAME', 'SET_MAP_DESCRIPTION', 'SET_MAP_SUBJECT_ID', 'SET_TILE_ID'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tiles', ['deleteTile'])), {}, {
+    lDeleteTile: function lDeleteTile($tile_id) {
+      var _this = this;
+
+      // подлоожка используется в других картах
+      if (this.maps.find(function (map) {
+        return map.tile_id === $tile_id;
+      })) {
+        this.SHOW_MSG_DIALOG({
+          show: true,
+          text: "Подложка используется!"
+        });
+        return;
+      }
+
+      this.deletedTileId.push($tile_id);
+      this.deleteTile($tile_id)["finally"](function () {
+        var index = _this.deletedTileId.findIndex(function ($id) {
+          return $id === $tile_id;
+        });
+
+        _this.deletedTileId.splice(index, 1);
+      });
+    }
+  })
 });
 
 /***/ }),
@@ -1170,6 +1316,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue2_leaflet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-leaflet */ "./node_modules/vue2-leaflet/dist/vue2-leaflet.es.js");
 /* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
 /* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_3__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -1227,6 +1375,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+
 
 
 
@@ -1256,36 +1407,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.SET_TILE_CENTER(this.selectedEvent.marker.position); //this.$refs.map.mapObject.flyTo(this.selectedEvent.marker.position);
     }
   },
-  mounted: function mounted() {
-    // const image = 'tile';
-    // const width = 3320;
-    // const height = 2197;
-    var maxLevel = 10; // const minLevel = 0;
-    // const orgLevel = 3;
-    //
-    // // Some weird calculations to fit the image to the initial position
-    // // Leaflet has some bugs there. The fitBounds method is not correct for large scale bounds
-    // const tileWidth = 256 * Math.pow(2, orgLevel);
-    // const radius = tileWidth / 2 / Math.PI;
-    // const rx = width - tileWidth / 2;
-    // const ry = -height + tileWidth / 2;
-    //
-    // const west = -180;
-    // const east = (180 / Math.PI) * (rx / radius);
-    // const north = 85.05;
-    // const south = (360 / Math.PI) * (Math.atan(Math.exp(ry / radius)) - (Math.PI / 4));
-    // const rc = (tileWidth / 2 + ry) / 2;
-    // const centerLat = (360 / Math.PI) * (Math.atan(Math.exp(rc / radius)) - (Math.PI / 4));
-    // const centerLon = (west + east) / 2;
-    //
-    // const bounds = [[south, west], [north, east]];
-    // this.SET_TILE_BOUNDS(bounds);
-    //
-    // this.SET_MIN_TILE_ZOOM(minLevel);
-    // this.SET_MAX_TILE_ZOOM(maxLevel);
-    //
-    // this.centerUpdated(new L.latLng(centerLat, centerLon));
-  },
   computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['config', 'events', 'tileCenter'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('map', ['selectedEvent', 'indexSelectedEvent', 'arrayMarker'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('tiles', {
     tile: 'selectedTile'
   })), {}, {
@@ -1296,6 +1417,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       set: function set(value) {
         this.SET_TILE_CENTER(value);
       }
+    },
+    notGeomap: function notGeomap() {
+      return this.tile.url.indexOf('{z}') === -1 && this.tile.url.indexOf('{x}') === -1 || this.tile.url.indexOf('{y}') === -1;
+    },
+    crs: function crs() {
+      return this.notGeomap ? leaflet__WEBPACK_IMPORTED_MODULE_3__["CRS"].Simple : leaflet__WEBPACK_IMPORTED_MODULE_3__["CRS"].EPSG3857;
     }
   }),
   methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ["SET_TILE_CENTER", "SET_SELECTED_EVENT_ID", "SET_EVENT_MARKER_POSITION", "SET_MIN_TILE_ZOOM", "SET_MAX_TILE_ZOOM"])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('tiles', ["SET_TILE_BOUNDS"])), {}, {
@@ -2131,7 +2258,12 @@ var render = function() {
   return _c(
     "v-dialog",
     {
-      attrs: { "max-width": "400" },
+      attrs: {
+        "max-width": "800",
+        "hide-overlay": "",
+        scrollable: "",
+        transition: "fade-transition"
+      },
       scopedSlots: _vm._u([
         {
           key: "activator",
@@ -2165,21 +2297,12 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-card",
+        { attrs: { height: "575", loading: _vm.loading } },
         [
           _c(
             "v-toolbar",
             { staticClass: "pr-1", attrs: { height: "68", flat: "" } },
             [
-              _c(
-                "v-icon",
-                { staticClass: "mr-2", attrs: { large: "", color: "primary" } },
-                [_vm._v("\n                layers\n            ")]
-              ),
-              _vm._v(" "),
-              _c("v-toolbar-title", [_vm._v(" Добавление подложки")]),
-              _vm._v(" "),
-              _c("v-spacer"),
-              _vm._v(" "),
               _c(
                 "v-btn",
                 {
@@ -2190,9 +2313,17 @@ var render = function() {
                     }
                   }
                 },
-                [_c("v-icon", [_vm._v("close")])],
+                [_c("v-icon", [_vm._v("arrow_back")])],
                 1
-              )
+              ),
+              _vm._v(" "),
+              _c(
+                "v-icon",
+                { staticClass: "mx-2", attrs: { large: "", color: "primary" } },
+                [_vm._v("\n                layers\n            ")]
+              ),
+              _vm._v(" "),
+              _c("v-toolbar-title", [_vm._v(" Добавление подложки")])
             ],
             1
           ),
@@ -2201,132 +2332,437 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-card-text",
-            { staticClass: "pb-0" },
+            { staticClass: "pa-0" },
             [
               _c(
                 "v-form",
                 { ref: "form" },
                 [
                   _c(
-                    "v-container",
-                    { staticClass: "pb-0" },
+                    "v-card-text",
                     [
+                      _c(
+                        "v-row",
+                        { attrs: { "no-gutters": "" } },
+                        [
+                          _c(
+                            "v-col",
+                            [
+                              _c(
+                                "v-form",
+                                { ref: "form" },
+                                [
+                                  _c(
+                                    "v-container",
+                                    { staticClass: "py-0" },
+                                    [
+                                      _c("v-subheader", [_vm._v("Создание")]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "d-flex flex-column pt-2"
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            { staticClass: "d-flex pb-0" },
+                                            [
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "pb-0",
+                                                  attrs: { cols: "6" }
+                                                },
+                                                [
+                                                  _c("v-text-field", {
+                                                    attrs: {
+                                                      label: "Название",
+                                                      filled: "",
+                                                      rules: [
+                                                        function(v) {
+                                                          return (
+                                                            _vm.tiles.find(
+                                                              function(tile) {
+                                                                return (
+                                                                  tile.name ===
+                                                                  v
+                                                                )
+                                                              }
+                                                            ) === undefined ||
+                                                            "Подложка с таким названием уже существует"
+                                                          )
+                                                        }
+                                                      ],
+                                                      required: ""
+                                                    },
+                                                    model: {
+                                                      value: _vm.name,
+                                                      callback: function($$v) {
+                                                        _vm.name =
+                                                          typeof $$v ===
+                                                          "string"
+                                                            ? $$v.trim()
+                                                            : $$v
+                                                      },
+                                                      expression: "name"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-col",
+                                                {
+                                                  staticClass: "pb-0",
+                                                  attrs: { cols: "6" }
+                                                },
+                                                [
+                                                  _c("v-select", {
+                                                    attrs: {
+                                                      filled: "",
+                                                      items: [
+                                                        "Фреймы",
+                                                        "Растяжение",
+                                                        "Дублирование"
+                                                      ],
+                                                      value: "Фреймы",
+                                                      label: "Вид отображения",
+                                                      required: ""
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-col",
+                                            {
+                                              staticClass: "pt-2",
+                                              attrs: { cols: "12" }
+                                            },
+                                            [
+                                              _c(
+                                                "div",
+                                                { staticClass: "d-flex" },
+                                                [
+                                                  _c("v-text-field", {
+                                                    staticStyle: {
+                                                      "flex-basis": "200px"
+                                                    },
+                                                    attrs: {
+                                                      disabled:
+                                                        _vm.tileImage !== null,
+                                                      label:
+                                                        "Ссылка на картинку / подложку",
+                                                      filled: "",
+                                                      rules: [
+                                                        function(v) {
+                                                          return (
+                                                            _vm.tiles.find(
+                                                              function(tile) {
+                                                                return (
+                                                                  tile.name ===
+                                                                  v
+                                                                )
+                                                              }
+                                                            ) === undefined ||
+                                                            "Такое название уже используется"
+                                                          )
+                                                        },
+                                                        function(v) {
+                                                          return (
+                                                            _vm.tiles.find(
+                                                              function(tile) {
+                                                                return (
+                                                                  tile.url === v
+                                                                )
+                                                              }
+                                                            ) === undefined ||
+                                                            "Подложка с такой ссылкой уже используется"
+                                                          )
+                                                        }
+                                                      ],
+                                                      required: ""
+                                                    },
+                                                    model: {
+                                                      value: _vm.tileUrl,
+                                                      callback: function($$v) {
+                                                        _vm.tileUrl =
+                                                          typeof $$v ===
+                                                          "string"
+                                                            ? $$v.trim()
+                                                            : $$v
+                                                      },
+                                                      expression: "tileUrl"
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "span",
+                                                    {
+                                                      staticClass:
+                                                        "flex-grow-0 mx-3 pt-5"
+                                                    },
+                                                    [_vm._v(" или ")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c("v-file-input", {
+                                                    staticStyle: {
+                                                      "flex-basis": "200px"
+                                                    },
+                                                    attrs: {
+                                                      disabled:
+                                                        _vm.tileUrl !== "",
+                                                      label:
+                                                        "Загрузка с компьютера",
+                                                      accept: "image/*",
+                                                      outlined: ""
+                                                    },
+                                                    model: {
+                                                      value: _vm.tileImage,
+                                                      callback: function($$v) {
+                                                        _vm.tileImage = $$v
+                                                      },
+                                                      expression: "tileImage"
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-row",
+                                                {
+                                                  attrs: {
+                                                    "no-gutters": "",
+                                                    align: "center"
+                                                  }
+                                                },
+                                                [
+                                                  _c(
+                                                    "a",
+                                                    {
+                                                      staticClass:
+                                                        "text-decoration-none",
+                                                      attrs: {
+                                                        href:
+                                                          "http://leaflet-extras.github.io/leaflet-providers/preview/index.html",
+                                                        target: "_blank"
+                                                      }
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                                                    Внешняя библиотека подложек.\n                                                "
+                                                      )
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c("v-spacer"),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "v-btn",
+                                                    {
+                                                      staticClass: "px-7",
+                                                      attrs: {
+                                                        loading: _vm.loading,
+                                                        color: "primary",
+                                                        outlined: ""
+                                                      },
+                                                      on: {
+                                                        click: _vm.l_createTile
+                                                      }
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                                                    Добавить\n                                                "
+                                                      )
+                                                    ]
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("v-divider", { staticClass: "mx-2 my-6" }),
+                      _vm._v(" "),
                       _c(
                         "v-row",
                         [
                           _c(
                             "v-col",
-                            { staticClass: "pb-0 pt-3", attrs: { cols: "12" } },
                             [
-                              _c("v-text-field", {
-                                attrs: {
-                                  label: "Название",
-                                  filled: "",
-                                  rules: [
-                                    function(v) {
-                                      return !!v || "Введите название"
-                                    },
-                                    function(v) {
-                                      return (
-                                        _vm.tiles.find(function(tile) {
-                                          return tile.name === v
-                                        }) === undefined ||
-                                        "Подложка с таким названием уже существует"
-                                      )
-                                    }
-                                  ],
-                                  required: ""
-                                },
-                                model: {
-                                  value: _vm.name,
-                                  callback: function($$v) {
-                                    _vm.name =
-                                      typeof $$v === "string" ? $$v.trim() : $$v
-                                  },
-                                  expression: "name"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-col",
-                            { staticClass: "pt-1", attrs: { cols: "12" } },
-                            [
-                              _c("v-text-field", {
-                                attrs: {
-                                  label: "Ссылка на подложку",
-                                  filled: "",
-                                  rules: [
-                                    function(v) {
-                                      return !!v || "Введите URL"
-                                    },
-                                    function(v) {
-                                      return (
-                                        _vm.tiles.find(function(tile) {
-                                          return tile.url === v
-                                        }) === undefined ||
-                                        "Подложка уже используется"
-                                      )
-                                    }
-                                  ],
-                                  required: ""
-                                },
-                                model: {
-                                  value: _vm.tileUrl,
-                                  callback: function($$v) {
-                                    _vm.tileUrl =
-                                      typeof $$v === "string" ? $$v.trim() : $$v
-                                  },
-                                  expression: "tileUrl"
-                                }
-                              }),
-                              _vm._v(" "),
                               _c(
-                                "a",
-                                {
-                                  staticClass: "text-decoration-none",
-                                  attrs: {
-                                    href:
-                                      "http://leaflet-extras.github.io/leaflet-providers/preview/index.html",
-                                    target: "_blank"
-                                  }
-                                },
+                                "v-container",
+                                { staticClass: "py-0" },
                                 [
-                                  _vm._v(
-                                    "\n                                Внешняя библиотека подложек.\n                            "
+                                  _c("v-subheader", [
+                                    _vm._v("Подложки от разработчиков")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-row",
+                                    {
+                                      staticClass: "pt-3",
+                                      attrs: { justify: "center" }
+                                    },
+                                    _vm._l(_vm.sharedTiles, function(
+                                      tile,
+                                      index
+                                    ) {
+                                      return _c("v-hover", {
+                                        key: tile.id,
+                                        scopedSlots: _vm._u(
+                                          [
+                                            {
+                                              key: "default",
+                                              fn: function(ref) {
+                                                var hover = ref.hover
+                                                return [
+                                                  _c(
+                                                    "v-card",
+                                                    {
+                                                      staticClass:
+                                                        "ma-5 align-self-start",
+                                                      attrs: {
+                                                        "max-width": _vm
+                                                          .$vuetify.breakpoint
+                                                          .xl
+                                                          ? "180"
+                                                          : "100",
+                                                        loading:
+                                                          _vm.loadingSharedTile &&
+                                                          _vm.sharedTileIndex ===
+                                                            index
+                                                      }
+                                                    },
+                                                    [
+                                                      _c("v-img", {
+                                                        attrs: {
+                                                          src: __webpack_require__(/*! @/assets/images/no-image.png */ "./resources/js/assets/images/no-image.png")
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            return _vm.$router.push(
+                                                              {
+                                                                path:
+                                                                  "/viewer/" +
+                                                                  _vm.map.id
+                                                              }
+                                                            )
+                                                          }
+                                                        }
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-list-item",
+                                                        [
+                                                          _c(
+                                                            "v-list-item-content",
+                                                            [
+                                                              _c(
+                                                                "v-list-item-title",
+                                                                [
+                                                                  _vm._v(
+                                                                    _vm._s(
+                                                                      tile.name
+                                                                    )
+                                                                  )
+                                                                ]
+                                                              )
+                                                            ],
+                                                            1
+                                                          )
+                                                        ],
+                                                        1
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "v-fade-transition",
+                                                        [
+                                                          hover
+                                                            ? _c(
+                                                                "v-overlay",
+                                                                {
+                                                                  attrs: {
+                                                                    absolute:
+                                                                      "",
+                                                                    color:
+                                                                      "primary",
+                                                                    opacity:
+                                                                      "0.2"
+                                                                  }
+                                                                },
+                                                                [
+                                                                  !_vm.loadingSharedTile
+                                                                    ? _c(
+                                                                        "v-btn",
+                                                                        {
+                                                                          on: {
+                                                                            click: function(
+                                                                              $event
+                                                                            ) {
+                                                                              return _vm.l_createSharedTile(
+                                                                                tile,
+                                                                                index
+                                                                              )
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        [
+                                                                          _vm._v(
+                                                                            "\n                                                        Добавить\n                                                    "
+                                                                          )
+                                                                        ]
+                                                                      )
+                                                                    : _vm._e()
+                                                                ],
+                                                                1
+                                                              )
+                                                            : _vm._e()
+                                                        ],
+                                                        1
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ]
+                                              }
+                                            }
+                                          ],
+                                          null,
+                                          true
+                                        )
+                                      })
+                                    }),
+                                    1
                                   )
-                                ]
+                                ],
+                                1
                               )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-col",
-                            { attrs: { cols: "12" } },
-                            [
-                              _c("v-select", {
-                                attrs: {
-                                  height: "68",
-                                  filled: "",
-                                  "hide-details": "",
-                                  items: [
-                                    "Фреймы",
-                                    "Растяжение",
-                                    "Дублирование"
-                                  ],
-                                  value: "Фреймы",
-                                  label: "Вид отображения",
-                                  rules: [
-                                    function(v) {
-                                      return !!v || "Выберите тип отображения"
-                                    }
-                                  ],
-                                  required: ""
-                                }
-                              })
                             ],
                             1
                           )
@@ -2338,29 +2774,6 @@ var render = function() {
                   )
                 ],
                 1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-card-actions",
-            { staticClass: "px-9 py-4" },
-            [
-              _c("v-spacer"),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  staticClass: "px-7",
-                  attrs: {
-                    color: "primary",
-                    outlined: "",
-                    loading: _vm.loading
-                  },
-                  on: { click: _vm.addTile }
-                },
-                [_vm._v("\n                Добавить\n            ")]
               )
             ],
             1
@@ -2397,7 +2810,11 @@ var render = function() {
   return _c(
     "v-dialog",
     {
-      attrs: { "max-width": "800", scrollable: "" },
+      attrs: {
+        "max-width": "800",
+        scrollable: "",
+        transition: "dialog-bottom-transition"
+      },
       scopedSlots: _vm._u([
         {
           key: "activator",
@@ -2662,6 +3079,65 @@ var render = function() {
                                               ],
                                               required: ""
                                             },
+                                            scopedSlots: _vm._u([
+                                              {
+                                                key: "item",
+                                                fn: function(ref) {
+                                                  var item = ref.item
+                                                  return [
+                                                    _vm._v(
+                                                      "\n                                                " +
+                                                        _vm._s(item.name) +
+                                                        "\n                                                "
+                                                    ),
+                                                    _c("v-spacer"),
+                                                    _vm._v(" "),
+                                                    _vm.deletedTileId.find(
+                                                      function($id) {
+                                                        return $id === item.id
+                                                      }
+                                                    )
+                                                      ? _c(
+                                                          "v-progress-circular",
+                                                          {
+                                                            attrs: {
+                                                              indeterminate: "",
+                                                              size: "24",
+                                                              width: "1",
+                                                              color: "primary"
+                                                            }
+                                                          }
+                                                        )
+                                                      : item.id !== _vm.m_tileId
+                                                      ? _c(
+                                                          "v-btn",
+                                                          {
+                                                            attrs: { icon: "" },
+                                                            on: {
+                                                              click: function(
+                                                                $event
+                                                              ) {
+                                                                $event.stopPropagation()
+                                                                return _vm.lDeleteTile(
+                                                                  item.id
+                                                                )
+                                                              }
+                                                            }
+                                                          },
+                                                          [
+                                                            _c("v-icon", [
+                                                              _vm._v(
+                                                                "\n                                                        remove\n                                                    "
+                                                              )
+                                                            ])
+                                                          ],
+                                                          1
+                                                        )
+                                                      : _vm._e()
+                                                  ]
+                                                }
+                                              }
+                                            ]),
                                             model: {
                                               value: _vm.m_tileId,
                                               callback: function($$v) {
@@ -3464,10 +3940,10 @@ var render = function() {
       staticClass: "map",
       staticStyle: { "z-index": "0" },
       attrs: {
-        minZoom: _vm.config.minZoom,
+        crs: _vm.crs,
+        minZoom: _vm.notGeomap ? _vm.config.minZoom - 1 : _vm.config.minZoom,
         maxZoom: _vm.config.maxZoom,
         center: _vm.sync_center,
-        maxBoundsViscosity: _vm.maxBoundsViscosity,
         options: { zoomControl: false }
       },
       on: {
@@ -3478,10 +3954,10 @@ var render = function() {
       }
     },
     [
-      _vm.tile.url.indexOf("{z}") === -1 ||
-      _vm.tile.url.indexOf("{x}") === -1 ||
-      _vm.tile.url.indexOf("{y}") === -1
-        ? _c("l-image-overlay", { attrs: { url: _vm.tile.url } })
+      _vm.notGeomap
+        ? _c("l-image-overlay", {
+            attrs: { bounds: _vm.tile.bounds, url: _vm.tile.url }
+          })
         : _c("l-tile-layer", {
             attrs: {
               url: _vm.tile.url,
@@ -3521,8 +3997,8 @@ var render = function() {
               : _c("l-icon", {
                   attrs: {
                     "icon-size": [
-                      event.marker.size[0] * 2,
-                      event.marker.size[1] * 2
+                      event.marker.size[0] * 1.4,
+                      event.marker.size[1] * 1.4
                     ],
                     "icon-url": _vm.events[index].marker.url
                   }
@@ -3686,6 +4162,17 @@ module.exports = "/images/help_part_5.gif?03a08737f79d97d802b00b112d478ffd";
 /***/ (function(module, exports) {
 
 module.exports = "/images/help_part_6.gif?116fa5951a358c57cde019c050fe97e6";
+
+/***/ }),
+
+/***/ "./resources/js/assets/images/no-image.png":
+/*!*************************************************!*\
+  !*** ./resources/js/assets/images/no-image.png ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/no-image.png?cde74bf6643df8492c7ff3dd9271a77e";
 
 /***/ }),
 
@@ -3898,11 +4385,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/index.js");
 /* harmony import */ var vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VDialog */ "./node_modules/vuetify/lib/components/VDialog/index.js");
 /* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/index.js");
-/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
-/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
-/* harmony import */ var vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VSelect */ "./node_modules/vuetify/lib/components/VSelect/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
-/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
+/* harmony import */ var vuetify_lib_components_transitions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/transitions */ "./node_modules/vuetify/lib/components/transitions/index.js");
+/* harmony import */ var vuetify_lib_components_VFileInput__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VFileInput */ "./node_modules/vuetify/lib/components/VFileInput/index.js");
+/* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
+/* harmony import */ var vuetify_lib_components_VHover__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VHover */ "./node_modules/vuetify/lib/components/VHover/index.js");
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
+/* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/index.js");
+/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/index.js");
+/* harmony import */ var vuetify_lib_components_VOverlay__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuetify/lib/components/VOverlay */ "./node_modules/vuetify/lib/components/VOverlay/index.js");
+/* harmony import */ var vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! vuetify/lib/components/VSelect */ "./node_modules/vuetify/lib/components/VSelect/index.js");
+/* harmony import */ var vuetify_lib_components_VSubheader__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! vuetify/lib/components/VSubheader */ "./node_modules/vuetify/lib/components/VSubheader/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
 
 
 
@@ -3939,7 +4433,15 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardActions: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardActions"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_8__["VDivider"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_9__["VForm"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_11__["VSelect"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VSpacer"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_12__["VTextField"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_13__["VToolbarTitle"]})
+
+
+
+
+
+
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_8__["VDivider"],VFadeTransition: vuetify_lib_components_transitions__WEBPACK_IMPORTED_MODULE_9__["VFadeTransition"],VFileInput: vuetify_lib_components_VFileInput__WEBPACK_IMPORTED_MODULE_10__["VFileInput"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_11__["VForm"],VHover: vuetify_lib_components_VHover__WEBPACK_IMPORTED_MODULE_12__["VHover"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_13__["VIcon"],VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_14__["VImg"],VListItem: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_15__["VListItem"],VListItemContent: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_15__["VListItemContent"],VListItemTitle: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_15__["VListItemTitle"],VOverlay: vuetify_lib_components_VOverlay__WEBPACK_IMPORTED_MODULE_16__["VOverlay"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_17__["VSelect"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VSpacer"],VSubheader: vuetify_lib_components_VSubheader__WEBPACK_IMPORTED_MODULE_18__["VSubheader"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_19__["VTextField"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_20__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_20__["VToolbarTitle"]})
 
 
 /* hot reload */
@@ -4002,13 +4504,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VDivider */ "./node_modules/vuetify/lib/components/VDivider/index.js");
 /* harmony import */ var vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VForm */ "./node_modules/vuetify/lib/components/VForm/index.js");
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
-/* harmony import */ var vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VSelect */ "./node_modules/vuetify/lib/components/VSelect/index.js");
-/* harmony import */ var vuetify_lib_components_VSlider__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VSlider */ "./node_modules/vuetify/lib/components/VSlider/index.js");
-/* harmony import */ var vuetify_lib_components_VSubheader__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VSubheader */ "./node_modules/vuetify/lib/components/VSubheader/index.js");
-/* harmony import */ var vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VSwitch */ "./node_modules/vuetify/lib/components/VSwitch/index.js");
-/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
-/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/index.js");
-/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
+/* harmony import */ var vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VProgressCircular */ "./node_modules/vuetify/lib/components/VProgressCircular/index.js");
+/* harmony import */ var vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VSelect */ "./node_modules/vuetify/lib/components/VSelect/index.js");
+/* harmony import */ var vuetify_lib_components_VSlider__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VSlider */ "./node_modules/vuetify/lib/components/VSlider/index.js");
+/* harmony import */ var vuetify_lib_components_VSubheader__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VSubheader */ "./node_modules/vuetify/lib/components/VSubheader/index.js");
+/* harmony import */ var vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VSwitch */ "./node_modules/vuetify/lib/components/VSwitch/index.js");
+/* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/index.js");
+/* harmony import */ var vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! vuetify/lib/components/VToolbar */ "./node_modules/vuetify/lib/components/VToolbar/index.js");
 
 
 
@@ -4048,7 +4551,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_8__["VDivider"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_9__["VForm"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_11__["VSelect"],VSlider: vuetify_lib_components_VSlider__WEBPACK_IMPORTED_MODULE_12__["VSlider"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VSpacer"],VSubheader: vuetify_lib_components_VSubheader__WEBPACK_IMPORTED_MODULE_13__["VSubheader"],VSwitch: vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_14__["VSwitch"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_15__["VTextField"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_16__["VTextarea"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_17__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_17__["VToolbarTitle"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_4__["VBtn"],VCard: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCard"],VCardText: vuetify_lib_components_VCard__WEBPACK_IMPORTED_MODULE_5__["VCardText"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_8__["VDivider"],VForm: vuetify_lib_components_VForm__WEBPACK_IMPORTED_MODULE_9__["VForm"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VProgressCircular: vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_11__["VProgressCircular"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_12__["VSelect"],VSlider: vuetify_lib_components_VSlider__WEBPACK_IMPORTED_MODULE_13__["VSlider"],VSpacer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VSpacer"],VSubheader: vuetify_lib_components_VSubheader__WEBPACK_IMPORTED_MODULE_14__["VSubheader"],VSwitch: vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_15__["VSwitch"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_16__["VTextField"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_17__["VTextarea"],VToolbar: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_18__["VToolbar"],VToolbarTitle: vuetify_lib_components_VToolbar__WEBPACK_IMPORTED_MODULE_18__["VToolbarTitle"]})
 
 
 /* hot reload */

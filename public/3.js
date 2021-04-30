@@ -141,6 +141,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CreateMapDialog",
@@ -150,6 +163,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       loading: false,
       name: "",
       description: "",
+      tile_id: "",
       subject_id: "",
       folders: [],
       showFloatingBtnCreate: false
@@ -161,6 +175,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     subjects: function subjects(state) {
       return state.subjects.subjects;
+    },
+    tiles: function tiles(state) {
+      return state.tiles.tiles;
     }
   })),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('maps', ['createMap'])), {}, {
@@ -171,8 +188,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.loading = true;
         this.createMap({
           name: this.name,
-          subject_id: this.subject_id,
-          description: this.description
+          description: this.description,
+          tile_id: this.tile_id,
+          subject_id: this.subject_id
         }).then(function (_) {
           _this.dialog = false;
 
@@ -1639,7 +1657,7 @@ var render = function() {
   return _c(
     "v-dialog",
     {
-      attrs: { "max-width": "400" },
+      attrs: { "max-width": "460" },
       scopedSlots: _vm._u([
         {
           key: "activator",
@@ -1767,7 +1785,7 @@ var render = function() {
                         [
                           _c(
                             "v-col",
-                            { staticClass: "pb-0 pt-3", attrs: { cols: "12" } },
+                            { staticClass: "pb-0 pt-8", attrs: { cols: "12" } },
                             [
                               _c("v-text-field", {
                                 attrs: {
@@ -1804,7 +1822,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-col",
-                            { staticClass: "pb-0 pt-1", attrs: { cols: "12" } },
+                            { staticClass: "py-0", attrs: { cols: "12" } },
                             [
                               _c("v-textarea", {
                                 attrs: {
@@ -1832,7 +1850,38 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "v-col",
-                            { staticClass: "pb-0 pt-1", attrs: { cols: "12" } },
+                            { staticClass: "py-0", attrs: { cols: "12" } },
+                            [
+                              _c("v-select", {
+                                attrs: {
+                                  height: "68",
+                                  filled: "",
+                                  items: _vm.tiles,
+                                  "item-text": "name",
+                                  "item-value": "id",
+                                  label: "Подложка",
+                                  rules: [
+                                    function(v) {
+                                      return !!v || "Выберите подложку"
+                                    }
+                                  ],
+                                  required: ""
+                                },
+                                model: {
+                                  value: _vm.tile_id,
+                                  callback: function($$v) {
+                                    _vm.tile_id = $$v
+                                  },
+                                  expression: "tile_id"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { staticClass: "py-0", attrs: { cols: "12" } },
                             [
                               _c("v-select", {
                                 attrs: {

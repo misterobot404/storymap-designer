@@ -1,5 +1,10 @@
 <template>
-    <v-dialog v-model="dialog" max-width="800" scrollable>
+    <v-dialog
+        v-model="dialog"
+        max-width="800"
+        scrollable
+        transition="dialog-bottom-transition"
+    >
         <!-- Open dialog button -->
         <template v-slot:activator="{ on }">
             <v-btn
@@ -96,7 +101,22 @@
                                                 label="Выберите"
                                                 :rules="[v => !!v || 'Выберите подложку']"
                                                 required
-                                            />
+                                            >
+                                                <template slot='item' slot-scope='{ item }'>
+                                                    {{ item.name }}
+                                                    <v-spacer/>
+                                                    <v-progress-circular v-if="deletedTileId.find($id => $id === item.id)" indeterminate size="24" width="1" color="primary"/>
+                                                    <v-btn
+                                                        v-else-if="item.id !== m_tileId"
+                                                        @click.stop="lDeleteTile(item.id)"
+                                                        icon
+                                                    >
+                                                        <v-icon>
+                                                            remove
+                                                        </v-icon>
+                                                    </v-btn>
+                                                </template>
+                                            </v-select>
                                             <AddTileDialog/>
                                         </v-col>
                                         <v-col cols="12" class="pt-0">
@@ -156,114 +176,129 @@
 </template>
 
 <script>
-    import {mapState, mapMutations} from 'vuex'
-    import ControlPanelSettingAddTileDialog from "./ControlPanelSettingAddTileDialog"
+import {mapState, mapMutations, mapActions} from 'vuex'
+import ControlPanelSettingAddTileDialog from "./ControlPanelSettingAddTileDialog"
 
-    export default {
-        name: "Settings",
-        components: {
-            AddTileDialog: ControlPanelSettingAddTileDialog
-        },
-        data() {
-            return {
-                dialog: false
+export default {
+    name: "Settings",
+    components: {
+        AddTileDialog: ControlPanelSettingAddTileDialog
+    },
+    data() {
+        return {
+            dialog: false,
+            deletedTileId: []
+        }
+    },
+    computed: {
+        ...mapState('map', [
+            'name',
+            'description',
+            'subject_id',
+            'tile_id',
+            'config'
+        ]),
+        ...mapState({
+            maps: state => state.maps.maps,
+            tiles: state => state.tiles.tiles,
+            subjects: state => state.subjects.subjects
+        }),
+        m_name: {
+            get() {
+                return this.name
+            },
+            set(value) {
+                this.SET_MAP_NAME(value)
             }
         },
-        computed: {
-            ...mapState('map', [
-                'name',
-                'description',
-                'subject_id',
-                'tile_id',
-                'config'
-            ]),
-            ...mapState({
-                maps: state => state.maps.maps,
-                tiles: state => state.tiles.tiles,
-                subjects: state => state.subjects.subjects
-            }),
-            m_name: {
-                get() {
-                    return this.name
-                },
-                set(value) {
-                    this.SET_MAP_NAME(value)
-                }
+        m_description: {
+            get() {
+                return this.description
             },
-            m_description: {
-                get() {
-                    return this.description
-                },
-                set(value) {
-                    this.SET_MAP_DESCRIPTION(value)
-                }
-            },
-            m_subjectId: {
-                get() {
-                    return this.subject_id
-                },
-                set(value) {
-                    this.SET_MAP_SUBJECT_ID(value)
-                }
-            },
-            m_tileId: {
-                get() {
-                    return this.tile_id
-                },
-                set(value) {
-                    this.SET_TILE_ID(value)
-                }
-            },
-            m_minZoom: {
-                get() {
-                    return this.config.minZoom;
-                },
-                set(v) {
-                    if (!!v && v >= 0 && v <= this.config.maxZoom)
-                        this.SET_MIN_TILE_ZOOM(parseInt(v));
-                }
-            },
-            m_maxZoom: {
-                get() {
-                    return this.config.maxZoom;
-                },
-                set(v) {
-                    if (!!v && v >= 0 && v >= this.config.minZoom)
-                        this.SET_MAX_TILE_ZOOM(parseInt(v));
-                }
-            },
-            m_polylineWeight: {
-                get() {
-                    if (this.config.polylineWeight === undefined) return 2;
-                    else return this.config.polylineWeight;
-                },
-                set(value) {
-                    this.SET_POLYLINE_WEIGHT(value);
-                }
-            },
-            m_showPolyline: {
-                get() {
-                    return this.config.showPolyline
-                },
-                set(value) {
-                    this.SET_SHOW_POLYLINE(value);
-                }
+            set(value) {
+                this.SET_MAP_DESCRIPTION(value)
             }
         },
-        methods: {
-            ...mapMutations('layout', [
-                'CHANGE_THEME',
-            ]),
-            ...mapMutations('map', [
-                'SET_SHOW_POLYLINE',
-                'SET_POLYLINE_WEIGHT',
-                'SET_MIN_TILE_ZOOM',
-                'SET_MAX_TILE_ZOOM',
-                'SET_MAP_NAME',
-                'SET_MAP_DESCRIPTION',
-                'SET_MAP_SUBJECT_ID',
-                'SET_TILE_ID'
-            ])
+        m_subjectId: {
+            get() {
+                return this.subject_id
+            },
+            set(value) {
+                this.SET_MAP_SUBJECT_ID(value)
+            }
+        },
+        m_tileId: {
+            get() {
+                return this.tile_id
+            },
+            set(value) {
+                this.SET_TILE_ID(value)
+            }
+        },
+        m_minZoom: {
+            get() {
+                return this.config.minZoom;
+            },
+            set(v) {
+                if (!!v && v >= 0 && v <= this.config.maxZoom)
+                    this.SET_MIN_TILE_ZOOM(parseInt(v));
+            }
+        },
+        m_maxZoom: {
+            get() {
+                return this.config.maxZoom;
+            },
+            set(v) {
+                if (!!v && v >= 0 && v >= this.config.minZoom)
+                    this.SET_MAX_TILE_ZOOM(parseInt(v));
+            }
+        },
+        m_polylineWeight: {
+            get() {
+                if (this.config.polylineWeight === undefined) return 2;
+                else return this.config.polylineWeight;
+            },
+            set(value) {
+                this.SET_POLYLINE_WEIGHT(value);
+            }
+        },
+        m_showPolyline: {
+            get() {
+                return this.config.showPolyline
+            },
+            set(value) {
+                this.SET_SHOW_POLYLINE(value);
+            }
+        }
+    },
+    methods: {
+        ...mapMutations('layout', [
+            'CHANGE_THEME',
+            'SHOW_MSG_DIALOG'
+        ]),
+        ...mapMutations('map', [
+            'SET_SHOW_POLYLINE',
+            'SET_POLYLINE_WEIGHT',
+            'SET_MIN_TILE_ZOOM',
+            'SET_MAX_TILE_ZOOM',
+            'SET_MAP_NAME',
+            'SET_MAP_DESCRIPTION',
+            'SET_MAP_SUBJECT_ID',
+            'SET_TILE_ID'
+        ]),
+        ...mapActions('tiles', ['deleteTile']),
+        lDeleteTile($tile_id) {
+            // подлоожка используется в других картах
+            if (this.maps.find(map => map.tile_id === $tile_id)) {
+                this.SHOW_MSG_DIALOG({show: true, text: "Подложка используется!"});
+                return;
+            }
+            this.deletedTileId.push($tile_id);
+            this.deleteTile($tile_id).finally(() => {
+                let index = this.deletedTileId.findIndex($id => $id === $tile_id);
+                this.deletedTileId.splice(index, 1);
+            })
         }
     }
+}
 </script>

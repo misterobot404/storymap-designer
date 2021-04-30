@@ -37,7 +37,6 @@ Route::middleware('auth:api')->group(function () {
 Route::middleware('auth:api')->group(function () {
     // CRUD
     Route::get('/tiles', [TileController::class, 'index']);
-    Route::post('/tiles/{id}', [TileController::class, 'update']);
     Route::post('/tiles', [TileController::class, 'store']);
     Route::delete('/tiles/{id}', [TileController::class, 'destroy']);
 });

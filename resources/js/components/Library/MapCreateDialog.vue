@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-model="dialog"
-              max-width="400">
+              max-width="460">
         <!-- Open dialog button -->
         <template v-slot:activator="{ on }">
             <v-btn
@@ -61,7 +61,7 @@
                 <v-form ref="form">
                     <v-container>
                         <v-row>
-                            <v-col cols="12" class="pb-0 pt-3">
+                            <v-col cols="12" class="pb-0 pt-8">
                                 <v-text-field
                                     label="Название"
                                     filled
@@ -73,7 +73,7 @@
                                     required
                                 />
                             </v-col>
-                            <v-col cols="12" class="pb-0 pt-1">
+                            <v-col cols="12" class="py-0">
                                 <v-textarea
                                     filled
                                     label="Описание"
@@ -82,7 +82,20 @@
                                     required
                                 />
                             </v-col>
-                            <v-col cols="12" class="pb-0 pt-1">
+                            <v-col cols="12" class="py-0">
+                                <v-select
+                                    v-model="tile_id"
+                                    height="68"
+                                    filled
+                                    :items="tiles"
+                                    item-text="name"
+                                    item-value="id"
+                                    label="Подложка"
+                                    :rules="[v => !!v || 'Выберите подложку']"
+                                    required
+                                />
+                            </v-col>
+                            <v-col cols="12" class="py-0">
                                 <v-select
                                     v-model="subject_id"
                                     height="68"
@@ -134,6 +147,7 @@ export default {
             loading: false,
             name: "",
             description: "",
+            tile_id: "",
             subject_id: "",
             folders: [],
             showFloatingBtnCreate: false,
@@ -143,6 +157,7 @@ export default {
         ...mapState({
             maps: state => state.maps.maps,
             subjects: state => state.subjects.subjects,
+            tiles: state => state.tiles.tiles
         })
     },
     methods: {
@@ -153,8 +168,9 @@ export default {
 
                 this.createMap({
                     name: this.name,
-                    subject_id: this.subject_id,
-                    description: this.description
+                    description: this.description,
+                    tile_id: this.tile_id,
+                    subject_id: this.subject_id
                 })
                     .then(_ => {
                         this.dialog = false;
