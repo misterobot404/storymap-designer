@@ -57,6 +57,6 @@ class TileController extends Controller
         return response()->json([
             "status" => "success",
             "data" => ["tiles" => Tile::where('user_id', auth()->id())->get()]
-        ], 200);
+        ]);
     }
 }

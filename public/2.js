@@ -124,7 +124,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       searchEventTitle: ""
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('map', ['wasChanges'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('auth', ['isAuth'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['id'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('layout', ["authDialog"])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ["events"])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('map', ['wasChanges'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('auth', ['isAuth'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['id'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('layout', ["authDialog"])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ["events"])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('tiles', ["tiles"])), {}, {
     mapIsExample: function mapIsExample() {
       return !this.$route.params.id;
     }
@@ -475,6 +475,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CreateMapDialog",
@@ -489,7 +490,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       tileImage: null
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('tiles', ['tiles', 'sharedTiles'])),
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('tiles', ['tiles', 'sharedTiles'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('auth', ['isAuth'])),
   methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('layout', ['SHOW_MSG_DIALOG'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tiles', ['createTile'])), {}, {
     l_createSharedTile: function l_createSharedTile(tile, index) {
       var _this = this;
@@ -727,6 +728,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -740,17 +755,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       deletedTileId: []
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['name', 'description', 'subject_id', 'tile_id', 'config'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+  computed: _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('map', ['name', 'description', 'subject_id', 'tile_id', 'config'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     maps: function maps(state) {
       return state.maps.maps;
     },
     tiles: function tiles(state) {
       return state.tiles.tiles;
     },
+    sharedTiles: function sharedTiles(state) {
+      return state.tiles.sharedTiles;
+    },
     subjects: function subjects(state) {
       return state.subjects.subjects;
     }
-  })), {}, {
+  })), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('auth', ['isAuth'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('tiles', ['selectedTile'])), {}, {
     m_name: {
       get: function get() {
         return this.name;
@@ -781,6 +799,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       set: function set(value) {
         this.SET_TILE_ID(value);
+        this.SET_TILE_FOR_CREATE(this.selectedTile);
       }
     },
     m_minZoom: {
@@ -816,7 +835,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  methods: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('layout', ['CHANGE_THEME', 'SHOW_MSG_DIALOG'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ['SET_SHOW_POLYLINE', 'SET_POLYLINE_WEIGHT', 'SET_MIN_TILE_ZOOM', 'SET_MAX_TILE_ZOOM', 'SET_MAP_NAME', 'SET_MAP_DESCRIPTION', 'SET_MAP_SUBJECT_ID', 'SET_TILE_ID'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tiles', ['deleteTile'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('layout', ['CHANGE_THEME', 'SHOW_MSG_DIALOG'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ['SET_SHOW_POLYLINE', 'SET_POLYLINE_WEIGHT', 'SET_MIN_TILE_ZOOM', 'SET_MAX_TILE_ZOOM', 'SET_MAP_NAME', 'SET_MAP_DESCRIPTION', 'SET_MAP_SUBJECT_ID', 'SET_TILE_ID', 'SET_TILE_FOR_CREATE'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tiles', ['deleteTile'])), {}, {
     lDeleteTile: function lDeleteTile($tile_id) {
       var _this = this;
 
@@ -1351,6 +1370,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2302,7 +2328,11 @@ var render = function() {
                 _vm._g(
                   {
                     staticClass: "mt-4 v-btn--active",
-                    attrs: { depressed: "", color: "primary" }
+                    attrs: {
+                      disabled: !_vm.isAuth,
+                      depressed: "",
+                      color: "primary"
+                    }
                   },
                   on
                 ),
@@ -3088,91 +3118,134 @@ var render = function() {
                                         "v-col",
                                         { attrs: { cols: "12" } },
                                         [
-                                          _c("v-select", {
-                                            attrs: {
-                                              height: "68",
-                                              filled: "",
-                                              "hide-details": "",
-                                              items: _vm.tiles,
-                                              "item-text": "name",
-                                              "item-value": "id",
-                                              label: "Выберите",
-                                              rules: [
-                                                function(v) {
-                                                  return (
-                                                    !!v || "Выберите подложку"
-                                                  )
-                                                }
-                                              ],
-                                              required: ""
-                                            },
-                                            scopedSlots: _vm._u([
-                                              {
-                                                key: "item",
-                                                fn: function(ref) {
-                                                  var item = ref.item
-                                                  return [
-                                                    _vm._v(
-                                                      "\n                                                " +
-                                                        _vm._s(item.name) +
-                                                        "\n                                                "
-                                                    ),
-                                                    _c("v-spacer"),
-                                                    _vm._v(" "),
-                                                    _vm.deletedTileId.find(
-                                                      function($id) {
-                                                        return $id === item.id
-                                                      }
-                                                    )
-                                                      ? _c(
-                                                          "v-progress-circular",
-                                                          {
-                                                            attrs: {
-                                                              indeterminate: "",
-                                                              size: "24",
-                                                              width: "1",
-                                                              color: "primary"
-                                                            }
-                                                          }
-                                                        )
-                                                      : item.id !== _vm.m_tileId
-                                                      ? _c(
-                                                          "v-btn",
-                                                          {
-                                                            attrs: { icon: "" },
-                                                            on: {
-                                                              click: function(
-                                                                $event
-                                                              ) {
-                                                                $event.stopPropagation()
-                                                                return _vm.lDeleteTile(
-                                                                  item.id
-                                                                )
-                                                              }
-                                                            }
-                                                          },
-                                                          [
-                                                            _c("v-icon", [
-                                                              _vm._v(
-                                                                "\n                                                        remove\n                                                    "
+                                          _vm.isAuth
+                                            ? _c("v-select", {
+                                                attrs: {
+                                                  height: "68",
+                                                  filled: "",
+                                                  "hide-details": "",
+                                                  items: _vm.tiles,
+                                                  "item-text": "name",
+                                                  "item-value": "id",
+                                                  label: "Выберите",
+                                                  rules: [
+                                                    function(v) {
+                                                      return (
+                                                        !!v ||
+                                                        "Выберите подложку"
+                                                      )
+                                                    }
+                                                  ],
+                                                  required: ""
+                                                },
+                                                scopedSlots: _vm._u(
+                                                  [
+                                                    {
+                                                      key: "item",
+                                                      fn: function(ref) {
+                                                        var item = ref.item
+                                                        return [
+                                                          _vm._v(
+                                                            "\n                                                " +
+                                                              _vm._s(
+                                                                item.name
+                                                              ) +
+                                                              "\n                                                "
+                                                          ),
+                                                          _c("v-spacer"),
+                                                          _vm._v(" "),
+                                                          _vm.deletedTileId.find(
+                                                            function($id) {
+                                                              return (
+                                                                $id === item.id
                                                               )
-                                                            ])
-                                                          ],
-                                                          1
-                                                        )
-                                                      : _vm._e()
-                                                  ]
+                                                            }
+                                                          )
+                                                            ? _c(
+                                                                "v-progress-circular",
+                                                                {
+                                                                  attrs: {
+                                                                    indeterminate:
+                                                                      "",
+                                                                    size: "24",
+                                                                    width: "1",
+                                                                    color:
+                                                                      "primary"
+                                                                  }
+                                                                }
+                                                              )
+                                                            : item.id !==
+                                                              _vm.m_tileId
+                                                            ? _c(
+                                                                "v-btn",
+                                                                {
+                                                                  attrs: {
+                                                                    icon: ""
+                                                                  },
+                                                                  on: {
+                                                                    click: function(
+                                                                      $event
+                                                                    ) {
+                                                                      $event.stopPropagation()
+                                                                      return _vm.lDeleteTile(
+                                                                        item.id
+                                                                      )
+                                                                    }
+                                                                  }
+                                                                },
+                                                                [
+                                                                  _c("v-icon", [
+                                                                    _vm._v(
+                                                                      "\n                                                        remove\n                                                    "
+                                                                    )
+                                                                  ])
+                                                                ],
+                                                                1
+                                                              )
+                                                            : _vm._e()
+                                                        ]
+                                                      }
+                                                    }
+                                                  ],
+                                                  null,
+                                                  false,
+                                                  2224105957
+                                                ),
+                                                model: {
+                                                  value: _vm.m_tileId,
+                                                  callback: function($$v) {
+                                                    _vm.m_tileId = $$v
+                                                  },
+                                                  expression: "m_tileId"
                                                 }
-                                              }
-                                            ]),
-                                            model: {
-                                              value: _vm.m_tileId,
-                                              callback: function($$v) {
-                                                _vm.m_tileId = $$v
-                                              },
-                                              expression: "m_tileId"
-                                            }
-                                          }),
+                                              })
+                                            : _c("v-select", {
+                                                attrs: {
+                                                  height: "68",
+                                                  filled: "",
+                                                  "hide-details": "",
+                                                  items: _vm.sharedTiles,
+                                                  "item-text": "name",
+                                                  "item-value": "id",
+                                                  label: "Выберите",
+                                                  rules: [
+                                                    function(v) {
+                                                      return (
+                                                        !!v ||
+                                                        "Выберите подложку"
+                                                      )
+                                                    }
+                                                  ],
+                                                  required: ""
+                                                },
+                                                model: {
+                                                  value: _vm.m_tileId,
+                                                  callback: function($$v) {
+                                                    _vm.m_tileId = $$v
+                                                  },
+                                                  expression: "m_tileId"
+                                                }
+                                              }),
                                           _vm._v(" "),
                                           _c("AddTileDialog")
                                         ],
@@ -4041,101 +4114,117 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "l-map",
-    {
-      ref: "map",
-      staticClass: "map",
-      staticStyle: { "z-index": "0" },
-      attrs: {
-        crs: _vm.crs,
-        minZoom: _vm.notGeomap ? _vm.config.minZoom - 1 : _vm.config.minZoom,
-        maxZoom: _vm.config.maxZoom,
-        center: _vm.sync_center,
-        options: { zoomControl: false }
-      },
-      on: {
-        "update:center": function($event) {
-          _vm.sync_center = $event
+  return _vm.tile === undefined
+    ? _c(
+        "div",
+        {
+          staticClass: "d-flex justify-center align-center",
+          staticStyle: {
+            width: "100%",
+            height: "100%",
+            "background-color": "rgba(204, 204, 204, 0.5)"
+          }
         },
-        click: _vm.latLngClickUpdatePosition
-      }
-    },
-    [
-      _vm.notGeomap
-        ? _c("l-image-overlay", {
-            attrs: { bounds: _vm.tile.bounds, url: _vm.tile.url }
-          })
-        : _c("l-tile-layer", {
-            attrs: {
-              url: _vm.tile.url,
-              noWrap: "",
-              attribution: _vm.tile.attribution
-            }
-          }),
-      _vm._v(" "),
-      _vm._l(_vm.events, function(event, index) {
-        return _c(
-          "l-marker",
-          {
-            key: event.id,
-            attrs: {
-              "lat-lng": event.marker.position,
-              draggable: _vm.indexSelectedEvent === index
-            },
-            on: {
-              click: function($event) {
-                return _vm.SET_SELECTED_EVENT_ID(event.id)
-              },
-              "update:latLng": _vm.latLngDragUpdatePosition
-            }
+        [_c("v-icon", { attrs: { large: "" } }, [_vm._v("layers")])],
+        1
+      )
+    : _c(
+        "l-map",
+        {
+          ref: "map",
+          staticClass: "map",
+          staticStyle: { "z-index": "0" },
+          attrs: {
+            crs: _vm.crs,
+            minZoom: _vm.notGeomap
+              ? _vm.config.minZoom - 1
+              : _vm.config.minZoom,
+            maxZoom: _vm.config.maxZoom,
+            center: _vm.sync_center,
+            options: { zoomControl: false }
           },
-          [
-            _c("l-tooltip", [
-              _vm._v("\n            " + _vm._s(event.title) + "\n        ")
-            ]),
-            _vm._v(" "),
-            _vm.indexSelectedEvent !== index
-              ? _c("l-icon", {
+          on: {
+            "update:center": function($event) {
+              _vm.sync_center = $event
+            },
+            click: _vm.latLngClickUpdatePosition
+          }
+        },
+        [
+          _vm.notGeomap
+            ? _c("l-image-overlay", {
+                attrs: { bounds: _vm.tile.bounds, url: _vm.tile.url }
+              })
+            : _c("l-tile-layer", {
+                attrs: {
+                  url: _vm.tile.url,
+                  noWrap: "",
+                  attribution: _vm.tile.attribution
+                }
+              }),
+          _vm._v(" "),
+          _vm._l(_vm.events, function(event, index) {
+            return _c(
+              "l-marker",
+              {
+                key: event.id,
+                attrs: {
+                  "lat-lng": event.marker.position,
+                  draggable: _vm.indexSelectedEvent === index
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.SET_SELECTED_EVENT_ID(event.id)
+                  },
+                  "update:latLng": _vm.latLngDragUpdatePosition
+                }
+              },
+              [
+                _c("l-tooltip", [
+                  _vm._v("\n            " + _vm._s(event.title) + "\n        ")
+                ]),
+                _vm._v(" "),
+                _vm.indexSelectedEvent !== index
+                  ? _c("l-icon", {
+                      attrs: {
+                        "icon-size": event.marker.size,
+                        "icon-url": _vm.events[index].marker.url
+                      }
+                    })
+                  : _c("l-icon", {
+                      attrs: {
+                        "icon-size": [
+                          event.marker.size[0] * 1.4,
+                          event.marker.size[1] * 1.4
+                        ],
+                        "icon-url": _vm.events[index].marker.url
+                      }
+                    })
+              ],
+              1
+            )
+          }),
+          _vm._v(" "),
+          _vm.config.showPolyline
+            ? [
+                _c("l-polyline", {
                   attrs: {
-                    "icon-size": event.marker.size,
-                    "icon-url": _vm.events[index].marker.url
+                    "lat-lngs": _vm.arrayMarker,
+                    opacity: _vm.polylineOpacity,
+                    dashArray: _vm.polylineDashArray,
+                    weight:
+                      _vm.config.polylineWeight !== undefined
+                        ? _vm.config.polylineWeight
+                        : 2
                   }
                 })
-              : _c("l-icon", {
-                  attrs: {
-                    "icon-size": [
-                      event.marker.size[0] * 1.4,
-                      event.marker.size[1] * 1.4
-                    ],
-                    "icon-url": _vm.events[index].marker.url
-                  }
-                })
-          ],
-          1
-        )
-      }),
-      _vm._v(" "),
-      _vm.config.showPolyline
-        ? [
-            _c("l-polyline", {
-              attrs: {
-                "lat-lngs": _vm.arrayMarker,
-                opacity: _vm.polylineOpacity,
-                dashArray: _vm.polylineDashArray,
-                weight:
-                  _vm.config.polylineWeight !== undefined
-                    ? _vm.config.polylineWeight
-                    : 2
-              }
-            })
-          ]
-        : _vm._e(),
-      _vm._v(" "),
-      _c("l-control-zoom", { attrs: { position: "topright" } })
-    ],
-    2
-  )
+              ]
+            : _vm._e(),
+          _vm._v(" "),
+          _c("l-control-zoom", { attrs: { position: "topright" } })
+        ],
+        2
+      )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -5026,6 +5115,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Map_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Map.vue?vue&type=script&lang=js& */ "./resources/js/components/Constructor/Map.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _Map_vue_vue_type_style_index_0_id_6b7892e8_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Map.vue?vue&type=style&index=0&id=6b7892e8&lang=sass&scoped=true& */ "./resources/js/components/Constructor/Map.vue?vue&type=style&index=0&id=6b7892e8&lang=sass&scoped=true&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
+/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
 
 
 
@@ -5044,6 +5136,12 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null
   
 )
+
+/* vuetify-loader */
+
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_5__["VIcon"]})
+
 
 /* hot reload */
 if (false) { var api; }

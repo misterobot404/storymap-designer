@@ -71110,7 +71110,7 @@ var routes = [{
   name: 'constructor',
   path: '/constructor/:id?',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(9), __webpack_require__.e(4), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! @/pages/Constructor */ "./resources/js/pages/Constructor.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(4), __webpack_require__.e(1), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! @/pages/Constructor */ "./resources/js/pages/Constructor.vue"));
   },
   props: true,
   meta: {
@@ -71122,7 +71122,7 @@ var routes = [{
   name: 'viewer',
   path: '/viewer/:id?',
   component: function component() {
-    return Promise.all(/*! import() */[__webpack_require__.e(9), __webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
+    return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! @/pages/Viewer */ "./resources/js/pages/Viewer.vue"));
   },
   props: true,
   meta: {
@@ -71239,6 +71239,9 @@ function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("
         }); // get user data
 
         dispatch('subjects/getSubjects', null, {
+          root: true
+        });
+        dispatch('tiles/getTiles', null, {
           root: true
         });
       });
@@ -71393,6 +71396,7 @@ __webpack_require__.r(__webpack_exports__);
     description: "",
     subject_id: "",
     tile_id: "",
+    tile_for_create: null,
     config: {
       eventListWidth: 227
     },
@@ -71474,8 +71478,9 @@ __webpack_require__.r(__webpack_exports__);
     setEmptyExampleMap: function setEmptyExampleMap(_ref2) {
       var state = _ref2.state,
           commit = _ref2.commit,
+          getters = _ref2.getters,
           rootState = _ref2.rootState,
-          getters = _ref2.getters;
+          rootGetters = _ref2.rootGetters;
       // Clear previous map
       commit('CLEAR_STATE');
       var map = rootState.maps.editableExample;
@@ -71483,42 +71488,13 @@ __webpack_require__.r(__webpack_exports__);
       commit('SET_OLD_MAP', map);
       commit('SET_NEXT_EVENT_ID'); // set tile center on first event
 
+      commit('SET_TILE_FOR_CREATE', rootGetters["tiles/selectedTile"]);
       commit('SET_TILE_CENTER', getters.selectedEvent.marker.position);
     },
-    saveEmptyExampleMap: function saveEmptyExampleMap(_ref3) {
+    saveMap: function saveMap(_ref3) {
       var state = _ref3.state,
-          commit = _ref3.commit;
-      var editableMap = {
-        name: state.name,
-        subject_id: state.subject_id,
-        description: state.description,
-        config: state.config,
-        tile_id: state.tile_id,
-        events: state.events
-      }; // set tile center on first event
-
-      commit('maps/SAVE_EDITABLE_EXAMPLE', editableMap, {
-        root: true
-      });
-    },
-    setExampleMap: function setExampleMap(_ref4, mapId) {
-      var state = _ref4.state,
-          commit = _ref4.commit,
-          rootState = _ref4.rootState,
-          getters = _ref4.getters;
-      // Clear previous map
-      commit('CLEAR_STATE');
-      var map = rootState.maps.examples[mapId - 1];
-      commit('SET_MAP', map);
-      commit('SET_OLD_MAP', map);
-      commit('SET_NEXT_EVENT_ID'); // set tile center on first event
-
-      commit('SET_TILE_CENTER', getters.selectedEvent.marker.position);
-    },
-    saveMap: function saveMap(_ref5) {
-      var state = _ref5.state,
-          commit = _ref5.commit,
-          dispatch = _ref5.dispatch;
+          commit = _ref3.commit,
+          dispatch = _ref3.dispatch;
       // Save current width event list
       commit('SET_EVENT_LIST_WIDTH'); // Save new map
 
@@ -71529,12 +71505,14 @@ __webpack_require__.r(__webpack_exports__);
           description: state.description,
           config: state.config,
           tile_id: state.tile_id,
+          tile_for_create: state.tile_for_create,
           events: state.events
         };
         return dispatch('maps/createMap', map, {
           root: true
         }).then(function (_) {
-          return _routes__WEBPACK_IMPORTED_MODULE_1__["default"].push("/library");
+          commit('SET_TILE_FOR_CREATE', null);
+          _routes__WEBPACK_IMPORTED_MODULE_1__["default"].push("/library").then();
         });
       } // Save existing map
       else {
@@ -71556,26 +71534,26 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
     },
-    recoveryMap: function recoveryMap(_ref6) {
-      var state = _ref6.state,
-          commit = _ref6.commit;
+    recoveryMap: function recoveryMap(_ref4) {
+      var state = _ref4.state,
+          commit = _ref4.commit;
       // Recovery state
       commit('RECOVERY_MAP'); // Computed some state
 
       commit('SET_NEXT_EVENT_ID');
     },
     //// Events
-    addEvent: function addEvent(_ref7) {
-      var state = _ref7.state,
-          commit = _ref7.commit;
+    addEvent: function addEvent(_ref5) {
+      var state = _ref5.state,
+          commit = _ref5.commit;
       commit('PUSH_EMPTY_EVENT');
       commit('ITERATION_ID');
       commit('SET_SELECTED_EVENT_ID', state.events[state.events.length - 1].id);
     },
-    deleteEventByIndex: function deleteEventByIndex(_ref8, index) {
-      var state = _ref8.state,
-          getters = _ref8.getters,
-          commit = _ref8.commit;
+    deleteEventByIndex: function deleteEventByIndex(_ref6, index) {
+      var state = _ref6.state,
+          getters = _ref6.getters,
+          commit = _ref6.commit;
       // Удалаяем событие
       commit('DELETE_EVENT_BY_INDEX', index); // Если было удалёно активное событие (активное событие не надено), устанавливаем новое
 
@@ -71589,10 +71567,10 @@ __webpack_require__.r(__webpack_exports__);
       commit('SET_SELECTED_EVENT_ID', getters.getEventIdByIndex(deletedEventIndex));
     },
     //// Event
-    addMedia: function addMedia(_ref9, mediaFile) {
-      var state = _ref9.state,
-          getters = _ref9.getters,
-          commit = _ref9.commit;
+    addMedia: function addMedia(_ref7, mediaFile) {
+      var state = _ref7.state,
+          getters = _ref7.getters,
+          commit = _ref7.commit;
       // Формируем тело запроса
       var formData = new FormData();
       formData.append('media_file', mediaFile); // Сохранение медиа на сервере и получение ссылки
@@ -71609,10 +71587,10 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    deleteMedia: function deleteMedia(_ref10, payload) {
-      var state = _ref10.state,
-          getters = _ref10.getters,
-          commit = _ref10.commit;
+    deleteMedia: function deleteMedia(_ref8, payload) {
+      var state = _ref8.state,
+          getters = _ref8.getters,
+          commit = _ref8.commit;
 
       // Если медиа файл получен с сервера, удалить его физически
       if (state.events[payload.indexEvent].mediaUrl[payload.indexMediaUrl].includes("storage/event_media/")) {
@@ -71685,6 +71663,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     SET_MAP_SUBJECT_ID: function SET_MAP_SUBJECT_ID(state, subject_id) {
       return state.subject_id = subject_id;
+    },
+    SET_TILE_FOR_CREATE: function SET_TILE_FOR_CREATE(state, tile_for_create) {
+      return state.tile_for_create = tile_for_create;
     },
     SET_TILE_ID: function SET_TILE_ID(state, tile_id) {
       return state.tile_id = tile_id;
@@ -71793,20 +71774,7 @@ __webpack_require__.r(__webpack_exports__);
         "showPolyline": true,
         "polylineWeight": 1
       }),
-      tile: JSON.stringify({
-        "url": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
-        "bounds": {
-          "_northEast": {
-            "lat": 85,
-            "lng": 45
-          },
-          "_southWest": {
-            "lat": 47,
-            "lng": -180
-          }
-        },
-        "attribution": "&copy; <a href=\"https://knastu.ru/\">knastu</a>"
-      }),
+      tile_id: 1,
       events: JSON.stringify([{
         "id": 1,
         "marker": {
@@ -71868,6 +71836,7 @@ __webpack_require__.r(__webpack_exports__);
       var commit = _ref2.commit;
       return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/maps', {
         subject_id: data.subject_id,
+        tile_for_create: JSON.stringify(data.tile_for_create),
         tile_id: data.tile_id,
         name: data.name,
         description: data.description,
@@ -71875,6 +71844,12 @@ __webpack_require__.r(__webpack_exports__);
         events: JSON.stringify(data.events)
       }).then(function (response) {
         commit('SET_MAPS', response.data.data.maps);
+
+        if (response.data.data.new_tile) {
+          commit('tiles/ADD_TILE', response.data.data.new_tile, {
+            root: true
+          });
+        }
       });
     },
     copyMap: function copyMap(_ref3, data) {
@@ -71922,14 +71897,6 @@ __webpack_require__.r(__webpack_exports__);
   mutations: {
     SET_MAPS: function SET_MAPS(state, maps) {
       state.maps = maps;
-    },
-    SAVE_EDITABLE_EXAMPLE: function SAVE_EDITABLE_EXAMPLE(state, map) {
-      state.editableExample.name = map.name;
-      state.editableExample.subject = map.subject;
-      state.editableExample.description = map.description;
-      state.editableExample.config = JSON.stringify(map.config);
-      state.editableExample.tile = JSON.stringify(map.tile);
-      state.editableExample.events = JSON.stringify(map.events);
     },
     REPLACE_MAP: function REPLACE_MAP(state, new_map) {
       // если библиотека уже загружена
@@ -72038,33 +72005,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: {
+    // Эти тайлы будет видеть не авторизированный пользователь на странице пробного создания атласа
     tiles: [],
     sharedTiles: [{
+      id: 1,
       name: "Стандартная",
       url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
     }, {
+      id: 2,
       name: "Стандартная. Ночь",
       url: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
     }, {
+      id: 3,
       name: "Строение человека",
       url: "/tile1/{z}-{x}-{y}.jpg"
     }, {
+      id: 4,
       name: "Карта фильма Властелин Колец",
       url: "/tile2/{z}-{x}-{y}.jpg"
     }, {
+      id: 5,
       name: "Заповедники Дальнего востока",
       url: "https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}"
     }, {
+      id: 6,
       name: "Солнечная система",
       url: "/tile3/{z}-{x}-{y}.jpg"
     }, {
+      id: 7,
       name: "Астрономия",
       url: "http://leafletjs.com/examples/crs-simple/uqm_map_full.png"
     }]
   },
   getters: {
-    selectedTile: function selectedTile(state, getters, rootState) {
-      return state.tiles.find(function (tile) {
+    selectedTile: function selectedTile(state, getters, rootState, rootGetters) {
+      // Пользователь авторизирован
+      if (rootGetters["auth/isAuth"]) return state.tiles.find(function (tile) {
+        return tile.id === rootState.map.tile_id;
+      });else return state.sharedTiles.find(function (tile) {
         return tile.id === rootState.map.tile_id;
       });
     }

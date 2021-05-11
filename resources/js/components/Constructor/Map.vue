@@ -1,7 +1,14 @@
 <template>
     <!--    :maxBounds="config.tileBounds"-->
     <!--    :maxBoundsViscosity="maxBoundsViscosity"-->
-    <l-map class="map"
+    <div v-if="tile === undefined"
+         class="d-flex justify-center align-center"
+         style="width: 100%; height: 100%; background-color:rgba(204, 204, 204, 0.5)"
+    >
+        <v-icon large>layers</v-icon>
+    </div>
+    <l-map v-else
+           class="map"
            style="z-index: 0;"
            :crs="crs"
            ref="map"

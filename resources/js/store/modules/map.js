@@ -10,6 +10,7 @@ export default {
         description: "",
         subject_id: "",
         tile_id: "",
+        tile_for_create: null,
         config: {eventListWidth: 227}, // {selectedEventId, eventListWidth}
         events: [], // [{title, description, id, marker {position, url, height }, mediaUrl:[]}]
 
@@ -69,7 +70,7 @@ export default {
                     }
                 })
         },
-        setEmptyExampleMap({state, commit, rootState, getters}) {
+        setEmptyExampleMap({state, commit, getters, rootState, rootGetters}) {
             // Clear previous map
             commit('CLEAR_STATE');
             let map = rootState.maps.editableExample;
@@ -77,28 +78,7 @@ export default {
             commit('SET_OLD_MAP', map);
             commit('SET_NEXT_EVENT_ID');
             // set tile center on first event
-            commit('SET_TILE_CENTER', getters.selectedEvent.marker.position);
-        },
-        saveEmptyExampleMap({state, commit}) {
-            let editableMap = {
-                name: state.name,
-                subject_id: state.subject_id,
-                description: state.description,
-                config: state.config,
-                tile_id: state.tile_id,
-                events: state.events
-            }
-            // set tile center on first event
-            commit('maps/SAVE_EDITABLE_EXAMPLE', editableMap, {root: true});
-        },
-        setExampleMap({state, commit, rootState, getters}, mapId) {
-            // Clear previous map
-            commit('CLEAR_STATE');
-            let map = rootState.maps.examples[mapId - 1];
-            commit('SET_MAP', map);
-            commit('SET_OLD_MAP', map);
-            commit('SET_NEXT_EVENT_ID');
-            // set tile center on first event
+            commit('SET_TILE_FOR_CREATE', rootGetters["tiles/selectedTile"]);
             commit('SET_TILE_CENTER', getters.selectedEvent.marker.position);
         },
         saveMap({state, commit, dispatch}) {
@@ -113,10 +93,14 @@ export default {
                     description: state.description,
                     config: state.config,
                     tile_id: state.tile_id,
+                    tile_for_create: state.tile_for_create,
                     events: state.events
                 };
                 return dispatch('maps/createMap', map, {root: true})
-                    .then(_ => router.push("/library"))
+                    .then(_ => {
+                        commit('SET_TILE_FOR_CREATE', null);
+                        router.push("/library").then();
+                    })
             }
             // Save existing map
             else {
@@ -175,10 +159,9 @@ export default {
                 .then(response => {
                     // Добавляем ссылку на файл к медиа контенту события
                     commit('ADD_EVENT_MEDIA_URL', {
-                            index: getters.indexSelectedEvent,
-                            mediaUrl: response.data.data.addedMediaUrl
-                        }
-                    )
+                        index: getters.indexSelectedEvent,
+                        mediaUrl: response.data.data.addedMediaUrl
+                    })
                 });
         },
         deleteMedia({state, getters, commit}, payload) {
@@ -244,6 +227,7 @@ export default {
         SET_MAP_NAME: (state, name) => state.name = name,
         SET_MAP_DESCRIPTION: (state, description) => state.description = description,
         SET_MAP_SUBJECT_ID: (state, subject_id) => state.subject_id = subject_id,
+        SET_TILE_FOR_CREATE: (state, tile_for_create) => state.tile_for_create = tile_for_create,
         SET_TILE_ID: (state, tile_id) => state.tile_id = tile_id,
         SET_TILE_CENTER: (state, center) => state.tileCenter = center,
 

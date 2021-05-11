@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Map;
 use App\Models\Tile;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
@@ -33,8 +34,19 @@ class MapController extends Controller
         $map->name = request('name');
         $map->subject_id = request('subject_id');
         $map->description = request('description');
+
+        $tile = null;
         // save map from example map
-        if (request('tile_id')) $map->tile_id = request('tile_id');
+        if (request('tile_for_create')) {
+            $tile_for_create = json_decode(request('tile_for_create'));
+            $tile = new Tile;
+            $tile->user_id = auth()->id();
+            $tile->name = $tile_for_create->name;
+            $tile->url = $tile_for_create->url;
+            $tile->save();
+            $map->tile_id = $tile->id;
+        } else $map->tile_id = request('tile_id');
+
         if (request('config')) $map->config = request('config');
         if (request('events')) $map->events = request('events');
 
@@ -44,8 +56,11 @@ class MapController extends Controller
 
         return response()->json([
             "status" => "success",
-            "data" => ["maps" => $maps]
-        ], 200);
+            "data" => [
+                "maps" => $maps,
+                "new_tile" => $tile
+            ]
+        ]);
     }
 
     public function show($id)

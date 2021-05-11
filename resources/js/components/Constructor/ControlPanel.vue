@@ -116,6 +116,7 @@ export default {
         ...mapState('map', ['id']),
         ...mapState('layout', ["authDialog"]),
         ...mapState('map', ["events"]),
+        ...mapState('tiles', ["tiles"]),
         mapIsExample() {
             return !this.$route.params.id
         }

@@ -2,10 +2,9 @@
     <div style="position: relative; overflow: hidden; width: 100%; height: 100vh;">
         <!-- Map -->
         <Map style="position: absolute; z-index: 0"/>
-        <!-- Content -->
-        <!-- Desktop -->
+        <!-- Content. Desktop -->
         <div
-            v-if="$vuetify.breakpoint.mdAndUp"
+            v-if="pageUsedFromDesktop"
             style="position: absolute; right: 100px; height: 100vh; width: 34vw; z-index: 1; pointer-events: none"
             class="d-flex flex-column justify-center"
         >
@@ -24,7 +23,7 @@
                 />
             </div>
         </div>
-        <!-- Mobile -->
+        <!-- Content. Mobile -->
         <div
             v-else
             style="position: absolute; bottom: 20px; max-height: 40vh; width: 100vw; z-index: 1; pointer-events: none"
@@ -34,12 +33,12 @@
                 class="pa-4 d-flex flex-column align-center text-center rounded"
                 style="max-width: 94vw; background-color:rgba(225, 225, 225, 0.8); pointer-events: all; overflow-y: auto;"
             >
-                <div class="headline mt-2">{{ selectedEvent.title }}</div>
+                <div class="headline mt-3">{{ selectedEvent.title }}</div>
                 <MediaContent
                     v-if="selectedEvent.mediaUrl.length > 0"
-                    height="22vh"
-                    class="mx-4 mt-3"
-                    style="flex-shrink: 0; max-width: 38vh"
+                    height="28vh"
+                    class="mt-3"
+                    style="flex-shrink: 0; max-width: 42vh"
                 />
                 <div
                     class="mx-2 mt-3"
@@ -49,7 +48,6 @@
         </div>
     </div>
 </template>
-
 <script>
 import store from "../store"
 import {mapGetters, mapMutations} from "vuex"
@@ -63,7 +61,10 @@ export default {
         MediaContent
     },
     computed: {
-        ...mapGetters('map', ['selectedEvent', 'wasChanges'])
+        ...mapGetters('map', ['selectedEvent', 'wasChanges']),
+        pageUsedFromDesktop() {
+            return this.$vuetify.breakpoint.mdAndUp
+        }
     },
     methods: {
         ...mapMutations('map', [
@@ -83,7 +84,8 @@ export default {
         if (to.params.id) {
             // map is not loaded yet
             if (from.name !== "constructor" && to.params.id !== from.params.id) {
-                await store.dispatch('map/getMap', to.params.id, {root: true})
+                store.dispatch('tiles/getTiles', null, {root: true})
+                await store.dispatch('map/getMap', to.params.id, {root: true});
             }
             // set seo header
             document.title = store.state.map.name + " - MapDesigner";
@@ -117,7 +119,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

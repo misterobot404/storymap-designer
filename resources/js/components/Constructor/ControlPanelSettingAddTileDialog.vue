@@ -8,6 +8,7 @@
         <!-- Open dialog button -->
         <template v-slot:activator="{ on }">
             <v-btn
+                :disabled="!isAuth"
                 class="mt-4 v-btn--active"
                 depressed
                 color="primary"
@@ -175,7 +176,7 @@
 </template>
 
 <script>
-import {mapActions, mapMutations, mapState} from 'vuex'
+import {mapActions, mapGetters, mapMutations, mapState} from 'vuex'
 
 export default {
     name: "CreateMapDialog",
@@ -191,7 +192,8 @@ export default {
         }
     },
     computed: {
-        ...mapState('tiles', ['tiles', 'sharedTiles'])
+        ...mapState('tiles', ['tiles', 'sharedTiles']),
+        ...mapGetters('auth',['isAuth'])
     },
     methods: {
         ...mapMutations('layout', [

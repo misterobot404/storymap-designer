@@ -605,7 +605,7 @@ var render = function() {
                                   _c(
                                     "v-card",
                                     {
-                                      staticClass: "mx-auto",
+                                      staticClass: "mx-auto d-flex flex-column",
                                       staticStyle: { cursor: "pointer" },
                                       attrs: {
                                         "max-width": _vm.$vuetify.breakpoint

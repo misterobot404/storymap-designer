@@ -91,6 +91,7 @@
                                         <v-subheader>Настройки отображения</v-subheader>
                                         <v-col cols="12">
                                             <v-select
+                                                v-if="isAuth"
                                                 v-model="m_tileId"
                                                 height="68"
                                                 filled
@@ -117,6 +118,19 @@
                                                     </v-btn>
                                                 </template>
                                             </v-select>
+                                            <v-select
+                                                v-else
+                                                v-model="m_tileId"
+                                                height="68"
+                                                filled
+                                                hide-details
+                                                :items="sharedTiles"
+                                                item-text="name"
+                                                item-value=id
+                                                label="Выберите"
+                                                :rules="[v => !!v || 'Выберите подложку']"
+                                                required
+                                            />
                                             <AddTileDialog/>
                                         </v-col>
                                         <v-col cols="12" class="pt-0">
@@ -176,7 +190,7 @@
 </template>
 
 <script>
-import {mapState, mapMutations, mapActions} from 'vuex'
+import {mapState, mapMutations, mapActions, mapGetters} from 'vuex'
 import ControlPanelSettingAddTileDialog from "./ControlPanelSettingAddTileDialog"
 
 export default {
@@ -201,8 +215,11 @@ export default {
         ...mapState({
             maps: state => state.maps.maps,
             tiles: state => state.tiles.tiles,
+            sharedTiles: state => state.tiles.sharedTiles,
             subjects: state => state.subjects.subjects
         }),
+        ...mapGetters('auth',['isAuth']),
+        ...mapGetters('tiles',['selectedTile']),
         m_name: {
             get() {
                 return this.name
@@ -232,7 +249,8 @@ export default {
                 return this.tile_id
             },
             set(value) {
-                this.SET_TILE_ID(value)
+                this.SET_TILE_ID(value);
+                this.SET_TILE_FOR_CREATE(this.selectedTile);
             }
         },
         m_minZoom: {
@@ -284,7 +302,8 @@ export default {
             'SET_MAP_NAME',
             'SET_MAP_DESCRIPTION',
             'SET_MAP_SUBJECT_ID',
-            'SET_TILE_ID'
+            'SET_TILE_ID',
+            'SET_TILE_FOR_CREATE'
         ]),
         ...mapActions('tiles', ['deleteTile']),
         lDeleteTile($tile_id) {
@@ -302,3 +321,7 @@ export default {
     }
 }
 </script>
+
+<style>
+
+</style>

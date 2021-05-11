@@ -10,11 +10,7 @@ export default {
             subject_id: "",
             description: "Описание",
             config: JSON.stringify({"eventListWidth": 227, "selectedEventId": 1, "maxZoom": 10, "minZoom": 3, "showPolyline" : true, "polylineWeight": 1}),
-            tile: JSON.stringify({
-                "url": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
-                "bounds": {"_northEast": {"lat": 85, "lng": 45}, "_southWest": {"lat": 47, "lng": -180}},
-                "attribution": "&copy; <a href=\"https://knastu.ru/\">knastu</a>"
-            }),
+            tile_id: 1,
             events: JSON.stringify([{
                 "id": 1,
                 "marker": {"position": {"lat": 67, "lng": -41.1}, "url": "https://image.flaticon.com/icons/svg/148/148828.svg", "size": [32, 38]},
@@ -74,13 +70,19 @@ export default {
         createMap({commit}, data) {
             return axios.post('/api/maps', {
                 subject_id: data.subject_id,
+                tile_for_create: JSON.stringify(data.tile_for_create),
                 tile_id: data.tile_id,
                 name: data.name,
                 description: data.description,
                 config: JSON.stringify(data.config),
                 events: JSON.stringify(data.events)
             })
-                .then(response => { commit('SET_MAPS', response.data.data.maps) })
+                .then(response => {
+                    commit('SET_MAPS', response.data.data.maps);
+                    if (response.data.data.new_tile) {
+                        commit('tiles/ADD_TILE', response.data.data.new_tile, { root: true })
+                    }
+                })
         },
         copyMap({commit}, data) {
             return axios.post('/api/maps/copy', {id: data.id})
@@ -113,14 +115,6 @@ export default {
     },
     mutations: {
         SET_MAPS(state, maps) { state.maps = maps },
-        SAVE_EDITABLE_EXAMPLE(state, map) {
-            state.editableExample.name = map.name;
-            state.editableExample.subject = map.subject;
-            state.editableExample.description = map.description;
-            state.editableExample.config = JSON.stringify(map.config);
-            state.editableExample.tile = JSON.stringify(map.tile);
-            state.editableExample.events = JSON.stringify(map.events);
-        },
         REPLACE_MAP (state, new_map) {
             // если библиотека уже загружена
             if (state.maps.length) {

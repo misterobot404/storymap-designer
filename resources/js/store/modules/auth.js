@@ -25,7 +25,8 @@ export default {
                 .then(response => {
                     commit('LOGIN', {token: response.data.data.token, user: response.data.data.user});
                     // get user data
-                    dispatch('subjects/getSubjects', null, {root: true})
+                    dispatch('subjects/getSubjects', null, {root: true});
+                    dispatch('tiles/getTiles', null, {root: true});
                 })
         },
         /**

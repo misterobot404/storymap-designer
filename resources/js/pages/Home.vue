@@ -144,7 +144,7 @@
                                 :max-width="$vuetify.breakpoint.mdAndUp ? '450' : '360'"
                                 raised
                                 height="100%"
-                                class="mx-auto"
+                                class="mx-auto d-flex flex-column"
                                 style="cursor: pointer"
                                 @click="goToIframeMap(card.url)"
                             >

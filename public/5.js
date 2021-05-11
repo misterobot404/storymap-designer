@@ -118,6 +118,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -168,7 +176,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.notGeomap ? leaflet__WEBPACK_IMPORTED_MODULE_3__["CRS"].Simple : leaflet__WEBPACK_IMPORTED_MODULE_3__["CRS"].EPSG3857;
     }
   }),
-  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('map', ['saveEmptyExampleMap'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ["SET_TILE_CENTER", "SET_SELECTED_EVENT_ID", "SET_EVENT_MARKER_POSITION", "SET_TILE_BOUNDS", "SET_MIN_TILE_ZOOM", "SET_MAX_TILE_ZOOM"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('map', ["SET_TILE_CENTER", "SET_SELECTED_EVENT_ID", "SET_EVENT_MARKER_POSITION", "SET_MIN_TILE_ZOOM", "SET_MAX_TILE_ZOOM"])), {}, {
     prevEvent: function prevEvent() {
       if (this.indexSelectedEvent === 0) this.SET_SELECTED_EVENT_ID(this.events[this.events.length - 1].id);else if (this.indexSelectedEvent !== 0) this.SET_SELECTED_EVENT_ID(this.events[this.indexSelectedEvent - 1].id);
     },
@@ -280,8 +288,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 
@@ -292,7 +298,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Map: _components_Viewer_Map__WEBPACK_IMPORTED_MODULE_3__["default"],
     MediaContent: _components_MediaContentForEvent__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('map', ['selectedEvent', 'wasChanges'])),
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('map', ['selectedEvent', 'wasChanges'])), {}, {
+    pageUsedFromDesktop: function pageUsedFromDesktop() {
+      return this.$vuetify.breakpoint.mdAndUp;
+    }
+  }),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapMutations"])('map', ['SET_SELECTED_EVENT_ID', 'SET_TILE_CENTER'])), {}, {
     // Вызов подтверждения при закрытии конструктора с несохраненными изменениями
     preventNav: function preventNav(event) {
@@ -309,50 +319,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           switch (_context.prev = _context.next) {
             case 0:
               if (!to.params.id) {
-                _context.next = 8;
+                _context.next = 9;
                 break;
               }
 
               if (!(from.name !== "constructor" && to.params.id !== from.params.id)) {
-                _context.next = 4;
+                _context.next = 5;
                 break;
               }
 
-              _context.next = 4;
+              _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('tiles/getTiles', null, {
+                root: true
+              });
+              _context.next = 5;
               return _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('map/getMap', to.params.id, {
                 root: true
               });
 
-            case 4:
+            case 5:
               // set seo header
               document.title = _store__WEBPACK_IMPORTED_MODULE_1__["default"].state.map.name + " - MapDesigner";
               document.description = _store__WEBPACK_IMPORTED_MODULE_1__["default"].state.map.description;
-              _context.next = 13;
+              _context.next = 14;
               break;
 
-            case 8:
+            case 9:
               if (!(_store__WEBPACK_IMPORTED_MODULE_1__["default"].state.map.id !== 'test')) {
-                _context.next = 11;
+                _context.next = 12;
                 break;
               }
 
-              _context.next = 11;
+              _context.next = 12;
               return _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("map/setEmptyExampleMap", null, {
                 root: true
               });
 
-            case 11:
+            case 12:
               // set seo header
               document.title = "Пробное использование конструктора карт и атласов - MapDesigner";
               document.description = "Попробуйте возможности для онлайн создания карт и электронных атласов в конструкторе MapDesigner бесплатно.";
 
-            case 13:
+            case 14:
               next(function (vm) {
                 // add method called before the tab is closed
                 if (to.name !== "example" && to.params.id) window.addEventListener("beforeunload", vm.preventNav);
               });
 
-            case 14:
+            case 15:
             case "end":
               return _context.stop();
           }
@@ -438,201 +451,217 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "l-map",
-    {
-      ref: "map",
-      staticClass: "map",
-      attrs: {
-        crs: _vm.crs,
-        minZoom: _vm.notGeomap ? _vm.config.minZoom - 1 : _vm.config.minZoom,
-        maxZoom: _vm.config.maxZoom,
-        center: _vm.sync_center,
-        options: { zoomControl: false }
-      },
-      on: {
-        "update:center": function($event) {
-          _vm.sync_center = $event
-        }
-      }
-    },
-    [
-      _vm.notGeomap
-        ? _c("l-image-overlay", {
-            attrs: { bounds: _vm.tile.bounds, url: _vm.tile.url }
+  return _vm.tile === undefined
+    ? _c(
+        "div",
+        {
+          staticClass: "d-flex justify-center align-center",
+          staticStyle: { width: "100%", height: "100%" }
+        },
+        [
+          _c("v-progress-circular", {
+            attrs: { indeterminate: "", color: "primary", width: "2" }
           })
-        : _c("l-tile-layer", {
-            attrs: {
-              url: _vm.tile.url,
-              noWrap: "",
-              attribution: _vm.tile.attribution
-            }
-          }),
-      _vm._v(" "),
-      _vm._l(_vm.events, function(event, index) {
-        return _c(
-          "l-marker",
-          {
-            key: event.id,
-            attrs: { "lat-lng": event.marker.position },
-            on: {
-              click: function($event) {
-                return _vm.SET_SELECTED_EVENT_ID(event.id)
-              }
-            }
-          },
-          [
-            _c("l-tooltip", [
-              _vm._v("\n            " + _vm._s(event.title) + "\n        ")
-            ]),
-            _vm._v(" "),
-            _vm.indexSelectedEvent !== index
-              ? _c("l-icon", {
-                  attrs: {
-                    "icon-size": event.marker.size,
-                    "icon-url": _vm.events[index].marker.url
-                  }
-                })
-              : _c("l-icon", {
-                  attrs: {
-                    "icon-size": [
-                      event.marker.size[0] * 1.4,
-                      event.marker.size[1] * 1.4
-                    ],
-                    "icon-url": _vm.events[index].marker.url
-                  }
-                })
-          ],
-          1
-        )
-      }),
-      _vm._v(" "),
-      _vm.config.showPolyline
-        ? [
-            _c("l-polyline", {
-              attrs: {
-                "lat-lngs": _vm.arrayMarker,
-                opacity: _vm.polylineOpacity,
-                dashArray: _vm.polylineDashArray,
-                weight:
-                  _vm.config.polylineWeight !== undefined
-                    ? _vm.config.polylineWeight
-                    : 2
-              }
-            })
-          ]
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "v-btn",
-        {
-          staticClass: "v-btn--active",
-          staticStyle: { bottom: "50%", left: "16px", "z-index": "401" },
-          attrs: {
-            fab: "",
-            dark: "",
-            text: "",
-            "x-large": "",
-            absolute: "",
-            color: "primary"
-          },
-          on: {
-            dblclick: function($event) {
-              $event.stopPropagation()
-            },
-            click: _vm.prevEvent
-          }
-        },
-        [
-          _c("v-icon", { attrs: { "x-large": "" } }, [
-            _vm._v("keyboard_arrow_left")
-          ])
         ],
         1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-btn",
-        {
-          staticClass: "v-btn--active",
-          staticStyle: { bottom: "50%", right: "16px", "z-index": "401" },
-          attrs: {
-            fab: "",
-            dark: "",
-            absolute: "",
-            "x-large": "",
-            text: "",
-            color: "primary"
-          },
-          on: {
-            dblclick: function($event) {
-              $event.stopPropagation()
-            },
-            click: _vm.nextEvent
-          }
-        },
-        [
-          _c("v-icon", { attrs: { "x-large": "" } }, [
-            _vm._v("keyboard_arrow_right")
-          ])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-tooltip",
-        {
-          attrs: { bottom: "" },
-          scopedSlots: _vm._u([
-            {
-              key: "activator",
-              fn: function(ref) {
-                var on = ref.on
-                return [
-                  _vm.noIframe
-                    ? _c(
-                        "v-btn",
-                        _vm._g(
-                          {
-                            staticClass: "v-btn--active",
-                            staticStyle: {
-                              top: "16px",
-                              left: "16px",
-                              "z-index": "401"
-                            },
-                            attrs: {
-                              absolute: "",
-                              text: "",
-                              rounded: "",
-                              "x-large": ""
-                            },
-                            on: {
-                              click: function($event) {
-                                $event.stopPropagation()
-                                return _vm.$router.back()
-                              }
-                            }
-                          },
-                          on
-                        ),
-                        [
-                          _c("v-icon", { attrs: { large: "" } }, [
-                            _vm._v("first_page")
-                          ])
-                        ],
-                        1
-                      )
-                    : _vm._e()
-                ]
-              }
-            }
-          ])
-        },
-        [_vm._v(" "), _c("span", [_vm._v("Назад")])]
       )
-    ],
-    2
-  )
+    : _c(
+        "l-map",
+        {
+          ref: "map",
+          staticClass: "map",
+          attrs: {
+            crs: _vm.crs,
+            minZoom: _vm.notGeomap
+              ? _vm.config.minZoom - 1
+              : _vm.config.minZoom,
+            maxZoom: _vm.config.maxZoom,
+            center: _vm.sync_center,
+            options: { zoomControl: false }
+          },
+          on: {
+            "update:center": function($event) {
+              _vm.sync_center = $event
+            }
+          }
+        },
+        [
+          _vm.notGeomap
+            ? _c("l-image-overlay", {
+                attrs: { bounds: _vm.tile.bounds, url: _vm.tile.url }
+              })
+            : _c("l-tile-layer", {
+                attrs: {
+                  url: _vm.tile.url,
+                  noWrap: "",
+                  attribution: _vm.tile.attribution
+                }
+              }),
+          _vm._v(" "),
+          _vm._l(_vm.events, function(event, index) {
+            return _c(
+              "l-marker",
+              {
+                key: event.id,
+                attrs: { "lat-lng": event.marker.position },
+                on: {
+                  click: function($event) {
+                    return _vm.SET_SELECTED_EVENT_ID(event.id)
+                  }
+                }
+              },
+              [
+                _c("l-tooltip", [
+                  _vm._v("\n            " + _vm._s(event.title) + "\n        ")
+                ]),
+                _vm._v(" "),
+                _vm.indexSelectedEvent !== index
+                  ? _c("l-icon", {
+                      attrs: {
+                        "icon-size": event.marker.size,
+                        "icon-url": _vm.events[index].marker.url
+                      }
+                    })
+                  : _c("l-icon", {
+                      attrs: {
+                        "icon-size": [
+                          event.marker.size[0] * 1.4,
+                          event.marker.size[1] * 1.4
+                        ],
+                        "icon-url": _vm.events[index].marker.url
+                      }
+                    })
+              ],
+              1
+            )
+          }),
+          _vm._v(" "),
+          _vm.config.showPolyline
+            ? [
+                _c("l-polyline", {
+                  attrs: {
+                    "lat-lngs": _vm.arrayMarker,
+                    opacity: _vm.polylineOpacity,
+                    dashArray: _vm.polylineDashArray,
+                    weight:
+                      _vm.config.polylineWeight !== undefined
+                        ? _vm.config.polylineWeight
+                        : 2
+                  }
+                })
+              ]
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              staticClass: "v-btn--active",
+              staticStyle: { bottom: "50%", left: "16px", "z-index": "401" },
+              attrs: {
+                fab: "",
+                dark: "",
+                text: "",
+                "x-large": "",
+                absolute: "",
+                color: "primary"
+              },
+              on: {
+                dblclick: function($event) {
+                  $event.stopPropagation()
+                },
+                click: _vm.prevEvent
+              }
+            },
+            [
+              _c("v-icon", { attrs: { "x-large": "" } }, [
+                _vm._v("keyboard_arrow_left")
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              staticClass: "v-btn--active",
+              staticStyle: { bottom: "50%", right: "16px", "z-index": "401" },
+              attrs: {
+                fab: "",
+                dark: "",
+                absolute: "",
+                "x-large": "",
+                text: "",
+                color: "primary"
+              },
+              on: {
+                dblclick: function($event) {
+                  $event.stopPropagation()
+                },
+                click: _vm.nextEvent
+              }
+            },
+            [
+              _c("v-icon", { attrs: { "x-large": "" } }, [
+                _vm._v("keyboard_arrow_right")
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-tooltip",
+            {
+              attrs: { bottom: "" },
+              scopedSlots: _vm._u([
+                {
+                  key: "activator",
+                  fn: function(ref) {
+                    var on = ref.on
+                    return [
+                      _vm.noIframe
+                        ? _c(
+                            "v-btn",
+                            _vm._g(
+                              {
+                                staticClass: "v-btn--active",
+                                staticStyle: {
+                                  top: "16px",
+                                  left: "16px",
+                                  "z-index": "401"
+                                },
+                                attrs: {
+                                  absolute: "",
+                                  text: "",
+                                  rounded: "",
+                                  "x-large": ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    $event.stopPropagation()
+                                    return _vm.$router.back()
+                                  }
+                                }
+                              },
+                              on
+                            ),
+                            [
+                              _c("v-icon", { attrs: { large: "" } }, [
+                                _vm._v("first_page")
+                              ])
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ]
+                  }
+                }
+              ])
+            },
+            [_vm._v(" "), _c("span", [_vm._v("Назад")])]
+          )
+        ],
+        2
+      )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -669,7 +698,7 @@ var render = function() {
     [
       _c("Map", { staticStyle: { position: "absolute", "z-index": "0" } }),
       _vm._v(" "),
-      _vm.$vuetify.breakpoint.mdAndUp
+      _vm.pageUsedFromDesktop
         ? _c(
             "div",
             {
@@ -746,18 +775,18 @@ var render = function() {
                   }
                 },
                 [
-                  _c("div", { staticClass: "headline mt-2" }, [
+                  _c("div", { staticClass: "headline mt-3" }, [
                     _vm._v(_vm._s(_vm.selectedEvent.title))
                   ]),
                   _vm._v(" "),
                   _vm.selectedEvent.mediaUrl.length > 0
                     ? _c("MediaContent", {
-                        staticClass: "mx-4 mt-3",
+                        staticClass: "mt-3",
                         staticStyle: {
                           "flex-shrink": "0",
-                          "max-width": "38vh"
+                          "max-width": "42vh"
                         },
-                        attrs: { height: "22vh" }
+                        attrs: { height: "28vh" }
                       })
                     : _vm._e(),
                   _vm._v(" "),
@@ -800,7 +829,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VBtn */ "./node_modules/vuetify/lib/components/VBtn/index.js");
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/index.js");
-/* harmony import */ var vuetify_lib_components_VTooltip__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VTooltip */ "./node_modules/vuetify/lib/components/VTooltip/index.js");
+/* harmony import */ var vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuetify/lib/components/VProgressCircular */ "./node_modules/vuetify/lib/components/VProgressCircular/index.js");
+/* harmony import */ var vuetify_lib_components_VTooltip__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VTooltip */ "./node_modules/vuetify/lib/components/VTooltip/index.js");
 
 
 
@@ -825,7 +855,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_6__["VIcon"],VTooltip: vuetify_lib_components_VTooltip__WEBPACK_IMPORTED_MODULE_7__["VTooltip"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_6__["VIcon"],VProgressCircular: vuetify_lib_components_VProgressCircular__WEBPACK_IMPORTED_MODULE_7__["VProgressCircular"],VTooltip: vuetify_lib_components_VTooltip__WEBPACK_IMPORTED_MODULE_8__["VTooltip"]})
 
 
 /* hot reload */
