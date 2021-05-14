@@ -62,7 +62,6 @@ export default {
     },
     computed: {
         ...mapGetters('map', ['selectedEvent', 'wasChanges']),
-        ...mapGetters('auth', ['isAuth']),
         pageUsedFromDesktop() {
             return this.$vuetify.breakpoint.mdAndUp
         }
@@ -85,7 +84,7 @@ export default {
         if (to.params.id) {
             // map is not loaded yet
             if (from.name !== "constructor" && to.params.id !== from.params.id) {
-                if (this.isAuth) store.dispatch('tiles/getTiles', null, {root: true});
+                if (store.getters["auth/isAuth"]) store.dispatch('tiles/getTiles', null, {root: true});
                 await store.dispatch('map/getMap', to.params.id, {root: true});
             }
             // set seo header
