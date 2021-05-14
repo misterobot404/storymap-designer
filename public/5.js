@@ -298,7 +298,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Map: _components_Viewer_Map__WEBPACK_IMPORTED_MODULE_3__["default"],
     MediaContent: _components_MediaContentForEvent__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('map', ['selectedEvent', 'wasChanges'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('map', ['selectedEvent', 'wasChanges'])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('auth', ['isAuth'])), {}, {
     pageUsedFromDesktop: function pageUsedFromDesktop() {
       return this.$vuetify.breakpoint.mdAndUp;
     }
@@ -313,6 +313,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    var _this = this;
+
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
@@ -328,7 +330,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 break;
               }
 
-              _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('tiles/getTiles', null, {
+              if (_this.isAuth) _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('tiles/getTiles', null, {
                 root: true
               });
               _context.next = 5;
