@@ -46,7 +46,7 @@ export default {
     getters: {
         selectedTile: (state, getters, rootState, rootGetters ) => {
             // Пользователь авторизирован
-            if (state.tiles) return state.tiles.find(tile => tile.id === rootState.map.tile_id)
+            if (state.tiles.length) return state.tiles.find(tile => tile.id === rootState.map.tile_id)
             else return state.sharedTiles.find(tile => tile.id === rootState.map.tile_id)
         }
     },

@@ -36,7 +36,10 @@ export default {
          */
         logout({commit}) {
             return axios.post('/api/logout')
-                .then(_ => commit('LOGOUT'))
+                .then(_ => {
+                    commit('LOGOUT');
+                    commit('tiles/SET_TILES', null, {root: true});
+                })
         },
         /**
          * Checking registration data on the server and create user
