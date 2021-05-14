@@ -114,7 +114,7 @@ export default {
         }
     },
     mutations: {
-        SET_MAPS(state, maps) { state.maps = maps },
+        SET_MAPS(state, maps) { state.maps = maps.reverse() },
         REPLACE_MAP (state, new_map) {
             // если библиотека уже загружена
             if (state.maps.length) {
