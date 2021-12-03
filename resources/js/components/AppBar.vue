@@ -88,7 +88,7 @@
                                 <v-row align="center" justify="center" class="flex-column my-12 mx-2">
                                     <v-img
                                         class="mb-12"
-                                        :src="require('@/assets/notification.svg').default()"
+                                        :src="require('@/assets/notification.svg').default"
                                         contain
                                     />
                                     <div class="mb-4 font-weight-medium">Уведомления появятся здесь</div>

@@ -1,0 +1,27 @@
+/* @preserve
+ * Leaflet 1.7.1, a JS library for interactive maps. http://leafletjs.com
+ * (c) 2010-2019 Vladimir Agafonkin, (c) 2010-2011 CloudMade
+ */
+
+/*!
+    * tiptap v1.32.1
+    * (c) 2021 überdosis GbR (limited liability)
+    * @license MIT
+    */
+
+/*!
+    * tiptap-extensions v1.35.1
+    * (c) 2021 überdosis GbR (limited liability)
+    * @license MIT
+    */
+
+/*!
+    * tiptap-utils v1.13.0
+    * (c) 2021 überdosis GbR (limited liability)
+    * @license MIT
+    */
+
+/*!
+ * Vue YouTube Embed version 2.2.2
+ * under MIT License copyright 2019 kaorun343
+ */
