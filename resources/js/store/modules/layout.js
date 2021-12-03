@@ -7,7 +7,7 @@ export default {
         // global name application
         appName: "MapDesigner",
         // global app logo
-        appLogo: require('@/assets/logo.png'),
+        appLogo: require('@/assets/logo.png').default,
         // show / hide navigation-drawer
         drawer: false,
         // show / hide progress line

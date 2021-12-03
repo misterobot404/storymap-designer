@@ -5,7 +5,7 @@
                     class="mb-4"
                     contain
                     height="256"
-                    :src="require('@/assets/images/page-404.png')"
+                    :src="require('@/assets/page-404.png')"
                 />
                 <h1 class="display-1 font-weight-bold mb-8">
                     Ресурс был скрыт

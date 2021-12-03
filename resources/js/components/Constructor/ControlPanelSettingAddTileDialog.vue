@@ -139,7 +139,7 @@
                                             >
                                                 <v-img
                                                     @click="$router.push({ path: `/viewer/${map.id}` })"
-                                                    :src="require('@/assets/images/no-image.png')"
+                                                    :src="require('@/assets/no-image.png').default"
                                                 />
                                                 <v-list-item>
                                                     <v-list-item-content>

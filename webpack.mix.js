@@ -30,8 +30,4 @@ mix.webpackConfig({
     ]
 });
 
-mix.js('resources/js/main.js', 'public/js').options({
-    postCss: [
-        require('autoprefixer'),
-    ],
-});
+mix.js('resources/js/main.js', 'public/js').vue().disableNotifications();

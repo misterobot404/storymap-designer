@@ -192,7 +192,7 @@
                             max-width="300"
                             max-height="300"
                             style="opacity: 0.92"
-                            :src="require('@/assets/images/no-data-icon.png')"
+                            :src="require('@/assets/no-data-icon.png').default"
                             contain
                         />
                         <div class="mb-4 headline font-weight-medium">У вас еще нет атласов</div>
@@ -204,7 +204,7 @@
                         <v-img
                             max-width="400"
                             max-height="300"
-                            :src="require('@/assets/images/no-data-filtered-icon.png')"
+                            :src="require('@/assets/no-data-filtered-icon.png').default"
                             contain
                         />
                         <div class="mb-4 headline font-weight-medium">Ничего не найдено</div>

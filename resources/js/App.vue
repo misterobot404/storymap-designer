@@ -4,16 +4,22 @@
         <v-expand-transition>
             <AppBar v-if="!hideHeaderAndFooter"/>
         </v-expand-transition>
-        <Content/>
+        <v-main id="main" style="min-width: 320px !important;">
+            <!-- exclude - remove component from cached -->
+            <!-- $store.state.auth.token ? null : 'Library' - сбрасывать кеш компонента Library, если пользователь разлогинился -->
+            <keep-alive :exclude="[$store.state.auth.token ? null : 'Library', 'Viewer', 'Constructor']">
+                <!-- cached by key -->
+                <router-view/>
+            </keep-alive>
+        </v-main>
         <Footer v-if="!hideHeaderAndFooter"/>
 
         <AuthDialog v-if="authDialog"/>
-
         <v-fade-transition>
             <Feedback v-if="feedbackDialog"/>
         </v-fade-transition>
 
-
+        <!-- Notification -->
         <v-snackbar
             v-model="m_showMsg"
             color="primary"
@@ -21,8 +27,9 @@
             rounded
             timeout="2000"
         >
-            {{textMsg}}
+            {{ textMsg }}
         </v-snackbar>
+
         <!-- Отображение загрузочного экрана при загрузке из фрейма   -->
         <v-overlay
             :value="urlContainsIframeQuery && pageLoading"
@@ -40,29 +47,25 @@
                     height="48"
                     width="48"/>
             </v-progress-circular>
-
         </v-overlay>
     </v-app>
 </template>
 
 <script>
-import AppBar from "./AppBar"
-import Content from "./Content"
-import NavigationDrawer from "./NavigationDrawer"
-import Footer from "./Footer"
+import AppBar from "./components/AppBar"
+import NavigationDrawer from "./components/NavigationDrawer"
+import Footer from "./components/Footer"
+import Feedback from "./components/Feedback"
+import AuthDialog from "./components/Auth"
 
 import {mapState, mapMutations} from "vuex"
 
-import Feedback from "../components/Feedback"
-import AuthDialog from "../components/Auth"
-
 export default {
-    name: 'AppLayout',
+    name: "App",
     components: {
         AuthDialog,
         Feedback,
         AppBar,
-        Content,
         NavigationDrawer,
         Footer
     },
@@ -93,12 +96,12 @@ export default {
         }
     },
     methods: {
-        ...mapMutations('layout',['SHOW_MSG_DIALOG'])
+        ...mapMutations('layout', ['SHOW_MSG_DIALOG'])
     }
 }
 </script>
 
-<!-- GLOBAL SCC STYLE -->
+<!-- GLOBAL STYLES -->
 <style lang="sass">
 .v-card--reveal
     align-items: center

@@ -2,7 +2,7 @@
     <div>
         <!-- Hero -->
         <v-img
-            :src="require('@/assets/images/home_art.jpg')"
+            :src="require('@/assets/home-art.jpg').default"
             class="white--text"
             gradient="to right, rgba(5, 11, 31, .8), rgba(5, 11, 31, .8)"
             :min-height="minHeight"

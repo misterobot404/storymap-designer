@@ -44,22 +44,22 @@
                                 <small>Стандартную или пользовательскую</small>
                             </v-stepper-step>
                             <v-stepper-content step="1">
-                                <v-img contain max-height="100%" :src="require('@/assets/gif/help_part_1.gif')" class="mb-8"/>
+                                <v-img contain max-height="100%" :src="require('@/assets/help/part-1.gif').default" class="mb-8"/>
                             </v-stepper-content>
 
                             <v-stepper-step editable step="2">Добавьте событие</v-stepper-step>
                             <v-stepper-content step="2">
-                                <v-img contain max-height="100%" :src="require('@/assets/gif/help_part_2.gif')" class="mb-8"/>
+                                <v-img contain max-height="100%" :src="require('@/assets/help/part-2.gif').default" class="mb-8"/>
                             </v-stepper-content>
 
                             <v-stepper-step editable step="3">Установите название и описание</v-stepper-step>
                             <v-stepper-content step="3">
-                                <v-img contain max-height="100%" :src="require('@/assets/gif/help_part_3.gif')" class="mb-8"/>
+                                <v-img contain max-height="100%" :src="require('@/assets/help/part-3.gif').default" class="mb-8"/>
                             </v-stepper-content>
 
                             <v-stepper-step editable step="4">Установите нужные медиа-обьекты к описываемому событию</v-stepper-step>
                             <v-stepper-content step="4">
-                                <v-img max-height="100%" contain :src="require('@/assets/gif/help_part_4.gif')" class="mb-8"/>
+                                <v-img max-height="100%" contain :src="require('@/assets/help/part-4.gif').default" class="mb-8"/>
                             </v-stepper-content>
 
                             <v-stepper-step editable step="5">
@@ -67,7 +67,7 @@
                                 <small>Иконки и размер меток можно изменять</small>
                             </v-stepper-step>
                             <v-stepper-content step="5">
-                                <v-img contain max-height="100%" :src="require('@/assets/gif/help_part_5.gif')" class="mb-8"/>
+                                <v-img contain max-height="100%" :src="require('@/assets/help/part-5.gif').default" class="mb-8"/>
                             </v-stepper-content>
 
                             <v-stepper-step editable step="6">
@@ -75,7 +75,7 @@
                                 <small>Разместить атлас на нужном веб-ресурсе</small>
                             </v-stepper-step>
                             <v-stepper-content step="6">
-                                <v-img contain max-height="100%" :src="require('@/assets/gif/help_part_6.gif')" class="mb-8"/>
+                                <v-img contain max-height="100%" :src="require('@/assets/help/part-6.gif').default" class="mb-8"/>
                             </v-stepper-content>
                         </v-stepper>
                     </v-container>

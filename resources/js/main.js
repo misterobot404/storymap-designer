@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import AppLayout from './layouts'
+import App from "./App"
 import router from './routes'
 import store from './store'
 
@@ -11,5 +11,5 @@ new Vue({
     vuetify,
     store,
     router,
-    render: h => h(AppLayout)
+    render: h => h(App)
 }).$mount('#app');

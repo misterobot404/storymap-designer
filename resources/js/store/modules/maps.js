@@ -21,35 +21,35 @@ export default {
         },
         examples: [
             {
-                img: require('@/assets/images/examples/empare.jpg'),
+                img: require('@/assets/examples/empare.jpg').default,
                 name: 'Династия Романовых',
                 subtitle: 'История',
                 description: 'Древо династии Романовых.',
                 url: 'https://mapdesigner.do-edu.pro/viewer/22?iframe=true'
             },
             {
-                img: require('@/assets/images/examples/dv.png'),
+                img: require('@/assets/examples/dv.png').default,
                 name: 'Парки и заповедники Дальнего Востока',
                 subtitle: 'Туризм',
                 description: 'Карта путешественника. Описание коллекций и особенностей парков для животных.',
                 url: 'https://mapdesigner.do-edu.pro/viewer/1?iframe=true'
             },
             {
-                img: require('@/assets/images/examples/witcher.jpg'),
+                img: require('@/assets/examples/witcher.jpg').default,
                 name: 'Ведьмак',
                 subtitle: 'Другое',
                 description: 'Игровая карта по вселенной Ведьмак',
                 url: 'https://mapdesigner.do-edu.pro/viewer/20?iframe=true'
             },
             {
-                img: require('@/assets/images/examples/solar-system.png'),
+                img: require('@/assets/examples/solar-system.png').default,
                 name: 'Солнечная система',
                 subtitle: 'Астрономия',
                 description: 'Планетная система, включает в себя центральную звезду и все планеты, вращающиеся вокруг.',
                 url: 'https://mapdesigner.do-edu.pro/viewer/5?iframe=true'
             },
             {
-                img: require('@/assets/images/examples/human.png'),
+                img: require('@/assets/examples/human.png').default,
                 name: 'Тело человека',
                 description: 'Внутреннее строение тела человека с моделями всех основных органов. За объект был взят макет, никто из людей не пострадал.',
                 subtitle: "Биология",

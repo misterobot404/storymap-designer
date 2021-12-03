@@ -1,40 +1,30 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "dev": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "prod": "mix --production"
     },
     "devDependencies": {
         "@types/leaflet": "^1.7.0",
-        "axios": "^0.21.1",
-        "cross-env": "^7.0.3",
-        "deepmerge": "^4.2.2",
-        "laravel-mix": "^5.0.9",
+        "axios": "^0.21",
+        "laravel-mix": "^6.0.6",
         "leaflet": "^1.7.1",
         "lodash": "^4.17.21",
-        "resolve-url-loader": "^3.1.2",
-        "sass": "^1.32.8",
-        "sass-loader": "^10.1.1",
+        "sass": "~1.32",
+        "sass-loader": "^12.2.0",
         "tiptap-vuetify": "^2.23.0",
         "v-click-outside": "^3.1.2",
-        "vue": "^2.6.11",
-        "vue-router": "^3.5.1",
-        "vue-slicksort": "^1.2.0",
-        "vue-template-compiler": "^2.6.12",
-        "vue-youtube-embed": "^2.2.2",
+        "vue": "^2.6.14",
         "vue2-leaflet": "^2.7.0",
-        "vuetify": "^2.4.9",
-        "vuetify-loader": "1.4.3",
-        "vuex": "^3.6.2"
-    },
-    "dependencies": {
-        "-": "^0.0.1",
-        "g": "^2.0.1",
-        "npm": "^7.13.0"
+        "vue-loader": "^15.9.8",
+        "vue-router": "^3.5.2",
+        "vue-slicksort": "^1.2.0",
+        "vue-template-compiler": "^2.6.14",
+        "vuetify": "^2.5.10",
+        "vuetify-loader": "^1.7.3",
+        "vuex": "^3.6.2",
+        "vue-youtube-embed": "^2.2.2"
     }
 }

@@ -88,7 +88,7 @@
                                 <v-row align="center" justify="center" class="flex-column my-12 mx-2">
                                     <v-img
                                         class="mb-12"
-                                        :src="require('@/assets/images/notification.svg')"
+                                        :src="require('@/assets/notification.svg').default()"
                                         contain
                                     />
                                     <div class="mb-4 font-weight-medium">Уведомления появятся здесь</div>
@@ -139,8 +139,8 @@
 
 <script>
 import {mapState, mapGetters, mapMutations} from "vuex"
-import UserPanel from "../components/UserPanel"
-import AuthDialog from "../components/Auth"
+import UserPanel from "./UserPanel"
+import AuthDialog from "./Auth"
 
 export default {
     name: "AppBar",
