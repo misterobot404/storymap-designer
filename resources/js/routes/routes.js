@@ -43,7 +43,7 @@ export const routes = [
         name: "page410",
         path: '/410',
         component: () => import('@/pages/Page410'),
-        meta: { title: "404 Not Found" }
+        meta: { title: "410 Gone" }
     },
     {
         name: "page404",
